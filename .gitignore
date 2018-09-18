@@ -5,6 +5,8 @@
 *.pdf
 **/*.csv
 **/*.xlsx
+/.idea
+/lms2.egg-info
 models/test_modules.py
 models/test*
 models/Test*
