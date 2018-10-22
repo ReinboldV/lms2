@@ -7,6 +7,7 @@
 **/*.xlsx
 /.idea
 /lms2.egg-info
+/lms2/pyomotests
 models/test_modules.py
 models/test*
 models/Test*

@@ -11,7 +11,9 @@ setup(
     author_email='vincent.reinbold@gmail.com',
     license='BSD',
     packages=['lms2',
-              'lms2.core'],
+              'lms2.core, '
+              'lms2.base',
+              'lms2.electric'],
     install_requires=['matplotlib', 'numpy', 'pandas', 'pyomo', 'scipy'],
     classifiers=["Programming Language :: Python :: 3.6"],
 )
