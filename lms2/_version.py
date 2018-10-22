@@ -44,7 +44,7 @@ def get_config():
     cfg.tag_prefix = "v"
     cfg.parentdir_prefix = "lms2-"
     cfg.versionfile_source = "lms2/_version.py"
-    cfg.verbose = False
+    cfg.verbose = True
     return cfg
 
 
