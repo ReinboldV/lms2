@@ -39,7 +39,8 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.imgmath',
     'sphinxcontrib.bibtex',
-    'sphinx.ext.autosummary']
+    'sphinx.ext.autosummary',
+    'sphinx.ext.githubpage']
 
 viewcode_import = True
 
