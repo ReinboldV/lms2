@@ -1,22 +1,10 @@
 lms2\.thermal package
 =====================
 
-Submodules
-----------
+.. currentmodule:: lms2.thermal
 
-lms2\.thermal\.dipoles module
------------------------------
+.. autosummary::
+    :template: module.rst
+    :toctree: generated
 
-.. automodule:: lms2.thermal.dipoles
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: lms2.thermal
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    dipoles

@@ -1,22 +1,10 @@
 lms2\.environment package
 =========================
 
-Submodules
-----------
+.. currentmodule:: lms2.environment
 
-lms2\.environment\.pollutions module
-------------------------------------
+.. autosummary::
+    :template: module.rst
+    :toctree: generated
 
-.. automodule:: lms2.environment.pollutions
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: lms2.environment
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    pollutions

@@ -1,22 +1,11 @@
 lms2\.fluids package
 ====================
 
-Submodules
-----------
+.. currentmodule:: lms2.fluids
 
-lms2\.fluids\.modelCO2 module
------------------------------
+.. autosummary::
+    :template: module.rst
+    :toctree: generated
 
-.. automodule:: lms2.fluids.modelCO2
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    modelCO2
 
-
-Module contents
----------------
-
-.. automodule:: lms2.fluids
-    :members:
-    :undoc-members:
-    :show-inheritance:

@@ -13,27 +13,28 @@
 		{%- endfor %}
 		{% endif %}
 		{% endblock %}
-	
+
 	{% block classes %}
 	{% if classes %}
 	.. rubric:: Classes
+
+    .. autosummary::
+        :template: class.rst
+        :toctree:
+        {% for item in classes %}
+        {{ item }}
+        {%- endfor %}
+        {% endif %}
+        {% endblock %}
 	
-	.. autosummary::
-		:toctree:
-		{% for item in classes %}
-		{{ item }}
-		{%- endfor %}
-		{% endif %}
-		{% endblock %}
+    {% block exceptions %}
+    {% if exceptions %}
+    .. rubric:: Exceptions
 	
-	{% block exceptions %}
-	{% if exceptions %}
-	.. rubric:: Exceptions
-	
-	.. autosummary::
-		:toctree:
-		{% for item in exceptions %}
-		{{ item }}
-		{%- endfor %}
-		{% endif %}
-		{% endblock %}
+    .. autosummary::
+        :toctree:
+        {% for item in exceptions %}
+        {{ item }}
+        {%- endfor %}
+        {% endif %}
+        {% endblock %}

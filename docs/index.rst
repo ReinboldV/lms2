@@ -7,15 +7,21 @@ Welcome to lms2's documentation!
 ================================
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: Getting Started
 
-   lms2
+    installation
+    builddoc
 
 
-Indices and tables
-==================
+.. toctree::
+    :maxdepth: 2
+    :caption: API Documentation
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+    lms2
+    moduleindex
+    references
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Examples and Tutorials

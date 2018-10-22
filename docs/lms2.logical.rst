@@ -1,22 +1,10 @@
 lms2\.logical package
 =====================
 
-Submodules
-----------
+.. currentmodule:: lms2.logical
 
-lms2\.logical\.hysteresis module
---------------------------------
+.. autosummary::
+    :template: module.rst
+    :toctree: generated
 
-.. automodule:: lms2.logical.hysteresis
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: lms2.logical
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    hysteresis

@@ -1,10 +1,8 @@
 lms2 package
 ============
 
-Subpackages
------------
-
 .. toctree::
+    :maxdepth: 1
 
     lms2.base
     lms2.core
@@ -14,11 +12,3 @@ Subpackages
     lms2.logical
     lms2.mechanic
     lms2.thermal
-
-Module contents
----------------
-
-.. automodule:: lms2
-    :members:
-    :undoc-members:
-    :show-inheritance:

@@ -1,54 +1,13 @@
-lms2\.electric package
-======================
+Electric
+========
 
-Submodules
-----------
+.. currentmodule:: lms2.electric
 
-lms2\.electric\.batteries module
---------------------------------
+.. autosummary::
+    :template: module.rst
+    :toctree: generated
 
-.. automodule:: lms2.electric.batteries
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-lms2\.electric\.maingrids module
---------------------------------
-
-.. automodule:: lms2.electric.maingrids
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-lms2\.electric\.sources module
-------------------------------
-
-.. automodule:: lms2.electric.sources
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-lms2\.electric\.test\_electric module
--------------------------------------
-
-.. automodule:: lms2.electric.test_electric
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-lms2\.electric\.turbines module
--------------------------------
-
-.. automodule:: lms2.electric.turbines
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: lms2.electric
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    batteries
+    maingrids
+    turbines
+    sources
