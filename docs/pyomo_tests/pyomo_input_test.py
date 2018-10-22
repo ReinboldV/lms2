@@ -25,11 +25,11 @@ if __name__ == "__main__":
 
     f = pd.Series([0, 10, 50, 25, 20, 10, 10, 0, 0, 0, 90, 45], index=[0, 500, 2000, 2500, 3600, 7500, 8000, 8500, 9000, 9500, 10000, 10800])
 
-    model.s = FlowSource(time=model.t, flow=f)
+    model.s = FlowSource(time=model.t, profile=f)
     model.bat1 = Battery(time=model.t, e0=12.0, emin=0.0, emax=500000, etac=0.8, etad=0.9, pcmax=100, pdmax=100)
     # model.bat2 = Battery(time=model.t, e0=50, etac=0.9, etad=0.9, pcmax=100, pdmax=100)
 
-    model.flux_cst('s.flow', 'bat1.p') # , 'bat2.p')
+    model.connect_flux('s.flow', 'bat1.p') # , 'bat2.p')
     # model.
 
     t1 = pyt.time()

@@ -9,7 +9,7 @@ m.t = ContinuousSet(bounds=(1, 10))
 def _init(m, t):
     return 10*t
 
-m.p = Param(m.t, initialize=_init, default=_init)
+m.p = Param(m.t, initialize=_init, default=_init, mutable=True)
 m.x = Var(m.t, initialize=_init)
 
 discretizer = TransformationFactory('dae.finite_difference')#'dae.collocation')

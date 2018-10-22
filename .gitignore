@@ -13,10 +13,10 @@ models/Test*
 WorkSpace/**
 **/*.pyc
 **/*/*.pyc
-/llmse/Examples/Examples_Thermal/Tests
-/llmse/general/test_pint_pandas.py
-/llmse/general/test_asynchronous_time.py
-/llmse/general/test_parsing_expression.py
-llmse.egg-info
+/lms2/Examples/Examples_Thermal/Tests
+/lms2/general/test_pint_pandas.py
+/lms2/general/test_asynchronous_time.py
+/lms2/general/test_parsing_expression.py
+lms2.egg-info
 build
 dist

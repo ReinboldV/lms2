@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     model.bat2.e.port_type = 'effort'
     model.bat.e.port_type = 'effort'
-    model.effort_cst('bat.e', 'bat2.e')
+    model.connect_effort(model.bat.e, model.bat2.e)
 
     model.graph.nodes(data=True)
     model.pprint()

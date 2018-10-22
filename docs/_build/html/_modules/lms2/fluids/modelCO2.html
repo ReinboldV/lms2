@@ -1,0 +1,280 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>lms2.fluids.modelCO2 &#8212; lms2  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for lms2.fluids.modelCO2</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CO2 concentration in a room</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># from llmse.fluids.io import Vpole</span>
+<span class="c1"># from llmse.core.quantity import *</span>
+<span class="c1"># from llmse.core.units import TUnit</span>
+
+
+
+<div class="viewcode-block" id="ModelCO2"><a class="viewcode-back" href="../../../lms2.fluids.html#lms2.fluids.modelCO2.ModelCO2">[docs]</a><span class="k">class</span> <span class="nc">ModelCO2</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;  Model of a CO2 concentration in a given volume.</span>
+
+
+<span class="sd">    CO2(t)  = CO2(t-1) + (n_occ(t).Qp.CO2p - Qv(t).(CO2(t) - CO2a)).dt/V</span>
+<span class="sd">            = CO2(t-1) + n_occ(t).Qp.CO2p.dt/V - Qv(t).CO2(t).dt/V - Qv(t).CO2a.dt/V</span>
+
+<span class="sd">    notations : CO2(t)  : co2[t]</span>
+<span class="sd">                Qv(t)   : y[t]</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+    <span class="c1"># TODO create ModelCO2</span>
+
+    <span class="c1"># def __init__(self, time_horizon, name=&#39;CO2&#39;, description=&#39;CO2 concentration model&#39;, n_occ=None, co2min=0., co2max=1000., ymin=120., ymax=500., n=4):</span>
+    <span class="c1">#</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     :param time_horizon:</span>
+    <span class="c1">#     :param name:</span>
+    <span class="c1">#     :param description:</span>
+    <span class="c1">#     :param n_occ:</span>
+    <span class="c1">#     :param co2min:</span>
+    <span class="c1">#     :param co2max:</span>
+    <span class="c1">#     :param ymin:</span>
+    <span class="c1">#     :param ymax:</span>
+    <span class="c1">#     :param n:</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     super(ModelCO2, self).__init__(time_horizon, name, description)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     import numpy as np</span>
+    <span class="c1">#</span>
+    <span class="c1">#     amin = (co2min / co2max + ymin / ymax) / 2.</span>
+    <span class="c1">#     amax = 1.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     bmin = (co2min / co2max - 1.) / 2.</span>
+    <span class="c1">#     bmax = (1. - ymin / ymax) / 2.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     A = np.linspace(amin, amax, n)</span>
+    <span class="c1">#     B = np.linspace(bmin, bmax, n)</span>
+    <span class="c1">#     A2 = np.array(A)**2</span>
+    <span class="c1">#     B2 = np.array(B)**2</span>
+    <span class="c1">#</span>
+    <span class="c1">#     iAB = range(len(A))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     ua = np.zeros((time_horizon.len, n - 1))</span>
+    <span class="c1">#     ub = np.zeros((time_horizon.len, n - 1))</span>
+    <span class="c1">#     wa = np.zeros((time_horizon.len, n))</span>
+    <span class="c1">#     wb = np.zeros((time_horizon.len, n))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&#39;iAB&#39;, value=iAB, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;n&#39;, value=n, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;A&#39;, value=A, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;B&#39;, value=B, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;A2&#39;, value=A2, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;B2&#39;, value=B2, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;co2max&#39;, value=co2max, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ymax&#39;, value=ymax, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;y&#39;, unit=&#39;&#39;, index=time_horizon.index, opt=True, lb=ymin, ub=ymax)</span>
+    <span class="c1">#     self.addquantity(name=&#39;co2&#39;, ps={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)</span>
+    <span class="c1">#     self.addquantity(name=&#39;pv&#39;, description=&#39;ventillation pression&#39;, unit=&#39;bar&#39;, opt=False, index=time_horizon.index,</span>
+    <span class="c1">#                     value=np.ones(time_horizon.len))</span>
+    <span class="c1">#     self.addquantity(name=&#39;yp&#39;, index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)</span>
+    <span class="c1">#     self.addquantity(name=&#39;co2p&#39;, ps={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.,  parent=self)</span>
+    <span class="c1">#     self.addquantity(name=&#39;a&#39;, index=time_horizon.index, opt=True, lb=amin, ub=amax)</span>
+    <span class="c1">#     self.addquantity(name=&#39;b&#39;, index=time_horizon.index, opt=True, lb=bmin, ub=bmax)</span>
+    <span class="c1">#     self.addquantity(name=&#39;zp&#39;, index=time_horizon.index, lb=-GRB.INFINITY, opt=True)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ua&#39;, vtype=GRB.BINARY, opt=True, value=ua)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ub&#39;, vtype=GRB.BINARY, opt=True, value=ub)</span>
+    <span class="c1">#     self.addquantity(name=&#39;wa&#39;, opt=True, value=wa,lb=0, ub=1)</span>
+    <span class="c1">#     self.addquantity(name=&#39;wb&#39;, opt=True, value=wb, lb=0, ub=1)</span>
+    <span class="c1">#     self.addquantity(name=&#39;n_occ&#39;, opt=False, index=time_horizon.index, value=n_occ)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp = &quot;&quot;&quot;</span>
+    <span class="c1">#     wa[t,i] + wa[t,i+1] &gt;= ua[t,i] for i in iAB[:-1] for t in T</span>
+    <span class="c1">#     wb[t,j] + wb[t,j+1] &gt;= ub[t,j] for j in iAB[:-1] for t in T</span>
+    <span class="c1">#     quicksum([ua[t,i] for i in iAB[:-1]]) == 1 for t in T</span>
+    <span class="c1">#     quicksum([ub[t,j] for j in iAB[:-1]]) == 1 for t in T</span>
+    <span class="c1">#     quicksum([wa[t,i]*A[i] for i in iAB]) == a[t] for t in T</span>
+    <span class="c1">#     quicksum([wb[t,j]*B[j] for j in iAB]) == b[t] for t in T</span>
+    <span class="c1">#     quicksum([wa[t,i] for i in iAB]) == 1 for t in T</span>
+    <span class="c1">#     quicksum([wb[t,j] for j in iAB]) == 1 for t in T</span>
+    <span class="c1">#     a[t] == (0.5*co2p[t-1] + 0.5*yp[t]) for t in T</span>
+    <span class="c1">#     b[t] == (0.5*co2p[t-1] - 0.5*yp[t]) for t in T</span>
+    <span class="c1">#     quicksum([wa[t,i]*A2[i] - wb[t,i]*B2[i] for i in iAB]) == zp[t] for t in T</span>
+    <span class="c1">#     co2[t] == co2[t-1] + (n_occ[t]*1.2*40000.-zp[t]*co2max*ymax+y[t]*390.)*dt/650.45 for t in T</span>
+    <span class="c1">#     co2p[t]*co2max == co2[t]   for t in T&#39;</span>
+    <span class="c1">#     yp[t]*ymax == y[t]  for t in T&quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addconst(name=&#39;cst1&#39;, exp=exp)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.poles = {&#39;1&#39;: Vpole(&#39;1&#39;, self.quantities[&#39;pv&#39;], self.quantities[&#39;y&#39;], &#39;out&#39;)}</span>
+
+
+<div class="viewcode-block" id="ModelCO2_bis"><a class="viewcode-back" href="../../../lms2.fluids.html#lms2.fluids.modelCO2.ModelCO2_bis">[docs]</a><span class="k">class</span> <span class="nc">ModelCO2_bis</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model of a CO2 concentration in a given volume.</span>
+
+
+<span class="sd">    CO2(t)  = CO2(t-1) + (n_occ(t).Qp.CO2p - Qv(t).(CO2(t) - CO2a)).dt/V</span>
+<span class="sd">            = CO2(t-1) + n_occ(t).Qp.CO2p.dt/V - Qv(t).CO2(t).dt/V + Qv(t).CO2a.dt/V</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+    <span class="c1"># TODO create ModelCO2_bis</span>
+
+    <span class="c1"># def __init__(self, time_horizon, name=&#39;CO2&#39;, description=&#39;CO2 concentration model&#39;, n_occ=None, co2min=0., co2max=1000., ymin=120., ymax=500., n=4):</span>
+    <span class="c1">#</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     :param time_horizon:</span>
+    <span class="c1">#     :param name:</span>
+    <span class="c1">#     :param description:</span>
+    <span class="c1">#     :param n_occ:</span>
+    <span class="c1">#     :param co2min:</span>
+    <span class="c1">#     :param co2max:</span>
+    <span class="c1">#     :param ymin:</span>
+    <span class="c1">#     :param ymax:</span>
+    <span class="c1">#     :param n:</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     super(ModelCO2_bis, self).__init__(time_horizon, name, description)</span>
+    <span class="c1">#     import numpy as np</span>
+    <span class="c1">#</span>
+    <span class="c1">#     amin = (co2min / co2max + ymin / ymax) / 2.</span>
+    <span class="c1">#     amax = 1.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     bmin = (co2min / co2max - 1.) / 2.</span>
+    <span class="c1">#     bmax = (1. - ymin / ymax) / 2.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     A = np.linspace(amin, amax, n)  # [0., 117., 235., 470.]#</span>
+    <span class="c1">#     B = np.linspace(bmin, bmax, n)  # [-450., -235., -127.5, 20.]#</span>
+    <span class="c1">#     A2 = np.array(A)**2</span>
+    <span class="c1">#     B2 = np.array(B)**2</span>
+    <span class="c1">#</span>
+    <span class="c1">#     iAB = range(len(A))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     ua = np.zeros((time_horizon.len, n - 1))</span>
+    <span class="c1">#     ub = np.zeros((time_horizon.len, n - 1))</span>
+    <span class="c1">#     wa = np.zeros((time_horizon.len, n))</span>
+    <span class="c1">#     wb = np.zeros((time_horizon.len, n))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&#39;iAB&#39;, value=iAB, opt=False)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&#39;n&#39;, value=n, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;A&#39;, value=A, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;B&#39;, value=B, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;A2&#39;, value=A2, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;B2&#39;, value=B2, opt=False)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&#39;co2max&#39;, value=co2max, opt=False)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ymax&#39;, value=ymax, opt=False)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&#39;y&#39;, unit=&#39;&#39;, index=time_horizon.index, opt=True, lb=ymin, ub=ymax)</span>
+    <span class="c1">#     self.addquantity(name=&#39;co2&#39;, ps={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&#39;pv&#39;, description=&#39;ventillation pression&#39;, unit=&#39;bar&#39;, opt=False, index=time_horizon.index)</span>
+    <span class="c1">#     self.addquantity(name=&#39;yp&#39;, index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)</span>
+    <span class="c1">#     self.addquantity(name=&#39;co2p&#39;, ps={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&#39;a&#39;, index=time_horizon.index, opt=True,lb=amin, ub=amax)</span>
+    <span class="c1">#     self.addquantity(name=&#39;b&#39;, index=time_horizon.index, opt=True,lb=bmin, ub=bmax)</span>
+    <span class="c1">#     self.addquantity(name=&#39;zp&#39;, index=time_horizon.index, lb=-GRB.INFINITY, opt=True)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ua&#39;, vtype=GRB.BINARY, opt=True, value=ua)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ub&#39;, vtype=GRB.BINARY, opt=True, value=ub)</span>
+    <span class="c1">#     self.addquantity(name=&#39;wa&#39;, opt=True, value=wa, lb=0, ub=1)</span>
+    <span class="c1">#     self.addquantity(name=&#39;wb&#39;, opt=True, value=wb, lb=0, ub=1)</span>
+    <span class="c1">#     self.addquantity(name=&#39;n_occ&#39;, opt=False, index=time_horizon.index, value=n_occ)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp = &#39;&#39;&#39;wa[t,i] + wa[t,i+1] &gt;= ua[t,i] for i in iAB[:-1] for t in T</span>
+    <span class="c1">#     wb[t,j] + wb[t,j+1] &gt;= ub[t,j] for j in iAB[:-1] for t in T</span>
+    <span class="c1">#     quicksum([ua[t,i] for i in iAB[:-1]]) == 1 for t in T</span>
+    <span class="c1">#     quicksum([ub[t,j] for j in iAB[:-1]]) == 1 for t in T</span>
+    <span class="c1">#     quicksum([wa[t,i]*A[i] for i in iAB]) == a[t] for t in T</span>
+    <span class="c1">#     quicksum([wb[t,j]*B[j] for j in iAB]) == b[t] for t in T</span>
+    <span class="c1">#     quicksum([wa[t,i] for i in iAB]) == 1 for t in T</span>
+    <span class="c1">#     quicksum([wb[t,j] for j in iAB]) == 1 for t in T</span>
+    <span class="c1">#     a[t] == (0.5*co2p[t-1] + 0.5*yp[t]) for t in T</span>
+    <span class="c1">#     b[t] == (0.5*co2p[t-1] - 0.5*yp[t]) for t in T</span>
+    <span class="c1">#     quicksum([wa[t,i]*A2[i] - wb[t,i]*B2[i] for i in iAB]) == zp[t] for t in T</span>
+    <span class="c1">#     co2[t] == co2[t-1] + (n_occ[t]*1.2*40000.-zp[t]*co2max*ymax+y[t]*390.)*dt/650.45 for t in T</span>
+    <span class="c1">#     co2p[t]*co2max == co2[t]   for t in T</span>
+    <span class="c1">#     yp[t]*ymax == y[t]  for t in T&#39;&#39;&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addconst(exp, name=&#39;cst&#39;)</span>
+    <span class="c1">#     self.poles = {&#39;1&#39;: Vpole(&#39;1&#39;, self.quantities[&#39;pv&#39;], self.quantities[&#39;y&#39;], &#39;out&#39;)}</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

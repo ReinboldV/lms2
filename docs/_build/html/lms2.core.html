@@ -1,0 +1,446 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>lms2.core package &#8212; lms2  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="lms2.electric package" href="lms2.electric.html" />
+    <link rel="prev" title="lms2.base package" href="lms2.base.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="lms2-core-package">
+<h1>lms2.core package<a class="headerlink" href="#lms2-core-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-lms2.core.models">
+<span id="lms2-core-models-module"></span><h2>lms2.core.models module<a class="headerlink" href="#module-lms2.core.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lms2.core.models.LModel">
+<em class="property">class </em><code class="descclassname">lms2.core.models.</code><code class="descname">LModel</code><span class="sig-paren">(</span><em>name='model'</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/models.html#LModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.models.LModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pyomo.core.base.PyomoModel.ConcreteModel</span></code></p>
+<p>Redefinition of ConcreteModel</p>
+<dl class="method">
+<dt id="lms2.core.models.LModel.connect_effort">
+<code class="descname">connect_effort</code><span class="sig-paren">(</span><em>var1</em>, <em>var2</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/models.html#LModel.connect_effort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.models.LModel.connect_effort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the pyomo constraint for the connection of two variables
+of the type effort.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>var1</strong> (<em>Var</em>) – name of the Variable 1</li>
+<li><strong>var2</strong> (<em>Var</em>) – name of the Variable 2</li>
+<li><strong>name</strong> (<em>str</em>) – name of the future constraint</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lms2.core.models.LModel.connect_flux">
+<code class="descname">connect_flux</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/models.html#LModel.connect_flux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.models.LModel.connect_flux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a pyomo constraints for a connection of flow variables.
+:param args: Variable
+:return:</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lms2.core.models.LModel.graph">
+<code class="descname">graph</code><a class="headerlink" href="#lms2.core.models.LModel.graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter for the graph argument</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lms2.core.models.LModel.update_graph">
+<code class="descname">update_graph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/models.html#LModel.update_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.models.LModel.update_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the graph of the model. iterates on all the active components of the unit.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lms2.core.param">
+<span id="lms2-core-param-module"></span><h2>lms2.core.param module<a class="headerlink" href="#module-lms2.core.param" title="Permalink to this headline">¶</a></h2>
+<p>Definition of some additional methods for pyomo Param objects.</p>
+<dl class="function">
+<dt id="lms2.core.param.is_effort">
+<code class="descclassname">lms2.core.param.</code><code class="descname">is_effort</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/param.html#is_effort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.param.is_effort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test is the variable is an effort quantity.
+return True or False</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="lms2.core.param.is_flow">
+<code class="descclassname">lms2.core.param.</code><code class="descname">is_flow</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/param.html#is_flow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.param.is_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test is the variable is an flow quantity.
+return True or False</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lms2.core.param.port_type">
+<code class="descclassname">lms2.core.param.</code><code class="descname">port_type</code><a class="headerlink" href="#lms2.core.param.port_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter method for the ‘port_type’ argument.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lms2.core.param.sens">
+<code class="descclassname">lms2.core.param.</code><code class="descname">sens</code><a class="headerlink" href="#lms2.core.param.sens" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter method for argument ‘sens’ of the variable object.
+This value is just a convention but it is used for connection
+purpose between optimisation variable.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-lms2.core.time">
+<span id="lms2-core-time-module"></span><h2>lms2.core.time module<a class="headerlink" href="#module-lms2.core.time" title="Permalink to this headline">¶</a></h2>
+<p>This module defines the Time class</p>
+<dl class="class">
+<dt id="lms2.core.time.Time">
+<em class="property">class </em><code class="descclassname">lms2.core.time.</code><code class="descname">Time</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em>, <em>freq=None</em>, <em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/time.html#Time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.time.Time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class that defines the time of a unit or model</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Create</span> <span class="n">a</span> <span class="n">Time</span> <span class="n">instance</span><span class="p">::</span>
+
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;30Min&#39;</span><span class="p">)</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span><span class="o">.</span><span class="n">dt</span>
+    <span class="mf">1800.0</span>
+
+<span class="ow">or</span> <span class="p">::</span>
+
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="s1">&#39;2017-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-01-02&#39;</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;2H&#39;</span><span class="p">)</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span><span class="o">.</span><span class="n">dt</span>
+    <span class="mf">7200.0</span>
+</pre></div>
+</div>
+<span id="tab-tag-freq"></span><table border="1" class="docutils" id="id2">
+<caption><span class="caption-text">Freq available tags in Pandas</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Tag</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>B</td>
+<td>business day frequency</td>
+</tr>
+<tr class="row-odd"><td>C</td>
+<td>custom business day frequency (experimental)</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>calendar day frequency</td>
+</tr>
+<tr class="row-odd"><td>W</td>
+<td>weekly frequency</td>
+</tr>
+<tr class="row-even"><td>M</td>
+<td>month end frequency</td>
+</tr>
+<tr class="row-odd"><td>BM</td>
+<td>business month end frequency</td>
+</tr>
+<tr class="row-even"><td>CBM</td>
+<td>custom business month end frequency</td>
+</tr>
+<tr class="row-odd"><td>MS</td>
+<td>month start frequency</td>
+</tr>
+<tr class="row-even"><td>BMS</td>
+<td>business month start frequency</td>
+</tr>
+<tr class="row-odd"><td>CBMS</td>
+<td>custom business month start frequency</td>
+</tr>
+<tr class="row-even"><td>Q</td>
+<td>quarter end frequency</td>
+</tr>
+<tr class="row-odd"><td>BQ</td>
+<td>business quarter endfrequency</td>
+</tr>
+<tr class="row-even"><td>QS</td>
+<td>quarter start frequency</td>
+</tr>
+<tr class="row-odd"><td>BQS</td>
+<td>business quarter start frequency</td>
+</tr>
+<tr class="row-even"><td>A</td>
+<td>year end frequency</td>
+</tr>
+<tr class="row-odd"><td>BA</td>
+<td>business year end frequency</td>
+</tr>
+<tr class="row-even"><td>AS</td>
+<td>year start frequency</td>
+</tr>
+<tr class="row-odd"><td>BAS</td>
+<td>business year start frequency</td>
+</tr>
+<tr class="row-even"><td>BH</td>
+<td>business hour frequency</td>
+</tr>
+<tr class="row-odd"><td>H</td>
+<td>hourly frequency</td>
+</tr>
+<tr class="row-even"><td>T, min</td>
+<td>minutely frequency</td>
+</tr>
+<tr class="row-odd"><td>S</td>
+<td>secondly frequency</td>
+</tr>
+<tr class="row-even"><td>L, ms</td>
+<td>milliseonds</td>
+</tr>
+<tr class="row-odd"><td>U, us</td>
+<td>microseconds</td>
+</tr>
+<tr class="row-even"><td>N</td>
+<td>nanoseconds</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-lms2.core.time_bis">
+<span id="lms2-core-time-bis-module"></span><h2>lms2.core.time_bis module<a class="headerlink" href="#module-lms2.core.time_bis" title="Permalink to this headline">¶</a></h2>
+<p>This module defines the Time class</p>
+<dl class="class">
+<dt id="lms2.core.time_bis.Time">
+<em class="property">class </em><code class="descclassname">lms2.core.time_bis.</code><code class="descname">Time</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em>, <em>freq=None</em>, <em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/time_bis.html#Time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.time_bis.Time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class that defines the time of a unit or model</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Create</span> <span class="n">a</span> <span class="n">Time</span> <span class="n">instance</span><span class="p">::</span>
+
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;30Min&#39;</span><span class="p">)</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span><span class="o">.</span><span class="n">dt</span>
+    <span class="mf">1800.0</span>
+
+<span class="ow">or</span> <span class="p">::</span>
+
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="s1">&#39;2017-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-01-02&#39;</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;2H&#39;</span><span class="p">)</span>
+    <span class="o">&gt;&gt;&gt;</span> <span class="n">th</span><span class="o">.</span><span class="n">dt</span>
+    <span class="mf">7200.0</span>
+</pre></div>
+</div>
+<span id="id1"></span><table border="1" class="docutils" id="id3">
+<caption><span class="caption-text">Freq available tags in Pandas</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Tag</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>B</td>
+<td>business day frequency</td>
+</tr>
+<tr class="row-odd"><td>C</td>
+<td>custom business day frequency (experimental)</td>
+</tr>
+<tr class="row-even"><td>D</td>
+<td>calendar day frequency</td>
+</tr>
+<tr class="row-odd"><td>W</td>
+<td>weekly frequency</td>
+</tr>
+<tr class="row-even"><td>M</td>
+<td>month end frequency</td>
+</tr>
+<tr class="row-odd"><td>BM</td>
+<td>business month end frequency</td>
+</tr>
+<tr class="row-even"><td>CBM</td>
+<td>custom business month end frequency</td>
+</tr>
+<tr class="row-odd"><td>MS</td>
+<td>month start frequency</td>
+</tr>
+<tr class="row-even"><td>BMS</td>
+<td>business month start frequency</td>
+</tr>
+<tr class="row-odd"><td>CBMS</td>
+<td>custom business month start frequency</td>
+</tr>
+<tr class="row-even"><td>Q</td>
+<td>quarter end frequency</td>
+</tr>
+<tr class="row-odd"><td>BQ</td>
+<td>business quarter endfrequency</td>
+</tr>
+<tr class="row-even"><td>QS</td>
+<td>quarter start frequency</td>
+</tr>
+<tr class="row-odd"><td>BQS</td>
+<td>business quarter start frequency</td>
+</tr>
+<tr class="row-even"><td>A</td>
+<td>year end frequency</td>
+</tr>
+<tr class="row-odd"><td>BA</td>
+<td>business year end frequency</td>
+</tr>
+<tr class="row-even"><td>AS</td>
+<td>year start frequency</td>
+</tr>
+<tr class="row-odd"><td>BAS</td>
+<td>business year start frequency</td>
+</tr>
+<tr class="row-even"><td>BH</td>
+<td>business hour frequency</td>
+</tr>
+<tr class="row-odd"><td>H</td>
+<td>hourly frequency</td>
+</tr>
+<tr class="row-even"><td>T, min</td>
+<td>minutely frequency</td>
+</tr>
+<tr class="row-odd"><td>S</td>
+<td>secondly frequency</td>
+</tr>
+<tr class="row-even"><td>L, ms</td>
+<td>milliseonds</td>
+</tr>
+<tr class="row-odd"><td>U, us</td>
+<td>microseconds</td>
+</tr>
+<tr class="row-even"><td>N</td>
+<td>nanoseconds</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="lms2-core-units-module">
+<h2>lms2.core.units module<a class="headerlink" href="#lms2-core-units-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-lms2.core.var">
+<span id="lms2-core-var-module"></span><h2>lms2.core.var module<a class="headerlink" href="#module-lms2.core.var" title="Permalink to this headline">¶</a></h2>
+<p>Definition of some additional methods for pyomo Var objects.</p>
+<dl class="function">
+<dt id="lms2.core.var.is_effort">
+<code class="descclassname">lms2.core.var.</code><code class="descname">is_effort</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/var.html#is_effort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.var.is_effort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test is the variable is an effort quantity.
+return True or False</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="lms2.core.var.is_flow">
+<code class="descclassname">lms2.core.var.</code><code class="descname">is_flow</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/core/var.html#is_flow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.core.var.is_flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test is the variable is an flow quantity.
+return True or False</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lms2.core.var.port_type">
+<code class="descclassname">lms2.core.var.</code><code class="descname">port_type</code><a class="headerlink" href="#lms2.core.var.port_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter method for the ‘port_type’ argument.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lms2.core.var.sens">
+<code class="descclassname">lms2.core.var.</code><code class="descname">sens</code><a class="headerlink" href="#lms2.core.var.sens" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter method for argument ‘sens’ of the variable object.
+This value is just a convention but it is used for connection
+purpose between optimisation variable.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-lms2.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lms2.core" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="lms2.html">lms2 package</a><ul>
+      <li>Previous: <a href="lms2.base.html" title="previous chapter">lms2.base package</a></li>
+      <li>Next: <a href="lms2.electric.html" title="next chapter">lms2.electric package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/lms2.core.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
