@@ -13,7 +13,6 @@ Subpackages
     lms2.fluids
     lms2.logical
     lms2.mechanic
-    lms2.pyomotests
     lms2.thermal
 
 Module contents

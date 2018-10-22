@@ -28,14 +28,6 @@ lms2\.core\.time module
     :undoc-members:
     :show-inheritance:
 
-lms2\.core\.time\_bis module
-----------------------------
-
-.. automodule:: lms2.core.time_bis
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 lms2\.core\.units module
 ------------------------
 

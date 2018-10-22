@@ -4,38 +4,33 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>lms2.thermal package &#8212; lms2  documentation</title>
+    <title>lms2.thermal package &#8212; lms2 0.1+1.g9e9179f.dirty documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="lms2.pyomotests package" href="lms2.pyomotests.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="lms2-thermal-package">
@@ -43,8 +38,53 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="lms2-thermal-dipoles-module">
-<h2>lms2.thermal.dipoles module<a class="headerlink" href="#lms2-thermal-dipoles-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-lms2.thermal.dipoles">
+<span id="lms2-thermal-dipoles-module"></span><h2>lms2.thermal.dipoles module<a class="headerlink" href="#module-lms2.thermal.dipoles" title="Permalink to this headline">¶</a></h2>
+<p>Thermal dipole models</p>
+<dl class="class">
+<dt id="lms2.thermal.dipoles.TCond">
+<em class="property">class </em><code class="descclassname">lms2.thermal.dipoles.</code><code class="descname">TCond</code><span class="sig-paren">(</span><em>*args</em>, <em>time=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/thermal/dipoles.html#TCond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.thermal.dipoles.TCond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lms2.core.html#lms2.core.units.DynUnit" title="lms2.core.units.DynUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">lms2.core.units.DynUnit</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lms2.thermal.dipoles.TCondRes">
+<em class="property">class </em><code class="descclassname">lms2.thermal.dipoles.</code><code class="descname">TCondRes</code><span class="sig-paren">(</span><em>*args</em>, <em>time=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/thermal/dipoles.html#TCondRes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.thermal.dipoles.TCondRes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lms2.core.html#lms2.core.units.DynUnit" title="lms2.core.units.DynUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">lms2.core.units.DynUnit</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lms2.thermal.dipoles.TConvRes">
+<em class="property">class </em><code class="descclassname">lms2.thermal.dipoles.</code><code class="descname">TConvRes</code><span class="sig-paren">(</span><em>*args</em>, <em>time=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/thermal/dipoles.html#TConvRes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.thermal.dipoles.TConvRes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lms2.core.html#lms2.core.units.DynUnit" title="lms2.core.units.DynUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">lms2.core.units.DynUnit</span></code></a></p>
+<p>Thermal resistance for convective heat transfer</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lms2.thermal.dipoles.TDipole">
+<em class="property">class </em><code class="descclassname">lms2.thermal.dipoles.</code><code class="descname">TDipole</code><span class="sig-paren">(</span><em>*args</em>, <em>time=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/thermal/dipoles.html#TDipole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.thermal.dipoles.TDipole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lms2.core.html#lms2.core.units.DynUnit" title="lms2.core.units.DynUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">lms2.core.units.DynUnit</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lms2.thermal.dipoles.TResNL">
+<em class="property">class </em><code class="descclassname">lms2.thermal.dipoles.</code><code class="descname">TResNL</code><span class="sig-paren">(</span><em>*args</em>, <em>time=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/thermal/dipoles.html#TResNL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.thermal.dipoles.TResNL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lms2.core.html#lms2.core.units.DynUnit" title="lms2.core.units.DynUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">lms2.core.units.DynUnit</span></code></a></p>
+<p>Non linear thermal resistance for forced heat convection modelling</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lms2.thermal.dipoles.TStorage">
+<em class="property">class </em><code class="descclassname">lms2.thermal.dipoles.</code><code class="descname">TStorage</code><span class="sig-paren">(</span><em>*args</em>, <em>time=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lms2/thermal/dipoles.html#TStorage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.thermal.dipoles.TStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lms2.core.html#lms2.core.units.DynUnit" title="lms2.core.units.DynUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">lms2.core.units.DynUnit</span></code></a></p>
+<p>Thermal storage/capacity.</p>
+<p>Model :</p>
+<p>Minimize 0</p>
+<p>s.t.</p>
+<div class="math">
+<p><img src="_images/math/0d3b5fdeaab44e58e4fbe7833bc7f3ff8a2fa5fe.png" alt="q_c(t) == 2.7778e^{-7}.m.c.\frac{t_s(t - t_s(t-1)}{\delta t} \forall t"/></p>
+</div></dd></dl>
+
 </div>
 <div class="section" id="module-lms2.thermal">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lms2.thermal" title="Permalink to this headline">¶</a></h2>
@@ -53,6 +93,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -68,12 +109,14 @@
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -81,11 +124,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2018, Author.
+      &copy;2015-2018, llmse Developers.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/lms2.thermal.rst.txt"
