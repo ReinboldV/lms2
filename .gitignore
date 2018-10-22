@@ -6,6 +6,8 @@
 **/*.csv
 **/*.xlsx
 /.idea
+/lms2/docs/_templates
+/lms2/docs/generated
 /lms2.egg-info
 /lms2/pyomotests
 models/test_modules.py
