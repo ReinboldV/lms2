@@ -1,3 +1,7 @@
+"""
+Contains classical electrical sources and loads.
+"""
+
 from lms2.base.base_units import FlowSource, FlowLoad
 
 import unittest

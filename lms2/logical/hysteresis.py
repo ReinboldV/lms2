@@ -2,10 +2,9 @@
 """
 contains hysteresis model
 """
-from llmse.core.units import TUnit
 
 
-class Hysteresis(TUnit):
+class Hysteresis():
     """ Linear hysteresis model
 
     Attributes

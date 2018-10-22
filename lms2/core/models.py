@@ -1,3 +1,8 @@
+"""
+Definition of Linear Model class.
+"""
+
+
 from pyomo.core.base.PyomoModel import ConcreteModel
 from pyomo.core.base.var import IndexedVar
 from pyomo.core.base.constraint import Constraint

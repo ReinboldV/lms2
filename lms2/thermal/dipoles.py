@@ -2,15 +2,13 @@
 """
 Thermal dipole models
 """
-from __future__ import print_function
-
 from lms2.base.base_units import DynUnit
 
 
 class TDipole(DynUnit):
     pass
-    # TODO create
 
+    # TODO create
     # def __init__(self, time_horizon, name='TD0', description='', t1=None, t2=None, q12=None):
     #     # type: (Time, str, str, object, object, object) -> TDipole
     #     """
@@ -57,8 +55,8 @@ class TDipole(DynUnit):
 
 class TCondRes(DynUnit):
     pass
-    # TODO create
 
+    # TODO create
     # def __init__(self, time_horizon, name='TCdR0', description='', r=1, t1=None, t2=None, q12=None):
     #     """
     #     Simple thermal resistance.
@@ -91,8 +89,8 @@ class TCondRes(DynUnit):
 
 class TCond(DynUnit):
     pass
-    # TODO create
 
+    # TODO create
     # def __init__(self, time_horizon, name='TCdR0', description='', r=1, t1=None, t2=None, q12=None):
     #     """
     #     Simple thermal resistance.
@@ -126,8 +124,8 @@ class TCond(DynUnit):
 class TResNL(DynUnit):
     """ Non linear thermal resistance for forced heat convection modelling """
     pass
-    # TODO create
 
+    # TODO create
     # def __init__(self, time_horizon, name='TRNL0', description='', relax=False, rho=1., e=None, ne=None,
     #              emax=0.8, qa=None, nqa=None, qamin=0, qamax=0.5, cp=1004, t1=None, t2=None, q12=None):
     #     """
@@ -184,6 +182,7 @@ class TResNL(DynUnit):
 class TConvRes(DynUnit):
     """ Thermal resistance for convective heat transfer """
     pass
+
     # TODO create
 
     # def __init__(self, time_horizon, name='TCvR0', description='', h=1, s=1, t1=None, t2=None, q12=None):
@@ -221,8 +220,9 @@ class TStorage(DynUnit):
          
     """
     pass
-    # TODO create TStorage
 
+
+    # TODO create TStorage
     # def __init__(self, time_horizon, name='TSt0', description="Thermal storage connected to the ground, Euler's scheme",
     #              c=1, m=1, ts=None, ps_t=None, qc=None):
     #     """
@@ -255,6 +255,7 @@ class TStorage(DynUnit):
     #     exp = 'qc[t] == c*2.7778e-7*m*(ts[t] - ts[t-1])/dt for t in T'
     #     self.addconst(name='cst', exp=exp)
     #     self.addpole(TPole('tp', self.quantities['qc'], self.quantities['ts'], 'in'))
+
 
 if __name__ == "__main__":
     import doctest

@@ -1,5 +1,7 @@
 """
-Definition of some additional methods for pyomo Var objects.
+Variable class.
+
+Definition of some additional attribute to the pymomo Variable class
 """
 
 from pyomo.core.base.var import Var

@@ -1,3 +1,9 @@
+"""
+Unit Class.
+
+Basic block for linear Modeling.
+"""
+
 from pyomo.core.base.block import SimpleBlock
 from pyomo.core.base.var import IndexedVar
 from pyomo.core.base.constraint import Constraint

@@ -3,9 +3,6 @@
 Contains gears models for mechanics
 """
 
-from llmse.core.units import TUnit
-from llmse.core.poles import FluxEffortPole
-
 
 # class MPole(FluxEffortPole):
 #     """ Mechanical pole for gears and rotation modelling """
@@ -19,7 +16,7 @@ from llmse.core.poles import FluxEffortPole
 #     pass
 
 
-class Red1(TUnit):
+class Red1():
     """Gear reduction, with factor k and efficiency e """
 
     pass

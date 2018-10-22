@@ -1,4 +1,6 @@
-from scipy.stats._multivariate import multi_rv_frozen
+"""
+Basic Units, multi-physical model
+"""
 
 from lms2.core.units import DynUnit
 from lms2.core.var import Var

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the thermal power plants
+Contains the thermal power plants
 """
 
 
@@ -108,7 +108,7 @@ class LimitedThermalUnit(SimpleThermalUnit):
         # self.addconst(name='powerVar4', exp=exp4)
 
 
-class LimitedThermalUnit2(TUnit):
+class LimitedThermalUnit2():
     """ Thermal power Unit with variation and start-up/shut-down constraints
 
     This model, based on the Unit model, implement a output power variation constraint, 

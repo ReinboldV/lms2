@@ -1,3 +1,7 @@
+"""
+Contains maingrid unit, i.e. connection to the distribution grid.
+"""
+
 from pyomo.environ import *
 from pyomo.core.base.constraint import Constraint
 from pyomo.core.kernel.set_types import *

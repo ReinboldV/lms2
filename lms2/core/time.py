@@ -1,4 +1,6 @@
-""" This module defines the Time class"""
+"""
+Time class.
+"""
 from pyomo.core.base.block import SimpleBlock
 
 
@@ -57,6 +59,8 @@ class Time(object):
     def __init__(self, start=None, end=None, freq=None, *args, **kwds):
         """
 
+        :param args:
+        :param kwds:
         :param start: starting value, datetime-like
         :param end: end time, datetime-like
         :param freq: string or pandas offset object

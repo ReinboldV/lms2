@@ -7,7 +7,6 @@ CO2 concentration in a room
 # from llmse.core.units import TUnit
 
 
-
 class ModelCO2():
     """  Model of a CO2 concentration in a given volume.
 

@@ -1,3 +1,9 @@
+"""
+Batteries' Module.
+
+Contains electrical batteries linear models.
+"""
+
 from lms2.core.units import DynUnit
 from lms2.core.var import Var
 

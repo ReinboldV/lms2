@@ -1,5 +1,7 @@
 """
-Definition of some additional methods for pyomo Param objects.
+Parameter class.
+
+Definition of some additional attribute to the pyomo Param Class.
 """
 
 from pyomo.core.base.param import Param
