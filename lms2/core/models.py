@@ -9,7 +9,7 @@ class LModel(ConcreteModel):
     """
 
     def __init__(self, name='model', *args):
-        super().__init__(name='model', *args)
+        super().__init__(name=name, *args)
 
         self._graph = None
 
@@ -42,55 +42,55 @@ class LModel(ConcreteModel):
         for data in self.component_map(active=True).itervalues():
             self._graph.add_node(data.name, ctype=data.__class__)
 
-    def flux_cst(self, *args, name=None):
+    def connect_flux(self, *args):
         """
         Generate a pyomo constraints for a connection of flow variables.
+        :param args: Variable
+        :return:
         """
         # TODO docstring example and comments
 
         import operator
         exp = ''
         for arg in args:
-            v = operator.attrgetter(arg)(self)
-            assert isinstance(v, IndexedVar), f'{v} should be an instance of IndexedVar.'
-            assert hasattr(v, 'sens'), f'{v} should have attribute "sens"'
-            assert hasattr(v, 'port_type'), f'{v} should have attribute "port_type"'
-            assert getattr(v, 'port_type') == 'flow', f'{v}.port_type should be "flow"'
-            if v.sens == 'in':
-                exp += '+ m.' + arg + '[t]'
-            elif v.sens == 'out':
-                exp += '- m.' + arg + '[t]'
+            # v = operator.attrgetter(arg)(self)
+            assert isinstance(arg, IndexedVar), f'{arg} should be an instance of IndexedVar.'
+            assert hasattr(arg, 'sens'), f'{arg} should have attribute "sens"'
+            assert hasattr(arg, 'port_type'), f'{arg} should have attribute "port_type"'
+            assert getattr(arg, 'port_type') == 'flow', f'{arg}.port_type should be "flow"'
+            if arg.sens == 'in':
+                exp += '+ m.' + arg.name + '[t]'
+            elif arg.sens == 'out':
+                exp += '- m.' + arg.name + '[t]'
             else:
                 raise NotImplementedError('')
         exp += ' == 0'
         f = lambda m, t: eval(exp)
 
-        if name is None:
-            name = '_flux_cst_' + '&'.join([i.replace('.', '_') for i in args])
-        self.add_component(name, Constraint(v._index, rule=f))
+        # TODO regler beug ici
+
+        name = '_flux_cst_' + '&'.join([i.name.replace('.', '_') for i in args])
+        self.add_component(name, Constraint(arg._index, rule=f))
         return
 
-    def effort_cst(self, v1, v2, name=None):
+    def connect_effort(self, var1, var2, name=None):
         """
         Generate the pyomo constraint for the connection of two variables
         of the type effort.
 
-        :param str v1: name of the Variable 1
-        :param str v2: name of the Variable 2
+        :param Var var1: name of the Variable 1
+        :param Var var2: name of the Variable 2
         :param str name: name of the future constraint
         :return:
         """
 
         from pyomo.core.base.var import IndexedVar
         # create the constraint function f(m) or f(m,t):
-        import operator
-        var1 = operator.attrgetter(v1)(self)
-        var2 = operator.attrgetter(v2)(self)
 
         try:
             if not (var1.is_effort() and var2.is_effort()):
-                raise TypeError('v1 must be names of existing Variables, and these '
-                                'variables should be efforts. '
+                raise TypeError('var1 must be names of existing Variables, and these '
+                                'variables should be of type effort. '
                                 'You may set attribute by using var.type_port = "effort"')
             assert isinstance(var1, IndexedVar) and isinstance(var2, IndexedVar),\
                 f'The two variable to be connected should be instances of IndexedVar' \
@@ -101,10 +101,20 @@ class LModel(ConcreteModel):
         # f = lambda m, t: eval('m.' + v1 + '[t] == ' + 'm.' + v2 + '[t]')
 
         def f(m, t):
-            return eval('m.' + v1 + '[t] == ' + 'm.' + v2 + '[t]')
+            return eval('m.' + var1.name + '[t] == ' + 'm.' + var2.name + '[t]')
 
         if name is None:
-            name = '_effort_cst_' + v1.replace('.', '_') + '&' + v2.replace('.', '_')
+            name = '_effort_cst_' + var1.name.replace('.', '_') + '&' + var2.name.replace('.', '_')
 
         self.add_component(name, Constraint(var1._index, rule=f))
         # self.graph.add_edge(v1, v2)
+
+
+        def constructObjective(self, select='all'):
+            return
+
+
+COST = 'cost'
+PROSOMMATION = 'prosommation'
+ENERGY = 'energy'
+CO2 = 'co2'

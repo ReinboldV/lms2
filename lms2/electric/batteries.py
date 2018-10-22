@@ -22,13 +22,17 @@ class Battery(DynUnit):
         self.p.sens = 'in'
 
         if etac is not None:
+            assert etac <= 1, 'charging efficiency should be smaller than 1'
+            assert etac > 0, 'charging efficiency should be strictly higher than 0'
             self.etac = Param(initialize=etac, doc='charging efficiency', mutable=True)
 
         if etad is not None:
+            assert etad <= 1, 'discharging efficiency should be smaller than 1'
+            assert etad > 0, 'discharging efficiency should be strictly higher than 0'
             self.etad = Param(initialize=etad, doc='discharging efficiency', mutable=True)
 
         if ef is not None:
-            self.ef = Param(initialize=ef, doc='final state', mutable=True)
+            self.ef = Param(initialize=ef, doc='final state ()', mutable=True)
 
         if e0 is not None:
             self.e0 = Param(initialize=e0, doc='initial state', mutable=True)

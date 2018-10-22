@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """ This module defines the Time class"""
 from pyomo.core.base.block import SimpleBlock
 

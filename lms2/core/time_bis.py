@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """ This module defines the Time class"""
 from pyomo.core.base.block import SimpleBlock
 
@@ -106,6 +105,7 @@ class Time(object):
         self.index = self.map.index
         # self.time_set = OrderedSimpleSet(initialize=self.index*self.dt)   # ordered set for pyomo use in seconds
         # self.time_contSet = ContinuousSet(bounds=(0, self.delta))         # continuous set for pyomo in seconds
+
 
 if __name__ == "__main__":
     import doctest

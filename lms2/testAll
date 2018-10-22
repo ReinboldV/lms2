@@ -1,0 +1,2 @@
+~/Documents/02-Recherche/02-Python/lms2/venv/bin/python3 -m unittest discover -s . -v -p "test_*.py"
+

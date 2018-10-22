@@ -31,7 +31,7 @@ class DynUnit(Unit):
         Standard unit with a time argument for indexing variables and constraints.
 
         :param args:
-        :param Time time:
+        :param time:
         :param kwds:
         """
         from pyomo.dae.contset import ContinuousSet
@@ -44,7 +44,7 @@ class DynUnit(Unit):
 
     def flux_cst(self, *args, name=None):
         """ Generate a pyomo constraints for a connection of flow variables."""
-        ## TODO docstring example and comments
+        # TODO docstring example and comments
 
         import operator
         exp = ''
@@ -77,7 +77,7 @@ class DynUnit(Unit):
         :param str name: name of the future constraint
         :return: """
         
-        ## TODO example
+        # TODO example
 
         from pyomo.core.base.var import IndexedVar
         # create the constraint function f(m) or f(m,t):
@@ -120,12 +120,12 @@ class DynUnitTest(DynUnit):
         self.e = Var(time, within=NonNegativeReals)
         self.p = DerivativeVar(self.e, wrt=time)
 
-
     # def connect(port1, port2, name='_connect'):
     # # effort connection
     # f = lambda m, t: eval(port1 + '[t] == ' + port2 + '[t]')
     # locals()[name] = f
     # return f
+
 
 Unit.compute_statistics = PyomoModel.compute_statistics
 Unit.graph = LModel.graph
