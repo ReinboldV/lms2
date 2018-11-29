@@ -10,16 +10,31 @@ import unittest
 class PowerSource(FlowSource):
     """ Simple Power Source."""
     def __init__(self, *args, time=None, profile=None, flow_name='p', **kwds):
+        """
+
+        :param args:
+        :param time: Continuous Time set
+        :param Series profile: Serie of power input in kW
+        :param str flow_name: Name of the new flow variable
+        :param kwds:
+        """
         super().__init__(*args, time=time, profile=profile, flow_name=flow_name, **kwds)
-        self.doc = __doc__
+        # self.doc = self.__doc__
 
 
 class PowerLoad(FlowLoad):
     """ Simple Power Load."""
 
-    def __init__(self, *args, time=None, flow=None, flow_name='p', **kwds):
-        super().__init__(*args, time=time, flow=flow, flow_name=flow_name, **kwds)
-        self.doc = __doc__
+    def __init__(self, *args, time=None, profile=None, flow_name='p', **kwds):
+        """
+
+        :param args:
+        :param time: Continuous Time set
+        :param Series profile: Serie of power input in kW
+        :param str flow_name: Name of the new flow variable
+        :param kwds:
+        """
+        super().__init__(*args, time=time, flow=profile, flow_name=flow_name, **kwds)
 
 
 class WindTurbine(PowerSource):

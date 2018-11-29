@@ -7,9 +7,11 @@ from pyomo.core.base.constraint import Constraint
 from pyomo.core.kernel.set_types import *
 from pandas import Series
 
+
 from lms2.core.units import DynUnit
 from lms2.core.var import Var
 from lms2.core.param import Param
+from lms2.core.expressions import Prosumtion, CO2, Cost, Energy
 
 
 # class MainGrid(DynUnit):
@@ -113,12 +115,24 @@ from lms2.core.param import Param
 #     print(0)
 
 
-class MainGrid2(DynUnit):
+class MainGrid(DynUnit):
     """
     Simple main Grid unit
     """
-    def __init__(self, time, *args, pmax=None, pmin=None, cout=None, cin=None, interpolate=True, kind='linear', fill_value='extrapolate', **kwgs):
+    def __init__(self, time, *args, pmax=None, pmin=None, cout=None, cin=None, mix=0, kind='linear', fill_value='extrapolate', **kwgs):
+        """
 
+        :param time: Contiunous Time Set
+        :param args:
+        :param pmax: maximal power (kW)
+        :param pmin: minimal power (kW)
+        :param cout: selling cost (euro/kWh)
+        :param cin: buying cost (euro/kWh)
+        :param mix: CO2 mix of energy (eqCO2/kWh)
+        :param kind: default : 'linear'
+        :param fill_value: default : 'extrapolate'
+        :param kwgs:
+        """
         from lms2.base.base_units import set_profile
 
         super().__init__(*args, time=time, **kwgs)
@@ -161,24 +175,51 @@ class MainGrid2(DynUnit):
             if isinstance(cin, float) or isinstance(cin, int):
                 self.cin = Param(initialize=cin, doc='buying cost of energy', mutable=True)
             elif isinstance(cin, Series):
-                _init_input, _set_bounds = set_profile(profile=cin, kind='linear', fill_value='extrapolate')
-                self.cin = Param(time, initialize=_init_input, default=_init_input, mutable=True)
+                _init_input, _set_bounds = set_profile(profile=cin, kind=kind, fill_value=fill_value)
+                self.cin = Param(time, initialize=_init_input, default=_init_input, doc='buying cost of energy',
+                                 mutable=True)
 
         # same behaviour than cin
         if cout is not None:
             if isinstance(cout, float) or isinstance(cout, int):
                 self.cout = Param(initialize=cout, doc='selling cost of energy', mutable=True)
             elif isinstance(cout, Series):
-                _init_input, _set_bounds = set_profile(profile=cout, kind='linear', fill_value='extrapolate')
-                self.cout = Param(time, initialize=_init_input, default=_init_input, mutable=True)
+                _init_input, _set_bounds = set_profile(profile=cout, kind=kind, fill_value=fill_value)
+                self.cout = Param(time, initialize=_init_input, default=_init_input, doc='selling cost of energy',
+                                  mutable=True)
+
+        if mix is not None:
+            if isinstance(mix, float) or isinstance(mix, int):
+                self.mix = Param(initialize=mix, doc='mass of co2 emitted (gram) per kilowatt hour', mutable=True)
+            elif isinstance(mix, Series):
+                _init_input, _set_bounds = set_profile(profile=mix, kind=kind, fill_value=fill_value)
+                self.mix = Param(time, initialize=_init_input, default=_init_input,
+                                 doc='mass of co2 emitted (gram) per kilowatt hour', mutable=True)
 
         def _cost(m):
-            return sum(m.pin[t]*m.cin[t] + m.pout[t]*m.cout[t] for t in time)
+            return sum(-m.pin[t]*m.cin[t] + m.pout[t]*m.cout[t] for t in time)
 
-        def _cO2(m):
-            return sum((m.pin[t] -  m.pout[t])*m.MIX for t in time)
+        def _energy(m):
+            return sum(m.pin[t] for t in time)
 
+        def _pro(m):
+            return sum(m.pin[t] + m.pout[t] for t in time)
 
-        self.cost = Expression(rule=_cost)
+        def _co2(m):
+            return sum((- m.pin[t] + m.pout[t])*m.mix for t in time)
 
+        # note perso : il semble que cette syntaxe beuge lors de la validation du block.
+        # Car dans Integral on cherche le continuous set qui a permit de créer l'intégrale. Hors le temps n'est pas un argument du block mais de son parent (le model).
+        # A voir par la suite s'il n'est pas possible de déclarer un temps pour chaque block.
+        # venv/lib/python3.6/site-packages/pyomo/dae/integral.py:135
 
+        # self.int = Integral(time, wrt=time, rule=my_integral)  # this line is the trouble
+
+        # def _energy2(m):
+        #     return self.n
+        # self.energy2 = Objective(rule=_energy2)
+
+        self.cost = Cost(rule=_cost)
+        self.co2 = CO2(rule=_co2)
+        self.pro = Prosumtion(rule=_pro)
+        self.energy = Energy(rule=_energy)
