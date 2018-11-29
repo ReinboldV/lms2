@@ -75,7 +75,6 @@ class BaseUnitsTests(unittest.TestCase):
         # self.assertEqual(m.fs.p.sens, 'out')
         # self.assertEqual(m.fs.p.port_type, 'flow')
 
-
     def test_effort_connexion(self):
         from lms2.core.models import LModel
         from lms2.core.time import Time
@@ -88,31 +87,30 @@ class BaseUnitsTests(unittest.TestCase):
         t = Time('00:00:00', '00:01:00', freq='5s')
         m.t = ContinuousSet(bounds=(t.timeSteps[0], t.timeSteps[-1]))
         flow1 = pd.Series({0.0: 0.0, 60: 1})
-        flow2 = pd.Series({0.0: 0.0, 60: 10})
+        flow2 = pd.Series({0.0: 0.0, 60: 2})
 
         m.ua = UnitA(time=m.t, flow=flow1)
         m.ub = UnitA(time=m.t, flow=flow2)
 
         m.connect_effort(m.ua.x2, m.ub.x2)
+        # m.obj = Objective(rule=m.ua.obj)
 
         discretizer = TransformationFactory('dae.finite_difference')
         discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
 
-        # m.obj = Objective(rule=m.ua.obj)
+        m.ua.construct_objective()
+        m.ub.construct_objective()
         m.ua.obj.deactivate()
         m.ub.obj.deactivate()
+
         m.obj = Objective(expr=m.ua.obj + m.ub.obj)
 
         opt = SolverFactory('glpk')
         results = opt.solve(m)
 
-
-    # TODO  coninuer
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
-
-
 
     def test_abs(self):
         from lms2.core.models import LModel

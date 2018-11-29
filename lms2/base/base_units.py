@@ -9,6 +9,7 @@ from lms2.core.param import Param
 from pyomo.core.base.constraint import Constraint
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.environ import *
+from pyomo.dae import *
 
 
 class Storage(DynUnit):
@@ -164,7 +165,7 @@ class UnitA(DynUnit):
         _init_input, _set_bounds = set_profile(profile=flow, kind='linear', fill_value='extrapolate')
         self.x1 = Var(time, initialize=_init_input, bounds=_set_bounds)
         self.x1.port_type = 'effort'
-        self.x2 = Var(time)
+        self.x2 = Var(time, initialize=0)
         self.x2.port_type = 'effort'
         self.y1 = Var(time, bounds=(0, 100))
 
