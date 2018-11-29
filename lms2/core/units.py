@@ -10,6 +10,7 @@ from pyomo.core.base.constraint import Constraint
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.core.kernel.set_types import *
 from pyomo.core.base.PyomoModel import Model as PyomoModel
+from pyomo.core.base import Objective, Block
 
 from networkx import Graph
 
@@ -27,6 +28,28 @@ class Unit(SimpleBlock):
         super().__init__(*args, **kwds)
 
         self._graph = Graph()
+
+    def construct_objective(self):
+        """
+        Construction of the objectives.
+
+        When using Continuous Set, the implicit expression such as sum(x[t] for t in Time)
+        must be created after time discrimination. Otherwise, the expression will only consider
+        existing timeSteps.
+        To overcome this behaviour, this method allows to automatically redefine objectives after time discretization.
+
+        """
+
+        for block in self.component_map(active=True, ctype=Block):
+            try:
+                block.construct_objective()
+            except OSError as err:
+                raise err
+
+        for obj in self.component_map(active=True, ctype=Objective):
+            rule = self.component(obj).rule
+            self.del_component(obj)
+            self.add_component(obj, Objective(rule=rule))
 
 
 class DynUnit(Unit):
@@ -47,9 +70,22 @@ class DynUnit(Unit):
             msg = f'time key word argument should be an instance of pyomo.dae.contest.ContinuousSet, ' \
                   f'and is actually a {type(time)}.'
             raise AttributeError(msg)
+        self.doc = self.__doc__
 
-    def flux_cst(self, *args, name=None):
-        """ Generate a pyomo constraints for a connection of flow variables."""
+    def connect_flux(self, *args, name=None):
+        """
+        Flux connection
+
+        Generate a pyomo equality constraint for a connection of flow variables. This generates a arithmetic sum
+        (plus or minus depending on the convention used by the pole :  sens='in' or sens='ou'). Name of the constraint
+        is optional, the default name is based on names of variables to be connected and must be unique.
+
+        .. note:: In this function variables are supposed to be indexed by a unique index, usually representing time.
+         And all the variable should have the same index size.
+
+         .. todo:: connection of variables using different time index
+
+        """
         # TODO docstring example and comments
 
         import operator
@@ -74,9 +110,16 @@ class DynUnit(Unit):
         self.add_component(name, Constraint(v._index, rule=f))
         return
 
-    def effort_cst(self, v1, v2, name=None):
-        """ generate the pyomo constraint for the connection of two variables
-        of the type effort.
+    def connect_effort(self, v1, v2, name=None):
+        """
+        Connection of effort Variables.
+
+        Generates the pyomo equality constraint for the connection of two variables
+        of the type effort. v1 == v2. Name of the constraint
+        is optional, the default name is based on names of variables to be connected and must be unique.
+
+        .. note:: In this function variables are supposed to be indexed by a unique index, usually representing time.
+         And all the variable should have the same index size.
 
         :param str v1: name of the Variable 1
         :param str v2: name of the Variable 2

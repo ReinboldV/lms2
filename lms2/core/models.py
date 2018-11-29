@@ -1,11 +1,16 @@
 """
 Definition of Linear Model class.
 """
+from lms2.core.expressions import Cost, Prosumtion, Energy, CO2
 
-
-from pyomo.core.base.PyomoModel import ConcreteModel
 from pyomo.core.base.var import IndexedVar
-from pyomo.core.base.constraint import Constraint
+from pyomo.environ import Var, Param, Objective, Constraint, ConcreteModel, Expression, Block
+
+
+OBJ_SELECTION = {'cost': Cost,
+                 'prosumtion': Prosumtion,
+                 'energy' : Energy,
+                 'co2': CO2}
 
 
 class LModel(ConcreteModel):
@@ -14,6 +19,11 @@ class LModel(ConcreteModel):
     """
 
     def __init__(self, name='model', *args):
+        """
+
+        :param str name: Name of the model
+        :param args:
+        """
         super().__init__(name=name, *args)
 
         self._graph = None
@@ -29,7 +39,7 @@ class LModel(ConcreteModel):
     @graph.setter
     def graph(self, g):
         """
-        setter method for the graph attribute
+        Setter method for the graph attribute
 
         :param Graph g: Grpah of the Unit
         :return: None
@@ -39,17 +49,26 @@ class LModel(ConcreteModel):
 
     def update_graph(self):
         """
-        Update the graph of the model. iterates on all the active components of the unit.
+        Update the graph of the model.
+
+        iterates on all the active components of the unit.
         """
         from networkx import Graph
         self._graph = Graph()
 
-        for data in self.component_map(active=True).itervalues():
-            self._graph.add_node(data.name, ctype=data.__class__)
+        for data in self.component_map(active=True, ctype=Var).itervalues():
+            self._graph.add_node(data.name, ctype=data.__class__, color='blue')
+        for data in self.component_map(active=True, ctype=Block).itervalues():
+            self._graph.add_node(data.name, ctype=data.__class__, color='red')
+        for data in self.component_map(active=True, ctype=Constraint).itervalues():
+            self._graph.add_node(data.name, ctype=data.__class__, color='yellow')
+        for data in self.component_map(active=True, ctype=Objective).itervalues():
+            self._graph.add_node(data.name, ctype=data.__class__, color='black', label=data.name)
 
     def connect_flux(self, *args):
         """
         Generate a pyomo constraints for a connection of flow variables.
+
         :param args: Variable
         :return:
         """
@@ -112,14 +131,35 @@ class LModel(ConcreteModel):
             name = '_effort_cst_' + var1.name.replace('.', '_') + '&' + var2.name.replace('.', '_')
 
         self.add_component(name, Constraint(var1._index, rule=f))
-        # self.graph.add_edge(v1, v2)
+        self.graph.add_edge(var1, var2)
+
+    def construct_objective(self, select='all'):
+        """
+        NOT WORKING YET
+
+        Construction of the global objective.
+
+        This function is scanning all the structure of the model, looking for active objectives. If selected and active,
+        objectives are constructed and summed to create a unique global objective (compulsory for Linear Programming).
+
+        :param str select: 'all' (default), 'cost', 'prosumtion', 'energy' or 'co2' to select and sum objectives of
+        sub-components.
+        :return:
+        """
+
+        assert select in OBJ_SELECTION.keys(), f'select argument is not recognized. ' \
+                                               f'It should be in {OBJ_SELECTION.keys()}, but is actually {select}'
+
+        obj_f = Expression(expr=0)
+        for obj in self.component_objects(active=True, ctype=Expression):
+            obj.pprint()
+            obj.reconstruct()
+            if hasattr(obj,'expression_type'):
+                if obj.expression_type == select:
+                    obj_f = Objective(expr=obj_f+obj, sens=OBJ_SELECTION[select].sens)
+
+        return obj_f.to_string()
 
 
-        def constructObjective(self, select='all'):
-            return
 
 
-COST = 'cost'
-PROSOMMATION = 'prosommation'
-ENERGY = 'energy'
-CO2 = 'co2'
