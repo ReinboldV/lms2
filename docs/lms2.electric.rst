@@ -1,5 +1,5 @@
-Electric
-========
+Electric (lms2\.electric)
+==========================
 
 .. currentmodule:: lms2.electric
 

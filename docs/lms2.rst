@@ -1,5 +1,6 @@
-lms2 package
-============
+Library (lms2)
+==============
+.. currentmodule:: lms2
 
 .. toctree::
     :maxdepth: 1

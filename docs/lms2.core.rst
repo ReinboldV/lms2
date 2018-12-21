@@ -1,4 +1,4 @@
-lms2\.core package
+Core (lms2\.core)
 ==================
 
 .. currentmodule:: lms2.core

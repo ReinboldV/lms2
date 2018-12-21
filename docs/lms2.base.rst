@@ -1,4 +1,4 @@
-lms2\.base package
+Base (lms2\.base)
 ==================
 
 .. currentmodule:: lms2.base

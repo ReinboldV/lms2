@@ -1,5 +1,5 @@
-lms2\.logical package
-=====================
+ Logical (lms2\.logical)
+========================
 
 .. currentmodule:: lms2.logical
 

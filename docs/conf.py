@@ -39,8 +39,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.imgmath',
     'sphinxcontrib.bibtex',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.githubpage']
+    'sphinx.ext.autosummary']
 
 viewcode_import = True
 
@@ -69,7 +68,7 @@ author = 'Vincent Reinbold'
 # The short X.Y version.
 version = lms2.__version__
 # The full version, including alpha/beta/rc tags.
-release = lms2.__version__.replace('_', '')
+release = lms2.__version__
 
 autosummary_generate = True
 
