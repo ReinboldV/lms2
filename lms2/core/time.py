@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Time class.
 """
@@ -86,9 +87,9 @@ class Time(object):
                 raise e
 
             self.datetime = pd.DatetimeIndex(freq=freq, start=start, end=end)
-            self.delta = (self.end - self.start).delta / 1e9  # period in seconds
-            self.dt = self.datetime.freq.delta.value / 1e9  # time step in seconds
-            self.timeSteps = linspace(0, self.delta, num=len(self.datetime))  # time steps in seconds
+            self.delta = (self.end - self.start).delta / 1e9                          # period in seconds
+            self.dt = self.datetime.freq.delta.value / 1e9                            # time step in seconds
+            self.timeSteps = linspace(0, self.delta, num=len(self.datetime))          # time steps in seconds
             self.map = pd.Series(self.datetime, index=self.timeSteps)
             self.index = self.map.index
 
@@ -108,10 +109,11 @@ class Time(object):
             pass
 
         self.len = len(self.timeSteps)
+        self.nfe = self.len-1    # number of finite element for discretisation
 
-        from pyomo.dae.contset import ContinuousSet
-        # self.time_set = OrderedSimpleSet(initialize=self.index*self.dt)   # ordered set for pyomo use in seconds
-        self.time_contSet = ContinuousSet(bounds=(0, self.delta))         # continuous set for pyomo in seconds
+        # from pyomo.dae.contset import ContinuousSet
+        # self.time_set = OrderedSimpleSet(initialize=self.index*self.dt)        # ordered set for pyomo use in seconds
+        # self.time_contSet = ContinuousSet(bounds=(0, self.delta))                # continuous set for pyomo in seconds
 
 
 if __name__ == "__main__":

@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+"""
+Utils and tool for linearization and plots
+"""
+
 from lms2.core.var import Var
 import matplotlib.pyplot as plt
 from pandas import Series

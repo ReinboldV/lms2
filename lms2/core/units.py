@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Unit Class.
 
@@ -14,9 +15,9 @@ from pyomo.core.base import Objective, Block
 
 from networkx import Graph
 
-from lms2.core.time import Time
-from lms2.core.models import LModel
-from lms2.core.var import Var
+from ..core.time import Time
+from ..core.models import LModel
+from ..core.var import Var
 
 
 class Unit(SimpleBlock):

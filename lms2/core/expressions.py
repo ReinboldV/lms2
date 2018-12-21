@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Different types of objectives
 

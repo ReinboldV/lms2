@@ -110,8 +110,6 @@ class Battery(DynUnit):
 
         self._e_final = Constraint(time, rule=_e_final, doc='Final stored energy constraint')
 
-
-
         def _e_min(m, t):
             if emin is None:
                 return Constraint.Skip

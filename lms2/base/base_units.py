@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Basic Units, multi-physical model
 """
@@ -6,8 +7,6 @@ from lms2.core.units import DynUnit
 from lms2.core.var import Var
 from lms2.core.param import Param
 
-from pyomo.core.base.constraint import Constraint
-from pyomo.dae.diffvar import DerivativeVar
 from pyomo.environ import *
 from pyomo.dae import *
 
@@ -87,6 +86,37 @@ class SourceUnitParam(DynUnit):
         super().__init__(*args, time=time, **kwargs)
         _init_input, _set_bounds = set_profile(profile=flow, kind=kind, fill_value=fill_value)
         self.add_component(flow_name, Param(time, initialize=_init_input, default=_init_input, mutable=True))
+
+
+class ScalableFlowSource(DynUnit):
+    """General Scalable Flow Source Unit.
+
+    Generates One parameter that may be fixed using a Time series. The flow is scaled using a variable scaling factor 'scale_fact'.
+    This unit may be used for sizing of soucres, e.g. PV panels, Wind turbines, etc. """
+
+    def __init__(self, *args, time, flow, kind='linear', fill_value='extrapolate', flow_name='flow', **kwargs):
+        """
+
+        :param args:
+        :param Set time: Set or ContinuousSet for time integration
+        :param pandas.Series flow: Series that describes the input profile
+        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d
+        :param str fill_value: see scipy.interpolate.interpolate.interp1d
+        :param kwargs:
+        """
+        super().__init__(*args, time=time, **kwargs)
+        _init_input, _set_bounds = set_profile(profile=flow, kind=kind, fill_value=fill_value)
+        self.add_component(flow_name+'_u', Param(time, initialize=_init_input, default=_init_input, mutable=True, doc='Source flow for scale factor of 1'))
+        self.add_component(flow_name, Var(time, initialize=_init_input, doc='Scaled source flow'))
+        self.scale_fact = Var(initialize=1, within=PositiveReals, doc='scaling factor within Positve reals')
+
+        def _cst(m, t):
+            return m.scale_fact*m.find_component(flow_name+'_u')[t] == m.find_component(flow_name)[t]
+
+        self.cst = Constraint(time, rule=_cst, doc='Constraint equality for flow scaling')
+
+        self.component(flow_name).port_type = 'flow'
+        self.component(flow_name).sens = 'out'
 
 
 class EffortSource(SourceUnit):

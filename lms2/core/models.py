@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 Definition of Linear Model class.
 """
-from lms2.core.expressions import Cost, Prosumtion, Energy, CO2
+from ..core.expressions import Cost, Prosumtion, Energy, CO2
 
 from pyomo.core.base.var import IndexedVar
 from pyomo.environ import Var, Param, Objective, Constraint, ConcreteModel, Expression, Block

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-contains hysteresis model
+Contains hysteresis model.
 """
 
 
-class Hysteresis():
+class Hysteresis(object):
     """ Linear hysteresis model
 
     Attributes
