@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Contains maingrid unit, i.e. connection to the distribution grid.
 """
@@ -8,10 +9,10 @@ from pyomo.core.kernel.set_types import *
 from pandas import Series
 
 
-from lms2.core.units import DynUnit
-from lms2.core.var import Var
-from lms2.core.param import Param
-from lms2.core.expressions import Prosumtion, CO2, Cost, Energy
+from ..core.units import DynUnit
+from ..core.var import Var
+from ..core.param import Param
+from ..core.expressions import Prosumtion, CO2, Cost, Energy
 
 
 # class MainGrid(DynUnit):
@@ -119,7 +120,7 @@ class MainGrid(DynUnit):
     """
     Simple main Grid unit
     """
-    def __init__(self, time, *args, pmax=None, pmin=None, cout=None, cin=None, mix=0, kind='linear', fill_value='extrapolate', **kwgs):
+    def __init__(self, time, *args, pmax=None, pmin=None, cout=None, cin=None, mixCO2=None, kind='linear', fill_value='extrapolate', **kwgs):
         """
 
         :param time: Contiunous Time Set
@@ -188,25 +189,14 @@ class MainGrid(DynUnit):
                 self.cout = Param(time, initialize=_init_input, default=_init_input, doc='selling cost of energy',
                                   mutable=True)
 
-        if mix is not None:
-            if isinstance(mix, float) or isinstance(mix, int):
-                self.mix = Param(initialize=mix, doc='mass of co2 emitted (gram) per kilowatt hour', mutable=True)
-            elif isinstance(mix, Series):
-                _init_input, _set_bounds = set_profile(profile=mix, kind=kind, fill_value=fill_value)
-                self.mix = Param(time, initialize=_init_input, default=_init_input,
+        if mixCO2 is not None:
+            if isinstance(mixCO2, float) or isinstance(mixCO2, int):
+                self.mixCO2 = Param(initialize=mixCO2, doc='mass of co2 emitted (gram) per kilowatt hour', mutable=True)
+            elif isinstance(mixCO2, Series):
+                _init_input, _set_bounds = set_profile(profile=mixCO2, kind=kind, fill_value=fill_value)
+                self.mixCO2 = Param(time, initialize=_init_input, default=_init_input,
                                  doc='mass of co2 emitted (gram) per kilowatt hour', mutable=True)
 
-        def _cost(m):
-            return sum(-m.pin[t]*m.cin[t] + m.pout[t]*m.cout[t] for t in time)
-
-        def _energy(m):
-            return sum(m.pin[t] for t in time)
-
-        def _pro(m):
-            return sum(m.pin[t] + m.pout[t] for t in time)
-
-        def _co2(m):
-            return sum((- m.pin[t] + m.pout[t])*m.mix for t in time)
 
         # note perso : il semble que cette syntaxe beuge lors de la validation du block.
         # Car dans Integral on cherche le continuous set qui a permit de créer l'intégrale. Hors le temps n'est pas un argument du block mais de son parent (le model).
@@ -218,8 +208,21 @@ class MainGrid(DynUnit):
         # def _energy2(m):
         #     return self.n
         # self.energy2 = Objective(rule=_energy2)
+        #
+        # def _cost(m):
+        #     return sum(-m.pin[t]*m.cin[t] + m.pout[t]*m.cout[t] for t in time)
+        #
+        # def _energy(m):
+        #     return sum(m.pin[t] for t in time)
+        #
+        # def _pro(m):
+        #     return sum(m.pin[t] + m.pout[t] for t in time)
+        #
+        # def _co2(m):
+        #     return sum((- m.pin[t] + m.pout[t])*m.mix for t in time)
 
-        self.cost = Cost(rule=_cost)
-        self.co2 = CO2(rule=_co2)
-        self.pro = Prosumtion(rule=_pro)
-        self.energy = Energy(rule=_energy)
+
+        # self.cost = Cost(rule=_cost)
+        # self.co2 = CO2(rule=_co2)
+        # self.pro = Prosumtion(rule=_pro)
+        # self.energy = Energy(rule=_energy)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Batteries' Module.
 
@@ -43,12 +44,12 @@ class Battery(DynUnit):
         if etac is not None:
             assert etac <= 1, 'charging efficiency should be smaller than 1'
             assert etac > 0, 'charging efficiency should be strictly higher than 0'
-            self.etac = Param(initialize=etac, doc='charging efficiency', mutable=True)
+            self.etac = Param(initialize=etac, doc='charging efficiency', within=(0, 1), mutable=True)
 
         if etad is not None:
             assert etad <= 1, 'discharging efficiency should be smaller than 1'
             assert etad > 0, 'discharging efficiency should be strictly higher than 0'
-            self.etad = Param(initialize=etad, doc='discharging efficiency', mutable=True)
+            self.etad = Param(initialize=etad, doc='discharging efficiency', within=(0, 1), mutable=True)
 
         if ef is not None:
             self.ef = Param(initialize=ef, doc='final state ()', mutable=True)

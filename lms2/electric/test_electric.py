@@ -110,7 +110,7 @@ class MainGridTest(unittest.TestCase):
     """ testing Main Grid Units. """
 
     def test_maingrid2(self):
-        from lms2.electric.maingrids import MainGrid2
+        from lms2.electric.maingrids import MainGrid
         from lms2.electric.sources import PowerSource
         from lms2.core.models import LModel
         from lms2.core.time import Time
@@ -120,12 +120,19 @@ class MainGridTest(unittest.TestCase):
         import pandas as pd
 
         m = LModel(name='model')
-        t = Time('00:00:00', '00:00:10', freq='5s')
+        t = Time('00:00:00', '00:00:10', freq='1s')
         m.t = ContinuousSet(bounds=(t.timeSteps[0], t.timeSteps[-1]))
+        t.nfe = int(t.delta/t.dt)
+
         cin = pd.Series({0.0: 0.0, 10: 5})
         cout = pd.Series({0.0: 1.0, 10: 6})
 
-        m.mg = MainGrid2(time=m.t, cin=cin, cout=cout, pmax=20000, pmin=2000)
+        m.mg = MainGrid(time=m.t, cin=cin, cout=cout, pmax=20000, pmin=2000)
+
+        source = pd.Series({0.0: 0.0, 3: -10, 5: 1,  8: -10, 10: 5})
+        m.ps = PowerSource(time=m.t, profile=source, flow_name='p')
+
+        m.connect_flux(m.mg.p, m.ps.p)
 
         discretizer = TransformationFactory('dae.finite_difference')
         discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
@@ -139,15 +146,21 @@ class MainGridTest(unittest.TestCase):
                                                       6.0: 4.0, 7.0: 4.5, 8.0: 5.0,
                                                       9.0: 5.5, 10.0: 6.0})
 
-        source = pd.Series({0.0: 0.0, 3: -10, 5: 1,  8:-10, 10: 5})
-        m.ps = PowerSource(time=m.t, profile=source, flow_name='p')
+        m.obj = Objective(expr=m.mg.energy)
+        m.mg.energy.reconstruct()
+        m.mg.cost.reconstruct()
+        m.mg.pro.reconstruct()
 
-        m.connect_flux(m.mg.p, m.ps.p)
+        m.update_graph()
+
+        import networkx as nx
+
+        nx.draw(m.graph)
 
         opt = SolverFactory('glpk')
         results = opt.solve(m)
 
-        self.assertEqual(m.mg.obj_use(), 25.0)
+        self.assertEqual(m.obj(), 6.0)
 
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)
