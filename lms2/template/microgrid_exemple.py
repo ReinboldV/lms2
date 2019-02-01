@@ -37,9 +37,6 @@ plt.xlabel('Time (s)')
 plt.legend()
 plt.grid(True)
 
-
-
-
 m = LModel(name='model')
 t = Time('01-01-2018 00:00:00', '01-02-2018 00:00:00', freq='5min')
 m.t = ContinuousSet(bounds=(0, t.delta))
@@ -49,16 +46,12 @@ m.ps    = ScalablePowerSource(time=m.t, profile=irr, flow_name='p')
 m.pl    = PowerLoad(time=m.t, profile=load, flow_name='p')
 m.connect_flux(m.bat1.p, m.ps.p, m.mg.p, m.pl.p)
 
-
-
 opt = SolverFactory("glpk")
 import time
 t1 = time.time()
 results = opt.solve(m)
 t2 = time.time() - t1
 print(f'Elapsed time : \t {t2}')
-
-
 
 print(results)
 

@@ -3,17 +3,16 @@ from lms2.electric.maingrids import MainGrid
 from lms2.electric.sources import ScalablePowerSource, PowerLoad
 from lms2.core.models import LModel
 from lms2.core.time import Time
-from pyomo.dae.integral import Integral
+from lms2.base.utils import pplot
 
+from pyomo.dae.integral import Integral
 from pyomo.environ import Objective, SolverFactory, TransformationFactory
 from pyomo.dae.contset import ContinuousSet
 
-import matplotlib
 import matplotlib.pyplot as plt
-from lms2.base.utils import pplot
+
 import pandas as pd
 
-matplotlib.use('Agg')
 
 m = LModel(name='model')
 t = Time('01-01-2018 00:00:00', '01-02-2018 00:00:00', freq='5min')
@@ -44,18 +43,14 @@ discretizer.apply_to(m, nfe=t.nfe)  # BACKWARD or FORWARD
 def instant_cost(m, t):
     return (-m.mg.pin[t] * m.mg.cin[t] + m.mg.pout[t] * m.mg.cout[t])/3600
 
-
 def power(m,t):
     return (-m.mg.pin[t] + m.mg.pout[t])/3600
-
 
 def instant_prosumation(m,t):
     return (m.mg.pin[t] + m.mg.pout[t])/3600
 
-
 def instant_co2(m,t):
     return (m.mg.pout[t] - m.mg.pin[t])*m.mg.mixCO2/3600
-
 
 m.cost = Integral(m.t, wrt=m.t, rule=instant_cost)
 m.energy = Integral(m.t, wrt=m.t, rule=power)
@@ -64,16 +59,12 @@ m.prosum = Integral(m.t, wrt=m.t, rule=instant_prosumation )
 m.obj = Objective(expr=m.cost)
 
 opt = SolverFactory("glpk")
+import time
+t1 = time.time()
 results = opt.solve(m)
-print(results)
-
-pplot(m.mg.p, m.ps.p, m.bat1.p, m.pl.p, index=t.datetime, legend=True, title='Main Grid', Marker='x')
-plt.grid(True)
-pplot(m.mg.cin, m.mg.cout, index=t.datetime, legend=True, title='Prix achat/vente', Marker='x')
-
-pplot(m.bat1.e)
+t2 = time.time() - t1
+print(f'Elapsed time : \t {t2}')
 
 print(m.energy())
 print(m.ps.scale_fact())
-
 plt.show()
