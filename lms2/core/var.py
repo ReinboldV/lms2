@@ -2,11 +2,12 @@
 """
 Variable class.
 
-Definition of some additional attribute to the pymomo Variable class
+Definition of some additional properties to the pymomo Variable class
 """
 
 from pyomo.core.base.var import Var
 
+__all__ = ['Var']
 
 @property
 def port_type(self):

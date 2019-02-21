@@ -2,10 +2,12 @@
 """
 Parameter class.
 
-Definition of some additional attributes to the pyomo Param Class.
+Definition of some additional properties to the pyomo Param Class.
 """
 
 from pyomo.core.base.param import Param
+
+__all__ = ['Param']
 
 
 @property
