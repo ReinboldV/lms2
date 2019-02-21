@@ -7,8 +7,8 @@ from lms2.core.units import DynUnit
 from lms2.core.var import Var
 from lms2.core.param import Param
 
-from pyomo.environ import *
-from pyomo.dae import *
+from pyomo.environ import Constraint, PositiveReals, Binary, Reals, Objective, Expression
+from pyomo.dae import DerivativeVar
 
 
 class Storage(DynUnit):
@@ -48,6 +48,20 @@ class Dipole(DynUnit):
             return m.p1[t] == m.r * m.p2[t]
 
         self.cst = Constraint(time, rule=_cst)
+
+
+# class ExpensiveUnit(DynUnit):
+#
+#     def __init__(self, *args, time, c_use=0, **kwargs):
+#
+#         super().__init__(*args, time=time, **kwargs)
+#         self.c_use = Param(initialize=c_use, doc='cost of use (euros/kWh)', mutable=True)
+#
+#         def _instant_cost(m, t):
+#             return -m.pin[t] * m.c_use / 3600
+#
+#         self._instant_cost = Expression(time, rule=_instant_cost)
+#         self._instant_cost.tag = 'COST'
 
 
 class SourceUnit(DynUnit):
@@ -110,10 +124,16 @@ class ScalableFlowSource(DynUnit):
         self.add_component(flow_name, Var(time, initialize=_init_input, doc='Scaled source flow'))
         self.scale_fact = Var(initialize=1, within=PositiveReals, doc='scaling factor within Positve reals')
 
-        def _cst(m, t):
+        def _flow_scaling(m, t):
             return m.scale_fact*m.find_component(flow_name+'_u')[t] == m.find_component(flow_name)[t]
 
-        self.cst = Constraint(time, rule=_cst, doc='Constraint equality for flow scaling')
+        def _debug_flow_scaling(m, t):
+            return -0.000001, m.scale_fact * m.find_component(flow_name + '_u')[t] - m.find_component(flow_name)[t], 0.000001
+
+        self.flow_scaling = Constraint(time, rule=_flow_scaling, doc='Constraint equality for flow scaling')
+        self.flow_scaling.deactivate()
+
+        self.debug_flow_scaling = Constraint(time, rule=_debug_flow_scaling, doc='Constraint equality for flow scaling')
 
         self.component(flow_name).port_type = 'flow'
         self.component(flow_name).sens = 'out'
@@ -204,10 +224,10 @@ class UnitA(DynUnit):
 
         self.cst1 = Constraint(time, rule=_cst1)
 
-        def _obj(m):
-            return sum(m.y1[t] for t in time)
+        def _instant_obj(m, t):
+            return m.y1[t]
 
-        self.obj = Objective(rule=_obj)
+        self.inst_obj = Expression(time, rule=_instant_obj)
 
 
 class Abs(DynUnit):

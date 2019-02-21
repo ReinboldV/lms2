@@ -4,19 +4,15 @@
 Utils and tool for linearization and plots
 """
 
-from lms2.core.var import Var
-import matplotlib.pyplot as plt
 from pandas import Series
-from pandas import DataFrame
-
-from pyomo.environ import Var, Param
 
 
-def _pplot(var, index=None, fig=None, ax=None, **kwarg):
+def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
     """
-    Function that plots Varibale or Parameter
+    Function that plots pyomo Variable or Parameter
 
         :param var: Var or Param to be plotted
+        :param index: New index for plotting purpose (optional)
         :param fig: figure handle (optional)
         :param ax: axes handle (optional)
         :param kwarg: any Series.plot keyword argument
@@ -32,8 +28,6 @@ def _pplot(var, index=None, fig=None, ax=None, **kwarg):
         >>> from lms2.core.time import Time
         >>> from lms2.core.var import Var
 
-        >>> from pyomo.environ import *
-
         >>> time = Time(start='00:00:00', end='01:00:00', freq='5Min')
         >>> m = LModel('test_utils')
         >>> m.v = Var(time.datetime, initialize=10)
@@ -41,13 +35,8 @@ def _pplot(var, index=None, fig=None, ax=None, **kwarg):
         >>> m.z = Var(time.datetime, initialize=3)
 
         >>> lines = pplot(m.v, m.z, m.w, title='test', Marker='x')
-
-
     """
-    #    if not isinstance(q, Var) :
-    #       raise TypeError('the argument q is not a pyomo Variable !')
-    assert isinstance(var, Var) or isinstance(var, Param), f"var should be of type Var" \
-                                                           f" o Param, but is actually {type(var)}."
+
     if fig is None:
         fig = plt.figure()
         ax = fig.add_subplot(111)
@@ -60,29 +49,31 @@ def _pplot(var, index=None, fig=None, ax=None, **kwarg):
     else:
         raise ValueError('fig should be either None or a Figure.')
 
-    if isinstance(var, Var):
+    if isinstance(variable, Var):
         if index is None:
-            ld = Series(var.get_values()).sort_index().plot(label=var.name, **kwarg)
+            ld = Series(variable.get_values()).sort_index().plot(label=variable.name, fig=fig, ax=ax, **kwarg)
         else:
-            s = Series(var.get_values()).sort_index()
+            s = Series(variable.get_values()).sort_index()
             s.index = index
-            ld = s.plot(label=var.name, **kwarg)
+            ld = s.plot(label=variable.name, fig=fig, ax=ax, **kwarg)
 
-    elif isinstance(var, Param):
+    elif isinstance(variable, Param):
         if index is None:
-            ld = Series(var.extract_values()).sort_index().plot(label=var.name, **kwarg)
+            ld = Series(variable.extract_values()).sort_index().plot(label=variable.name, fig=fig, ax=ax, **kwarg)
         else:
-            s = Series(var.extract_values()).sort_index()
+            s = Series(variable.extract_values()).sort_index()
             s.index = index
-            ld = s.plot(label=var.name, **kwarg)
-
+            ld = s.plot(label=variable.name, fig=fig, ax=ax, **kwarg)
+    else:
+        raise(NotImplementedError(f'Argument "variable" must be of type Param or Var, but is actually'
+                                  f'{variable, type(variable)}'))
 
     return ld, ax, fig
 
 
-def pplot(*args, ax=None, fig=None, legend=True, title=None, **kargs):
+def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs):
 
-    lines=[]
+    lines = []
     ld, ax, fig = _pplot(args[0], ax=ax, fig=fig, **kargs)
     lines.append(ld)
     for var in args[1:]:
@@ -90,9 +81,11 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, **kargs):
         lines.append(ld)
 
     if legend:
-        plt.legend()
+        ax.legend()
     if title is not None:
-        plt.title(title)
+        ax.set_title(title)
+    if grid:
+        ax.grid(True)
 
     return lines, ax, fig
 
@@ -106,12 +99,11 @@ if __name__ == '__main__':
     from pyomo.environ import *
     import matplotlib.pyplot as plt
 
-
     time = Time(start='00:00:00', end='01:00:00', freq='5Min')
     m = LModel('test_utils')
     m.v = Var(time.datetime, initialize=10)
     m.w = Var(time.datetime, initialize=5)
     m.z = Var(time.datetime, initialize=3)
 
-    lines, a, f = pplot(m.v, m.z, m.w, title='test', Marker='x')
+    l, a, f = pplot(m.v, m.z, m.w, title='test', Marker='x')
     plt.show()

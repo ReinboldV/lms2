@@ -79,6 +79,7 @@ class BaseUnitsTests(unittest.TestCase):
         from lms2.core.models import LModel
         from lms2.core.time import Time
 
+        from pyomo.environ import SolverFactory
         from pyomo.dae.contset import ContinuousSet
         from pyomo.dae.plugins.finitedifference import TransformationFactory
         import pandas as pd
@@ -98,12 +99,12 @@ class BaseUnitsTests(unittest.TestCase):
         discretizer = TransformationFactory('dae.finite_difference')
         discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
 
-        m.ua.construct_objective()
-        m.ub.construct_objective()
-        m.ua.obj.deactivate()
-        m.ub.obj.deactivate()
+        # m.ua.construct_objective()
+        # m.ub.construct_objective()
+        # m.ua.obj.deactivate()
+        # m.ub.obj.deactivate()
 
-        m.obj = Objective(expr=m.ua.obj + m.ub.obj)
+        m.obj = m.construct_objective_from_expression_list(m.t, m.ua.inst_obj)
 
         opt = SolverFactory('glpk')
         results = opt.solve(m)
@@ -117,6 +118,7 @@ class BaseUnitsTests(unittest.TestCase):
         from lms2.core.time import Time
         from lms2.base.base_units import Abs
 
+        from pyomo.environ import SolverFactory
         from pyomo.dae.contset import ContinuousSet
         from pyomo.dae.plugins.finitedifference import TransformationFactory
         import pandas as pd
@@ -144,7 +146,6 @@ class BaseUnitsTests(unittest.TestCase):
 
         opt = SolverFactory('glpk')
         results = opt.solve(m)
-
 
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)
