@@ -4,20 +4,19 @@ Unit Class.
 
 Basic block for linear Modeling.
 """
+from lms2.core.models import LModel
 
-from pyomo.core.base.block import SimpleBlock
-from pyomo.core.base.var import IndexedVar
-from pyomo.core.base.constraint import Constraint
+from pyomo.environ import Objective, Var, Constraint, NonNegativeReals
 from pyomo.dae.diffvar import DerivativeVar
-from pyomo.core.kernel.set_types import *
+from pyomo.core.base.var import IndexedVar
 from pyomo.core.base.PyomoModel import Model as PyomoModel
-from pyomo.core.base import Objective, Block
+from pyomo.core.base.block import SimpleBlock, Block
 
 from networkx import Graph
+import logging
 
-from ..core.time import Time
-from ..core.models import LModel
-from ..core.var import Var
+__all__ = ['Unit', 'DynUnit', 'DynUnitTest']
+logger = logging.getLogger('lms2.units')
 
 
 class Unit(SimpleBlock):
@@ -26,11 +25,17 @@ class Unit(SimpleBlock):
     """
 
     def __init__(self, *args, **kwds):
+        """
+
+        :param args:
+        :param kwds:
+        """
         super().__init__(*args, **kwds)
+        logger.info(f'Initiation of {self.name} {self.__class__}')
 
         self._graph = Graph()
 
-    def construct_objective(self):
+    def _construct_objective(self):
         """
         Construction of the objectives.
 
@@ -51,6 +56,59 @@ class Unit(SimpleBlock):
             rule = self.component(obj).rule
             self.del_component(obj)
             self.add_component(obj, Objective(rule=rule))
+
+    # def _construct_integrals_from_tagged_expression(self):
+    #     """
+    #     Constructs integral expressions from instantaneous tagged expression.
+    #
+    #     Not yet possible, cause the time is not a attribute of the unit.
+    #     TODO : this will be possible when all the units will get their own continuous set
+    #     :return:
+    #     """
+    # pass
+    # from lms2 import Expression, Integral
+    # for e in self.component_objects(Expression, active=True):
+    #     if hasattr(e, 'tag'):
+    #         new_int = f'int{e.getname(fully_qualified=False)}'
+    #         self._logger.info(f'Integrating a tagged expression "{e.tag}" to the model : {new_int}')
+    #
+    #         self.add_component(new_int, Integral(e.index_set(), wrt=e.index_set(),
+    #                            rule=lambda model, index: e[index]))
+
+    def fix_binary(self):
+        """
+        Fix binary variables to their values
+
+        :return:
+        """
+        for u in self.component_objects(Var):
+            if u.is_indexed():
+                for ui in u.itervalues():
+                    if ui.is_binary():
+                        ui.fix(ui.value)
+            else:
+                if u.is_binary():
+                    u.fix(u.value)
+
+    def unfix_binary(self):
+        """
+        Unfix binary variables
+
+        :return:
+        """
+        for u in self.component_objects(Var):
+            if u.is_indexed():
+                for ui in u.itervalues():
+                    if ui.is_binary():
+                        ui.unfix()
+            else:
+                if u.is_binary():
+                    u.unfix()
+
+    def __setattr__(self, key, value):
+
+        super().__setattr__(key, value)
+        logger.debug(f'adding the attribute : {key} = {value}')
 
 
 class DynUnit(Unit):
@@ -129,7 +187,7 @@ class DynUnit(Unit):
         
         # TODO example
 
-        from pyomo.core.base.var import IndexedVar
+        # from pyomo.core.base.var import IndexedVar
         # create the constraint function f(m) or f(m,t):
         import operator
         var1 = operator.attrgetter(v1)(self)
@@ -160,6 +218,27 @@ class DynUnit(Unit):
 
         return
 
+    def get_optimal_values(self):
+        return
+
+    def get_slack(self):
+        from pandas import DataFrame, Series, concat
+
+        df = DataFrame()
+        for c in self.component_objects(Constraint, active=True):
+            if c.is_indexed():
+                s1 = Series({i: c[i].lslack() for i in c.__iter__()})
+                s2 = Series({i: c[i].uslack() for i in c.__iter__()})
+                df_c = DataFrame({c.getname(fully_qualified=True).replace('.', '_') + '_ls': s1, c.getname()+'_us': s2})
+                df = concat([df, df_c], axis=1)
+        return df
+
+    def get_constraints_values(self):
+        return
+
+    def get_duals(self):
+        return
+
 
 class DynUnitTest(DynUnit):
     """ Dynamic Test Unit """
@@ -180,3 +259,12 @@ class DynUnitTest(DynUnit):
 Unit.compute_statistics = PyomoModel.compute_statistics
 Unit.graph = LModel.graph
 Unit.update_graph = LModel.update_graph
+
+
+if __name__ == '__main__':
+    pass
+
+
+
+
+
