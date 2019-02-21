@@ -2,16 +2,23 @@
 """
 Definition of Linear Model class.
 """
-from ..core.expressions import Cost, Prosumtion, Energy, CO2
 
+from lms2.core.var import Var
+
+from pyomo.environ import ConcreteModel, Block, Constraint, Objective
 from pyomo.core.base.var import IndexedVar
-from pyomo.environ import Var, Param, Objective, Constraint, ConcreteModel, Expression, Block
+import logging
 
+logging.basicConfig(filename='/home/admin/Documents/02-Recherche/02-Python/lms2/lms2.log',
+                    filemode='w',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.DEBUG)
 
-OBJ_SELECTION = {'cost': Cost,
-                 'prosumtion': Prosumtion,
-                 'energy' : Energy,
-                 'co2': CO2}
+logging.info("Running LMS2 Logging...")
+
+__all__ = ['LModel']
+logger = logging.getLogger('lms2.models')
 
 
 class LModel(ConcreteModel):
@@ -25,8 +32,9 @@ class LModel(ConcreteModel):
         :param str name: Name of the model
         :param args:
         """
-        super().__init__(name=name, *args)
 
+        super().__init__(name=name, *args)
+        logger.info(f'Initiation of {name} {self.__class__}')
         self._graph = None
 
     @property
@@ -46,7 +54,8 @@ class LModel(ConcreteModel):
         :return: None
         """
         from networkx import Graph
-        assert isinstance(g, Graph), f'graph attribute must be an instance of networkx.Graph, but received {type(g)} instead.'
+        assert isinstance(g, Graph), f'graph attribute must be an instance of networkx.Graph, ' \
+            f'but received {type(g)} instead.'
 
     def update_graph(self):
         """
@@ -78,7 +87,6 @@ class LModel(ConcreteModel):
         import operator
         exp = ''
         for arg in args:
-            # v = operator.attrgetter(arg)(self)
             assert isinstance(arg, IndexedVar), f'{arg} should be an instance of IndexedVar.'
             assert hasattr(arg, 'sens'), f'{arg} should have attribute "sens"'
             assert hasattr(arg, 'port_type'), f'{arg} should have attribute "port_type"'
@@ -92,10 +100,12 @@ class LModel(ConcreteModel):
         exp += ' == 0'
         f = lambda m, t: eval(exp)
 
-        # TODO regler beug ici
-
         name = '_flux_cst_' + '&'.join([i.name.replace('.', '_') for i in args])
         self.add_component(name, Constraint(arg._index, rule=f))
+
+        # from itertools import combinations
+        # edges = combinations(args, 2)
+        # self.graph.add_edges_from(edges)
         return
 
     def connect_effort(self, var1, var2, name=None):
@@ -132,35 +142,175 @@ class LModel(ConcreteModel):
             name = '_effort_cst_' + var1.name.replace('.', '_') + '&' + var2.name.replace('.', '_')
 
         self.add_component(name, Constraint(var1._index, rule=f))
+
         self.graph.add_edge(var1, var2)
 
-    def construct_objective(self, select='all'):
+    def __setattr__(self, key, value):
+
+        super().__setattr__(key, value)
+        logger.debug(f'adding the attribute : {key} = {value}')
+
+    # def construct_objective(self, select='all'):
+    #     """
+    #     NOT WORKING YET
+    #
+    #     Construction of the global objective.
+    #
+    #     This function is scanning all the structure of the model, looking for active objectives.
+    #     If selected and active,
+    #     objectives are constructed and summed to create a unique global objective (compulsory for Linear Programming).
+    #
+    #     :param str select: 'all' (default), 'cost', 'prosumtion', 'energy' or 'co2' to select and sum objectives of
+    #     sub-components.
+    #     :return:
+    #     """
+    #
+    #     assert select in OBJ_SELECTION.keys(), f'select argument is not recognized. ' \
+    #                                            f'It should be in {OBJ_SELECTION.keys()}, but is actually {select}'
+    #
+    #     obj_f = Expression(expr=0)
+    #     for obj in self.component_objects(active=True, ctype=Expression):
+    #         obj.pprint()
+    #         obj.reconstruct()
+    #         if hasattr(obj,'expression_type'):
+    #             if obj.expression_type == select:
+    #                 obj_f = Objective(expr=obj_f+obj, sens=OBJ_SELECTION[select].sens)
+    #
+    #     return obj_f.to_string()
+
+    def fix_binary(self):
         """
-        NOT WORKING YET
+        Fix binary variables to their values
 
-        Construction of the global objective.
+        :return:
 
-        This function is scanning all the structure of the model, looking for active objectives. If selected and active,
-        objectives are constructed and summed to create a unique global objective (compulsory for Linear Programming).
+        """
+        from pyomo.environ import RealSet
 
-        :param str select: 'all' (default), 'cost', 'prosumtion', 'energy' or 'co2' to select and sum objectives of
-        sub-components.
+        for u in self.component_objects(Var):
+            if u.is_indexed():
+                for ui in u.itervalues():
+                    if ui.is_binary():
+                        ui.fix(ui.value)
+                        ui.domain = RealSet([0, 1])
+            else:
+                if u.is_binary():
+                    u.fix(u.value)
+                    u.domain = RealSet([0, 1])
+
+    def unfix_binary(self):
+        """
+        Unfix binary variables
+
         :return:
         """
+        for u in self.component_objects(Var):
+            if u.is_indexed():
+                for ui in u.itervalues():
+                    if ui.is_binary():
+                        ui.unfix()
+            else:
+                if u.is_binary():
+                    u.unfix()
 
-        assert select in OBJ_SELECTION.keys(), f'select argument is not recognized. ' \
-                                               f'It should be in {OBJ_SELECTION.keys()}, but is actually {select}'
+    def get_duals(self, dual_name='dual'):
+        """
+        Return dual coefficient of LP model.
 
-        obj_f = Expression(expr=0)
-        for obj in self.component_objects(active=True, ctype=Expression):
-            obj.pprint()
-            obj.reconstruct()
-            if hasattr(obj,'expression_type'):
-                if obj.expression_type == select:
-                    obj_f = Objective(expr=obj_f+obj, sens=OBJ_SELECTION[select].sens)
+        :param str dual_name: name of the Suffix
+        :return : Dual coefficient (DataFrame)
+        """
+        from pandas import DataFrame, concat
+        from pyomo.environ import Constraint
+        df = DataFrame()
 
-        return obj_f.to_string()
+        assert hasattr(self, dual_name), f'"{self.name}" does not have attribute named "{dual_name}".'
 
+        for cst in self.component_objects(Constraint, active=True):
+            if cst.is_indexed():
+                s = DataFrame(
+                    {cst.getname(fully_qualified=True)+'_'+dual_name: {i: self.component(dual_name)[c]
+                                                                       for (i, c) in cst.iteritems()}})
+                df = concat([df, s], axis=1)
+            else:
+                Warning('Trying to get dual coefficient from a non-index variable. Not Implemented Yet')
+        return df
 
+    def get_slack(self):
+        """
+        Return slack variables values for all
+        the active constraints of a model.
 
+        :return: DataFrame
+        """
 
+        from pandas import DataFrame, Series, concat
+
+        df = DataFrame()
+        for c in self.component_objects(Constraint, active=True):
+            if c.is_indexed():
+                s1 = Series({i: c[i].lslack() for i in c.__iter__()})
+                s2 = Series({i: c[i].uslack() for i in c.__iter__()})
+                df_c = DataFrame({c.getname(fully_qualified=True).replace('.', '_')+'_ls': s1, c.getname()+'_us': s2})
+                df = concat([df, df_c], axis=1)
+        return df
+
+    # TODO : Not sure it is the way to go
+    def construct_objective_from_tagged_expression(self, ptags=[]):
+        """
+        Definition of a method for pyomo class block. It sum-up all the expression the same tag
+
+        :param Block self: A given block
+        :param ptags: list of strings which refers to protected tags
+        :return: ListObjectif
+        """
+        from lms2 import Expression, Objective
+        from pyomo.environ import ObjectiveList
+        from pyomo.dae import Integral
+
+        _tags = []
+
+        for e in self.component_objects(Expression, active=True):
+            if hasattr(e, 'tag'):
+                if e.tag not in _tags:
+                    _tags.append(e.tag)
+                    self.add_component(e.tag, ObjectiveList())
+
+                new_int = e.parent_block().name+'_int'+e.getname(fully_qualified=False)
+                self._logger.info(f'Integrating a tagged expression "{e.tag}" to the model : {new_int}')
+                self.add_component(new_int, Integral(e.index_set(), wrt=e.index_set(),
+                                   rule=lambda model, index: e[index]))
+                self.find_component(e.tag).add(expr=self.find_component(new_int))
+
+        for objlist in self.component_objects(Objective):
+            if objlist.getname(fully_qualified=False) not in ptags:
+                if objlist.getname() in _tags:
+                    objlist.deactivate()
+
+    def construct_objective_from_expression_list(self, wrt, name='new_int', *args):
+        """
+        Consruct objective from list of expression to be integrated with respect to wrt.
+
+        :param str name: name of the new integral expression (optional)
+        :param wrt: Set for the integration of the expressions
+        :param args: Expression of instantaneous objectives
+        :return: Objective
+        """
+        from lms2 import Expression
+        from pyomo.dae import Integral
+        for exp in args:
+            assert isinstance(exp, Expression), ValueError(f'args should be a list of pyomo Expression,'
+                                                           f' and actually received {exp, type(exp)}')
+
+        self.add_component(name, Integral(wrt, wrt=wrt, rule=lambda model, index: sum([a[index] for a in args])))
+
+        return Objective(expr=self.new_int)
+
+    # def construct_integrals(self):
+    #     """
+    #     Construct Integral expression for all the Blocks of a given Model.
+    #
+    #     :return:
+    #     """
+    #     for b in self.component_objects(Block, active=True):
+    #         b._construct_integrals_from_tagged_expression()
