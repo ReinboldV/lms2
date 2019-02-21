@@ -20,8 +20,7 @@ class BatteriesTests(unittest.TestCase):
 
         model.bat1 = Battery(time=model.t, e0=50, emin=0.0, emax=10000, etac=0.8, etad=0.9, pcmax=10, pdmax=10)
 
-        discretizer = TransformationFactory('dae.finite_difference')
-        discretizer.apply_to(model, nfe=30)  # BACKWARD or FORWARD
+        TransformationFactory('dae.finite_difference').apply_to(model, nfe=30)
 
         def _obj(m):
             return 0
@@ -58,8 +57,7 @@ class BatteriesTests(unittest.TestCase):
             return 0
         model.obj = Objective(rule=_obj)
 
-        discretizer = TransformationFactory('dae.finite_difference')
-        discretizer.apply_to(model, nfe=30)  # BACKWARD or FORWARD
+        TransformationFactory('dae.finite_difference').apply_to(model, nfe=30)
 
         opt = SolverFactory('glpk')
         results = opt.solve(model)
@@ -109,7 +107,7 @@ class SourceTests(unittest.TestCase):
 class MainGridTest(unittest.TestCase):
     """ testing Main Grid Units. """
 
-    def test_maingrid2(self):
+    def test_MainGrid(self):
         from lms2.electric.maingrids import MainGrid
         from lms2.electric.sources import PowerSource
         from lms2.core.models import LModel
@@ -146,10 +144,7 @@ class MainGridTest(unittest.TestCase):
                                                       6.0: 4.0, 7.0: 4.5, 8.0: 5.0,
                                                       9.0: 5.5, 10.0: 6.0})
 
-        m.obj = Objective(expr=m.mg.energy)
-        m.mg.energy.reconstruct()
-        m.mg.cost.reconstruct()
-        m.mg.pro.reconstruct()
+        m.obj = m.construct_objective_from_expression_list(m.t, m.mg.instant_cost)
 
         m.update_graph()
 
@@ -160,7 +155,7 @@ class MainGridTest(unittest.TestCase):
         opt = SolverFactory('glpk')
         results = opt.solve(m)
 
-        self.assertEqual(m.obj(), 6.0)
+        self.assertEqual(m.obj(), 0.040208333333333325)
 
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)
@@ -168,5 +163,4 @@ class MainGridTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().discover(start_dir='.', pattern='test_*.py')
-    unittest.TextTestRunner().run(suite)
+    unittest.main()
