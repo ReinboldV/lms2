@@ -146,12 +146,6 @@ class MainGridTest(unittest.TestCase):
 
         m.obj = m.construct_objective_from_expression_list(m.t, m.mg.instant_cost)
 
-        m.update_graph()
-
-        import networkx as nx
-
-        nx.draw(m.graph)
-
         opt = SolverFactory('glpk')
         results = opt.solve(m)
 

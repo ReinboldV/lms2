@@ -36,6 +36,8 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
         >>> lines = pplot(m.v, m.z, m.w, title='test', Marker='x')
     """
+    import matplotlib.pyplot as plt
+    from pyomo.environ import Var, Param
 
     if fig is None:
         fig = plt.figure()
@@ -92,9 +94,7 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs)
 
 if __name__ == '__main__':
 
-    from lms2.core.models import LModel
-    from lms2.core.time import Time
-    from lms2.core.var import Var
+    from lms2 import Time, LModel
 
     from pyomo.environ import *
     import matplotlib.pyplot as plt

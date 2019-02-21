@@ -287,7 +287,7 @@ class LModel(ConcreteModel):
                 if objlist.getname() in _tags:
                     objlist.deactivate()
 
-    def construct_objective_from_expression_list(self, wrt, name='new_int', *args):
+    def construct_objective_from_expression_list(self, wrt, *args):
         """
         Consruct objective from list of expression to be integrated with respect to wrt.
 
@@ -302,7 +302,7 @@ class LModel(ConcreteModel):
             assert isinstance(exp, Expression), ValueError(f'args should be a list of pyomo Expression,'
                                                            f' and actually received {exp, type(exp)}')
 
-        self.add_component(name, Integral(wrt, wrt=wrt, rule=lambda model, index: sum([a[index] for a in args])))
+        self.new_int = Integral(wrt, wrt=wrt, rule=lambda model, index: sum([a[index] for a in args]))
 
         return Objective(expr=self.new_int)
 
