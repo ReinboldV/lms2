@@ -1,25 +1,27 @@
-*.pyc
-*.log
-*.lp
-*.eps
-*.pdf
-**/*.csv
-**/*.xlsx
-/.idea
 /lms2/docs/_templates
 /lms2/docs/generated
-/lms2.egg-info
-/lms2/pyomotests
-models/test_modules.py
-models/test*
-models/Test*
-WorkSpace/**
-**/*.pyc
-**/*/*.pyc
-/lms2/Examples/Examples_Thermal/Tests
-/lms2/general/test_pint_pandas.py
-/lms2/general/test_asynchronous_time.py
-/lms2/general/test_parsing_expression.py
 lms2.egg-info
-build
-dist
+
+# IDE configuration files
+.idea
+.spyder*
+.ropeproject
+
+# Python generates numerous files when byte compiling / installing packages
+*.pyx
+*.pyc
+*.pyo
+*.egg-info
+
+# Documentation builds
+doc/OnlineDocs/_build
+
+# Running pyomo / tests / solvers occasionally leaves extra files
+*.out
+gurobi.log
+*.lp
+lms2.log
+
+# Results from nosetests --with-coverage
+.coverage
+*.cover
