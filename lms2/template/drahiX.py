@@ -24,7 +24,7 @@ class DrahixMicrogridV2(LModel):
 
         self.t = ContinuousSet(bounds=(dataframe.index[0], dataframe.index[-1]))
         self.bat1 = Battery(time=self.t, e0=100.0, ef=100, emin=5.0, emax=500, etac=0.96, etad=0.96, pcmax=20, pdmax=20)
-        self.mg = MainGrid(time=self.t, cin=0.08, cout=0.15, pmax=500, pmin=500, mixCO2=70)
+        self.mg = MainGrid(time=self.t, cin=0.08, cout=0.15, pmax=500, pmin=500, mixco2=70)
         self.ps = ScalablePowerSource(time=self.t, profile=dataframe['P_pv'], c_use=0.01)
         self.pl = PowerLoad(time=self.t, profile=dataframe['P_load'], flow_name='p')
         self.connect_flux(self.bat1.p, self.ps.p, self.mg.p, self.pl.p)
