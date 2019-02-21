@@ -3,7 +3,7 @@
 Contains classical electrical sources and loads.
 """
 
-from ..base.base_units import FlowSource, FlowLoad, ScalableFlowSource
+from lms2 import FlowSource, FlowLoad, ScalableFlowSource, Param, Expression
 
 
 class PowerSource(FlowSource):
@@ -25,18 +25,27 @@ class ScalablePowerSource(ScalableFlowSource):
 
     May be used for sizing sources, such as PV panel, wind turbines, etc."""
 
-    def __init__(self, *args, time=None, profile=None, flow_name='p', **kwds):
+    def __init__(self, *args, time=None, profile=None, flow_name='p', c_use=None, **kwds):
 
         """
         :param args:
         :param Set time: Set or ContinuousSet for time integration
-        :param pandas.Series flow: Series that describes the input profile
-        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d
-        :param str fill_value: see scipy.interpolate.interpolate.interp1d
+        :param pandas.Series profile: Series that describes the input profile
+        :param str flow_name: name of the flow parameter
+        :param float c_c_use : cost of use (euros/kWh)
         :param kwargs:
         """
-
         super().__init__(*args, time=time, flow=profile, flow_name=flow_name, **kwds)
+
+        if c_use is not None:
+            assert isinstance(c_use, float), f'Error : c_use must be an instance of Float, recieved {type(c_use)}'
+            self.c_use = Param(initialize=c_use, doc='cost of use (euro/kWh)', mutable=True)
+
+            def _instant_cost(m, t):
+                return -m.p[t] * m.c_use / 3600
+
+            self.instant_cost = Expression(time, rule=_instant_cost)
+            self.instant_cost.tag = 'COST'
 
 
 class PowerLoad(FlowLoad):
