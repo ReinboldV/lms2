@@ -1,6 +1,7 @@
 /lms2/docs/_templates
 /lms2/docs/generated
 lms2.egg-info
+developpement
 
 # IDE configuration files
 .idea
