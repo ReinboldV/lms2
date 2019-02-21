@@ -2,7 +2,8 @@
 """
 Time class.
 """
-from pyomo.core.base.block import SimpleBlock
+
+__all__ = ['Time']
 
 
 class Time(object):
@@ -86,7 +87,7 @@ class Time(object):
             except Exception as e:
                 raise e
 
-            self.datetime = pd.DatetimeIndex(freq=freq, start=start, end=end)
+            self.datetime = pd.date_range(freq=freq, start=start, end=end)
             self.delta = (self.end - self.start).delta / 1e9                          # period in seconds
             self.dt = self.datetime.freq.delta.value / 1e9                            # time step in seconds
             self.timeSteps = linspace(0, self.delta, num=len(self.datetime))          # time steps in seconds
