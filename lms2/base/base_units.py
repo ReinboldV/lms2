@@ -10,28 +10,8 @@ from lms2.core.param import Param
 from pyomo.environ import Constraint, PositiveReals, Binary, Reals, Objective, Expression
 from pyomo.dae import DerivativeVar
 
-
-class Storage(DynUnit):
-    """ General storage unit"""
-
-    def __init__(self, *args, c=2, time=None, **kwds):
-        super().__init__(*args, time=time, doc=self.__doc__, **kwds)
-
-        c_fix = True
-
-        self.e = Var(time, doc='effort variable')
-        self.f = Var(time, doc='effort derivative with respect to time')
-        self.dedt = DerivativeVar(self.e, wrt=time, doc='flow variable')
-
-        if c_fix:
-            self.c = Param(initialize=c, doc='coefficient between e1 and e2', mutable=True)
-        else:
-            self.c = Var(initialize=c, doc='coefficient between e1 and e2')
-
-        def _cst(m, t):
-            return m.f[t] == m.c * m.dedt[t]
-
-        self.cst = Constraint(time, rule=_cst)
+__all__ = ['Storage', 'Dipole', 'SourceUnit', 'SourceUnitParam', 'ScalableFlowSource', 'EffortSource', 'FlowSource',
+           'FlowLoad', 'UnitA', 'Abs', 'set_profile']
 
 
 class Dipole(DynUnit):
@@ -46,6 +26,27 @@ class Dipole(DynUnit):
 
         def _cst(m, t):
             return m.p1[t] == m.r * m.p2[t]
+
+        self.cst = Constraint(time, rule=_cst)
+
+
+class Storage(DynUnit):
+    """ General storage unit"""
+
+    def __init__(self, *args, time=None, capa=None, **kwds):
+        super().__init__(*args, time=time, doc=self.__doc__, **kwds)
+
+        self.e = Var(time, doc='effort variable')
+        self.f = Var(time, doc='effort derivative with respect to time')
+        self.dedt = DerivativeVar(self.e, wrt=time, doc='flow variable')
+
+        if capa is not None:
+            self.c = Param(initialize=capa, doc='coefficient between e1 and e2', mutable=True)
+        else:
+            self.c = Var(initialize=1, doc='coefficient between e1 and e2', within=PositiveReals)
+
+        def _cst(m, t):
+            return m.f[t] == m.c * m.dedt[t]
 
         self.cst = Constraint(time, rule=_cst)
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from lms2 import LModel, Battery, MainGrid, ScalablePowerSource, PowerLoad
 
 from pyomo.dae.contset import ContinuousSet
