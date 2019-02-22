@@ -29,7 +29,7 @@ class DrahiXTest(unittest.TestCase):
         self.df = pd.DataFrame({'P_pv': ppv, 'P_load': pload}, index=index)
 
     def test_DrahiX_cost(self):
-        from lms2 import DrahixMicrogridV2, Time, pplot, to_seconds
+        from lms2 import DrahixMicrogridV2
         from pyomo.environ import TransformationFactory, SolverFactory
 
         m = DrahixMicrogridV2(name='m', dataframe=self.df)
@@ -43,9 +43,9 @@ class DrahiXTest(unittest.TestCase):
         opt = SolverFactory("glpk")
         results = opt.solve(m, tee=False)
 
-        self.assertEqual(m.t.value, [0.0, 1800.0, 3600.0, 5400.0, 7200.0, 9000.0, 10800.0, 12600.0, 14400.0, 16200.0, 18000.0,
-                             19800.0, 21600.0, 23400.0, 25200.0, 27000.0, 28800.0, 30600.0, 32400.0, 34200.0, 36000.0,
-                             37800.0, 39600.0, 41400.0, 43200.0])
+        self.assertEqual(m.t.value, [0.0, 1800.0, 3600.0, 5400.0, 7200.0, 9000.0, 10800.0, 12600.0, 14400.0, 16200.0,
+                                     18000.0, 19800.0, 21600.0, 23400.0, 25200.0, 27000.0, 28800.0, 30600.0, 32400.0,
+                                     34200.0, 36000.0, 37800.0, 39600.0, 41400.0, 43200.0])
 
         self.assertAlmostEqual(m.obj(), -129.80532216741642)
 
@@ -54,7 +54,7 @@ class DrahiXTest(unittest.TestCase):
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
 
     def test_DrahiX_co2(self):
-        from lms2 import DrahixMicrogridV2, Time, pplot, to_seconds
+        from lms2 import DrahixMicrogridV2
         from pyomo.environ import TransformationFactory, SolverFactory
 
         m = DrahixMicrogridV2(name='m', dataframe=self.df)
@@ -67,9 +67,9 @@ class DrahiXTest(unittest.TestCase):
         opt = SolverFactory("glpk")
         results = opt.solve(m, tee=False)
 
-        self.assertEqual(m.t.value,[0.0, 1800.0, 3600.0, 5400.0, 7200.0, 9000.0, 10800.0, 12600.0, 14400.0, 16200.0, 18000.0,
-                             19800.0, 21600.0, 23400.0, 25200.0, 27000.0, 28800.0, 30600.0, 32400.0, 34200.0, 36000.0,
-                             37800.0, 39600.0, 41400.0, 43200.0])
+        self.assertEqual(m.t.value, [0.0, 1800.0, 3600.0, 5400.0, 7200.0, 9000.0, 10800.0, 12600.0, 14400.0, 16200.0,
+                                     18000.0, 19800.0, 21600.0, 23400.0, 25200.0, 27000.0, 28800.0, 30600.0, 32400.0,
+                                     34200.0, 36000.0, 37800.0, 39600.0, 41400.0, 43200.0])
 
         self.assertAlmostEqual(m.obj(), -989.2848572947365)
 
