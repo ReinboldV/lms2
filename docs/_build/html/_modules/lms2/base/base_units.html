@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lms2.base.base_units &mdash; lms2 0.1.2rc0+2.gd2a552f.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> lms2
+          
+
+          
+            
+            <img src="../../../_static/Logo-UPSUD_2014_UPSaclay-BLEU.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-gurobi-solver">Install Gurobi Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-llmse-from-source">Install LLMSE from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-dependencies">Install dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library (lms2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base (lms2.base)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.base_units.html">base_units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.set_profile.html">lms2.base.base_units.set_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Abs.html">Abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Dipole.html">Dipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowSource.html">FlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.ScalableFlowSource.html">ScalableFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnit.html">SourceUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnitParam.html">SourceUnitParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Storage.html">Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.UnitA.html">UnitA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core (lms2.core)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.param.html">param</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.param.is_effort.html">lms2.core.param.is_effort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.param.is_flow.html">lms2.core.param.is_flow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.time.html">time</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.time.Time.html">Time</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.units.html">units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.DynUnit.html">DynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.DynUnitTest.html">DynUnitTest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.Unit.html">Unit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.var.html">var</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.var.is_effort.html">lms2.core.var.is_effort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.var.is_flow.html">lms2.core.var.is_flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric (lms2.electric)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.Battery.html">Battery</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.html">maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGrid.html">MainGrid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.turbines.html">turbines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit.html">LimitedThermalUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit2.html">LimitedThermalUnit2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.SimpleThermalUnit.html">SimpleThermalUnit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PowerLoad.html">PowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PowerSource.html">PowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PvPanelsWSurface.html">PvPanelsWSurface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.ScalablePowerSource.html">ScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.WindTurbine.html">WindTurbine</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment (lms2.environment)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.pollutions.html">pollutions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids (lms2.fluids)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.html">hysteresis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic (lms2.mechanic)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.thermal.html">Thermal (lms2.thermal)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.html">dipoles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCond.html">TCond</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCondRes.html">TCondRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TConvRes.html">TConvRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TDipole.html">TDipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TResNL.html">TResNL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TStorage.html">TStorage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lms2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lms2.base.base_units</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lms2.base.base_units</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Basic Units, multi-physical model</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">lms2.core.units</span> <span class="k">import</span> <span class="n">DynUnit</span>
+<span class="kn">from</span> <span class="nn">lms2.core.var</span> <span class="k">import</span> <span class="n">Var</span>
+<span class="kn">from</span> <span class="nn">lms2.core.param</span> <span class="k">import</span> <span class="n">Param</span>
+
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">PositiveReals</span><span class="p">,</span> <span class="n">Binary</span><span class="p">,</span> <span class="n">Reals</span><span class="p">,</span> <span class="n">Objective</span><span class="p">,</span> <span class="n">Expression</span>
+<span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="n">DerivativeVar</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Storage&#39;</span><span class="p">,</span> <span class="s1">&#39;Dipole&#39;</span><span class="p">,</span> <span class="s1">&#39;SourceUnit&#39;</span><span class="p">,</span> <span class="s1">&#39;SourceUnitParam&#39;</span><span class="p">,</span> <span class="s1">&#39;ScalableFlowSource&#39;</span><span class="p">,</span> <span class="s1">&#39;EffortSource&#39;</span><span class="p">,</span> <span class="s1">&#39;FlowSource&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;FlowLoad&#39;</span><span class="p">,</span> <span class="s1">&#39;UnitA&#39;</span><span class="p">,</span> <span class="s1">&#39;Abs&#39;</span><span class="p">,</span> <span class="s1">&#39;set_profile&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Dipole"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.Dipole.html#lms2.base.base_units.Dipole">[docs]</a><span class="k">class</span> <span class="nc">Dipole</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Simple dipole unit &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">p1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;p1&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;input variable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;p2&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;output variable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;coefficient between p1 and p2&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_cst</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">r</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">p2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cst</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_cst</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Storage"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.Storage.html#lms2.base.base_units.Storage">[docs]</a><span class="k">class</span> <span class="nc">Storage</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; General storage unit&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">capa</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;effort variable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;effort derivative with respect to time&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dedt</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;flow variable&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">capa</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">capa</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;coefficient between e1 and e2&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;coefficient between e1 and e2&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_cst</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">c</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">dedt</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cst</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_cst</span><span class="p">)</span></div>
+
+
+<span class="c1"># class ExpensiveUnit(DynUnit):</span>
+<span class="c1">#</span>
+<span class="c1">#     def __init__(self, *args, time, c_use=0, **kwargs):</span>
+<span class="c1">#</span>
+<span class="c1">#         super().__init__(*args, time=time, **kwargs)</span>
+<span class="c1">#         self.c_use = Param(initialize=c_use, doc=&#39;cost of use (euros/kWh)&#39;, mutable=True)</span>
+<span class="c1">#</span>
+<span class="c1">#         def _instant_cost(m, t):</span>
+<span class="c1">#             return -m.pin[t] * m.c_use / 3600</span>
+<span class="c1">#</span>
+<span class="c1">#         self._instant_cost = Expression(time, rule=_instant_cost)</span>
+<span class="c1">#         self._instant_cost.tag = &#39;COST&#39;</span>
+
+
+<div class="viewcode-block" id="SourceUnit"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.SourceUnit.html#lms2.base.base_units.SourceUnit">[docs]</a><span class="k">class</span> <span class="nc">SourceUnit</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;General Source Unit.</span>
+<span class="sd">    Generates One variable tha may be fixed. This is a base class for definition of Effort/Flow, Source/Load.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;flow&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param Set time: Set or ContinuousSet for time integration</span>
+<span class="sd">        :param pandas.Series flow: Series that describes the input profile</span>
+<span class="sd">        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param str fill_value: see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">_init_input</span><span class="p">,</span> <span class="n">_set_bounds</span> <span class="o">=</span> <span class="n">set_profile</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">_set_bounds</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="SourceUnitParam"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.SourceUnitParam.html#lms2.base.base_units.SourceUnitParam">[docs]</a><span class="k">class</span> <span class="nc">SourceUnitParam</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;General Source Unit.</span>
+<span class="sd">    Generates One parameter that may be fixed. This is a base class for definition of Effort/Flow, Source/Load.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;flow&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param Set time: Set or ContinuousSet for time integration</span>
+<span class="sd">        :param pandas.Series flow: Series that describes the input profile</span>
+<span class="sd">        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param str fill_value: see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">_init_input</span><span class="p">,</span> <span class="n">_set_bounds</span> <span class="o">=</span> <span class="n">set_profile</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">Param</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ScalableFlowSource"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.ScalableFlowSource.html#lms2.base.base_units.ScalableFlowSource">[docs]</a><span class="k">class</span> <span class="nc">ScalableFlowSource</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;General Scalable Flow Source Unit.</span>
+
+<span class="sd">    Generates One parameter that may be fixed using a Time series. The flow is scaled using a variable scaling factor &#39;scale_fact&#39;.</span>
+<span class="sd">    This unit may be used for sizing of soucres, e.g. PV panels, Wind turbines, etc. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;flow&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param Set time: Set or ContinuousSet for time integration</span>
+<span class="sd">        :param pandas.Series flow: Series that describes the input profile</span>
+<span class="sd">        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param str fill_value: see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">_init_input</span><span class="p">,</span> <span class="n">_set_bounds</span> <span class="o">=</span> <span class="n">set_profile</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">flow_name</span><span class="o">+</span><span class="s1">&#39;_u&#39;</span><span class="p">,</span> <span class="n">Param</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Source flow for scale factor of 1&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scaled source flow&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;scaling factor within Positve reals&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="o">+</span><span class="s1">&#39;_u&#39;</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">_debug_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mf">0.000001</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span> <span class="o">+</span> <span class="s1">&#39;_u&#39;</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">],</span> <span class="mf">0.000001</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_scaling</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_scaling</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug_flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_debug_flow_scaling</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)</span><span class="o">.</span><span class="n">port_type</span> <span class="o">=</span> <span class="s1">&#39;flow&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)</span><span class="o">.</span><span class="n">sens</span> <span class="o">=</span> <span class="s1">&#39;out&#39;</span></div>
+
+
+<div class="viewcode-block" id="EffortSource"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.EffortSource.html#lms2.base.base_units.EffortSource">[docs]</a><span class="k">class</span> <span class="nc">EffortSource</span><span class="p">(</span><span class="n">SourceUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Base Effort Source Unit.</span>
+<span class="sd">    Generates one effort variable and fixe it using interpolation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">effort</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="n">effort_name</span><span class="o">=</span><span class="s1">&#39;flow&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param Set time: Set or ContinuousSet for time integration</span>
+<span class="sd">        :param pandas.Series effort: Series that describes the input profile</span>
+<span class="sd">        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param str fill_value: see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="o">=</span><span class="n">effort</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">effort_name</span><span class="p">,</span>
+                         <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">effort_name</span><span class="p">)</span><span class="o">.</span><span class="n">port_type</span> <span class="o">=</span> <span class="s1">&#39;effort&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">effort_name</span><span class="p">)</span><span class="o">.</span><span class="n">sens</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="FlowSource"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.FlowSource.html#lms2.base.base_units.FlowSource">[docs]</a><span class="k">class</span> <span class="nc">FlowSource</span><span class="p">(</span><span class="n">SourceUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Base Flow Source Unit.</span>
+<span class="sd">    Generates one flow variable and fixe it using interpolation. Convention is set to sens=&#39;out&#39;</span>
+<span class="sd">    (the flow is counted positive when going out of the unit).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;flow&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param Set time: Set or ContinuousSet for time integration</span>
+<span class="sd">        :param pandas.Series profile: Series that describes the input profile</span>
+<span class="sd">        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param str fill_value: see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="o">=</span><span class="n">profile</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
+                         <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)</span><span class="o">.</span><span class="n">port_type</span> <span class="o">=</span> <span class="s1">&#39;flow&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)</span><span class="o">.</span><span class="n">sens</span> <span class="o">=</span> <span class="s1">&#39;out&#39;</span></div>
+
+
+<div class="viewcode-block" id="FlowLoad"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.FlowLoad.html#lms2.base.base_units.FlowLoad">[docs]</a><span class="k">class</span> <span class="nc">FlowLoad</span><span class="p">(</span><span class="n">SourceUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Base Flow Load Unit.</span>
+<span class="sd">    Generates one flow variable and fixe it using interpolation. Convention is set to sens=&#39;in&#39;</span>
+<span class="sd">    (the flow is counted positive when going in the unit).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;flow&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param Set time: Set or ContinuousSet for time integration</span>
+<span class="sd">        :param pandas.Series flow: Series that describes the input profile</span>
+<span class="sd">        :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param str fill_value: see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="o">=</span><span class="n">flow</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span>
+                         <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)</span><span class="o">.</span><span class="n">port_type</span> <span class="o">=</span> <span class="s1">&#39;flow&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)</span><span class="o">.</span><span class="n">sens</span> <span class="o">=</span> <span class="s1">&#39;in&#39;</span></div>
+
+
+<div class="viewcode-block" id="UnitA"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.UnitA.html#lms2.base.base_units.UnitA">[docs]</a><span class="k">class</span> <span class="nc">UnitA</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Base units for tests &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+        <span class="n">_init_input</span><span class="p">,</span> <span class="n">_set_bounds</span> <span class="o">=</span> <span class="n">set_profile</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="n">flow</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">_set_bounds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x1</span><span class="o">.</span><span class="n">port_type</span> <span class="o">=</span> <span class="s1">&#39;effort&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="o">.</span><span class="n">port_type</span> <span class="o">=</span> <span class="s1">&#39;effort&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">_cst1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">x1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">x2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cst1</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_cst1</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_instant_obj</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inst_obj</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_obj</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Abs"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.Abs.html#lms2.base.base_units.Abs">[docs]</a><span class="k">class</span> <span class="nc">Abs</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Absolute Value &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+
+        <span class="n">M</span> <span class="o">=</span> <span class="mi">100000</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">port_type</span> <span class="o">=</span> <span class="s1">&#39;effort&#39;</span>
+        <span class="k">if</span> <span class="n">xmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">xmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">M</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">xmax</span>
+        <span class="k">if</span> <span class="n">xmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">xmax</span> <span class="o">=</span> <span class="n">M</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">xmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">xmax</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xmin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">xmin</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">s1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_cst1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">s1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">xmax</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">_cst2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">s2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">xmin</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+
+        <span class="k">def</span> <span class="nf">_cst3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">s1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">s2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cst1</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">_cst1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cst2</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">_cst2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cst3</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">_cst3</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="set_profile"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.set_profile.html#lms2.base.base_units.set_profile">[docs]</a><span class="k">def</span> <span class="nf">set_profile</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Generates constraint functions used to set bounds and values of the profile</span>
+
+<span class="sd">    :param pandas Serie profile: Series that describes the input profile</span>
+<span class="sd">    :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">    :param str fill_value: see scipy.interpolate.interpolate.interp1d</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">scipy.interpolate.interpolate</span> <span class="k">import</span> <span class="n">interp1d</span>
+    <span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">Series</span><span class="p">),</span> <span class="n">f</span><span class="s1">&#39;argument flow  should be a pandas serie.&#39;</span>
+
+    <span class="n">funct</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">profile</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">profile</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_init_input</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">funct</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">b</span>
+
+    <span class="k">def</span> <span class="nf">_set_bounds</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">funct</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="n">b</span>
+
+    <span class="k">return</span> <span class="n">_init_input</span><span class="p">,</span> <span class="n">_set_bounds</span></div>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2019, llmse Developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -16,6 +16,6 @@ or, for a pdf documentation,
 		cd docs\
 		make latex
 		cd build\latex
-		pdflatex llmse.tex Documentation.pdf
+		pdflatex lms2.tex Documentation.pdf
 
-For Windows users, check the ``make-html.bat`` file for automatic build.
+For Bash users, check the ``autogen.bat`` file for automatic build.
