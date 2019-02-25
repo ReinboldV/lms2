@@ -1,5 +1,9 @@
 import types
-__version__ = '1.0'
+
+from ._version import get_versions
+
+__version__ = get_versions()['version']
+del get_versions
 
 __all__ = ['lms2.core.expressions', 'lms2.core.models', 'lms2.core.param', 'lms2.core.time', 'lms2.core.unit',
            'lms2.core.var', 'lms2.electric.batteries', 'lms2.electric.maingrids', 'lms2.electric.sources',

@@ -118,7 +118,7 @@ class BaseUnitsTests(unittest.TestCase):
         from lms2.core.time import Time
         from lms2.base.base_units import Abs
 
-        from pyomo.environ import SolverFactory
+        from pyomo.environ import SolverFactory, Objective
         from pyomo.dae.contset import ContinuousSet
         from pyomo.dae.plugins.finitedifference import TransformationFactory
         import pandas as pd
