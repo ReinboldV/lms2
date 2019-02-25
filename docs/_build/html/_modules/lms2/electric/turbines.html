@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lms2.electric.turbines &mdash; lms2 0.1.2rc0+2.gd2a552f.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> lms2
+          
+
+          
+            
+            <img src="../../../_static/Logo-UPSUD_2014_UPSaclay-BLEU.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-gurobi-solver">Install Gurobi Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-llmse-from-source">Install LLMSE from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-dependencies">Install dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library (lms2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base (lms2.base)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.base_units.html">base_units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.set_profile.html">lms2.base.base_units.set_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Abs.html">Abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Dipole.html">Dipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowSource.html">FlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.ScalableFlowSource.html">ScalableFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnit.html">SourceUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnitParam.html">SourceUnitParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Storage.html">Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.UnitA.html">UnitA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core (lms2.core)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.param.html">param</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.param.is_effort.html">lms2.core.param.is_effort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.param.is_flow.html">lms2.core.param.is_flow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.time.html">time</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.time.Time.html">Time</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.units.html">units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.DynUnit.html">DynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.DynUnitTest.html">DynUnitTest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.Unit.html">Unit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.var.html">var</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.var.is_effort.html">lms2.core.var.is_effort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.var.is_flow.html">lms2.core.var.is_flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric (lms2.electric)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.Battery.html">Battery</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.html">maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGrid.html">MainGrid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.turbines.html">turbines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit.html">LimitedThermalUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit2.html">LimitedThermalUnit2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.SimpleThermalUnit.html">SimpleThermalUnit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PowerLoad.html">PowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PowerSource.html">PowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PvPanelsWSurface.html">PvPanelsWSurface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.ScalablePowerSource.html">ScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.WindTurbine.html">WindTurbine</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment (lms2.environment)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.pollutions.html">pollutions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids (lms2.fluids)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.html">hysteresis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic (lms2.mechanic)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.thermal.html">Thermal (lms2.thermal)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.html">dipoles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCond.html">TCond</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCondRes.html">TCondRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TConvRes.html">TConvRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TDipole.html">TDipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TResNL.html">TResNL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TStorage.html">TStorage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lms2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lms2.electric.turbines</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lms2.electric.turbines</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Contains the thermal power plants</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="SimpleThermalUnit"><a class="viewcode-back" href="../../../generated/lms2.electric.turbines.SimpleThermalUnit.html#lms2.electric.turbines.SimpleThermalUnit">[docs]</a><span class="k">class</span> <span class="nc">SimpleThermalUnit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Simple thermal power Unit</span>
+
+<span class="sd">    .. math:: </span>
+<span class="sd">    </span>
+<span class="sd">        \\text{Find \\quad} &amp; cost = \sum_t c_0.u(t) + c_1.p(t) + c_2.p(t)^2 \\\\</span>
+<span class="sd">        \\text{Subject to \\quad} &amp; p(t) \leqslant p_{max}.u(t),  \\ forall t  \\\\</span>
+<span class="sd">        &amp; \sum_t p(t) \leqslant e_{max}</span>
+
+
+<span class="sd">    # Example ::</span>
+<span class="sd">    #     &gt;&gt;&gt; from llmse.core.timehorizon import Time</span>
+<span class="sd">    #     &gt;&gt;&gt; from llmse.electric.thermalunits import SimpleThermalUnit</span>
+<span class="sd">    #     &gt;&gt;&gt; th = Time(start=0, end=20, freq=1)</span>
+<span class="sd">    #     &gt;&gt;&gt; STU1 = SimpleThermalUnit(th, name=&#39;STU1&#39;, c=[45, 0.12, 0])</span>
+<span class="sd">    #</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+    <span class="c1"># TODO create SimpleThermalUnit</span>
+
+    <span class="c1"># def __init__(self, time_horizon, name=&quot;STU1&quot;, description=&#39;Simple Thermical Usine&#39;, pmax=1e100, emax=1e100, c=None, unit=&#39;kW&#39;):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     :param time_horizon: time</span>
+    <span class="c1">#     :param name: unit name</span>
+    <span class="c1">#     :param description: short description</span>
+    <span class="c1">#     :param pmax: maximum output power</span>
+    <span class="c1">#     :param emax: maximum output energy</span>
+    <span class="c1">#     :param c: list of costs of use</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     TUnit.__init__(self, time_horizon, name=name, description=description)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     if c is None:</span>
+    <span class="c1">#         c = [10, 1, 0.01]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&quot;p&quot;, lb=0, index=time_horizon.index, ub=1e100, unit=unit, description=&quot;instant power of the unit&quot;, opt=True)</span>
+    <span class="c1">#     self.addquantity(name=&quot;pmax&quot;, value=pmax, unit=unit, opt=False, description=&#39;maximal genration power&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;emax&quot;, value=emax, unit=&#39;kW.h&#39;, opt=False, description=&#39;maximal energy &#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;u&quot;, vtype=&#39;B&#39;, index=time_horizon.index, opt=True, description=&#39;binary variable 0:shutOff &amp; 1:working&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;c&quot;, unit=&#39;kW.h&#39;, vlen=3, value=c, opt=False, description=&#39;constant, linear and quadratic instantaneous cost (euro,euro/W,euro/W^2)&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addconst(name=&#39;energyLimit&#39;, exp=&#39;quicksum([p[t] for t in T]) &lt;= emax &#39;)</span>
+    <span class="c1">#     self.addconst(name=&#39;powerLimit&#39;, exp=&#39;p[t] &lt;= pmax*u[t] for t in T&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     cost = CostOfUse(name=&#39;cou&#39;, exp=&#39;quicksum([c[0]*u[t] + c[1]*p[t] + c[2]*p[t]*p[t] for t in T])&#39;)</span>
+    <span class="c1">#     self.addobj(cost)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addpole(Epole(&quot;1&quot;, self.quantities[&quot;p&quot;], &#39;out&#39;))</span>
+
+
+<div class="viewcode-block" id="LimitedThermalUnit"><a class="viewcode-back" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit.html#lms2.electric.turbines.LimitedThermalUnit">[docs]</a><span class="k">class</span> <span class="nc">LimitedThermalUnit</span><span class="p">(</span><span class="n">SimpleThermalUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Thermal power Unit with limited variation</span>
+
+<span class="sd">    This model, based on SimpleThermalUnit model, implement a output power variation constraint. </span>
+<span class="sd">    The cost function is quadratic but can be linearized thanks to the utils.LinQExp function</span>
+
+<span class="sd">    Minimize:</span>
+
+<span class="sd">     .. math:: cost = \sum_t c_0.u(t) + c_1.p(t) + c_2.p(t)^2</span>
+
+<span class="sd">     s.t. :</span>
+
+<span class="sd">     .. math::</span>
+<span class="sd">         0 \leqslant p(t) \leqslant p_{max}.u(t), \\forall t  \\\\</span>
+<span class="sd">         \\delta_m \leqslant p(t+1)-p(t) \leqslant \\delta_M, \\forall t \in [0,t_{end}-1] \\\\</span>
+<span class="sd">         \\delta_m \leqslant p(0) \leqslant \\delta_M \\\\</span>
+<span class="sd">         \sum_{t=0}^{T_{END}} p(t) \leqslant e_{max}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+    <span class="c1"># TODO create LimitedThermalUnit</span>
+
+    <span class="c1"># def __init__(self, time_horizon, name=&quot;LTU1&quot;, pmax=1e100, emax=1e100, c=None, deltaM=1e100, deltam=-1e100):</span>
+        <span class="c1"># &quot;&quot;&quot;</span>
+        <span class="c1">#</span>
+        <span class="c1"># :param time_horizon:</span>
+        <span class="c1"># :param name:</span>
+        <span class="c1"># :param pmax: maximal instantaneous power of the unit (W)</span>
+        <span class="c1"># :param emax: maximal energy limit of the unit (W.h)</span>
+        <span class="c1"># :param c: [c0, c1, c2]: the constant, linear and quadratic prices (euro, euro/W, euro/W²)</span>
+        <span class="c1"># :param deltaM: maximal variation power (W/h)</span>
+        <span class="c1"># :param deltam: minimal variation power (W/h)</span>
+        <span class="c1"># &quot;&quot;&quot;</span>
+        <span class="c1"># SimpleThermalUnit.__init__(</span>
+        <span class="c1">#     self, time_horizon, name=name, description=&#39;Thermical Usine wich power and power variation are limited&#39;, pmax=pmax, emax=emax, c=c)</span>
+        <span class="c1">#</span>
+        <span class="c1"># if c is None:</span>
+        <span class="c1">#     c = [45, 10.2, 0.0052]</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.addquantity(name=&#39;deltam&#39;, value=deltam, description=&#39;minimal variation of the instantaneous power of the unit&#39;,</span>
+        <span class="c1">#                  unit=&#39;W/h&#39;, opt=False)</span>
+        <span class="c1"># self.addquantity(name=&#39;deltaM&#39;, value=deltaM, description=&#39;maximal variation of the instantaneous power of the unit&#39;,</span>
+        <span class="c1">#                  unit=&#39;W/h&#39;, opt=False)</span>
+        <span class="c1">#</span>
+        <span class="c1"># exp1 = &#39;p[t+1]-p[t] &lt;= deltaM for t in T[:-1]&#39;</span>
+        <span class="c1"># exp2 = &#39;p[t+1]-p[t] &gt;= deltam for t in T[:-1]&#39;</span>
+        <span class="c1"># exp3 = &#39;p[0] &lt;= deltaM&#39;</span>
+        <span class="c1"># exp4 = &#39;p[0] &gt;= deltam&#39;</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.addconst(name=&#39;powerVar1&#39;, exp=exp1)</span>
+        <span class="c1"># self.addconst(name=&#39;powerVar2&#39;, exp=exp2)</span>
+        <span class="c1"># self.addconst(name=&#39;powerVar3&#39;, exp=exp3)</span>
+        <span class="c1"># self.addconst(name=&#39;powerVar4&#39;, exp=exp4)</span>
+
+
+<div class="viewcode-block" id="LimitedThermalUnit2"><a class="viewcode-back" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit2.html#lms2.electric.turbines.LimitedThermalUnit2">[docs]</a><span class="k">class</span> <span class="nc">LimitedThermalUnit2</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Thermal power Unit with variation and start-up/shut-down constraints</span>
+
+<span class="sd">    This model, based on the Unit model, implement a output power variation constraint, </span>
+<span class="sd">    and a start-up/shut-down trajectories constraintes. The cost function is linear.</span>
+
+<span class="sd">    - Variables :</span>
+<span class="sd">         * p : instant power of the unit (kW)</span>
+<span class="sd">         * v : binary variable 1:working, 0:shutoff</span>
+<span class="sd">         * y : binary variable 1:start-up</span>
+<span class="sd">         * z : binary variable 1:shut-down</span>
+<span class="sd">         * sy : binary variable 1:start-up phase</span>
+<span class="sd">         * sz : binary variable 1:shut-down phase</span>
+<span class="sd">         * ud : starting-up duration (h)</span>
+<span class="sd">         * dd : shutting down duration (h)</span>
+<span class="sd">         * pu : pre-specified power output in startingup period (kW)</span>
+<span class="sd">         * pd : pre-specified power output in shoutdown period (kW)</span>
+<span class="sd">         * pmax : maximal instantaneous power of the unit (kW)</span>
+<span class="sd">         * pmin : minimal instantaneous power of the unit (kW)</span>
+<span class="sd">         * c = [c0, c1, c2, c3]: the constant, the linear costs, and the start-up and shut down costs (euro/h, euro/(kW.h), euro/h, euro/h)</span>
+<span class="sd">         * deltaM : maximal variation power (kW/h)</span>
+<span class="sd">         * deltam : minimal variation power (kW/h)</span>
+
+<span class="sd">    **Model**</span>
+
+<span class="sd">    Minimize:</span>
+
+<span class="sd">     .. math:: \\sum c_0.v(t).\\Delta T + c_1.\\frac{p(t)+p(t-1)}{2}.\\Delta T + c_2.y(t) + c_3.z(t) \ \\forall t</span>
+
+<span class="sd">     s.t. :</span>
+
+<span class="sd">     .. math::</span>
+<span class="sd">         y(t) - z(t) &amp;= v(t) - v(t-1)   \\forall t \\\\</span>
+<span class="sd">         z(t) + y(t) &amp;\leqslant 1   \\forall t \\\\</span>
+<span class="sd">         sy(t) &amp;=  \sum_{i=0}^{UD} y(t-i) \\forall t \\\\</span>
+<span class="sd">         sz(t) &amp;=  \sum_{i=0}^{DD} z(t+i+1) \\forall t  \\\\</span>
+<span class="sd">         v(t) &amp;\geqslant sz(t)  \\forall t  \\\\</span>
+<span class="sd">         v(t) &amp;\geqslant sy(t)  \\forall t \\\\</span>
+<span class="sd">         p(t) &amp;\geqslant p_{min}.\\left(v(t) - sz(t) - sy(t)\\right) +  \sum_{i=0}^{UD} pu(i).y(t-i)        \\forall t \\\\</span>
+<span class="sd">         p(t) &amp;\geqslant p_{min}.\\left(v(t) - sz(t) - sy(t)\\right) +  \sum_{i=0}^{DD} pd(i).z(t+i+1)      \\forall t \\\\</span>
+<span class="sd">         p(t) &amp;\leqslant p_{max}.\\left(v(t) - sy(t)\\right) +   \sum_{i=0}^{UD} pu(i).y(t-1)               \\forall t \\\\</span>
+<span class="sd">         p(t) &amp;\leqslant p_{max}.\\left(v(t) - sz(t)\\right) +   \sum_{i=0}^{DD} pd(i).z(t+i+1)             \\forall t \\\\</span>
+<span class="sd">         \\frac{p(t)-p(t-1)}{\\delta t} &amp;\leqslant p_{max}.sy(t) + \delta M.\\left(v(t) - sy(t)\\right)     \\forall t \\\\</span>
+<span class="sd">         \\frac{p(t-1)-p(t)}{\\delta t} &amp;\leqslant p_{max}.sz(t-1) + \delta m                               \\forall t \\\\</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO create LimitedThermalUnit2</span>
+    <span class="k">pass</span></div>
+    <span class="c1"># def __init__(self, time_horizon, name=&quot;LTU2&quot;, description=&#39;&#39;, pmin=20., pmax=100., emax=1e100, c=None, deltam=20., deltaM=25., dd=2., ud=3.):</span>
+    <span class="c1">#</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     :param time_horizon:</span>
+    <span class="c1">#     :param name:</span>
+    <span class="c1">#     :param description:</span>
+    <span class="c1">#     :param pmin:</span>
+    <span class="c1">#     :param pmax:</span>
+    <span class="c1">#     :param emax:</span>
+    <span class="c1">#     :param c:</span>
+    <span class="c1">#     :param deltam:</span>
+    <span class="c1">#     :param deltaM:</span>
+    <span class="c1">#     :param dd:</span>
+    <span class="c1">#     :param ud:</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     TUnit.__init__(self, time_horizon, name=name, description=description)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     if c is None:</span>
+    <span class="c1">#         c = [100, 38e-3, 850., 56]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     dd = np.ceil(dd / time_horizon.dt) * time_horizon.dt</span>
+    <span class="c1">#     ud = np.ceil(ud / time_horizon.dt) * time_horizon.dt</span>
+    <span class="c1">#     print(&#39;dd has been automatically change to {0}, for discret step time issue&#39;.format(str(dd)))</span>
+    <span class="c1">#     print(&#39;ud has been automatically change to {0}, for discret step time issue&#39;.format(str(ud)))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     if ud == 0.0:</span>
+    <span class="c1">#         pu = []</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         pu = np.arange(pmin / np.ceil(ud / time_horizon.dt), pmin + pmin /</span>
+    <span class="c1">#                        np.ceil(ud / time_horizon.dt), pmin / np.ceil(ud / time_horizon.dt))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     if dd == 0.0:</span>
+    <span class="c1">#         pd = []</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         pd = np.arange(pmin, pmin / np.ceil(dd / time_horizon.dt) - pmin /</span>
+    <span class="c1">#                        np.ceil(dd / time_horizon.dt), -pmin / np.ceil(dd / time_horizon.dt))</span>
+    <span class="c1">#         pd = pd[::-1]</span>
+    <span class="c1">#</span>
+    <span class="c1">#     ddi = int(dd / time_horizon.dt)</span>
+    <span class="c1">#     udi = int(ud / time_horizon.dt)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # passed stages needed for the constraints : zero by default</span>
+    <span class="c1">#     psv = {i: 0 for i in range(-udi - 1, 0)}</span>
+    <span class="c1">#     psy = {i: 0 for i in range(-udi - 1, 0)}</span>
+    <span class="c1">#     psz = {i: 0 for i in range(-udi - 1, 0)}</span>
+    <span class="c1">#     pssz = {i: 0 for i in range(-udi - 1, 0)}</span>
+    <span class="c1">#     pssy = {i: 0 for i in range(-udi - 1, 0)}</span>
+    <span class="c1">#     psp = {i: 0 for i in range(-udi - 1, 0)}</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&quot;p&quot;, lb=0, value=psp, ub=pmax, index=time_horizon.index,</span>
+    <span class="c1">#                      opt=True, description=&#39;instant power of the unit (W)&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;v&quot;, value=psv, vtype=&#39;B&#39;, index=time_horizon.index, opt=True,</span>
+    <span class="c1">#                      description=&#39;binary variable 0:shutOff &amp; 1:working&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;z&quot;, value=psy, vtype=&#39;B&#39;, index=time_horizon.index,</span>
+    <span class="c1">#                      opt=True, description=&#39;binary variable 1:shutting down&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;y&quot;, value=psz, vtype=&#39;B&#39;, index=time_horizon.index,</span>
+    <span class="c1">#                      opt=True, description=&#39;binary variable 1:starting up&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;sz&quot;, value=pssz, vtype=&#39;B&#39;, index=time_horizon.index,</span>
+    <span class="c1">#                      opt=True, description=&#39;binary variable 1:shutdown phase&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;sy&quot;, value=pssy, vtype=&#39;B&#39;, index=time_horizon.index,</span>
+    <span class="c1">#                      opt=True, description=&#39;binary variable 1:startup phase&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addquantity(name=&quot;pmax&quot;, value=pmax, unit=&#39;kW&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;maximal genration power (kW)&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;pmin&#39;, value=pmin, unit=&#39;kW&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;minimal generation power (kW)&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;emax&quot;, value=emax, unit=&#39;kW.h&#39;,</span>
+    <span class="c1">#                      opt=False, description=&#39;maximal energy (kW.h)&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&quot;c&quot;, unit=&#39;W.h&#39;, value=c, opt=False,</span>
+    <span class="c1">#                      description=&#39;constant, linear and quadratic instantaneous cost (euro,euro/W,euro/W^2)&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;dd&#39;, value=dd, unit=&#39;h&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;duration of the shut-down phase&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ddi&#39;, value=ddi, unit=&#39;h&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;duration of the shut-down phase&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;ud&#39;, value=ud, unit=&#39;h&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;duration of the start up phase&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;udi&#39;, value=udi, unit=&#39;h&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;duration of the start up phase&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;pd&#39;, value=pd, unit=&#39;kW&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;pre-specified power output in shoutdown period&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;pu&#39;, value=pu, unit=&#39;kW&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;pre-specified power output in startup period&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;deltaM&#39;, value=deltaM, unit=&#39;kW.h-1&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;maximal positive variation of the power generation&#39;)</span>
+    <span class="c1">#     self.addquantity(name=&#39;deltam&#39;, value=deltam, unit=&#39;kW.h-1&#39;, opt=False,</span>
+    <span class="c1">#                      description=&#39;maximal negative variation of the power generation&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp1 = &#39;y[t] - z[t] == v[t] - v[t-1] for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst1&#39;, exp=exp1)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp2 = &#39;sy[t] == quicksum([y[t-i] for i in range(udi)])  for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst2&#39;, exp=exp2)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp3 = &#39;sz[t] == quicksum([z[t+i+1] for i in range(min(ddi, T[-1] - t))])  for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst3&#39;, exp=exp3)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp4 = &#39;v[t] &gt;= sz[t] for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst4&#39;, exp=exp4)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp5 = &#39;v[t] &gt;= sy[t] for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst5&#39;, exp=exp5)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     # minimal power generation constraints for working phase (pmin), shutting down</span>
+    <span class="c1">#     exp6 = &#39;p[t] &gt;= pmin*(v[t] - sz[t] - sy[t]) + quicksum([pu[i]*y[t-i] for i in range(udi)]) for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst6&#39;, exp=exp6)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp7 = &#39;p[t] &gt;= pmin*(v[t] - sz[t] - sy[t]) + quicksum([pd[i]*z[t+i+1] for i in range(min(ddi, T[-1] - t))]) for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst7&#39;, exp=exp7)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp8 = &#39;p[t] &lt;= pmax*(v[t] - sy[t]) + quicksum([pu[i]*y[t-i] for i in range(udi)]) for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst8&#39;, exp=exp8)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp9 = &#39;p[t] &lt;= pmax*(v[t] - sz[t]) + quicksum([pd[i]*z[t+i+1] for i in range(min(ddi, T[-1] - t))]) for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;vCst9&#39;, exp=exp9)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.addconst(name=&#39;test&#39;, exp=&#39;z[t] + y[t] &lt;= 1 for t in T&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp11 = &#39;(p[t]-p[t-1])/dt &lt;= pmax*sy[t] + deltaM*(v[t] - sy[t]) for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;dpCst1&#39;, exp=exp11)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp12 = &#39;-(p[t]-p[t-1])/dt &lt;= pmax*sz[t-1] + deltam*v[t] for t in T&#39;</span>
+    <span class="c1">#     self.addconst(name=&#39;dpCst2&#39;, exp=exp12)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     cost = &#39;quicksum([c[0]*dt*v[t] + c[1]*dt*(p[t]+p[t-1])/2 + c[2]*y[t] + c[3]*z[t] for t in T])&#39;</span>
+    <span class="c1">#     self.cost = Objective(</span>
+    <span class="c1">#         name=&#39;cost&#39;, exp=cost, description=&#39;functionning cost, taking into accoun constant, linear cossts and starting-up and shuting down costs&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.poles = {&#39;1&#39;: Epole(&#39;1&#39;, self.quantities[&quot;p&quot;], &#39;out&#39;)}</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2019, llmse Developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PvPanelsWSurface &mdash; lms2 0.1.2rc0+2.gd2a552f.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ScalablePowerSource" href="lms2.electric.sources.ScalablePowerSource.html" />
+    <link rel="prev" title="PowerSource" href="lms2.electric.sources.PowerSource.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lms2
+          
+
+          
+            
+            <img src="../_static/Logo-UPSUD_2014_UPSaclay-BLEU.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-gurobi-solver">Install Gurobi Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-llmse-from-source">Install LLMSE from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-dependencies">Install dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../lms2.html">Library (lms2)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../lms2.base.html">Base (lms2.base)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.base.base_units.html">base_units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.set_profile.html">lms2.base.base_units.set_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.Abs.html">Abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.Dipole.html">Dipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FlowSource.html">FlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.ScalableFlowSource.html">ScalableFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.SourceUnit.html">SourceUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.SourceUnitParam.html">SourceUnitParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.Storage.html">Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.UnitA.html">UnitA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.core.html">Core (lms2.core)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.param.html">param</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.param.is_effort.html">lms2.core.param.is_effort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.param.is_flow.html">lms2.core.param.is_flow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.time.html">time</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.time.Time.html">Time</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.units.html">units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.units.DynUnit.html">DynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.units.DynUnitTest.html">DynUnitTest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.units.Unit.html">Unit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.var.html">var</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.var.is_effort.html">lms2.core.var.is_effort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.var.is_flow.html">lms2.core.var.is_flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../lms2.electric.html">Electric (lms2.electric)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.Battery.html">Battery</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.maingrids.html">maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGrid.html">MainGrid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.turbines.html">turbines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.turbines.LimitedThermalUnit.html">LimitedThermalUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.turbines.LimitedThermalUnit2.html">LimitedThermalUnit2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.turbines.SimpleThermalUnit.html">SimpleThermalUnit</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PowerLoad.html">PowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PowerSource.html">PowerSource</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PvPanelsWSurface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.ScalablePowerSource.html">ScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.WindTurbine.html">WindTurbine</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.environment.html">Environment (lms2.environment)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.environment.pollutions.html">pollutions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids (lms2.fluids)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.logical.hysteresis.html">hysteresis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.mechanic.html">Mechanic (lms2.mechanic)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.thermal.html">Thermal (lms2.thermal)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.thermal.dipoles.html">dipoles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TCond.html">TCond</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TCondRes.html">TCondRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TConvRes.html">TConvRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TDipole.html">TDipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TResNL.html">TResNL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TStorage.html">TStorage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lms2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../lms2.html">Library (lms2)</a> &raquo;</li>
+        
+          <li><a href="../lms2.electric.html">Electric (lms2.electric)</a> &raquo;</li>
+        
+          <li><a href="lms2.electric.sources.html">sources</a> &raquo;</li>
+        
+      <li>PvPanelsWSurface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/lms2.electric.sources.PvPanelsWSurface.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pvpanelswsurface">
+<h1>PvPanelsWSurface<a class="headerlink" href="#pvpanelswsurface" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lms2.electric.sources.PvPanelsWSurface">
+<em class="property">class </em><code class="descclassname">lms2.electric.sources.</code><code class="descname">PvPanelsWSurface</code><span class="sig-paren">(</span><em>*args</em>, <em>time=None</em>, <em>profile=None</em>, <em>flow_name='p'</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/electric/sources.html#PvPanelsWSurface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.electric.sources.PvPanelsWSurface" title="Permalink to this definition">¶</a></dt>
+<dd><p>PV panels with parametric surface</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(*args[,&nbsp;time,&nbsp;profile,&nbsp;flow_name])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param args:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">activate</span></code>()</td>
+<td>Set the active attribute to True</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">active_blocks</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">active_component_data</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">active_components</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_component</span></code>(name,&nbsp;val)</td>
+<td>Add a component ‘name’ to the block.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_blocks</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_component_data</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_components</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_data_objects</span></code>([active,&nbsp;sort,&nbsp;…])</td>
+<td>This method returns a generator that iterates through the current block and recursively all sub-blocks.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code>()</td>
+<td>Clear the data in this component</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_suffix_value</span></code>(suffix_or_name[,&nbsp;expand])</td>
+<td>Set the suffix value for this component data</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code>()</td>
+<td>TODO</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">cname</span></code>(*args,&nbsp;**kwds)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">collect_ctypes</span></code>([active,&nbsp;descend_into])</td>
+<td>Count all component types stored on or under this block.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component</span></code>(name_or_object)</td>
+<td>Return a child component of this block.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_data_iterindex</span></code>([ctype,&nbsp;active,&nbsp;…])</td>
+<td>Return a generator that returns a tuple for each component data object in a block.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_data_objects</span></code>([ctype,&nbsp;active,&nbsp;…])</td>
+<td>Return a generator that iterates through the component data objects for all components in a block.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_map</span></code>([ctype,&nbsp;active,&nbsp;sort])</td>
+<td>Returns a PseudoMap of the components in this block.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_objects</span></code>([ctype,&nbsp;active,&nbsp;sort,&nbsp;…])</td>
+<td>Return a generator that iterates through the component objects in a block.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_statistics</span></code>([active])</td>
+<td>Compute model statistics</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_effort</span></code>(v1,&nbsp;v2[,&nbsp;name])</td>
+<td>Connection of effort Variables.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_flux</span></code>(*args[,&nbsp;name])</td>
+<td>Flux connection</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">construct</span></code>([data])</td>
+<td>Initialize the block</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains_component</span></code>(ctype)</td>
+<td>Return True if the component type is in _ctypes and …</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">deactivate</span></code>()</td>
+<td>Set the active attribute to False</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">del_component</span></code>(name_or_object)</td>
+<td>Delete a component from this block.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">dim</span></code>()</td>
+<td>Return the dimension of the index</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">display</span></code>([filename,&nbsp;ostream,&nbsp;prefix])</td>
+<td>Display values in the block</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_component</span></code>(label_or_component)</td>
+<td>Return a block component given a name.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_all_vars</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_binary</span></code>()</td>
+<td>Fix binary variables to their values</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_constraints_values</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_duals</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_optimal_values</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slack</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_suffix_value</span></code>(suffix_or_name[,&nbsp;default])</td>
+<td>Get the suffix value for this component data</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getname</span></code>([fully_qualified,&nbsp;name_buffer,&nbsp;…])</td>
+<td>Return a string with the component name and index</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_index_map</span></code>()</td>
+<td>Return an dictionary id-&gt;index for all ComponentData instances.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code>()</td>
+<td>Returns the index of this ComponentData instance relative to the parent component index set.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_set</span></code>()</td>
+<td>Return the index set</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_component_type</span></code>()</td>
+<td>Return True if this class is a Pyomo component</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_constructed</span></code>()</td>
+<td>A boolean indicating whether or not all <em>active</em> components of the input model have been properly constructed.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_indexed</span></code>()</td>
+<td>Return true if this component is indexed</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">items</span></code>()</td>
+<td>Return an iterator of (index,data) tuples from the dictionary</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">iteritems</span></code>()</td>
+<td>Return an iterator of (index,data) tuples from the dictionary</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterkeys</span></code>()</td>
+<td>Return an iterator of the keys in the dictionary</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">itervalues</span></code>()</td>
+<td>Return an iterator of the component data objects in the dictionary</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code>()</td>
+<td>Return an iterator of the keys in the dictionary</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">model</span></code>()</td>
+<td>Return the model of the component that owns this data.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_block</span></code>()</td>
+<td>Return the parent of the component that owns this data.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_component</span></code>()</td>
+<td>Returns the component associated with this object.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([filename,&nbsp;ostream,&nbsp;verbose,&nbsp;prefix])</td>
+<td>Print block information</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reclassify_component_type</span></code>(name_or_object,&nbsp;…)</td>
+<td>TODO</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reconstruct</span></code>([data])</td>
+<td>Re-construct model expressions</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_block</span></code>()</td>
+<td>Return self.model()</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_suffix_value</span></code>(suffix_or_name,&nbsp;value[,&nbsp;expand])</td>
+<td>Set the suffix value for this component data</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value</span></code>(val)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense_data</span></code>()</td>
+<td>TODO</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>([verbose,&nbsp;labeler,&nbsp;smap,&nbsp;…])</td>
+<td>Return a string representation of this component, applying the labeler if passed one.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code>()</td>
+<td>Return the class type for this component</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_all_vars</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_binary</span></code>()</td>
+<td>Unfix binary variables</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_graph</span></code>()</td>
+<td>Update the graph of the model.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_model_component</span></code>()</td>
+<td>Return True if this can be used as a model component.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_problem_types</span></code>()</td>
+<td>This method allows the pyomo.opt convert function to work with a Model object.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code>()</td>
+<td>Return an iterator of the component data objects in the dictionary</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>([filename,&nbsp;format,&nbsp;solver_capability,&nbsp;…])</td>
+<td>Write the model to a file, with a given format.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">active</span></code></td>
+<td>Return the active attribute</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></td>
+<td>getter for the graph argument</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">local_name</span></code></td>
+<td>Get the component name only within the context of the immediate parent container.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></td>
+<td>Get the fully qualifed component name.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lms2.electric.sources.ScalablePowerSource.html" class="btn btn-neutral float-right" title="ScalablePowerSource" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lms2.electric.sources.PowerSource.html" class="btn btn-neutral" title="PowerSource" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2019, llmse Developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

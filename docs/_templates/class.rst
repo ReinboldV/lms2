@@ -5,14 +5,12 @@
 .. autoclass:: {{ objname }}
 	:members:
 	:undoc-members:
-	:show-inheritance:
 	
 	{% block methods %}
 	{% if methods %}
 	.. rubric:: Methods
 	
 	.. autosummary::
-		:toctree:
 		{% for item in methods %}
 		~{{ name }}.{{ item }}
 		{%- endfor %}
