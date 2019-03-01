@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation steps &mdash; lms2 0.1.2rc0+2.gd2a552f.dirty documentation</title>
+  <title>Installation steps &mdash; lms2 0.1.2+4.g6fcf95e.dirty documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="How to build the documentation ?" href="builddoc.html" />
-    <link rel="prev" title="Welcome to lms2’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to Pyomo-lms’s documentation!" href="index.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,13 +80,7 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation steps</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-gurobi-solver">Install Gurobi Solver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-llmse-from-source">Install LLMSE from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install dependencies</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation steps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builddoc.html">How to build the documentation ?</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
@@ -267,9 +261,8 @@
             
   <div class="section" id="installation-steps">
 <h1>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="installing-python-distribution-anaconda">
-<span id="installation-step"></span><h2>Installing Python distribution (Anaconda)<a class="headerlink" href="#installing-python-distribution-anaconda" title="Permalink to this headline">¶</a></h2>
-<p>Anaconda is a famous python data science platform.
+<blockquote>
+<div><p>Anaconda is a famous python data science platform.
 It is distributed with scientific libraries such as pandas, scipy, numpy, matplotlib, etc. and
 IDE such as jupiter or spyder. One can find more information about anaconda distribution on : <a class="reference external" href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></p>
 <p>For a fast, ready to use python platform follow the link : <a class="reference external" href="http://www.gurobi.com/downloads/get-anaconda">http://www.gurobi.com/downloads/get-anaconda</a>
@@ -289,9 +282,6 @@ conda install gurobi
 <p>This step requires you to login and ask for a free university licence or free commercial evaluation licence depending on your status.
 Store this licence in <code class="docutils literal notranslate"><span class="pre">C:/gurobiXXX/</span></code> for instance and create an environment variable named <code class="docutils literal notranslate"><span class="pre">GUROBI_LICENCE</span></code> pointing to <code class="docutils literal notranslate"><span class="pre">C:/gurobiXXX/gurobi.lic</span></code>.</p>
 </div></blockquote>
-</div>
-<div class="section" id="install-gurobi-solver">
-<h2>Install Gurobi Solver<a class="headerlink" href="#install-gurobi-solver" title="Permalink to this headline">¶</a></h2>
 <p>If you already have a python distribution and/or do not want to install all the anaconda distribution, you can install Gurobi software.
 In the installation file, one will also find the python package gurobipy. Install it using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup</span> <span class="pre">install</span></code>.</p>
 <dl class="docutils">
@@ -310,9 +300,6 @@ Note that the version of gurobi (32 or 64 bits) must match with your python inst
 <p>Install a Gurobi Licence on <a class="reference external" href="http://www.gurobi.com/downloads/licenses/license-center">http://www.gurobi.com/downloads/licenses/license-center</a>
 This step requires you to login and ask for a free university licence or free commercial evaluation licence depending on your status.
 Store this licence in <code class="docutils literal notranslate"><span class="pre">C:/gurobiXXX/</span></code> for instance and create an environment variable named <code class="docutils literal notranslate"><span class="pre">GUROBI_LICENCE</span></code> pointing to <code class="docutils literal notranslate"><span class="pre">C:/gurobiXXX/gurobi.lic</span></code>.</p>
-</div>
-<div class="section" id="install-llmse-from-source">
-<h2>Install LLMSE from source<a class="headerlink" href="#install-llmse-from-source" title="Permalink to this headline">¶</a></h2>
 <p>Clone the repository and install the package using the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ReinboldV/llmse.git &lt;PATH&gt;
@@ -325,9 +312,6 @@ python setup.py install
 Otherwise, you may download the library in a zip format here : <a class="reference external" href="https://github.com/ReinboldV/llmse/archive/gh-pages.zip">https://github.com/ReinboldV/llmse/archive/gh-pages.zip</a>.</p>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="install-dependencies">
-<h2>Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>LLMES also has conditional dependencies on a variety of third-party Python packages.
 These are not installed with <code class="docutils literal notranslate"><span class="pre">llmse</span></code>, and many of them can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
 <blockquote>
@@ -349,7 +333,7 @@ pip install sphinx
 </pre></div>
 </div>
 </div></blockquote>
-</div>
+</div></blockquote>
 </div>
 
 
@@ -363,7 +347,7 @@ pip install sphinx
         <a href="builddoc.html" class="btn btn-neutral float-right" title="How to build the documentation ?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to lms2’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Welcome to Pyomo-lms’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
