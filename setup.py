@@ -18,6 +18,5 @@ setup(
               'lms2.template',
               'lms2.thermal',
               'lms2.electric'],
-    install_requires=['matplotlib', 'numpy', 'pandas', 'pyomo', 'scipy', 'networkx'],
     classifiers=["Programming Language :: Python :: 3.6"],
 )
