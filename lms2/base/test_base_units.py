@@ -19,8 +19,8 @@ class BaseUnitsTests(unittest.TestCase):
         flow = pd.Series({0.0: 0.0, 10: 5})
         m.fs = SourceUnit(time=m.t, flow=flow, flow_name='flow')
 
-        discretizer = TransformationFactory('dae.finite_difference')
-        discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
+        TransformationFactory('dae.finite_difference').apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')
+        # BACKWARD or FORWARD
 
         self.assertEqual(m.fs.flow.get_values(), {0.0: 0.0, 10.0: 5.0, 1.0: 0.5, 2.0: 1.0,
                                                   3.0: 1.5, 4.0: 2.0, 5.0: 2.5, 6.0: 3.0,
@@ -30,6 +30,8 @@ class BaseUnitsTests(unittest.TestCase):
         from lms2.core.models import LModel
         from lms2.core.time import Time
 
+        from pyomo.environ import SolverFactory, Objective
+        from pyomo.network import Arc
         from pyomo.dae.contset import ContinuousSet
         from pyomo.dae.plugins.finitedifference import TransformationFactory
         import pandas as pd
@@ -38,17 +40,34 @@ class BaseUnitsTests(unittest.TestCase):
         t = Time('00:00:00', '00:00:10', freq='5s')
         m.t = ContinuousSet(bounds=(t.timeSteps[0], t.timeSteps[-1]))
         flow = pd.Series({0.0: 0.0, 10: 5})
-        m.fs = FlowSource(time=m.t, profile=flow, flow_name='p')
+        load = pd.Series({0.0: 0.0, 10: 5})
 
-        discretizer = TransformationFactory('dae.finite_difference')
-        discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
+        m.fs = FlowSource(time=m.t, profile=flow, flow_name='p')
+        m.fl = FlowLoad(time=m.t, profile=load, flow_name='p')
+        m.arc = Arc(source=m.fs.outlet, dest=m.fl.inlet)
+
+        def _obj(model):
+            return 0
+        m.obj = Objective(rule=_obj)
+
+        TransformationFactory('dae.finite_difference').apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')
+        # BACKWARD or FORWARD
+        TransformationFactory("network.expand_arcs").apply_to(m)
 
         self.assertEqual(m.fs.p.get_values(), {0.0: 0.0, 10.0: 5.0, 1.0: 0.5, 2.0: 1.0,
                                                3.0: 1.5, 4.0: 2.0, 5.0: 2.5, 6.0: 3.0,
                                                7.0: 3.5, 8.0: 4.0, 9.0: 4.5})
 
-        self.assertEqual(m.fs.p.sens, 'out')
-        self.assertEqual(m.fs.p.port_type, 'flow')
+        self.assertEqual(m.fl.p.get_values(), {0.0: 0.0, 10.0: 5.0, 1.0: 0.5, 2.0: 1.0,
+                                               3.0: 1.5, 4.0: 2.0, 5.0: 2.5, 6.0: 3.0,
+                                               7.0: 3.5, 8.0: 4.0, 9.0: 4.5})
+
+        opt = SolverFactory('glpk')
+        results = opt.solve(m)
+
+        from pyomo.opt import SolverStatus, TerminationCondition
+        self.assertTrue(results.solver.status == SolverStatus.ok)
+        self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
 
     def test_flow_source_param(self):
         from lms2.core.models import LModel
@@ -71,54 +90,13 @@ class BaseUnitsTests(unittest.TestCase):
                                                    3.0: 1.5, 4.0: 2.0, 5.0: 2.5, 6.0: 3.0,
                                                    7.0: 3.5, 8.0: 4.0, 9.0: 4.5})
 
-        # there is no sens or port type for parameters (yet)
-        # self.assertEqual(m.fs.p.sens, 'out')
-        # self.assertEqual(m.fs.p.port_type, 'flow')
-
-    def test_effort_connexion(self):
-        from lms2.core.models import LModel
-        from lms2.core.time import Time
-
-        from pyomo.environ import SolverFactory
-        from pyomo.dae.contset import ContinuousSet
-        from pyomo.dae.plugins.finitedifference import TransformationFactory
-        import pandas as pd
-
-        m = LModel(name='model')
-        t = Time('00:00:00', '00:01:00', freq='5s')
-        m.t = ContinuousSet(bounds=(t.timeSteps[0], t.timeSteps[-1]))
-        flow1 = pd.Series({0.0: 0.0, 60: 1})
-        flow2 = pd.Series({0.0: 0.0, 60: 2})
-
-        m.ua = UnitA(time=m.t, flow=flow1)
-        m.ub = UnitA(time=m.t, flow=flow2)
-
-        m.connect_effort(m.ua.x2, m.ub.x2)
-        # m.obj = Objective(rule=m.ua.obj)
-
-        discretizer = TransformationFactory('dae.finite_difference')
-        discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
-
-        # m.ua.construct_objective()
-        # m.ub.construct_objective()
-        # m.ua.obj.deactivate()
-        # m.ub.obj.deactivate()
-
-        m.obj = m.construct_objective_from_expression_list(m.t, m.ua.inst_obj)
-
-        opt = SolverFactory('glpk')
-        results = opt.solve(m)
-
-        from pyomo.opt import SolverStatus, TerminationCondition
-        self.assertTrue(results.solver.status == SolverStatus.ok)
-        self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
-
     def test_abs(self):
         from lms2.core.models import LModel
         from lms2.core.time import Time
         from lms2.base.base_units import Abs
 
         from pyomo.environ import SolverFactory, Objective
+        from pyomo.network import Arc
         from pyomo.dae.contset import ContinuousSet
         from pyomo.dae.plugins.finitedifference import TransformationFactory
         import pandas as pd
@@ -127,7 +105,7 @@ class BaseUnitsTests(unittest.TestCase):
         t = Time('00:00:00', '00:01:00', freq='5s')
         m.t = ContinuousSet(bounds=(t.timeSteps[0], t.timeSteps[-1]))
 
-        # souce
+        # source
         flow = pd.Series({0.0: 0.0, 30: -10, 60: 5})
         m.fs = EffortSource(time=m.t, effort=flow, effort_name='e')
 
@@ -135,14 +113,15 @@ class BaseUnitsTests(unittest.TestCase):
         m.abs = Abs(time=m.t, xmax=1000, xmin=-1000)
 
         # connection
-        m.connect_effort(m.abs.x, m.fs.e)
+        m.arc = Arc(source=m.fs.outlet, dest=m.abs.e_inlet)
 
-        def _obj(m):
+        def _obj(model):
             return 0
         m.obj = Objective(rule=_obj)
 
         discretizer = TransformationFactory('dae.finite_difference')
         discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
+        TransformationFactory("network.expand_arcs").apply_to(m)
 
         opt = SolverFactory('glpk')
         results = opt.solve(m)

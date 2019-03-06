@@ -11,10 +11,13 @@ from lms2 import DynUnit, Var, Param
 # from lms2.base.base_units import DynUnit
 
 from pyomo.environ import Constraint
+from pyomo.network import Port
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.core.kernel.set_types import NonNegativeReals, Binary
 
 __all__ = ['Battery']
+
+# TODO : add ports
 
 
 class Battery(DynUnit):
@@ -45,12 +48,22 @@ class Battery(DynUnit):
         self.pc = Var(time, doc='charging power', within=NonNegativeReals, initialize=0)
         self.pd = Var(time, doc='discharging power', within=NonNegativeReals, initialize=0)
         self.p = Var(time, doc='energy derivative with respect to time', initialize=0)
-        self.p.port_type = 'flow'
-        self.p.sens = 'in'
         self.e = Var(time, doc='energy in battery', initialize=0)
+
+        self.outlet = Port(initialize={'f': (self.p, Port.Conservative)})
 
         self.dedt = DerivativeVar(self.e, wrt=time, doc='variation of energy in battery with respect to time',
                                   initialize=0)
+        if emin is None:
+            emin = 0
+
+        self.emin = Param(initialize=emin, doc='minimum energy (kWh)', mutable=True)
+
+        if emax is None:
+            raise ValueError('emax is not optional. Consider giving a value to emax.')
+        else:
+            self.emax = Param(initialize=emax, doc='maximal energy', mutable=True)
+
         if etac is not None:
             assert etac <= 1, 'charging efficiency should be smaller than 1'
             assert etac > 0, 'charging efficiency should be strictly higher than 0'
@@ -68,12 +81,6 @@ class Battery(DynUnit):
 
         if e0 is not None:
             self.e0 = Param(initialize=e0, doc='initial state', mutable=True)
-
-        if emin is not None:
-            self.emin = Param(initialize=emin, doc='minimum energy', mutable=True)
-
-        if emax is not None:
-            self.emax = Param(initialize=emax, doc='maximal energy', mutable=True)
 
         if socmin is not None:
             self.socmin = Param(initialize=socmin, doc='minimum soc', mutable=True)

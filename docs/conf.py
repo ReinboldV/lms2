@@ -58,7 +58,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'lms2'
-copyright = '2015-{}, llmse Developers'.format(date.today().year)
+copyright = '2015-{}, lms2 Developers'.format(date.today().year)
 author = 'Vincent Reinbold'
 
 # The version info for the project you're documenting, acts as replacement for

@@ -36,10 +36,17 @@ class DrahiXTest(unittest.TestCase):
         m.mg.cin = 0.08
         m.mg.cout = 0.15
 
+        #m.ps.scale_fact.setub(10)
+        #m.ps.scale_fact.fix(50)
+        # m.ps.flow_scaling.activate()
+        # m.ps.debug_flow_scaling.deactivate()
+
         self.assertEqual(m.t.bounds(), (0, 43200))
 
         m.obj = m.construct_objective_from_expression_list(m.t, m.mg.instant_cost, m.ps.instant_cost)
         TransformationFactory('dae.finite_difference').apply_to(m, nfe=self.t.nfe)
+        TransformationFactory("network.expand_arcs").apply_to(m)
+
         opt = SolverFactory("glpk")
         results = opt.solve(m, tee=False)
 
@@ -47,11 +54,11 @@ class DrahiXTest(unittest.TestCase):
                                      18000.0, 19800.0, 21600.0, 23400.0, 25200.0, 27000.0, 28800.0, 30600.0, 32400.0,
                                      34200.0, 36000.0, 37800.0, 39600.0, 41400.0, 43200.0])
 
-        self.assertAlmostEqual(m.obj(), -129.80532216741642)
-
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
+        self.assertAlmostEqual(m.obj(), 8.934914973026295, delta=1e-5)
+        self.assertAlmostEqual(m.ps.scale_fact(), 752.481210526316, delta=1e-5)
 
     def test_DrahiX_co2(self):
         from lms2 import DrahixMicrogridV2
@@ -64,6 +71,8 @@ class DrahiXTest(unittest.TestCase):
 
         m.obj = m.construct_objective_from_expression_list(m.t, m.mg.instant_co2)
         TransformationFactory('dae.finite_difference').apply_to(m, nfe=self.t.nfe)
+        TransformationFactory("network.expand_arcs").apply_to(m)
+
         opt = SolverFactory("glpk")
         results = opt.solve(m, tee=False)
 
@@ -71,11 +80,10 @@ class DrahiXTest(unittest.TestCase):
                                      18000.0, 19800.0, 21600.0, 23400.0, 25200.0, 27000.0, 28800.0, 30600.0, 32400.0,
                                      34200.0, 36000.0, 37800.0, 39600.0, 41400.0, 43200.0])
 
-        self.assertAlmostEqual(m.obj(), -989.2848572947365)
-
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
+        self.assertAlmostEqual(m.obj(), 84.40195647763156, delta=1e-6)
 
 
 if __name__ == '__main__':

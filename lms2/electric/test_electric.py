@@ -41,6 +41,7 @@ class BatteriesTests(unittest.TestCase):
         from lms2.core.models import LModel
         from lms2.core.time import Time
 
+        from pyomo.network import Arc
         from pyomo.dae.contset import ContinuousSet
         import pandas as pd
 
@@ -51,13 +52,16 @@ class BatteriesTests(unittest.TestCase):
         model.bat1 = Battery(time=model.t, e0=500.0, emin=0.0, emax=1000, etac=0.9, etad=0.8, pcmax=10000, pdmax=10000)
         source = pd.Series({0.0: 0.0, 60: -0.5, 300: 1, 400: -1, 600: 0.5})
         model.ps = PowerSource(time=model.t, profile=source, flow_name='p')
-        model.connect_flux(model.bat1.p, model.ps.p)
+
+        model.arc = Arc(source=model.ps.outlet, destination=model.bat1.outlet,
+                        doc='flow connection powersource to battery')
 
         def _obj(m):
             return 0
         model.obj = Objective(rule=_obj)
 
         TransformationFactory('dae.finite_difference').apply_to(model, nfe=30)
+        TransformationFactory("network.expand_arcs").apply_to(model)
 
         opt = SolverFactory('glpk')
         results = opt.solve(model)
@@ -65,6 +69,7 @@ class BatteriesTests(unittest.TestCase):
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
+        self.assertAlmostEqual(model.bat1.p.extract_values(), model.ps.p.extract_values())
 
 
 class SourceTests(unittest.TestCase):
@@ -100,21 +105,19 @@ class SourceTests(unittest.TestCase):
                                                4.0: 8.0, 5.0: 10.0, 6.0: 12.0, 7.0: 14.0,
                                                8.0: 16.0, 9.0: 18.0, 10.0: 20.0})
 
-        self.assertEqual(m.ps.p.sens, 'out')
-        self.assertEqual(m.ps.p.port_type, 'flow')
-
 
 class MainGridTest(unittest.TestCase):
     """ testing Main Grid Units. """
 
     def test_MainGrid(self):
         from lms2.electric.maingrids import MainGrid
-        from lms2.electric.sources import PowerSource
+        from lms2.electric.sources import PowerLoad
         from lms2.core.models import LModel
         from lms2.core.time import Time
 
         from pyomo.dae.contset import ContinuousSet
         from pyomo.dae.plugins.finitedifference import TransformationFactory
+        from pyomo.network import Arc
         import pandas as pd
 
         m = LModel(name='model')
@@ -122,34 +125,26 @@ class MainGridTest(unittest.TestCase):
         m.t = ContinuousSet(bounds=(t.timeSteps[0], t.timeSteps[-1]))
         t.nfe = int(t.delta/t.dt)
 
-        cin = pd.Series({0.0: 0.0, 10: 5})
-        cout = pd.Series({0.0: 1.0, 10: 6})
+        cin = pd.Series({0.0: 5, 10: 5})
+        cout = pd.Series({0.0: 1.0, 10: 1})
 
         m.mg = MainGrid(time=m.t, cin=cin, cout=cout, pmax=20000, pmin=2000)
 
-        source = pd.Series({0.0: 0.0, 3: -10, 5: 1,  8: -10, 10: 5})
-        m.ps = PowerSource(time=m.t, profile=source, flow_name='p')
+        source = pd.Series({0.0: 3, 4.9999: 3, 5.0001: -3,  10: -3})
+        m.pl = PowerLoad(time=m.t, profile=source, flow_name='p')
 
-        m.connect_flux(m.mg.p, m.ps.p)
+        m.arc = Arc(source=m.mg.outlet, destination=m.pl.inlet)
 
         discretizer = TransformationFactory('dae.finite_difference')
         discretizer.apply_to(m, wrt=m.t, nfe=10, scheme='BACKWARD')  # BACKWARD or FORWARD
-
-        self.assertEqual(m.mg.cin.extract_values(), {0.0: 0.0, 1.0: 0.5, 2.0: 1.0,
-                                                     3.0: 1.5, 4.0: 2.0, 5.0: 2.5,
-                                                     6.0: 3.0, 7.0: 3.5, 8.0: 4.0,
-                                                     9.0: 4.5, 10.0: 5.0})
-        self.assertEqual(m.mg.cout.extract_values(), {0.0: 1.0, 1.0: 1.5, 2.0: 2.0,
-                                                      3.0: 2.5, 4.0: 3.0, 5.0: 3.5,
-                                                      6.0: 4.0, 7.0: 4.5, 8.0: 5.0,
-                                                      9.0: 5.5, 10.0: 6.0})
+        TransformationFactory("network.expand_arcs").apply_to(m)
 
         m.obj = m.construct_objective_from_expression_list(m.t, m.mg.instant_cost)
 
         opt = SolverFactory('glpk')
         results = opt.solve(m)
 
-        self.assertEqual(m.obj(), 0.040208333333333325)
+        self.assertEqual(m.obj(), -0.015)
 
         from pyomo.opt import SolverStatus, TerminationCondition
         self.assertTrue(results.solver.status == SolverStatus.ok)

@@ -5,8 +5,11 @@ Contains maingrid unit, i.e. electrical connection to the distribution grid.
 from lms2 import Expression, DynUnit, Var, Param
 
 from pyomo.core.base.constraint import Constraint
+from pyomo.network import Port
 from pyomo.core.kernel.set_types import NonNegativeReals, Binary
 from pandas import Series
+
+# TODO : add ports
 
 
 class MainGrid(DynUnit):
@@ -40,8 +43,7 @@ class MainGrid(DynUnit):
 
         # Defintion of the Ports
 
-        self.p.port_type = 'flow'
-        self.p.sens = 'out'
+        self.outlet = Port(initialize={'f': (self.p, Port.Conservative)})
 
         # Definition of parametres and constraints
 
@@ -96,20 +98,20 @@ class MainGrid(DynUnit):
         # same behaviour than cin
         if mixco2 is not None:
             if isinstance(mixco2, float) or isinstance(mixco2, int):
-                self.mixCO2 = Param(initialize=mixco2, doc='mass of co2 emitted (gram) per kilowatt hour', mutable=True)
+                self.mixCO2 = Param(initialize=mixco2, doc='mass of co2 emitted (gram per kilowatt hour)', mutable=True)
             elif isinstance(mixco2, Series):
                 _init_input, _set_bounds = set_profile(profile=mixco2, kind=kind, fill_value=fill_value)
                 self.mixCO2 = Param(time, initialize=_init_input, default=_init_input,
-                                    doc='mass of co2 emitted (gram) per kilowatt hour', mutable=True)
+                                    doc='mass of co2 emitted (gram per kilowatt hour)', mutable=True)
             else:
                 raise(NotImplementedError())
 
             if self.mixCO2.is_indexed():
                 def _instant_co2(m, t):
-                    return (- m.pin[t] + m.pout[t]) * m.mixCO2[t] / 3600
+                    return m.pout[t] * m.mixCO2[t] / 3600
             else:
                 def _instant_co2(m, t):
-                    return (- m.pin[t] + m.pout[t]) * m.mixCO2 / 3600
+                    return m.pout[t] * m.mixCO2 / 3600
 
             self.instant_co2 = Expression(time, rule=_instant_co2, doc='instantaneous CO2 emission in g/s')
             self.instant_co2.tag = 'CO2'

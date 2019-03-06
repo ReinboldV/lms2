@@ -149,33 +149,6 @@ class LModel(ConcreteModel):
         super().__setattr__(key, value)
         logger.debug(f'adding the attribute : {key} = {value}')
 
-    # def construct_objective(self, select='all'):
-    #     """
-    #     NOT WORKING YET
-    #
-    #     Construction of the global objective.
-    #
-    #     This function is scanning all the structure of the model, looking for active objectives.
-    #     If selected and active,
-    #     objectives are constructed and summed to create a unique global objective (compulsory for Linear Programming).
-    #
-    #     :param str select: 'all' (default), 'cost', 'prosumtion', 'energy' or 'co2' to select and sum objectives of
-    #     sub-components.
-    #     :return:
-    #     """
-    #
-    #     assert select in OBJ_SELECTION.keys(), f'select argument is not recognized. ' \
-    #                                            f'It should be in {OBJ_SELECTION.keys()}, but is actually {select}'
-    #
-    #     obj_f = Expression(expr=0)
-    #     for obj in self.component_objects(active=True, ctype=Expression):
-    #         obj.pprint()
-    #         obj.reconstruct()
-    #         if hasattr(obj,'expression_type'):
-    #             if obj.expression_type == select:
-    #                 obj_f = Objective(expr=obj_f+obj, sens=OBJ_SELECTION[select].sens)
-    #
-    #     return obj_f.to_string()
 
     def fix_binary(self):
         """

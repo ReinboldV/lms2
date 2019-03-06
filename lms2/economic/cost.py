@@ -1,3 +1,9 @@
+"""
+This module contains Economic blocks.
+"""
+
+
+
 # abonnement = 130 euros/y
 #
 #     cout   0.1580€ 	 0.1230€
@@ -8,7 +14,7 @@
 #     ≤ 36 kwc    12,07 €
 #     ≤ 100 kwc   11,19 €
 #
-#     cin case : autoconsumptio
+#     cin case : autoconsumption
 #     ≤ 3 kwc    prime de 400 € /kwc + vente à 10 c€/kWh)
 #     ≤ 9 kwc    prime de 300 € /kwc + vente à 10 c€/kWh)
 #     ≤ 36 kwc 	prime de 190 € /kwc + vente à 6 c€/kWh)
@@ -115,5 +121,3 @@ class PiecewiseLinearCost(_OnePortEconomicUnit):
 
         self.instant_cost = Expression(time, rule=_instant_cost, doc='instantaneous cost in euros/s')
         self.instant_cost.tag = 'COST'
-
-

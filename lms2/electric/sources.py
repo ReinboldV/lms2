@@ -60,7 +60,7 @@ class PowerLoad(FlowLoad):
         :param str flow_name: Name of the new flow variable
         :param kwds:
         """
-        super().__init__(*args, time=time, flow=profile, flow_name=flow_name, **kwds)
+        super().__init__(*args, time=time, profile=profile, flow_name=flow_name, **kwds)
 
 
 class WindTurbine(PowerSource):

@@ -1,3 +1,4 @@
+pyomo
 setuptools>=39.0.1
 matplotlib>=3.0.0
 networkx==2.2

@@ -22,7 +22,7 @@ from lms2.electric.batteries import *
 from lms2.electric.maingrids import *
 from lms2.electric.sources import *
 from lms2.electric.turbines import *
-from lms2.environment.pollutions import *
+from lms2.environment.ghg import *
 from lms2.mechanic.gears import *
 from lms2.logical.hysteresis import *
 from lms2.thermal.dipoles import *

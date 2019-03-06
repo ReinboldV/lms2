@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Basic Units, multi-physical model
+Basic Units, multi-physical base model
 """
 
 from lms2.core.units import DynUnit
@@ -8,42 +8,59 @@ from lms2.core.var import Var
 from lms2.core.param import Param
 
 from pyomo.environ import Constraint, PositiveReals, Binary, Reals, Objective, Expression
+from pyomo.network import Port
 from pyomo.dae import DerivativeVar
 
-__all__ = ['Storage', 'Dipole', 'SourceUnit', 'SourceUnitParam', 'ScalableFlowSource', 'EffortSource', 'FlowSource',
+__all__ = ['Storage', 'TwoPortBaseUnit', 'SourceUnit', 'SourceUnitParam', 'ScalableFlowSource', 'EffortSource', 'FlowSource',
            'FlowLoad', 'UnitA', 'Abs', 'set_profile']
 
 
-class Dipole(DynUnit):
-    """ Simple dipole unit """
+class _OnePortBaseUnit(DynUnit):
+    """ Dynamic Unit that is exposing one generic Port
+    """
+
+    def __init__(self, *args, time=None, **kwds):
+
+        super(_OnePortBaseUnit, self).__init__(*args, time=time, doc=self.__doc__, **kwds)
+        self.f = Var(time)
+        self.e = Var(time)
+        self.inlet = Port(initialize={'flow': self.f, 'effort': self.e})
+
+
+class TwoPortBaseUnit(DynUnit):
+    """ Dynamic unit exposing two generic ports."""
 
     def __init__(self, *args, time=None, r=1, **kwds):
         super().__init__(*args, time=time, doc=self.__doc__, **kwds)
 
-        self.p1 = Var(time, name='p1', doc='input variable')
-        self.p2 = Var(time, name='p2', doc='output variable')
-        self.r = Param(initialize=r, doc='coefficient between p1 and p2')
+        self.e1 = Var(time, name='e1', doc='input effort variable')
+        self.f1 = Var(time, name='f1', doc='input flow variable')
+        self.e2 = Var(time, name='e2', doc='output effort variable')
+        self.f2 = Var(time, name='f2', doc='output flow variable')
 
-        def _cst(m, t):
-            return m.p1[t] == m.r * m.p2[t]
+        self.inlet = Port(initialize={'flow': (self.f1, Port.Conservative), 'effort': self.e1})
+        self.outlet = Port(initialize={'flow': (self.f2, Port.Conservative), 'effort': self.e2})
 
-        self.cst = Constraint(time, rule=_cst)
+        def _flux(m, t):
+            return m.f1[t] == m.f2[t]
+
+        self.flux = Constraint(time, rule=_flux, doc='flux conservation constraint.')
 
 
-class Storage(DynUnit):
+class Storage(_OnePortBaseUnit):
     """ General storage unit"""
 
     def __init__(self, *args, time=None, capa=None, **kwds):
         super().__init__(*args, time=time, doc=self.__doc__, **kwds)
 
-        self.e = Var(time, doc='effort variable')
-        self.f = Var(time, doc='effort derivative with respect to time')
-        self.dedt = DerivativeVar(self.e, wrt=time, doc='flow variable')
+        # self.e = Var(time, doc='effort variable')
+        # self.f = Var(time, doc='effort derivative with respect to time')
+        self.dedt = DerivativeVar(self.e, wrt=time, doc='variation of state variable over the time')
 
         if capa is not None:
-            self.c = Param(initialize=capa, doc='coefficient between e1 and e2', mutable=True)
+            self.c = Param(initialize=capa, doc='capacity', mutable=True)
         else:
-            self.c = Var(initialize=1, doc='coefficient between e1 and e2', within=PositiveReals)
+            self.c = Var(initialize=1, doc='capacity', within=PositiveReals)
 
         def _cst(m, t):
             return m.f[t] == m.c * m.dedt[t]
@@ -51,22 +68,9 @@ class Storage(DynUnit):
         self.cst = Constraint(time, rule=_cst)
 
 
-# class ExpensiveUnit(DynUnit):
-#
-#     def __init__(self, *args, time, c_use=0, **kwargs):
-#
-#         super().__init__(*args, time=time, **kwargs)
-#         self.c_use = Param(initialize=c_use, doc='cost of use (euros/kWh)', mutable=True)
-#
-#         def _instant_cost(m, t):
-#             return -m.pin[t] * m.c_use / 3600
-#
-#         self._instant_cost = Expression(time, rule=_instant_cost)
-#         self._instant_cost.tag = 'COST'
-
-
 class SourceUnit(DynUnit):
     """General Source Unit.
+
     Generates One variable tha may be fixed. This is a base class for definition of Effort/Flow, Source/Load."""
 
     def __init__(self, *args, time, flow, kind='linear', fill_value='extrapolate', flow_name='flow', **kwargs):
@@ -86,6 +90,7 @@ class SourceUnit(DynUnit):
 
 class SourceUnitParam(DynUnit):
     """General Source Unit.
+
     Generates One parameter that may be fixed. This is a base class for definition of Effort/Flow, Source/Load."""
 
     def __init__(self, *args, time, flow, kind='linear', fill_value='extrapolate', flow_name='flow', **kwargs):
@@ -121,23 +126,25 @@ class ScalableFlowSource(DynUnit):
         """
         super().__init__(*args, time=time, **kwargs)
         _init_input, _set_bounds = set_profile(profile=flow, kind=kind, fill_value=fill_value)
-        self.add_component(flow_name+'_u', Param(time, initialize=_init_input, default=_init_input, mutable=True, doc='Source flow for scale factor of 1'))
-        self.add_component(flow_name, Var(time, initialize=_init_input, doc='Scaled source flow'))
-        self.scale_fact = Var(initialize=1, within=PositiveReals, doc='scaling factor within Positve reals')
+        self.add_component(flow_name+'_u',
+                           Param(time, initialize=_init_input, default=_init_input, mutable=True,
+                                 doc='Source flow for scale factor of 1'))
+        self.add_component(flow_name,
+                           Var(time, initialize=_init_input, doc='Scaled source flow'))
+        self.scale_fact = Var(initialize=1, within=PositiveReals,
+                              doc='scaling factor within Positve reals')
 
         def _flow_scaling(m, t):
             return m.scale_fact*m.find_component(flow_name+'_u')[t] == m.find_component(flow_name)[t]
 
         def _debug_flow_scaling(m, t):
-            return -0.000001, m.scale_fact * m.find_component(flow_name + '_u')[t] - m.find_component(flow_name)[t], 0.000001
+            return -0.000001, m.scale_fact * m.find_component(flow_name + '_u')[t] \
+                   - m.find_component(flow_name)[t], 0.000001
 
         self.flow_scaling = Constraint(time, rule=_flow_scaling, doc='Constraint equality for flow scaling')
         self.flow_scaling.deactivate()
-
         self.debug_flow_scaling = Constraint(time, rule=_debug_flow_scaling, doc='Constraint equality for flow scaling')
-
-        self.component(flow_name).port_type = 'flow'
-        self.component(flow_name).sens = 'out'
+        self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
 class EffortSource(SourceUnit):
@@ -145,7 +152,7 @@ class EffortSource(SourceUnit):
     Generates one effort variable and fixe it using interpolation.
     """
 
-    def __init__(self, *args, time, effort, kind='linear', fill_value='extrapolate', effort_name='flow', **kwargs):
+    def __init__(self, *args, time, effort, kind='linear', fill_value='extrapolate', effort_name='effort', **kwargs):
         """
 
         :param args:
@@ -157,8 +164,7 @@ class EffortSource(SourceUnit):
         """
         super().__init__(*args, time=time, flow=effort, flow_name=effort_name,
                          kind=kind, fill_value=fill_value, doc=self.__doc__, **kwargs)
-        self.component(effort_name).port_type = 'effort'
-        self.component(effort_name).sens = None
+        self.outlet = Port(initialize={'e': (self.component(effort_name), Port.Equality)})
 
 
 class FlowSource(SourceUnit):
@@ -180,8 +186,8 @@ class FlowSource(SourceUnit):
 
         super().__init__(*args, time=time, flow=profile, flow_name=flow_name, kind=kind,
                          fill_value=fill_value, doc=self.__doc__, **kwargs)
-        self.component(flow_name).port_type = 'flow'
-        self.component(flow_name).sens = 'out'
+
+        self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
 class FlowLoad(SourceUnit):
@@ -190,7 +196,7 @@ class FlowLoad(SourceUnit):
     (the flow is counted positive when going in the unit).
     """
 
-    def __init__(self, *args, time, flow, kind='linear', flow_name='flow', fill_value='extrapolate', **kwargs):
+    def __init__(self, *args, time, profile, kind='linear', flow_name='flow', fill_value='extrapolate', **kwargs):
         """
 
         :param args:
@@ -201,10 +207,9 @@ class FlowLoad(SourceUnit):
         :param kwargs:
         """
 
-        super().__init__(*args, time=time, flow=flow, flow_name=flow_name, kind=kind,
+        super().__init__(*args, time=time, flow=profile, flow_name=flow_name, kind=kind,
                          fill_value=fill_value, doc=self.__doc__, **kwargs)
-        self.component(flow_name).port_type = 'flow'
-        self.component(flow_name).sens = 'in'
+        self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
 class UnitA(DynUnit):
@@ -215,9 +220,7 @@ class UnitA(DynUnit):
         super().__init__(*args, time=time)
         _init_input, _set_bounds = set_profile(profile=flow, kind='linear', fill_value='extrapolate')
         self.x1 = Var(time, initialize=_init_input, bounds=_set_bounds)
-        self.x1.port_type = 'effort'
         self.x2 = Var(time, initialize=0)
-        self.x2.port_type = 'effort'
         self.y1 = Var(time, bounds=(0, 100))
 
         def _cst1(m, t):
@@ -240,7 +243,7 @@ class Abs(DynUnit):
         M = 100000
 
         self.x = Var(time)
-        self.component('x').port_type = 'effort'
+
         if xmin is None:
             if xmax is None:
                 xmin = -M
@@ -265,13 +268,17 @@ class Abs(DynUnit):
         def _cst3(m, t):
             return m.s1[t] - m.s2[t] == m.x[t]
 
-        self.cst1 = Constraint(time,rule=_cst1)
-        self.cst2 = Constraint(time,rule=_cst2)
-        self.cst3 = Constraint(time,rule=_cst3)
+        self.cst1 = Constraint(time, rule=_cst1)
+        self.cst2 = Constraint(time, rule=_cst2)
+        self.cst3 = Constraint(time, rule=_cst3)
+
+        self.f_inlet = Port(initialize={'f': (self.x, Port.Conservative)})
+        self.f_outlet = Port(initialize={'f': (self.x, Port.Conservative)})
+        self.e_inlet = Port(initialize={'e': (self.x, Port.Equality)})
 
 
 def set_profile(profile, kind='linear', fill_value='extrapolate'):
-    """ Generates constraint functions used to set bounds and values of the profile
+    """ Generates constraint functions used to set bounds and values of profiles
 
     :param pandas Serie profile: Series that describes the input profile
     :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d
@@ -288,6 +295,8 @@ def set_profile(profile, kind='linear', fill_value='extrapolate'):
     def _init_input(m, t):
         b = float(funct(t))
         if b is None:
+            Warning('Interpolation of the given profile returned None. '
+                    'It might be an error from profile or interpolation function.')
             return 0
         else:
             return b
@@ -295,6 +304,8 @@ def set_profile(profile, kind='linear', fill_value='extrapolate'):
     def _set_bounds(m, t):
         b = float(funct(t))
         if b is None:
+            Warning('Interpolation of the given profile returned None. '
+                    'It might be an error from profile or interpolation function.')
             return 0, 0
         else:
             return b, b

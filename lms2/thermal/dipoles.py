@@ -246,9 +246,9 @@ class TStorage(DynUnit):
     #     else:
     #         self.addquantity(name='qc', opt=False, value=qc)
     #     if ts is None:
-    #         self.addquantity(name='ts', ps=ps_t, lb=0, opt=True, index=time_horizon.index)
+    #         self.addquantity(name='ts', pl=ps_t, lb=0, opt=True, index=time_horizon.index)
     #     else:
-    #         self.addquantity(name='ts', ps=ps_t, lb=0, opt=False, value=ts)
+    #         self.addquantity(name='ts', pl=ps_t, lb=0, opt=False, value=ts)
     #
     #     self.addquantity(name='c', value=c, opt=False)
     #     self.addquantity(name='m', value=m, opt=False)

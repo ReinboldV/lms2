@@ -41,7 +41,7 @@ class Hysteresis(object):
     #
     #     TUnit.__init__(self, time_horizon, name=name, description=description)
     #
-    #     self.addquantity(name='u', ps={-1: init_x}, opt=True, vtype='B', vlen=time_horizon.len)
+    #     self.addquantity(name='u', pl={-1: init_x}, opt=True, vtype='B', vlen=time_horizon.len)
     #     self.addquantity(name='a', opt=True, vtype='B', vlen=time_horizon.len)
     #     self.addquantity(name='b', opt=True, vtype='B', vlen=time_horizon.len)
     #     self.addquantity(name='x', opt=True, vlen=time_horizon.len)

@@ -67,11 +67,11 @@ class ModelCO2():
     #     self.addquantity(name='co2max', value=co2max, opt=False)
     #     self.addquantity(name='ymax', value=ymax, opt=False)
     #     self.addquantity(name='y', unit='', index=time_horizon.index, opt=True, lb=ymin, ub=ymax)
-    #     self.addquantity(name='co2', ps={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
+    #     self.addquantity(name='co2', pl={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
     #     self.addquantity(name='pv', description='ventillation pression', unit='bar', opt=False, index=time_horizon.index,
     #                     value=np.ones(time_horizon.len))
     #     self.addquantity(name='yp', index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)
-    #     self.addquantity(name='co2p', ps={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.,  parent=self)
+    #     self.addquantity(name='co2p', pl={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.,  parent=self)
     #     self.addquantity(name='a', index=time_horizon.index, opt=True, lb=amin, ub=amax)
     #     self.addquantity(name='b', index=time_horizon.index, opt=True, lb=bmin, ub=bmax)
     #     self.addquantity(name='zp', index=time_horizon.index, lb=-GRB.INFINITY, opt=True)
@@ -162,11 +162,11 @@ class ModelCO2_bis():
     #     self.addquantity(name='ymax', value=ymax, opt=False)
     #
     #     self.addquantity(name='y', unit='', index=time_horizon.index, opt=True, lb=ymin, ub=ymax)
-    #     self.addquantity(name='co2', ps={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
+    #     self.addquantity(name='co2', pl={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
     #
     #     self.addquantity(name='pv', description='ventillation pression', unit='bar', opt=False, index=time_horizon.index)
     #     self.addquantity(name='yp', index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)
-    #     self.addquantity(name='co2p', ps={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.)
+    #     self.addquantity(name='co2p', pl={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.)
     #
     #     self.addquantity(name='a', index=time_horizon.index, opt=True,lb=amin, ub=amax)
     #     self.addquantity(name='b', index=time_horizon.index, opt=True,lb=bmin, ub=bmax)
