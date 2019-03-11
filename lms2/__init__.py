@@ -14,10 +14,8 @@ from lms2.base.base_units import *
 from lms2.base.utils import *
 from lms2.core.expressions import *
 from lms2.core.models import *
-from lms2.core.param import *
 from lms2.core.time import *
 from lms2.core.units import *
-from lms2.core.var import *
 from lms2.electric.batteries import *
 from lms2.electric.maingrids import *
 from lms2.electric.sources import *

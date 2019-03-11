@@ -4,10 +4,8 @@ Basic Units, multi-physical base model
 """
 
 from lms2.core.units import DynUnit
-from lms2.core.var import Var
-from lms2.core.param import Param
 
-from pyomo.environ import Constraint, PositiveReals, Binary, Reals, Objective, Expression
+from pyomo.environ import Constraint, PositiveReals, Binary, Expression, Var, Param
 from pyomo.network import Port
 from pyomo.dae import DerivativeVar
 

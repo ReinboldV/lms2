@@ -2,14 +2,12 @@
 """
 Contains maingrid unit, i.e. electrical connection to the distribution grid.
 """
-from lms2 import Expression, DynUnit, Var, Param
+from lms2 import Expression, DynUnit
 
-from pyomo.core.base.constraint import Constraint
+from pyomo.environ import Constraint,  Var, Param
 from pyomo.network import Port
 from pyomo.core.kernel.set_types import NonNegativeReals, Binary
 from pandas import Series
-
-# TODO : add ports
 
 
 class MainGrid(DynUnit):

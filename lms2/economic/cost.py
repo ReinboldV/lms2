@@ -26,7 +26,7 @@ from lms2 import DynUnit
 from lms2.base.base_units import set_profile
 
 from pyomo.environ import Param, Var, Expression
-from pyomo.network import Port, Arc
+from pyomo.network import Port
 
 from pandas import Series
 

@@ -3,8 +3,8 @@
 """ 
 Contains units and models for emissions
 """
-from lms2 import DynUnit, Var, Param
-
+from lms2 import DynUnit
+from pyomo.environ import Var
 from pyomo.network import Port
 
 

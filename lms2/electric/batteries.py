@@ -5,19 +5,17 @@ Batteries' Module.
 Contains electrical batteries linear models.
 """
 
-from lms2 import DynUnit, Var, Param
+from lms2 import DynUnit
 # from lms2.core.var import Var
 # from lms2.core.param import Param
 # from lms2.base.base_units import DynUnit
 
-from pyomo.environ import Constraint
+from pyomo.environ import Constraint, Var, Param
 from pyomo.network import Port
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.core.kernel.set_types import NonNegativeReals, Binary
 
 __all__ = ['Battery']
-
-# TODO : add ports
 
 
 class Battery(DynUnit):

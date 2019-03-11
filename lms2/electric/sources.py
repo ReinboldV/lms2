@@ -3,7 +3,8 @@
 Contains classical electrical sources and loads.
 """
 
-from lms2 import FlowSource, FlowLoad, ScalableFlowSource, Param, Expression
+from lms2 import FlowSource, FlowLoad, ScalableFlowSource, Expression
+from pyomo.environ import Param
 
 
 class PowerSource(FlowSource):
