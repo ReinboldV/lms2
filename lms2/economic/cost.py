@@ -39,8 +39,8 @@ class _OnePortEconomicUnit(DynUnit):
     def __init__(self, *args, time=None, **kwds):
 
         super(_OnePortEconomicUnit, self).__init__(*args, time=time, **kwds)
-        self.v = Var(time)
-        self.inlet = Port(initialize={'v': self.v})
+        self.v_in = Var(time)
+        self.inlet = Port(initialize={'f': (self.v_in, Port.Conservative)})
 
 
 class SimpleCost(_OnePortEconomicUnit):
@@ -72,14 +72,12 @@ class SimpleCost(_OnePortEconomicUnit):
                 self.cost = Param(initialize=0, doc='Cost of energy is null', mutable=False)
 
         # Definition of the instant objectives to be integrated over the time
-        if self.cost.is_indexed() & self.cout.is_indexed():
+        if self.cost.is_indexed():
             def _instant_cost(m, t):
-                return (m.v[t] * m.cost[t]) / 3600
-        elif (not self.cost.is_indexed()) & (not self.cout.is_indexed()):
+                return (m.v_in[t] * m.cost[t]) / 3600
+        else :
             def _instant_cost(m, t):
-                return (m.v[t] * m.cost) / 3600
-        else:
-            raise (NotImplementedError())
+                return (m.v_in[t] * m.cost) / 3600
 
         self.instant_cost = Expression(time, rule=_instant_cost, doc='instantaneous cost in euros/s')
         self.instant_cost.tag = 'COST'
@@ -93,31 +91,37 @@ class PiecewiseLinearCost(_OnePortEconomicUnit):
 
     """
 
-    def __init__(self, cost, f_rule, *args, time=None, bound='EQ', repn='SOS2', **kwds):
+    def __init__(self, pw_pts, f_rule, *args, time=None, pw_constr_type='LB', pw_repn='SOS2', **kwds):
         """
 
-        :param cost: list, tuple or dictionnary of piecewise breaking points
-        :param f_rule: rule, list, tuple for dictionnary
+        :param pw_pts: list, tuple or dictionary of piecewise breaking points
+        :param f_rule: rule, list, tuple for dictionary
         :param args:
         :param time: time index Set
-        :param bound: Indicates the bound type of the piecewise function.
-        :param repn: Indicates the type of piecewise representation to use.
+        :param pw_constr_type: Indicates the bound type of the piecewise function.
+        :param pw_repn: Indicates the type of piecewise representation to use.
         :param kwds: See :class:`pyomo.core.base.piecewise.Piecewise` for keywords optional arguments.
         """
         super(PiecewiseLinearCost, self).__init__(*args, time=time, **kwds)
 
         from pyomo.core.base.piecewise import Piecewise
 
-        assert isinstance(cost, (list, dict, tuple)), f'"cost" must be an instance of list, tuple or dictionary,' \
-                                                      f' but actually is : {cost, type(cost)}'
+        assert isinstance(pw_pts, (list, dict, tuple)), f'"cost" must be an instance of list, tuple or dictionary,' \
+                                                      f' but actually is : {pw_pts, type(pw_pts)}'
 
         self.dcost = Var(time)
+        del self.v_in
+        del self.inlet
+        self.v_in = Var(time, bounds=(min(pw_pts), max(pw_pts)))
+        self.inlet = Port(initialize={'f': (self.v_in, Port.Conservative)})
 
-        kwds = {'pw_constr_type': bound, 'pw_repn': repn, 'f_rule': f_rule}
-        self.piecewise = Piecewise(time, self.dcost, self.v, kwds)
+        self.piecewise = Piecewise(time, self.dcost, self.v_in,
+                                   f_rule=f_rule,
+                                   pw_pts=pw_pts,
+                                   pw_repn=pw_repn,
+                                   pw_constr_type=pw_constr_type)
 
         def _instant_cost(m, t):
             return m.dcost[t] / 3600
 
         self.instant_cost = Expression(time, rule=_instant_cost, doc='instantaneous cost in euros/s')
-        self.instant_cost.tag = 'COST'
