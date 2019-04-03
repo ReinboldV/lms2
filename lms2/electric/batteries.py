@@ -10,7 +10,7 @@ from lms2 import DynUnit
 # from lms2.core.param import Param
 # from lms2.base.base_units import DynUnit
 
-from pyomo.environ import Constraint, Var, Param
+from pyomo.environ import Constraint, Var, Param, Expression, Piecewise
 from pyomo.network import Port
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.core.kernel.set_types import NonNegativeReals, Binary
@@ -52,6 +52,16 @@ class Battery(DynUnit):
 
         self.dedt = DerivativeVar(self.e, wrt=time, doc='variation of energy in battery with respect to time',
                                   initialize=0)
+        if dpdmax is None:
+            # todo calculate dpdmax based on pdmax, pdmin and time steps
+            dpdmax = 1000
+            Warning('dpdmax has been set arbitrary for convergence purpose. Set it for better performance')
+
+        if dpcmax is None:
+            # todo calculate dpdmax based on pdmax, pdmin and time steps
+            dpcmax = 1000
+            Warning('dpdmax has been set arbitrary for convergence purpose. Set it for better performance')
+
         if emin is None:
             emin = 0
 
@@ -87,13 +97,13 @@ class Battery(DynUnit):
             self.socmax = Param(initialize=socmax, doc='maximal soc', mutable=True)
 
         if dpdmax is not None:
-            self.pdmax = Param(initialize=dpdmax, doc='maximal discharging power', mutable=True)
+            self.dpdmax = Param(initialize=dpdmax, doc='maximal discharging power', mutable=True)
 
         if dpcmax is not None:
             self.dpcmax = Param(initialize=dpcmax, doc='maximal charging power', mutable=True)
 
-        if dpcmax is not None or dpdmax is not None:
-            self.dp = DerivativeVar(self.p, wrt=time, doc='varioation of the battery power with respect to time', initialize=0)
+        self.dp = DerivativeVar(self.p, wrt=time, bounds=(-dpcmax, dpdmax),
+                                doc='variation of the battery power with respect to time', initialize=0)
 
         if pcmax is not None:
             self.pcmax = Param(initialize=pcmax, doc='maximal charging power', mutable=True)
@@ -113,14 +123,14 @@ class Battery(DynUnit):
 
         def _energy_balance(m, t):
             if not (etac == 1. and etad == 1.):
-                return m.dedt[t] == 1/3600*(m.pc[t] * self.etac - m.pd[t] / m.etad)
+                return m.dedt[t] == 1/3600*(m.pc[t] * m.etac - m.pd[t] / m.etad - m.e[t]/1000)
             else:
                 return m.dedt[t] == 1/3600*(m.pc[t] - m.pd[t])
 
         self._energy_balance = Constraint(time, rule=_energy_balance, doc='Energy balance constraint')
 
         def _p_balance(m, t):
-            return m.p[t] == m.pc[t] - m.pd[t]
+            return m.p[t] == m.pd[t] - m.pc[t]
 
         self._p_balance = Constraint(time, rule=_p_balance, doc='Power balance constraint')
 
@@ -176,28 +186,45 @@ class Battery(DynUnit):
 
         self._pcmax = Constraint(time, rule=_pcmax, doc='Maximal charging power constraint')
 
-        def _pdmax(m, t):
-            if pdmax is None:
-                return Constraint.Skip
-            if not (etac == 1. and etad == 1.):
-                return m.pd[t] + m.u[t] * m.pdmax <= m.pdmax
-            else:
-                return 0, m.pd[t], m.pdmax  # 0 <= m.pd[t] <= m.pdmax
-
-        self._pdmax = Constraint(time, rule=_pdmax, doc='Maximal descharging power constraint')
-
-        def _dpcmax(m, t):
-            if dpcmax is None:
-                return Constraint.Skip
-            else:
-                return m.dp[t] <= m.dpcmax
-
-        self._dpcmax = Constraint(time, rule=_dpcmax, doc='Maximal varation of charging power constraint')
+        # def _pdmax(m, t):
+        #     if pdmax is None:
+        #         return Constraint.Skip
+        #     if not (etac == 1. and etad == 1.):
+        #         return m.pd[t] + m.u[t] * m.pdmax <= m.pdmax
+        #     else:
+        #         return 0, m.pd[t], m.pdmax  # 0 <= m.pd[t] <= m.pdmax
+        #
+        # self._pdmax = Constraint(time, rule=_pdmax, doc='Maximal descharging power constraint')
+        #
+        # def _dpcmax(m, t):
+        #     if dpcmax is None:
+        #         return Constraint.Skip
+        #     else:
+        #         return m.dp[t] >= -m.dpcmax
+        #
+        # self._dpcmax = Constraint(time, rule=_dpcmax, doc='Maximal varation of charging power constraint')
 
         def _dpdmax(m, t):
             if dpdmax is None:
                 return Constraint.Skip
             else:
-                return m.dp[t] >= -m.dpdmax
+                return m.dp[t] <= m.dpdmax
 
         self._dpdmax = Constraint(time, rule=_dpdmax, doc='Maximal varation of descharging power constraint')
+
+        def rule(model, t, x):
+            return x * x
+
+        self.dp2 = Var(time, bounds=(dpcmax**2, dpdmax**2))
+
+        def _dpower(m, t):
+            return m.dp2[t]
+
+        self.pw = Piecewise(time,
+                            self.dp2, self.dp,
+                            pw_pts=[-dpcmax, -dpcmax/2, 0, dpdmax/2, dpdmax],
+                            pw_repn='SOS2',
+                            pw_constr_type='LB',
+                            f_rule=rule)
+
+        self.instant_cost = Expression(time, rule=_dpower, doc='instantaneous cost of use in euros/s')
