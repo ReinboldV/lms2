@@ -3,14 +3,78 @@
 Basic Units, multi-physical base model
 """
 
-from lms2.core.units import DynUnit
+from lms2.core.units import Unit
 
-from pyomo.environ import Constraint, PositiveReals, Binary, Expression, Var, Param
+from pyomo.environ import *
 from pyomo.network import Port
 from pyomo.dae import DerivativeVar
 
-__all__ = ['Storage', 'TwoPortBaseUnit', 'SourceUnit', 'SourceUnitParam', 'ScalableFlowSource', 'EffortSource', 'FlowSource',
-           'FlowLoad', 'UnitA', 'Abs', 'set_profile']
+__all__ = ['DynUnit',           'DynUnitTest',      'AbsDynUnit',           'Storage',          '_OnePortBaseUnit',
+           '_TwoPortBaseUnit',  'SourceUnit',       'AbsFixedFlowLoad',     'SourceUnitParam',  'ScalableFlowSource',
+           'EffortSource',      'FlowSource',       'AbsFixedFlowSource',   'FlowLoad',         'AbsFlowSource',
+           'AbsFlowLoad',       'AbsEffortSource',  'UnitA',                'Abs',              'set_profile',
+           '_init_input',       '_set_bounds']
+
+
+class DynUnit(Unit):
+    def __init__(self, *args, time=None, **kwds):
+        """
+        Dynamic Unit
+
+        Standard unit with a time argument for indexing variables and constraints.
+
+        :param args:
+        :param time:
+        :param kwds:
+        """
+        from pyomo.dae.contset import ContinuousSet
+
+        super().__init__(*args, **kwds)
+        if not isinstance(time, ContinuousSet):
+            msg = f'time key word argument should be an instance of pyomo.dae.contest.ContinuousSet, ' \
+                  f'and is actually a {type(time)}.'
+            raise AttributeError(msg)
+        self.doc = self.__doc__
+
+    def get_constraints_values(self):
+        return
+
+    def get_duals(self):
+        return
+
+
+class AbsDynUnit(Unit):
+    def __init__(self, *args, **kwds):
+        """
+        Abstract Dynamic Unit
+
+        Standard unit with a time argument for indexing variables and constraints.
+
+        :param args:
+        :param time:
+        :param kwds:
+        """
+        from pyomo.dae.contset import ContinuousSet
+
+        super().__init__(*args, **kwds)
+        self.time = ContinuousSet(bounds=(0, 1))
+        self.doc = self.__doc__
+
+    def get_constraints_values(self):
+        return
+
+    def get_duals(self):
+        return
+
+
+class DynUnitTest(DynUnit):
+    """ Dynamic Test Unit """
+
+    def __init__(self, *args, time=None, **kwds):
+        super().__init__(*args, time=time, doc=self.__doc__, **kwds)
+
+        self.e = Var(time, within=NonNegativeReals)
+        self.p = DerivativeVar(self.e, wrt=time)
 
 
 class _OnePortBaseUnit(DynUnit):
@@ -25,7 +89,7 @@ class _OnePortBaseUnit(DynUnit):
         self.inlet = Port(initialize={'flow': self.f, 'effort': self.e})
 
 
-class TwoPortBaseUnit(DynUnit):
+class _TwoPortBaseUnit(DynUnit):
     """ Dynamic unit exposing two generic ports."""
 
     def __init__(self, *args, time=None, r=1, **kwds):
@@ -51,8 +115,6 @@ class Storage(_OnePortBaseUnit):
     def __init__(self, *args, time=None, capa=None, **kwds):
         super().__init__(*args, time=time, doc=self.__doc__, **kwds)
 
-        # self.e = Var(time, doc='effort variable')
-        # self.f = Var(time, doc='effort derivative with respect to time')
         self.dedt = DerivativeVar(self.e, wrt=time, doc='variation of state variable over the time')
 
         if capa is not None:
@@ -275,6 +337,167 @@ class Abs(DynUnit):
         self.e_inlet = Port(initialize={'e': (self.x, Port.Equality)})
 
 
+class AbsFlowSource(AbsDynUnit):
+    """
+    Abstract Flow Source Unit.
+
+    Exposes a conservative port for generic flow variable.
+    """
+    def __init__(self, *args, flow_name='flow', **kwargs):
+        """
+        :param str flow_name: name of the flow variable
+        """
+        super().__init__(*args, **kwargs)
+        self.add_component(flow_name, Var(self.time, initialize=0, within=Reals))
+        self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
+
+
+class AbsFlowLoad(AbsDynUnit):
+    """
+    Abstract Flow Load Unit.
+
+    Exposes a conservative port for generic flow variable.
+    Source convention is used.
+    """
+
+    def __init__(self, *args, flow_name='flow', **kwargs):
+        """
+        :param str flow_name: name of the flow variable
+        """
+
+        super().__init__(*args, **kwargs)
+        self.add_component(flow_name, Var(self.time, initialize=0, within=Reals))
+        self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
+
+
+class AbsEffortSource(AbsDynUnit):
+    """
+    Abstract Effort source unit.
+
+    Exposes a Equality port for generic effort variable.
+    """
+
+    def __init__(self, *args, effort_name='effort', **kwargs):
+        super().__init__(*args, **kwargs)
+        self.add_component(effort_name, Var(self.time, initialize=0, within=Reals))
+        self.outlet = Port(initialize={'e': (self.component(effort_name))})
+
+
+def _init_input(m, t):
+    """
+    Rule for initiate variable profile using interpolation of a given index.
+
+    :param m:
+    :param t:
+    :return:
+    """
+    from scipy.interpolate.interpolate import interp1d
+
+    if not hasattr(m, 'profile_index'):
+        raise AttributeError(f'{m} object has no attribute "profile_index".'
+                             f' Cannot proceed interpolation for initialization')
+    if not hasattr(m, 'profile_value'):
+        raise AttributeError(f'{m} object has no attribute "profile_value".'
+                             f' Cannot proceed interpolation for initialization')
+    if not isinstance(m.profile_index, Set):
+        raise TypeError(f'"m.profile_index" is not a instance of Set,'
+                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
+    if not isinstance(m.profile_value, Param):
+        raise TypeError(f'"m.profile_value" is not a instance of Param,'
+                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
+
+    interp_x = list(m.profile_index.value)
+    interp_y = list(m.profile_value.extract_values().values())
+    funct = interp1d(interp_x, interp_y, kind='linear', fill_value='extrapolate')
+    b = float(funct(t))
+    if b is None:
+        Warning('Interpolation of the given profil returned None. '
+                'It might be an error from profil or interpolation function.')
+        return 0
+    else:
+        return b
+
+def _set_bounds(m, t):
+    """
+     Rule to initiate variable bounds using interpolation of a given list.
+
+    :param m:
+    :param t:
+    :return:
+    """
+    from scipy.interpolate.interpolate import interp1d
+
+    if not hasattr(m, 'profile_index'):
+        raise AttributeError(f'{m} object has no attribute "profile_index".'
+                             f' Cannot proceed interpolation for initialization')
+    if not hasattr(m, 'profile_value'):
+        raise AttributeError(f'{m} object has no attribute "profile_value".'
+                             f' Cannot proceed interpolation for initialization')
+    if not isinstance(m.profile_index, Set):
+        raise TypeError(f'"m.profile_index" is not a instance of Set,'
+                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
+    if not isinstance(m.profile_value, Param):
+        raise TypeError(f'"m.profile_value" is not a instance of Param,'
+                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
+
+    interp_x = list(m.profile_index.value)
+    interp_y = list(m.profile_value.extract_values().values())
+    funct = interp1d(interp_x, interp_y, kind='linear', fill_value='extrapolate')
+    b = float(funct(t))
+    if b is None:
+        Warning('Interpolation of the given profil returned None. '
+                'It might be an error from profil or interpolation function.')
+        return 0, 0
+    else:
+        return b, b
+
+
+# TODO generalize this method for other modules
+def setprofile(m, t):
+    pass
+
+
+class AbsFixedFlowSource(AbsFlowSource):
+    """
+    Abstract Fixed Flow Source Unit.
+
+    Abstract Source Unit who's flow variable is fixed using a given index set and indexed profile.
+    """
+
+    def __init__(self, *args, flow_name='flow', **kwargs):
+
+        super().__init__(*args, flow_name = flow_name, **kwargs)
+
+        def _rule(m, t):
+            return 0
+
+        self.add_component('profile_index', Set())
+        self.add_component('profile_value', Param(self.profile_index, default=_rule))
+
+        self.del_component(flow_name)
+        self.add_component(flow_name, Var(self.time, initialize=_init_input, bounds=_set_bounds))
+
+
+class AbsFixedFlowLoad(AbsFlowLoad):
+    """
+    Abstract Fixed Flow Load Unit.
+
+    Flow variable is fixed using a given index set and indexed profile.
+    """
+
+    def __init__(self, *args, flow_name='flow', **kwargs):
+        super().__init__(*args, flow_name=flow_name, **kwargs)
+
+        def _rule(m, t):
+            return 0
+
+        self.add_component('profile_index', Set())
+        self.add_component('profile_value', Param(self.profile_index, default=_rule))
+
+        self.del_component(flow_name)
+        self.add_component(flow_name, Var(self.time, initialize=_init_input, bounds=_set_bounds))
+
+
 def set_profile(profile, kind='linear', fill_value='extrapolate'):
     """ Generates constraint functions used to set bounds and values of profiles
 
@@ -309,5 +532,3 @@ def set_profile(profile, kind='linear', fill_value='extrapolate'):
             return b, b
 
     return _init_input, _set_bounds
-
-
