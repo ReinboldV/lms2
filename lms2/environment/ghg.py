@@ -4,8 +4,25 @@
 Contains units and models for emissions
 """
 from lms2 import DynUnit
-from pyomo.environ import Var
+from pyomo.environ import Var, Expression, Param
 from pyomo.network import Port
+
+
+def def_linear_ghg_cost(m, var_name='p_out'):
+    """
+    Method for adding a linear CO2 cost to a block
+
+    :param m: Block
+    :param str var_name: Names of the expensive variable
+    :return:
+    """
+
+    m.co2 = Param(initialize=0, mutable= True, doc='Green gaz emission factor (gr eqCO2/(kW.h))')
+
+    def _instant_co2(m, t):
+        return m.find_component(var_name)[t] * m.mixCO2 / 3600
+
+    return Expression(m.time, rule=_instant_co2, doc='instantaneous GHG emission in geqCO2/s')
 
 
 class _OnePortGHGUnit(DynUnit):
