@@ -6,7 +6,8 @@ Basic block for linear Modeling.
 """
 from lms2.core.models import LModel
 
-from pyomo.environ import Objective, Var, NonNegativeReals
+from pyomo.environ import Objective, Param, Var, NonNegativeReals, Constraint, Expression
+from pyomo.network import Port
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.core.base.PyomoModel import Model as PyomoModel
 from pyomo.core.base.block import SimpleBlock, Block
@@ -14,7 +15,7 @@ from pyomo.core.base.block import SimpleBlock, Block
 from networkx import Graph
 import logging
 
-__all__ = ['Unit', 'DynUnit', 'DynUnitTest']
+__all__ = ['Unit']
 logger = logging.getLogger('lms2.units')
 
 
@@ -41,6 +42,7 @@ class Unit(SimpleBlock):
         existing timeSteps.
         To overcome this behaviour, this method allows to automatically redefine objectives after time discretization.
 
+        TODO : should be used in some rare cases. Normally, the Integral object should be able to do the trick.
         """
 
         for block in self.component_map(active=True, ctype=Block):
@@ -84,47 +86,54 @@ class Unit(SimpleBlock):
                 if u.is_binary():
                     u.unfix()
 
+    def get_doc(self):
+        """
+        dev function to print documentation
+
+        :return: doc
+        """
+
+        doc = ""
+
+        blocks  = self.component_objects(ctype=Block)
+        vars    = self.component_objects(ctype=Var)
+        dvars   = self.component_objects(ctype=DerivativeVar)
+        params  = self.component_objects(ctype=Param)
+        cst     = self.component_objects(ctype=Constraint)
+        ports   = self.component_objects(ctype=Port)
+        exp     = self.component_objects(ctype=Expression)
+
+        doc += '\n' + 'Blocks: \n----------\n\n'
+        for k in blocks:
+            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
+        doc += '\n'+'Variables: \n----------\n\n'
+        for k in vars:
+            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
+        doc += '\n'+'DerivativeVar: \n---------------\n\n'
+        for k in dvars:
+            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
+        doc += '\n'+'Param: \n------\n\n'
+        for k in params:
+            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
+        doc += '\n' + 'Constraints: \n---------\n\n'
+        for k in cst:
+            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
+        doc += '\n' + 'Ports: \n------\n\n'
+        for k in ports:
+            doc += '{:<10}'.format(k.getname()) + '\n'
+        doc += '\n' + 'Expressions: \n---------\n\n'
+        for k in exp:
+            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
+
+        return doc
+
     def __setattr__(self, key, value):
 
         super().__setattr__(key, value)
         logger.debug(f'adding the attribute : {key} = {value}')
 
 
-class DynUnit(Unit):
-    def __init__(self, *args, time=None, **kwds):
-        """
-        Dynamic Unit
 
-        Standard unit with a time argument for indexing variables and constraints.
-
-        :param args:
-        :param time:
-        :param kwds:
-        """
-        from pyomo.dae.contset import ContinuousSet
-
-        super().__init__(*args, **kwds)
-        if not isinstance(time, ContinuousSet):
-            msg = f'time key word argument should be an instance of pyomo.dae.contest.ContinuousSet, ' \
-                  f'and is actually a {type(time)}.'
-            raise AttributeError(msg)
-        self.doc = self.__doc__
-
-    def get_constraints_values(self):
-        return
-
-    def get_duals(self):
-        return
-
-
-class DynUnitTest(DynUnit):
-    """ Dynamic Test Unit """
-
-    def __init__(self, *args, time=None, **kwds):
-        super().__init__(*args, time=time, doc=self.__doc__, **kwds)
-
-        self.e = Var(time, within=NonNegativeReals)
-        self.p = DerivativeVar(self.e, wrt=time)
 
 
 Unit.compute_statistics = PyomoModel.compute_statistics
@@ -132,8 +141,3 @@ Unit.compute_statistics = PyomoModel.compute_statistics
 
 if __name__ == '__main__':
     pass
-
-
-
-
-
