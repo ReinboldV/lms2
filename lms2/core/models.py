@@ -4,7 +4,7 @@ Definition of Linear Model class.
 """
 
 
-from pyomo.environ import ConcreteModel, Block, Constraint, Objective, Var
+from pyomo.environ import ConcreteModel, Block, Constraint, Objective, Var, AbstractModel
 import logging
 
 logging.basicConfig(filename='/home/admin/Documents/02-Recherche/02-Python/lms2/lms2.log',
@@ -15,12 +15,181 @@ logging.basicConfig(filename='/home/admin/Documents/02-Recherche/02-Python/lms2/
 
 logging.info("Running LMS2 Logging...")
 
-__all__ = ['LModel']
+__all__ = ['LModel', 'AbsLModel']
 logger = logging.getLogger('lms2.models')
 
 
 class LModel(ConcreteModel):
     """ Redefinition of ConcreteModel for the lms2 package"""
+
+    def __init__(self, name='model', *args):
+        """
+
+        :param str name: Name of the model
+        :param args:
+
+        """
+
+        super().__init__(name=name, *args)
+        logger.info(f'Initiation of {name} {self.__class__}')
+        self._graph = None
+
+    @property
+    def graph(self):
+        """
+        getter for the graph argument
+        """
+        self.update_graph()
+        return self._graph
+
+    @graph.setter
+    def graph(self, g):
+        """
+        Setter method for the graph attribute
+
+        :param Graph g: Grpah of the Unit
+        :return: None
+        """
+        from networkx import Graph
+        assert isinstance(g, Graph), f'graph attribute must be an instance of networkx.Graph, ' \
+            f'but received {type(g)} instead.'
+
+    def __setattr__(self, key, value):
+
+        super().__setattr__(key, value)
+        logger.debug(f'adding the attribute : {key} = {value}')
+
+    def fix_binary(self):
+        """
+        Fix binary variables to their values
+
+        :return:
+
+        """
+        from pyomo.environ import RealSet
+
+        for u in self.component_objects(Var):
+            if u.is_indexed():
+                for ui in u.itervalues():
+                    if ui.is_binary():
+                        ui.fix(ui.value)
+                        ui.domain = RealSet([0, 1])
+            else:
+                if u.is_binary():
+                    u.fix(u.value)
+                    u.domain = RealSet([0, 1])
+
+    def unfix_binary(self):
+        """
+        Unfix binary variables
+
+        :return:
+        """
+        for u in self.component_objects(Var):
+            if u.is_indexed():
+                for ui in u.itervalues():
+                    if ui.is_binary():
+                        ui.unfix()
+            else:
+                if u.is_binary():
+                    u.unfix()
+
+    def get_duals(self, dual_name='dual'):
+        """
+        Return dual coefficient of LP model.
+
+        :param str dual_name: name of the Suffix
+        :return : Dual coefficient (DataFrame)
+        """
+        from pandas import DataFrame, concat
+        from pyomo.environ import Constraint
+        df = DataFrame()
+
+        assert hasattr(self, dual_name), f'"{self.name}" does not have attribute named "{dual_name}".'
+
+        for cst in self.component_objects(Constraint, active=True):
+            if cst.is_indexed():
+                s = DataFrame(
+                    {cst.getname(fully_qualified=True)+'_'+dual_name: {i: self.component(dual_name)[c]
+                                                                       for (i, c) in cst.iteritems()}})
+                df = concat([df, s], axis=1)
+            else:
+                Warning('Trying to get dual coefficient from a non-index variable. Not Implemented Yet')
+        return df
+
+    def get_slack(self):
+        """
+        Return slack variables values for all
+        the active constraints of a model.
+
+        :return: DataFrame
+        """
+
+        from pandas import DataFrame, Series, concat
+
+        df = DataFrame()
+        for c in self.component_objects(Constraint, active=True):
+            if c.is_indexed():
+                s1 = Series({i: c[i].lslack() for i in c.__iter__()})
+                s2 = Series({i: c[i].uslack() for i in c.__iter__()})
+                df_c = DataFrame({c.getname(fully_qualified=True).replace('.', '_')+'_ls': s1, c.getname()+'_us': s2})
+                df = concat([df, df_c], axis=1)
+        return df
+
+    # TODO : Not sure it is the way to go
+    def construct_objective_from_tagged_expression(self, ptags=[]):
+        """
+        Definition of a method for pyomo class block. It sum-up all the expression the same tag
+
+        :param Block self: A given block
+        :param ptags: list of strings which refers to protected tags
+        :return: ListObjectif
+        """
+        from lms2 import Expression
+        from pyomo.environ import ObjectiveList, Objective
+        from pyomo.dae import Integral
+
+        _tags = []
+
+        for e in self.component_objects(Expression, active=True):
+            if hasattr(e, 'tag'):
+                if e.tag not in _tags:
+                    _tags.append(e.tag)
+                    self.add_component(e.tag, ObjectiveList())
+
+                new_int = e.parent_block().name+'_int'+e.getname(fully_qualified=False)
+                self._logger.info(f'Integrating a tagged expression "{e.tag}" to the model : {new_int}')
+                self.add_component(new_int, Integral(e.index_set(), wrt=e.index_set(),
+                                   rule=lambda model, index: e[index]))
+                self.find_component(e.tag).add(expr=self.find_component(new_int))
+
+        for objlist in self.component_objects(Objective):
+            if objlist.getname(fully_qualified=False) not in ptags:
+                if objlist.getname() in _tags:
+                    objlist.deactivate()
+
+    def construct_objective_from_expression_list(self, wrt, *args):
+        """
+        Consruct objective from list of expression to be integrated with respect to wrt.
+
+        :param str name: name of the new integral expression (optional)
+        :param wrt: Set for the integration of the expressions
+        :param args: Expression of instantaneous objectives
+        :return: Objective
+        """
+        from lms2 import Expression
+        from pyomo.dae import Integral
+        for exp in args:
+            assert isinstance(exp, Expression), ValueError(f'args should be a list of pyomo Expression,'
+                                                           f' and actually received {exp, type(exp)}')
+
+        self.new_int = Integral(wrt, wrt=wrt, rule=lambda model, index: sum([a[index] for a in args]))
+
+        return Objective(expr=self.new_int)
+
+
+class AbsLModel(AbstractModel):
+    """ Redefinition of AbstractModel for the lms2 package"""
 
     def __init__(self, name='model', *args):
         """
