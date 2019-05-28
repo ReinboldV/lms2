@@ -7,8 +7,8 @@ from lms2 import AbsFlowSource, AbsFixedFlowSource, AbsFlowLoad, AbsFixedFlowLoa
 from pyomo.environ import Var, PositiveReals, Constraint
 from pyomo.network import Port
 
-__all__ = ['AbsPowerSource', 'AbsFixedPowerSource', 'AbsScalablePowerSource', 'AbsPowerLoad', 'AbsFixedPowerLoad',
-           'AbsScalablePowerLoad']
+__all__ = ['AbsPowerSource',        'AbsFixedPowerSource',      'AbsScalablePowerSource',
+           'AbsPowerLoad',          'AbsFixedPowerLoad',        'AbsScalablePowerLoad',      'AbsDebugSource']
 
 #TODO unittest
 class AbsPowerSource(AbsFlowSource):
@@ -16,8 +16,8 @@ class AbsPowerSource(AbsFlowSource):
 
     Exposes a power output port.
     """
-    def __init__(self, *args, **kwds):
-        super().__init__(*args, flow_name='p', **kwds)
+    def __init__(self, *args, flow_name='p', **kwds):
+        super().__init__(*args, flow_name=flow_name, **kwds)
 
 #TODO unittest
 class AbsFixedPowerSource(AbsFixedFlowSource):
@@ -45,11 +45,11 @@ class AbsScalablePowerSource(AbsFixedPowerSource):
         self.add_component(scaled_flow_name, Var(self.time, doc='Scaled source flow'))
 
         def _flow_scaling(m, t):
-            return m.scale_fact*m.find_component(scaled_flow_name)[t] == m.find_component(flow_name)[t]
+            return m.find_component(scaled_flow_name)[t] == m.scale_fact*m.find_component(flow_name)[t]
 
         def _debug_flow_scaling(m, t):
             return -0.000001, \
-                   m.scale_fact * m.find_component(scaled_flow_name)[t] - m.find_component(flow_name)[t],\
+                   m.find_component(scaled_flow_name)[t] - m.scale_fact * m.find_component(flow_name)[t],\
                    0.000001
 
         self.flow_scaling       = Constraint(self.time, rule=_flow_scaling,
@@ -57,9 +57,8 @@ class AbsScalablePowerSource(AbsFixedPowerSource):
         self.debug_flow_scaling = Constraint(self.time, rule=_debug_flow_scaling,
                                              doc='Constraint equality for flow scaling')
 
-        # self.flow_scaling.deactivate()
 
-        self.scaled_outlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Conservative)})
+        self.outlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Conservative)})
 
 #TODO unittest
 class AbsPowerLoad(AbsFlowLoad):
@@ -132,3 +131,23 @@ class AbsScalablePowerLoad(AbsFixedPowerLoad):
         # self.flow_scaling.deactivate()
 
         self.scaled_inlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Conservative)})
+
+
+class AbsDebugSource(AbsPowerSource):
+    """
+    Debug Power source.
+
+    Consist of an unbounded power source to force convergence.
+    It is associated to an expensive (positive) cost function.
+    """
+
+    def __init__(self, *args, flow_name='p', **kwds):
+        """
+
+        :param str flow_name: name of the variable to be weighted
+        """
+        super().__init__(*args, flow_name=flow_name, **kwds)
+
+        from lms2 import def_simple_cost
+
+        self.inst_cost = def_simple_cost(self, var_name='p')

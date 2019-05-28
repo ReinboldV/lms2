@@ -10,6 +10,8 @@ from pyomo.environ import NonNegativeReals, Binary
 from pandas import Series
 
 
+__all__ = ['AbsMainGridV0', 'AbsMainGridV1', 'AbsMainGridV2']
+
 UB = 10e6
 
 
@@ -20,25 +22,25 @@ def def_pin_pout(m):
     assert isinstance(m, Block),    f"argument 'm', must be an instance of Block, but is actually {type(m)}."
     assert hasattr(m, 'p'),         f"model m does not have attribute named 'p'. This is needed. "
 
-    m.pmax  = Param(initialize=UB,  mutable=True, doc='maximal power in')
-    m.pmin  = Param(initialize=-UB, mutable=True, doc='maximal power out')
+    m.pmax  = Param(initialize=UB,  mutable=True, doc='maximal power out (kW)')
+    m.pmin  = Param(initialize=UB,  mutable=True, doc='maximal power in (kW)')
 
     m.pout  = Var(m.time, doc='power to the main grid',   within=NonNegativeReals,    initialize=0)
     m.pin   = Var(m.time, doc='power from the main grid', within=NonNegativeReals,    initialize=0)
     m.u     = Var(m.time, doc='binary variable',          within=Binary,              initialize=0)
 
-    def _energy_balance(m, t):
-        return m.p[t] == m.pout[t] - m.pin[t]
+    def _energy_balance(b, t):
+        return b.p[t] - b.pout[t] + b.pin[t] == 0
 
-    def _pmax(m, t):
-        if m.pmax.value is None:
+    def _pmax(b, t):
+        if b.pmax.value is None:
             return Constraint.Skip
-        return m.pin[t] - m.u[t] * m.pmax <= 0
+        return b.pout[t] - b.u[t] * b.pmax <= 0
 
-    def _pmin(m, t):
-        if m.pmin.value is None:
+    def _pmin(b, t):
+        if b.pmin.value is None:
             return Constraint.Skip
-        return m.pout[t] + m.u[t] * m.pmin <= m.pmin
+        return b.pin[t] + b.u[t] * b.pmin <= b.pmin
 
     m._pmin         = Constraint(m.time, rule=_pmin)
     m._pmax         = Constraint(m.time, rule=_pmax)
@@ -47,7 +49,7 @@ def def_pin_pout(m):
 
 class AbsMainGridV0(AbsPowerSource):
     """
-    Simple MainGrid Unit.  S
+    Simple MainGrid Unit.
 
     One Power port (named 'p' by default) associated with a simple cost (named 'cost').
     (Source convention)
@@ -55,7 +57,7 @@ class AbsMainGridV0(AbsPowerSource):
     def __init__(self, *args, flow_name='p', **kwgs):
 
         super().__init__(*args, flow_name=flow_name, **kwgs)
-        def_simple_cost(self, var_name=flow_name)
+        self.instant_cost = def_simple_cost(self, var_name=flow_name)
 
 
 class AbsMainGridV1(AbsPowerSource):
@@ -67,23 +69,13 @@ class AbsMainGridV1(AbsPowerSource):
     A binary variable 'u' is declared to tackle the price discontinuity at p=0.
     (Source convention)
     """
-    def __init__(self, *args, **kwgs):
+    def __init__(self, *args, flow_name='p', **kwgs):
 
-        super().__init__(*args, flow_name='p', **kwgs)
-
+        super().__init__(*args, flow_name=flow_name, **kwgs)
 
         def_pin_pout(self)
-        def_bilinear_cost(self, var_in='p_in', var_out='p_out')
 
-        def _bounds_p(m, t):
-            return m.pmin, m.pmax
-
-        self.del_component('p')
-        self.add_component('p', Var(self.time, doc='power from the main grid to the microgrid',
-                                    initialize=0, bounds=_bounds_p))
-
-        # TODO is it needed to overwrite the former port after redaclaring p variable ??
-        # self.outlet = Port(initialize={'f': (self.p, Port.Conservative)})
+        self.instant_cost = def_bilinear_cost(self, var_in='pin', var_out='pout')
 
 
 class AbsMainGridV2(AbsPowerSource):
