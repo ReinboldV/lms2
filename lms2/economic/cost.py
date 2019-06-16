@@ -1,8 +1,6 @@
 """
 This module contains Economic blocks.
 """
-
-from lms2.base.utils import deprecated
 from lms2 import DynUnit
 from lms2.base.base_units import set_profile
 from pyomo.environ import Param, Var, Expression, NonNegativeReals, PositiveReals, Constraint
