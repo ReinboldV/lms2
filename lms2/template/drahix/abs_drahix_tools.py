@@ -28,7 +28,7 @@ pgf_with_latex = {                          # setup matplotlib to use latex for 
     "figure.figsize"    : figsize(1.0),     # default fig size of 0.9 textwidth
     'figure.subplot.bottom' : 0.145,
     'figure.subplot.hspace' : 0.2,
-    'figure.subplot.left'   : 0.064,
+    'figure.subplot.left'   : 0.1,
     'figure.subplot.right'  : 0.97,
     'figure.subplot.top'    : 0.92,
     'figure.subplot.wspace' : 0.2,
@@ -41,11 +41,10 @@ pgf_with_latex = {                          # setup matplotlib to use latex for 
 mpl.rcParams.update(pgf_with_latex)
 
 
-def get_drahix_data(t_start='2018-06-01 00:00:00', t_end='2018-06-08 00:00:00', freq='15Min', **kwargs):
+def get_drahix_data(t_start='2018-06-01 00:00:00', t_end='2018-06-08 00:00:00', freq='15Min',
+                    path ='/home/admin/Documents/02-Recherche/02-Python/lms2/lms2/template/drahix/abs_drahix_data.csv'):
 
-    usecols = ['Date and time (UTC)', 'T1', 'Pmax']
-    df = pd.read_csv('/home/admin/Documents/02-Recherche/02-Python/lms2/lms2/template/drahix/abs_drahix_data.csv',
-                     usecols=usecols, index_col=0, parse_dates=True, dayfirst=True)
+    df = pd.read_csv(path, index_col=0, parse_dates=True, dayfirst=True)
 
     time = Time(t_start, t_end, freq=freq)
     df   = df[t_start:t_end]
@@ -53,10 +52,61 @@ def get_drahix_data(t_start='2018-06-01 00:00:00', t_end='2018-06-08 00:00:00', 
     df.index    = to_seconds(df.index - df.index[0])
     df['Pmax']  = df['Pmax'].fillna(0) / 1000
     df.rename(columns={'Pmax': 'P_pv', 'T1': 'P_load'}, inplace=True)
-    df = df.apply(lambda x: round(x, 5))
+    df.P_load = df.P_load.apply(lambda x: round(x, 5))
+    df.P_pv = df.P_pv.apply(lambda x: round(x, 5))
 
     return df, time
 
 
 def to_seconds(timedelta):
     return timedelta.days * 24 * 3600 + timedelta.seconds + timedelta.microseconds / 1e6
+
+
+def edf_tarifs_tempo(path = '/home/admin/Documents/02-Recherche/02-Python/lms2/lms2/template/drahix/abs_drahix_data.csv'):
+
+    df = pd.read_csv(path, index_col=0, parse_dates=True, dayfirst=True)
+
+    def hc_hp(t):
+        from datetime import time
+
+        if time(hour=22, minute=00) >= t.time() >= time(hour=6, minute=00):
+            return 'HP'
+        else:
+            return 'HC'
+
+    def tarif_bleu(x):
+        if x == 'HP':
+            return 0.1329
+        elif x=='HC':
+            return 0.1104
+
+    def tarif_blanc(x):
+        if x == 'HP':
+            return 0.1558
+        elif x=='HC':
+            return 0.1255
+
+    def tarif_rouge(x):
+        if x == 'HP':
+            return 0.5413
+        elif x == 'HC':
+            return 0.1323
+
+    df['hc_hp']         = df.index.map(hc_hp)
+    df['tarifs_bleu']   = df.hc_hp.apply(tarif_bleu)
+    df['tarifs_blanc']  = df.hc_hp.apply(tarif_blanc)
+    df['tarifs_rouge']  = df.hc_hp.apply(tarif_rouge)
+
+    return df
+
+if __name__ == "__main__":
+
+    df1 = edf_tarifs_tempo("/home/admin/Documents/02-Recherche/01-Projets/2018-PEPER (nuage)/05-Donnees/Z1_RYG_20190423.csv")
+    df1.index.rename('Date and Time')
+    df1.index = df1.index.tz_localize('UTC')
+
+    #df.to_csv("/home/admin/Documents/02-Recherche/01-Projets/2018-PEPER (nuage)/05-Donnees/Z1_RYG_20190423_costs.csv")
+
+    df2 = edf_tarifs_tempo("/home/admin/Documents/02-Recherche/01-Projets/2018-PEPER (nuage)/05-Donnees/Z2_RYG_20190423.csv")
+    df2.index.rename('Date and Time')
+    #df.to_csv("/home/admin/Documents/02-Recherche/01-Projets/2018-PEPER (nuage)/05-Donnees/Z2_RYG_20190423_costs.csv")

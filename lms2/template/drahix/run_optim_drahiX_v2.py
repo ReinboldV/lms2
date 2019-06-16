@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+DrahiX case using variable cost
 
+"""
 
 if __name__ == "__main__":
 
-    from lms2 import AbsDrahiX_v1
+    from lms2 import AbsDrahiX_v2
     from pyomo.environ import TransformationFactory, SolverFactory
     from pyomo.environ import Objective
     from pyomo.dae import Integral
@@ -11,37 +14,41 @@ if __name__ == "__main__":
     from lms2.template.drahix.abs_drahix_tools import get_drahix_data
 
     kwargs = {
-        't_start': '2018-06-01 00:00:00',
-        't_end': '2018-06-03 00:00:00',
-        'freq': '15Min'
+        't_start':  '2018-06-01 00:00:00',
+        't_end':    '2018-06-03 00:00:00',
+        'freq':     '15Min'
     }
 
     import time
 
     t1 = time.time()
-    df, t = get_drahix_data(**kwargs)
+
+    path = '/home/admin/Documents/02-Recherche/02-Python/lms2/lms2/template/drahix/abs_drahix_data_cost.csv'
+    df, t = get_drahix_data(path=path, **kwargs)
 
     data_batt = {
         'time':   {None: [df.index[0], df.index[-1]]},
         'socmin': {None: 10},
         'socmax': {None: 95},
         'soc0':   {None: 50},
-        'socf':   {None: 50},
-        'dpcmax': {None: 10},
-        'dpdmax': {None: 10},
+        'socf':   {None: None},
+        'dpcmax': {None: 1},
+        'dpdmax': {None: 1},
         'emin':   {None: 0},
-        'emax':   {None: 100},
-        'pcmax':  {None: 10.0},
-        'pdmax':  {None: 10.0},
+        'emax':   {None: 50},
+        'pcmax':  {None: 5.0},
+        'pdmax':  {None: 5.0},
         'etac':   {None: 0.95},
         'etad':   {None: 0.95}}
 
     data_mg = {
         'time': {None: [df.index[0], df.index[-1]]},
         'pmax': {None: 10},
-        'pmin': {None: 10},
-        'cost_in': {None: 0.10/3600},
-        'cost_out': {None: 0.14/3600}
+        'pmin': {None: 0},
+        'cost_in_index':  {None: df.index},
+        'cost_out_index': {None: df.index},
+        'cost_in_value':  {i : 0 for i in df.index},
+        'cost_out_value': df.tarifs_bleu.to_dict()   # selection du tarif bleu
     }
 
     data_ps = {
@@ -65,7 +72,7 @@ if __name__ == "__main__":
     t2 = time.time() - t1
     print(f'Elapsed time for reading data : \t {t2}')
 
-    drx = AbsDrahiX_v1()
+    drx = AbsDrahiX_v2()
 
     t1 = time.time()
     inst = drx.create_instance(data)

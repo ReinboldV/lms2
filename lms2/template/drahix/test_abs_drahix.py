@@ -8,7 +8,7 @@ class DrahiXTest(unittest.TestCase):
 
     def setUp(self):
 
-        from lms2 import AbsDrahiX
+        from lms2 import AbsDrahiX_v1
         from lms2.template.drahix.abs_drahix_tools import get_drahix_data
 
         kwargs = {
@@ -18,7 +18,7 @@ class DrahiXTest(unittest.TestCase):
         }
 
         df, self.t = get_drahix_data(**kwargs)
-        self.drx = AbsDrahiX()
+        self.drx = AbsDrahiX_v1()
 
         data_batt = {'time'         : {None: [df.index[0], df.index[-1]]},
                      'socmin'       : {None: 10},
