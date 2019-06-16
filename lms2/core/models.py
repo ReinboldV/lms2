@@ -136,56 +136,26 @@ class LModel(ConcreteModel):
                 df = concat([df, df_c], axis=1)
         return df
 
-    # TODO : Not sure it is the way to go
-    def construct_objective_from_tagged_expression(self, ptags=[]):
-        """
-        Definition of a method for pyomo class block. It sum-up all the expression the same tag
-
-        :param Block self: A given block
-        :param ptags: list of strings which refers to protected tags
-        :return: ListObjectif
-        """
-        from lms2 import Expression
-        from pyomo.environ import ObjectiveList, Objective
-        from pyomo.dae import Integral
-
-        _tags = []
-
-        for e in self.component_objects(Expression, active=True):
-            if hasattr(e, 'tag'):
-                if e.tag not in _tags:
-                    _tags.append(e.tag)
-                    self.add_component(e.tag, ObjectiveList())
-
-                new_int = e.parent_block().name+'_int'+e.getname(fully_qualified=False)
-                self._logger.info(f'Integrating a tagged expression "{e.tag}" to the model : {new_int}')
-                self.add_component(new_int, Integral(e.index_set(), wrt=e.index_set(),
-                                   rule=lambda model, index: e[index]))
-                self.find_component(e.tag).add(expr=self.find_component(new_int))
-
-        for objlist in self.component_objects(Objective):
-            if objlist.getname(fully_qualified=False) not in ptags:
-                if objlist.getname() in _tags:
-                    objlist.deactivate()
 
     def construct_objective_from_expression_list(self, wrt, *args):
         """
-        Consruct objective from list of expression to be integrated with respect to wrt.
+        Construct objective from list of expression to be integrated with respect to wrt.
 
         :param str name: name of the new integral expression (optional)
         :param wrt: Set for the integration of the expressions
         :param args: Expression of instantaneous objectives
         :return: Objective
         """
+
         from lms2 import Expression
         from pyomo.dae import Integral
         for exp in args:
             assert isinstance(exp, Expression), ValueError(f'args should be a list of pyomo Expression,'
                                                            f' and actually received {exp, type(exp)}')
 
-        self.new_int = Integral(wrt, wrt=wrt, rule=lambda model, index: sum([a[index] for a in args]))
+        self.add_component('obj_expr', Integral(wrt, wrt=wrt, rule=lambda model, index: sum([a[index] for a in args])))
 
-        return Objective(expr=self.new_int)
+        return Objective(expr=self.component('obj_expr'))
 
 
 class AbsLModel(AbstractModel):
@@ -304,38 +274,6 @@ class AbsLModel(AbstractModel):
                 df_c = DataFrame({c.getname(fully_qualified=True).replace('.', '_')+'_ls': s1, c.getname()+'_us': s2})
                 df = concat([df, df_c], axis=1)
         return df
-
-    # TODO : Not sure it is the way to go
-    def construct_objective_from_tagged_expression(self, ptags=[]):
-        """
-        Definition of a method for pyomo class block. It sum-up all the expression the same tag
-
-        :param Block self: A given block
-        :param ptags: list of strings which refers to protected tags
-        :return: ListObjectif
-        """
-        from lms2 import Expression
-        from pyomo.environ import ObjectiveList, Objective
-        from pyomo.dae import Integral
-
-        _tags = []
-
-        for e in self.component_objects(Expression, active=True):
-            if hasattr(e, 'tag'):
-                if e.tag not in _tags:
-                    _tags.append(e.tag)
-                    self.add_component(e.tag, ObjectiveList())
-
-                new_int = e.parent_block().name+'_int'+e.getname(fully_qualified=False)
-                self._logger.info(f'Integrating a tagged expression "{e.tag}" to the model : {new_int}')
-                self.add_component(new_int, Integral(e.index_set(), wrt=e.index_set(),
-                                   rule=lambda model, index: e[index]))
-                self.find_component(e.tag).add(expr=self.find_component(new_int))
-
-        for objlist in self.component_objects(Objective):
-            if objlist.getname(fully_qualified=False) not in ptags:
-                if objlist.getname() in _tags:
-                    objlist.deactivate()
 
     def construct_objective_from_expression_list(self, wrt, *args):
         """
