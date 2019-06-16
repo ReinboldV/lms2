@@ -6,7 +6,7 @@ Basic block for linear Modeling.
 """
 from lms2.core.models import LModel
 
-from pyomo.environ import Objective, Param, Var, NonNegativeReals, Constraint, Expression
+from pyomo.environ import Objective, Param, Var, NonNegativeReals, Constraint, Expression, Block, Set
 from pyomo.network import Port
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.core.base.PyomoModel import Model as PyomoModel
@@ -96,6 +96,7 @@ class Unit(SimpleBlock):
         doc = ""
 
         blocks  = self.component_objects(ctype=Block)
+        sets    = self.component_objects(ctype=Set)
         vars    = self.component_objects(ctype=Var)
         dvars   = self.component_objects(ctype=DerivativeVar)
         params  = self.component_objects(ctype=Param)
@@ -103,27 +104,30 @@ class Unit(SimpleBlock):
         ports   = self.component_objects(ctype=Port)
         exp     = self.component_objects(ctype=Expression)
 
-        doc += '\n' + 'Blocks: \n----------\n\n'
+        doc += '\n\n' + 'Blocks: \n----------\n\n'
         for k in blocks:
-            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
-        doc += '\n'+'Variables: \n----------\n\n'
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '\n\n' + 'Sets: \n------\n\n'
+        for k in sets:
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '\n\n'+'Variables: \n----------\n\n'
         for k in vars:
-            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
-        doc += '\n'+'DerivativeVar: \n---------------\n\n'
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '\n\n'+'DerivativeVar: \n---------------\n\n'
         for k in dvars:
-            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
-        doc += '\n'+'Param: \n------\n\n'
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '\n\n'+'Param: \n------\n\n'
         for k in params:
-            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
-        doc += '\n' + 'Constraints: \n---------\n\n'
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '\n\n' + 'Constraints: \n-----------\n\n'
         for k in cst:
-            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
-        doc += '\n' + 'Ports: \n------\n\n'
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '\n\n' + 'Ports: \n------\n\n'
         for k in ports:
-            doc += '{:<10}'.format(k.getname()) + '\n'
-        doc += '\n' + 'Expressions: \n---------\n\n'
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '\n\n' + 'Expressions: \n---------\n\n'
         for k in exp:
-            doc += '{:<10}  {:<50}'.format(k.getname(), k.doc) + '\n'
+            doc += '{:<15}  {:<50}'.format(k.getname(), str(k.doc)) + '\n'
 
         return doc
 
@@ -132,12 +136,7 @@ class Unit(SimpleBlock):
         super().__setattr__(key, value)
         logger.debug(f'adding the attribute : {key} = {value}')
 
-
-
-
-
 Unit.compute_statistics = PyomoModel.compute_statistics
-
 
 if __name__ == '__main__':
     pass
