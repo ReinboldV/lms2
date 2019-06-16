@@ -9,16 +9,17 @@ from pyomo.environ import *
 from pyomo.network import Port
 from pyomo.dae import DerivativeVar
 
+
 __all__ = ['DynUnit',           'DynUnitTest',      'AbsDynUnit',           'Storage',          '_OnePortBaseUnit',
            '_TwoPortBaseUnit',  'SourceUnit',       'AbsFixedFlowLoad',     'SourceUnitParam',  'ScalableFlowSource',
            'EffortSource',      'FlowSource',       'AbsFixedFlowSource',   'FlowLoad',         'AbsFlowSource',
            'AbsFlowLoad',       'AbsEffortSource',  'UnitA',                'Abs',              'set_profile',
-           '_init_input',       '_set_bounds']
+           '_init_input',       '_set_bounds',      'fix_profile',          'bound_profile']
 
 
 class DynUnit(Unit):
     def __init__(self, *args, time=None, **kwds):
-        """
+        """ DEPRECIATED
         Dynamic Unit
 
         Standard unit with a time argument for indexing variables and constraints.
@@ -45,7 +46,7 @@ class DynUnit(Unit):
 
 class AbsDynUnit(Unit):
     def __init__(self, *args, **kwds):
-        """
+        """DEPRECIATED
         Abstract Dynamic Unit
 
         Standard unit with a time argument for indexing variables and constraints.
@@ -57,7 +58,7 @@ class AbsDynUnit(Unit):
         from pyomo.dae.contset import ContinuousSet
 
         super().__init__(*args, **kwds)
-        self.time = ContinuousSet(bounds=(0, 1))
+        self.time = ContinuousSet()
         self.doc = self.__doc__
 
     def get_constraints_values(self):
@@ -78,7 +79,7 @@ class DynUnitTest(DynUnit):
 
 
 class _OnePortBaseUnit(DynUnit):
-    """ Dynamic Unit that is exposing one generic Port
+    """ DEPRECIATED Dynamic Unit that is exposing one generic Port
     """
 
     def __init__(self, *args, time=None, **kwds):
@@ -90,7 +91,7 @@ class _OnePortBaseUnit(DynUnit):
 
 
 class _TwoPortBaseUnit(DynUnit):
-    """ Dynamic unit exposing two generic ports."""
+    """ DEPRECIATED Dynamic unit exposing two generic ports."""
 
     def __init__(self, *args, time=None, r=1, **kwds):
         super().__init__(*args, time=time, doc=self.__doc__, **kwds)
@@ -110,7 +111,7 @@ class _TwoPortBaseUnit(DynUnit):
 
 
 class Storage(_OnePortBaseUnit):
-    """ General storage unit"""
+    """ DEPRECIATED  General storage unit"""
 
     def __init__(self, *args, time=None, capa=None, **kwds):
         super().__init__(*args, time=time, doc=self.__doc__, **kwds)
@@ -129,7 +130,7 @@ class Storage(_OnePortBaseUnit):
 
 
 class SourceUnit(DynUnit):
-    """General Source Unit.
+    """DEPRECIATED General Source Unit.
 
     Generates One variable tha may be fixed. This is a base class for definition of Effort/Flow, Source/Load."""
 
@@ -149,7 +150,7 @@ class SourceUnit(DynUnit):
 
 
 class SourceUnitParam(DynUnit):
-    """General Source Unit.
+    """DEPRECIATED General Source Unit.
 
     Generates One parameter that may be fixed. This is a base class for definition of Effort/Flow, Source/Load."""
 
@@ -169,7 +170,7 @@ class SourceUnitParam(DynUnit):
 
 
 class ScalableFlowSource(DynUnit):
-    """General Scalable Flow Source Unit.
+    """DEPRECIATED General Scalable Flow Source Unit.
 
     Generates One parameter that may be fixed using a Time series. The flow is scaled using a variable scaling factor 'scale_fact'.
     This unit may be used for sizing of soucres, e.g. PV panels, Wind turbines, etc. """
@@ -201,14 +202,14 @@ class ScalableFlowSource(DynUnit):
             return -0.000001, m.scale_fact * m.find_component(flow_name + '_u')[t] \
                    - m.find_component(flow_name)[t], 0.000001
 
-        self.flow_scaling = Constraint(time, rule=_flow_scaling, doc='Constraint equality for flow scaling')
-        self.flow_scaling.deactivate()
+        # self.flow_scaling = Constraint(time, rule=_flow_scaling, doc='Constraint equality for flow scaling')
+        # self.flow_scaling.deactivate()
         self.debug_flow_scaling = Constraint(time, rule=_debug_flow_scaling, doc='Constraint equality for flow scaling')
         self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
 class EffortSource(SourceUnit):
-    """ Base Effort Source Unit.
+    """ DEPRECIATED Base Effort Source Unit.
     Generates one effort variable and fixe it using interpolation.
     """
 
@@ -228,7 +229,7 @@ class EffortSource(SourceUnit):
 
 
 class FlowSource(SourceUnit):
-    """ Base Flow Source Unit.
+    """ DEPRECIATED Base Flow Source Unit.
     Generates one flow variable and fixe it using interpolation. Convention is set to sens='out'
     (the flow is counted positive when going out of the unit).
     """
@@ -251,7 +252,7 @@ class FlowSource(SourceUnit):
 
 
 class FlowLoad(SourceUnit):
-    """ Base Flow Load Unit.
+    """ DEPRECIATED Base Flow Load Unit.
     Generates one flow variable and fixe it using interpolation. Convention is set to sens='in'
     (the flow is counted positive when going in the unit).
     """
@@ -273,7 +274,7 @@ class FlowLoad(SourceUnit):
 
 
 class UnitA(DynUnit):
-    """ Base units for tests """
+    """ DEPRECIATED Base units for tests """
 
     def __init__(self, *args, time, flow):
 
@@ -295,7 +296,7 @@ class UnitA(DynUnit):
 
 
 class Abs(DynUnit):
-    """ Absolute Value """
+    """ DEPRECIATED Absolute Value """
 
     def __init__(self, *args, time, xmax=None, xmin=None):
         super().__init__(*args, time=time)
@@ -383,79 +384,162 @@ class AbsEffortSource(AbsDynUnit):
         self.outlet = Port(initialize={'e': (self.component(effort_name))})
 
 
-def _init_input(m, t):
-    """
-    Rule for initiate variable profile using interpolation of a given index.
+def _init_input(m, t,
+                index_name='profile_index',
+                profile_name='profile_value'):
 
-    :param m:
-    :param t:
-    :return:
     """
+    Rule for initiating variable profile using interpolation of a given profile.
+
+    :param m: Block
+    :param t: Set time
+    :param index_name: name of the index set
+    :param profile_name: name of the profile parameter
+    :return: None
+    """
+
     from scipy.interpolate.interpolate import interp1d
 
-    if not hasattr(m, 'profile_index'):
-        raise AttributeError(f'{m} object has no attribute "profile_index".'
+    if not hasattr(m, index_name):
+        raise AttributeError(f'{m} object has no attribute {index_name}.'
                              f' Cannot proceed interpolation for initialization')
-    if not hasattr(m, 'profile_value'):
-        raise AttributeError(f'{m} object has no attribute "profile_value".'
+    if not hasattr(m, profile_name):
+        raise AttributeError(f'{m} object has no attribute {profile_name}.'
                              f' Cannot proceed interpolation for initialization')
-    if not isinstance(m.profile_index, Set):
-        raise TypeError(f'"m.profile_index" is not a instance of Set,'
-                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
-    if not isinstance(m.profile_value, Param):
-        raise TypeError(f'"m.profile_value" is not a instance of Param,'
-                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
+    if not isinstance(m.component(index_name), Set):
+        raise TypeError(f'{index_name} is not a instance of Set,'
+                        f' but is actually : f{type(m.component(index_name))}. Cannot proceed.')
+    if not isinstance(m.component(profile_name), Param):
+        raise TypeError(f'{profile_name} is not a instance of Param,'
+                        f' but is actually : f{type(m.component(profile_name))}. Cannot proceed.')
 
-    interp_x = list(m.profile_index.value)
-    interp_y = list(m.profile_value.extract_values().values())
+    interp_x = list(m.component(index_name).value)
+    interp_y = list(m.component(profile_name).extract_values().values())
     funct = interp1d(interp_x, interp_y, kind='linear', fill_value='extrapolate')
     b = float(funct(t))
     if b is None:
-        Warning('Interpolation of the given profil returned None. '
-                'It might be an error from profil or interpolation function.')
+        Warning('Interpolation of the given profile returned None. '
+                'It might be an error from profile or interpolation function.')
         return 0
     else:
         return b
 
-def _set_bounds(m, t):
+def _set_bounds(m, t,
+                index_name='profile_index',
+                up_profile_name='up_profile_value',
+                low_profile_name='low_profile_value'):
     """
-     Rule to initiate variable bounds using interpolation of a given list.
+    Rule to initiating variable bounds using interpolation of two given profiles.
 
-    :param m:
-    :param t:
-    :return:
+    :param m: Block
+    :param t: Set time
+    :param str index_name: name of the index set
+    :param str up_profile_name: name of the upper bound profile parameter
+    :param str low_profile_name: name of the lower bound profile parameter
+    :return: None
     """
+
     from scipy.interpolate.interpolate import interp1d
 
-    if not hasattr(m, 'profile_index'):
-        raise AttributeError(f'{m} object has no attribute "profile_index".'
+    if not hasattr(m, index_name):
+        raise AttributeError(f'{m} object has no attribute {index_name}.'
                              f' Cannot proceed interpolation for initialization')
-    if not hasattr(m, 'profile_value'):
-        raise AttributeError(f'{m} object has no attribute "profile_value".'
+    if not hasattr(m, up_profile_name):
+        raise AttributeError(f'{m} object has no attribute {up_profile_name}.'
                              f' Cannot proceed interpolation for initialization')
-    if not isinstance(m.profile_index, Set):
-        raise TypeError(f'"m.profile_index" is not a instance of Set,'
-                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
-    if not isinstance(m.profile_value, Param):
-        raise TypeError(f'"m.profile_value" is not a instance of Param,'
-                        f' but is actually : f{type(m.profile_index)}. Cannot proceed.')
+    if not hasattr(m, low_profile_name):
+        raise AttributeError(f'{m} object has no attribute {low_profile_name}.'
+                             f' Cannot proceed interpolation for initialization')
+    if not isinstance(m.component(index_name), Set):
+        raise TypeError(f'{index_name} is not a instance of Set,'
+                        f' but is actually : f{type(m.component(index_name))}. Cannot proceed.')
+    if not isinstance(m.component(up_profile_name), Param):
+        raise TypeError(f'{up_profile_name} is not a instance of Param,'
+                        f' but is actually : f{type(m.component(up_profile_name))}. Cannot proceed.')
+    if not isinstance(m.component(low_profile_name), Param):
+        raise TypeError(f'{low_profile_name} is not a instance of Param,'
+                        f' but is actually : f{type(m.component(low_profile_name))}. Cannot proceed.')
 
-    interp_x = list(m.profile_index.value)
-    interp_y = list(m.profile_value.extract_values().values())
-    funct = interp1d(interp_x, interp_y, kind='linear', fill_value='extrapolate')
-    b = float(funct(t))
-    if b is None:
-        Warning('Interpolation of the given profil returned None. '
-                'It might be an error from profil or interpolation function.')
+    interp_x   = list(m.component(index_name).value)
+    interp_up  = list(m.component(up_profile_name).extract_values().values())
+    interp_low = list(m.component(low_profile_name).extract_values().values())
+
+    funct_up  = interp1d(interp_x, interp_up,  kind='linear', fill_value='extrapolate')
+    funct_low = interp1d(interp_x, interp_low, kind='linear', fill_value='extrapolate')
+
+    bu = float(funct_up(t))
+    bl = float(funct_low(t))
+
+    if bu is None or bl is None:
+        Warning('Interpolation of the given profile returned None. '
+                'It might be an error from profile or interpolation function.')
         return 0, 0
     else:
-        return b, b
+        return bl, bu
 
+def fix_profile(m, flow_name='flow', index_name='profile_index', profile_name='profile_value'):
 
-# TODO generalize this method for other modules
-def setprofile(m, t):
-    pass
+    """
+    Method for fixing a variable to a given dynamic profile.
 
+    It replaces the variable "flow_name" by a parameter, whom initialization
+    corresponds to the interpolation of a given profile with respect to his profile index.
+    It generates One Set, named index_name, one Parameter, named profile_name.
+
+    :param m: Block
+    :param str flow_name: name of the value to be fixed
+    :param index_name: name of the index set
+    :param profile_name: name of the profile parameter
+    :return: None
+    """
+
+    def _rule(bl, t):
+        return 0
+
+    m.add_component(index_name, Set())
+    m.add_component(profile_name, Param(m.component(index_name), default=_rule))
+
+    m.del_component(flow_name)
+    m.add_component(flow_name, Param(m.time, default=lambda bl, t : _init_input(bl, t,
+                                                                                index_name=index_name,
+                                                                                profile_name=profile_name)))
+
+def bound_profile(m, t, flow_name='flow',
+                  index_name='profile_index',
+                  up_profile_name='up_profile_value',
+                  low_profile_name='low_profile_value'):
+
+    """
+    Method for bounding a variable to given dynamic profiles.
+
+    It bounds the variable "flow_name" by an upper and lower constraints, whom initialization
+    corresponds to the interpolation of given profiles with respect to a given index.
+    It generates One Set, the profile's index, named index_name, and two parameters,
+    namely up_profile_name and low_profile_name.
+
+    :param m: Block or Model
+    :param t: time set
+    :param str flow_name:
+    :param str index_name:
+    :param str up_profile_name:
+    :param str low_profile_name:
+    :return: None
+    """
+
+    def _rule(bl, t):
+        return 0
+
+    m.add_component(index_name, Set())
+    m.add_component(low_profile_name, Param(m.component(index_name), default=_rule))
+    m.add_component(up_profile_name,  Param(m.component(index_name), default=_rule))
+
+    m.del_component(flow_name)
+    m.add_component(flow_name, Var(m.time, initialize=_init_input, bounds=_set_bounds))
+
+    m.add_component(flow_name, Param(m.time, bounds=lambda bl, t: _set_bounds(bl, t,
+                                                                              index_name=index_name,
+                                                                              low_profile_name=low_profile_name,
+                                                                              up_profile_name=up_profile_name)))
 
 class AbsFixedFlowSource(AbsFlowSource):
     """
@@ -468,14 +552,10 @@ class AbsFixedFlowSource(AbsFlowSource):
 
         super().__init__(*args, flow_name = flow_name, **kwargs)
 
-        def _rule(m, t):
-            return 0
+        fix_profile(self, flow_name=flow_name, index_name='profile_index', profile_name='profile_value')
 
-        self.add_component('profile_index', Set())
-        self.add_component('profile_value', Param(self.profile_index, default=_rule))
-
-        self.del_component(flow_name)
-        self.add_component(flow_name, Var(self.time, initialize=_init_input, bounds=_set_bounds))
+        self.del_component('outlet')
+        self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
 class AbsFixedFlowLoad(AbsFlowLoad):
@@ -491,15 +571,14 @@ class AbsFixedFlowLoad(AbsFlowLoad):
         def _rule(m, t):
             return 0
 
-        self.add_component('profile_index', Set())
-        self.add_component('profile_value', Param(self.profile_index, default=_rule))
+        fix_profile(self, flow_name=flow_name, index_name='profile_index', profile_name='profile_value')
 
-        self.del_component(flow_name)
-        self.add_component(flow_name, Var(self.time, initialize=_init_input, bounds=_set_bounds))
-
+        self.del_component('inlet')
+        self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 def set_profile(profile, kind='linear', fill_value='extrapolate'):
-    """ Generates constraint functions used to set bounds and values of profiles
+    """ DEPRECIATED
+    Generates constraint functions used to set bounds and values of profiles
 
     :param pandas Serie profile: Series that describes the input profile
     :param str kind: kind of interpolation see scipy.interpolate.interpolate.interp1d
