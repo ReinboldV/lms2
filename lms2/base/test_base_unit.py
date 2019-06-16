@@ -3,7 +3,6 @@ from unittest import TestCase
 
 class TestAbsDynUnit(TestCase):
 
-
     def test_abs(self):
         from lms2 import AbsDynUnit
         from pyomo.environ import AbstractModel, TransformationFactory
@@ -62,6 +61,49 @@ class TestAbsFlowSource(TestCase):
 
         self.assertEqual(inst.u.time.data(), {0, 15})
         self.assertEqual(inst.time.data(), {0, 15})
+
+
+class TestFixVariable(TestCase):
+
+    def test_fix_profile(self):
+        from lms2 import AbsFlowSource, fix_profile
+        from pyomo.environ import AbstractModel, TransformationFactory, Param, Set
+        from pyomo.dae import ContinuousSet
+        from pyomo.network import Port
+
+        m = AbstractModel()
+        m.time = ContinuousSet()
+        m.u = AbsFlowSource(flow_name='p')
+
+        fix_profile(m.u, flow_name='p', profile_name='pro', index_name='ind')
+
+        data_unit = {
+            'time': {None: (0, 15)},
+            'ind': {None: [0, 10, 15]},
+            'pro': dict(zip([0, 10, 15], [10, 11, 12]))}
+
+        data = \
+            {None:
+                {
+                    'time': {None: [0, 15]},
+                    'u': data_unit
+                }
+            }
+
+        inst = m.create_instance(data)
+        TransformationFactory('dae.finite_difference').apply_to(inst, nfe=2)
+
+        self.assertTrue(hasattr(m.u, 'p'))
+        self.assertTrue(hasattr(m.u, 'outlet'))
+        self.assertIsInstance(m.u.outlet, Port)
+
+        self.assertTrue(hasattr(m.u, 'ind'))
+        self.assertTrue(hasattr(m.u, 'pro'))
+        self.assertIsInstance(m.u.pro, Param)
+        self.assertIsInstance(m.u.ind, Set)
+
+        self.assertEqual(inst.u.time.data(), {0, 15, 7.5})
+        self.assertEqual(inst.time.data(), {0, 15, 7.5})
 
 
 class TestAbsFlowLoad(TestCase):
