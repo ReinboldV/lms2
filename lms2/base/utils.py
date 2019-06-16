@@ -26,7 +26,7 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
     Example::
         >>> from lms2.core.models import LModel
         >>> from lms2.core.time import Time
-        >>> from lms2.core.var import Var
+        >>> from pyomo.environ import Var
 
         >>> time = Time(start='00:00:00', end='01:00:00', freq='5Min')
         >>> m = LModel('test_utils')
@@ -37,7 +37,7 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
         >>> lines = pplot(m.v, m.z, m.w, title='test', Marker='x')
     """
     import matplotlib.pyplot as plt
-    from pyomo.environ import Var, Param
+    from pyomo.environ import Var, Param, Expression, value
 
     if fig is None:
         fig = plt.figure()
@@ -53,19 +53,27 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
     if isinstance(variable, Var):
         if index is None:
-            ld = Series(variable.get_values()).sort_index().plot(label=variable.name, fig=fig, ax=ax, **kwarg)
+            ld = Series(variable.get_values()).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
         else:
             s = Series(variable.get_values()).sort_index()
             s.index = index
-            ld = s.plot(label=variable.name, fig=fig, ax=ax, **kwarg)
+            ld = s.plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
 
     elif isinstance(variable, Param):
         if index is None:
-            ld = Series(variable.extract_values()).sort_index().plot(label=variable.name, fig=fig, ax=ax, **kwarg)
+            ld = Series(variable.extract_values()).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
         else:
             s = Series(variable.extract_values()).sort_index()
             s.index = index
-            ld = s.plot(label=variable.name, fig=fig, ax=ax, **kwarg)
+            ld = s.plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
+
+    elif isinstance(variable, Expression):
+        if index is None:
+            ld = Series([value(v) for v in variable.values()]).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
+        else:
+            s = Series([value(v) for v in variable.values()])
+            s.index = index
+            ld = s.plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
     else:
         raise(NotImplementedError(f'Argument "variable" must be of type Param or Var, but is actually'
                                   f'{variable, type(variable)}'))
