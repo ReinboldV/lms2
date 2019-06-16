@@ -2,7 +2,7 @@
 """
 Contains maingrid unit, i.e. electrical connection to the distribution grid.
 """
-from lms2 import Expression, AbsDynUnit, AbsPowerSource, def_bilinear_cost, def_simple_cost
+from lms2 import Expression, AbsDynUnit, AbsPowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
 
 from pyomo.environ import Constraint,  Var, Param, Block, Piecewise
 from pyomo.network import Port
@@ -29,7 +29,7 @@ def def_pin_pout(m):
     m.pin   = Var(m.time, doc='power from the main grid', within=NonNegativeReals,    initialize=0)
     m.u     = Var(m.time, doc='binary variable',          within=Binary,              initialize=0)
 
-    def _energy_balance(b, t):
+    def _power_balance(b, t):
         return b.p[t] - b.pout[t] + b.pin[t] == 0
 
     def _pmax(b, t):
@@ -42,9 +42,9 @@ def def_pin_pout(m):
             return Constraint.Skip
         return b.pin[t] + b.u[t] * b.pmin <= b.pmin
 
-    m._pmin         = Constraint(m.time, rule=_pmin)
-    m._pmax         = Constraint(m.time, rule=_pmax)
-    m._e_balance    = Constraint(m.time, rule=_energy_balance)
+    m._pmin      = Constraint(m.time, rule=_pmin,          doc='low bound')
+    m._pmax      = Constraint(m.time, rule=_pmax,          doc='up bound')
+    m._p_balance = Constraint(m.time, rule=_power_balance, doc='power balance')
 
 
 class AbsMainGridV0(AbsPowerSource):
@@ -53,11 +53,28 @@ class AbsMainGridV0(AbsPowerSource):
 
     One Power port (named 'p' by default) associated with a simple cost (named 'cost').
     (Source convention)
+
+    Variables:
+    ----------
+    p           Supplied power from the maingrid (source convention)
+
+    Param:
+    ------
+    cost        simple linear cost, associated with variable p
+
+    Ports:
+    ------
+    outlet
+
+    Expressions:
+    ---------
+    instant_cost  instantaneous linear cost, associated with variable p
     """
     def __init__(self, *args, flow_name='p', **kwgs):
 
         super().__init__(*args, flow_name=flow_name, **kwgs)
-        self.instant_cost = def_simple_cost(self, var_name=flow_name)
+        self.instant_cost = def_linear_cost(self, var_name=flow_name)
+        self.component(flow_name).doc = 'Supplied power from the maingrid (source convention)'
 
 
 class AbsMainGridV1(AbsPowerSource):
@@ -68,6 +85,37 @@ class AbsMainGridV1(AbsPowerSource):
     associated with a bilinear cost (selling and buying cost, i.e. c_in and c_out).
     A binary variable 'u' is declared to tackle the price discontinuity at p=0.
     (Source convention)
+
+    Variables:
+    ----------
+    p           None
+    pout        power to the main grid
+    pin         power from the main grid
+    u           binary variable
+
+
+
+    Param:
+    ------
+    pmax        maximal power out (kW)
+    pmin        maximal power in (kW)
+    cost_in     buying cost of variable pin
+    cost_out    selling cost of variable pout
+
+    Constraints:
+    ------------
+    _pmin       Low bound
+    _pmax       Up bound
+    _p_balance  Power balance
+
+    Ports:
+    ------
+    outlet      None
+
+    Expressions:
+    ---------
+    instant_cost  instantaneous bilinear cost, associated with variable pin and pout
+
     """
     def __init__(self, *args, flow_name='p', **kwgs):
 
@@ -79,8 +127,58 @@ class AbsMainGridV1(AbsPowerSource):
 
 
 class AbsMainGridV2(AbsPowerSource):
-    # TODO : profile for cin / cout
-    pass
+
+    """
+    Main Grid Unit v2.
+
+    Consists of a power source with limits (pmin, pmax),
+    associated with a bilinear cost with respect to time (selling and buying cost, i.e. c_in and c_out).
+    A binary variable 'u' is declared to tackle the price discontinuity at p=0.
+    (Source convention)
+
+    Sets:
+    ----------
+    cost_in_index    None
+    cost_out_index   None
+
+    Variables:
+    ----------
+    p                None
+    pout             power to the main grid
+    pin              power from the main grid
+    u                binary variable
+
+    Param:
+    ------
+    pmax             maximal power out (kW)
+    pmin             maximal power in (kW)
+    cost_in_value    None
+    cost_in          None
+    cost_out_value   None
+    cost_out         None
+
+    Constraints:
+    -----------
+    _pmin            Low bound
+    _pmax            Up bound
+    _p_balance       Power balance
+
+    Ports:
+    ------
+    outlet           None
+
+    Expressions:
+    ---------
+    instant_cost     instantaneous bilinear and dynamic cost, associated with variable pin and pout
+    """
+
+    def __init__(self, *args, flow_name='p', **kwgs):
+
+        super().__init__(*args, flow_name=flow_name, **kwgs)
+
+        def_pin_pout(self)
+
+        self.instant_cost = def_bilinear_dynamic_cost(self, var_in='pin', var_out='pout')
 
 
 class AbsMainGrid_old(AbsDynUnit):
