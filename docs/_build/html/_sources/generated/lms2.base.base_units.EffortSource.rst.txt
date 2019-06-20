@@ -34,8 +34,6 @@ EffortSource
 		~EffortSource.component_map
 		~EffortSource.component_objects
 		~EffortSource.compute_statistics
-		~EffortSource.connect_effort
-		~EffortSource.connect_flux
 		~EffortSource.construct
 		~EffortSource.contains_component
 		~EffortSource.deactivate
@@ -46,9 +44,8 @@ EffortSource
 		~EffortSource.fix_all_vars
 		~EffortSource.fix_binary
 		~EffortSource.get_constraints_values
+		~EffortSource.get_doc
 		~EffortSource.get_duals
-		~EffortSource.get_optimal_values
-		~EffortSource.get_slack
 		~EffortSource.get_suffix_value
 		~EffortSource.getname
 		~EffortSource.id_index_map
@@ -76,7 +73,6 @@ EffortSource
 		~EffortSource.type
 		~EffortSource.unfix_all_vars
 		~EffortSource.unfix_binary
-		~EffortSource.update_graph
 		~EffortSource.valid_model_component
 		~EffortSource.valid_problem_types
 		~EffortSource.values
@@ -91,7 +87,6 @@ EffortSource
 	.. autosummary::
 		
 		~EffortSource.active
-		~EffortSource.graph
 		~EffortSource.local_name
 		~EffortSource.name
 		

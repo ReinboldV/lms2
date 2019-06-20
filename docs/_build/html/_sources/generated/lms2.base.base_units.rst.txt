@@ -10,6 +10,8 @@ base\_units
     .. autosummary::
         :toctree:
         
+        bound_profile
+        fix_profile
         set_profile
         
         
@@ -23,7 +25,14 @@ base\_units
         :toctree:
         
         Abs
-        Dipole
+        AbsDynUnit
+        AbsEffortSource
+        AbsFixedFlowLoad
+        AbsFixedFlowSource
+        AbsFlowLoad
+        AbsFlowSource
+        DynUnit
+        DynUnitTest
         EffortSource
         FlowLoad
         FlowSource

@@ -15,8 +15,6 @@ units
         :template: class.rst
         :toctree:
         
-        DynUnit
-        DynUnitTest
         Unit
         
         

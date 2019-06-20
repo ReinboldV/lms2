@@ -11,6 +11,7 @@ Welcome to Pyomo-lms's documentation!
     :caption: Getting Started
 
     installation
+    examples
     builddoc
 
 
@@ -24,4 +25,4 @@ Welcome to Pyomo-lms's documentation!
 
 .. toctree::
     :maxdepth: 2
-    :caption: Examples and Tutorials
+    :caption: Developers reference

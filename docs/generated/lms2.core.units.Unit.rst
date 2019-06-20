@@ -43,6 +43,7 @@ Unit
 		~Unit.find_component
 		~Unit.fix_all_vars
 		~Unit.fix_binary
+		~Unit.get_doc
 		~Unit.get_suffix_value
 		~Unit.getname
 		~Unit.id_index_map
@@ -70,7 +71,6 @@ Unit
 		~Unit.type
 		~Unit.unfix_all_vars
 		~Unit.unfix_binary
-		~Unit.update_graph
 		~Unit.valid_model_component
 		~Unit.valid_problem_types
 		~Unit.values
@@ -85,7 +85,6 @@ Unit
 	.. autosummary::
 		
 		~Unit.active
-		~Unit.graph
 		~Unit.local_name
 		~Unit.name
 		

@@ -13,4 +13,5 @@ Library (lms2)
     lms2.fluids
     lms2.logical
     lms2.mechanic
+    lms2.template
     lms2.thermal

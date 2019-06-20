@@ -8,8 +8,6 @@ Core (lms2\.core)
     :toctree: generated
 
     models
-    param
     time
     units
-    var
 

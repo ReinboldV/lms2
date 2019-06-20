@@ -34,8 +34,6 @@ FlowLoad
 		~FlowLoad.component_map
 		~FlowLoad.component_objects
 		~FlowLoad.compute_statistics
-		~FlowLoad.connect_effort
-		~FlowLoad.connect_flux
 		~FlowLoad.construct
 		~FlowLoad.contains_component
 		~FlowLoad.deactivate
@@ -46,9 +44,8 @@ FlowLoad
 		~FlowLoad.fix_all_vars
 		~FlowLoad.fix_binary
 		~FlowLoad.get_constraints_values
+		~FlowLoad.get_doc
 		~FlowLoad.get_duals
-		~FlowLoad.get_optimal_values
-		~FlowLoad.get_slack
 		~FlowLoad.get_suffix_value
 		~FlowLoad.getname
 		~FlowLoad.id_index_map
@@ -76,7 +73,6 @@ FlowLoad
 		~FlowLoad.type
 		~FlowLoad.unfix_all_vars
 		~FlowLoad.unfix_binary
-		~FlowLoad.update_graph
 		~FlowLoad.valid_model_component
 		~FlowLoad.valid_problem_types
 		~FlowLoad.values
@@ -91,7 +87,6 @@ FlowLoad
 	.. autosummary::
 		
 		~FlowLoad.active
-		~FlowLoad.graph
 		~FlowLoad.local_name
 		~FlowLoad.name
 		

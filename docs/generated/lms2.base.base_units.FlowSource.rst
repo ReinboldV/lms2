@@ -34,8 +34,6 @@ FlowSource
 		~FlowSource.component_map
 		~FlowSource.component_objects
 		~FlowSource.compute_statistics
-		~FlowSource.connect_effort
-		~FlowSource.connect_flux
 		~FlowSource.construct
 		~FlowSource.contains_component
 		~FlowSource.deactivate
@@ -46,9 +44,8 @@ FlowSource
 		~FlowSource.fix_all_vars
 		~FlowSource.fix_binary
 		~FlowSource.get_constraints_values
+		~FlowSource.get_doc
 		~FlowSource.get_duals
-		~FlowSource.get_optimal_values
-		~FlowSource.get_slack
 		~FlowSource.get_suffix_value
 		~FlowSource.getname
 		~FlowSource.id_index_map
@@ -76,7 +73,6 @@ FlowSource
 		~FlowSource.type
 		~FlowSource.unfix_all_vars
 		~FlowSource.unfix_binary
-		~FlowSource.update_graph
 		~FlowSource.valid_model_component
 		~FlowSource.valid_problem_types
 		~FlowSource.values
@@ -91,7 +87,6 @@ FlowSource
 	.. autosummary::
 		
 		~FlowSource.active
-		~FlowSource.graph
 		~FlowSource.local_name
 		~FlowSource.name
 		

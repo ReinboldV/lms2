@@ -7,4 +7,4 @@ Environment (lms2\.environment)
     :template: module.rst
     :toctree: generated
 
-    pollutions
+    ghg

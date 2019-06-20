@@ -34,8 +34,6 @@ Storage
 		~Storage.component_map
 		~Storage.component_objects
 		~Storage.compute_statistics
-		~Storage.connect_effort
-		~Storage.connect_flux
 		~Storage.construct
 		~Storage.contains_component
 		~Storage.deactivate
@@ -46,9 +44,8 @@ Storage
 		~Storage.fix_all_vars
 		~Storage.fix_binary
 		~Storage.get_constraints_values
+		~Storage.get_doc
 		~Storage.get_duals
-		~Storage.get_optimal_values
-		~Storage.get_slack
 		~Storage.get_suffix_value
 		~Storage.getname
 		~Storage.id_index_map
@@ -76,7 +73,6 @@ Storage
 		~Storage.type
 		~Storage.unfix_all_vars
 		~Storage.unfix_binary
-		~Storage.update_graph
 		~Storage.valid_model_component
 		~Storage.valid_problem_types
 		~Storage.values
@@ -91,7 +87,6 @@ Storage
 	.. autosummary::
 		
 		~Storage.active
-		~Storage.graph
 		~Storage.local_name
 		~Storage.name
 		

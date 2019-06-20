@@ -34,8 +34,6 @@ TStorage
 		~TStorage.component_map
 		~TStorage.component_objects
 		~TStorage.compute_statistics
-		~TStorage.connect_effort
-		~TStorage.connect_flux
 		~TStorage.construct
 		~TStorage.contains_component
 		~TStorage.deactivate
@@ -46,9 +44,8 @@ TStorage
 		~TStorage.fix_all_vars
 		~TStorage.fix_binary
 		~TStorage.get_constraints_values
+		~TStorage.get_doc
 		~TStorage.get_duals
-		~TStorage.get_optimal_values
-		~TStorage.get_slack
 		~TStorage.get_suffix_value
 		~TStorage.getname
 		~TStorage.id_index_map
@@ -76,7 +73,6 @@ TStorage
 		~TStorage.type
 		~TStorage.unfix_all_vars
 		~TStorage.unfix_binary
-		~TStorage.update_graph
 		~TStorage.valid_model_component
 		~TStorage.valid_problem_types
 		~TStorage.values
@@ -91,7 +87,6 @@ TStorage
 	.. autosummary::
 		
 		~TStorage.active
-		~TStorage.graph
 		~TStorage.local_name
 		~TStorage.name
 		

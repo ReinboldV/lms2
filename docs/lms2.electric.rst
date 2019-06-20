@@ -7,7 +7,6 @@ Electric (lms2\.electric)
     :template: module.rst
     :toctree: generated
 
-    batteries
-    maingrids
-    turbines
-    sources
+    abs_batteries
+    abs_maingrids
+    abs_sources

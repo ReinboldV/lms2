@@ -34,8 +34,6 @@ ScalableFlowSource
 		~ScalableFlowSource.component_map
 		~ScalableFlowSource.component_objects
 		~ScalableFlowSource.compute_statistics
-		~ScalableFlowSource.connect_effort
-		~ScalableFlowSource.connect_flux
 		~ScalableFlowSource.construct
 		~ScalableFlowSource.contains_component
 		~ScalableFlowSource.deactivate
@@ -46,9 +44,8 @@ ScalableFlowSource
 		~ScalableFlowSource.fix_all_vars
 		~ScalableFlowSource.fix_binary
 		~ScalableFlowSource.get_constraints_values
+		~ScalableFlowSource.get_doc
 		~ScalableFlowSource.get_duals
-		~ScalableFlowSource.get_optimal_values
-		~ScalableFlowSource.get_slack
 		~ScalableFlowSource.get_suffix_value
 		~ScalableFlowSource.getname
 		~ScalableFlowSource.id_index_map
@@ -76,7 +73,6 @@ ScalableFlowSource
 		~ScalableFlowSource.type
 		~ScalableFlowSource.unfix_all_vars
 		~ScalableFlowSource.unfix_binary
-		~ScalableFlowSource.update_graph
 		~ScalableFlowSource.valid_model_component
 		~ScalableFlowSource.valid_problem_types
 		~ScalableFlowSource.values
@@ -91,7 +87,6 @@ ScalableFlowSource
 	.. autosummary::
 		
 		~ScalableFlowSource.active
-		~ScalableFlowSource.graph
 		~ScalableFlowSource.local_name
 		~ScalableFlowSource.name
 		

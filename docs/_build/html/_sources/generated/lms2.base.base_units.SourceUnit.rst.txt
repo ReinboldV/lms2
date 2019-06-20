@@ -34,8 +34,6 @@ SourceUnit
 		~SourceUnit.component_map
 		~SourceUnit.component_objects
 		~SourceUnit.compute_statistics
-		~SourceUnit.connect_effort
-		~SourceUnit.connect_flux
 		~SourceUnit.construct
 		~SourceUnit.contains_component
 		~SourceUnit.deactivate
@@ -46,9 +44,8 @@ SourceUnit
 		~SourceUnit.fix_all_vars
 		~SourceUnit.fix_binary
 		~SourceUnit.get_constraints_values
+		~SourceUnit.get_doc
 		~SourceUnit.get_duals
-		~SourceUnit.get_optimal_values
-		~SourceUnit.get_slack
 		~SourceUnit.get_suffix_value
 		~SourceUnit.getname
 		~SourceUnit.id_index_map
@@ -76,7 +73,6 @@ SourceUnit
 		~SourceUnit.type
 		~SourceUnit.unfix_all_vars
 		~SourceUnit.unfix_binary
-		~SourceUnit.update_graph
 		~SourceUnit.valid_model_component
 		~SourceUnit.valid_problem_types
 		~SourceUnit.values
@@ -91,7 +87,6 @@ SourceUnit
 	.. autosummary::
 		
 		~SourceUnit.active
-		~SourceUnit.graph
 		~SourceUnit.local_name
 		~SourceUnit.name
 		

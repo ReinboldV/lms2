@@ -34,8 +34,6 @@ TDipole
 		~TDipole.component_map
 		~TDipole.component_objects
 		~TDipole.compute_statistics
-		~TDipole.connect_effort
-		~TDipole.connect_flux
 		~TDipole.construct
 		~TDipole.contains_component
 		~TDipole.deactivate
@@ -46,9 +44,8 @@ TDipole
 		~TDipole.fix_all_vars
 		~TDipole.fix_binary
 		~TDipole.get_constraints_values
+		~TDipole.get_doc
 		~TDipole.get_duals
-		~TDipole.get_optimal_values
-		~TDipole.get_slack
 		~TDipole.get_suffix_value
 		~TDipole.getname
 		~TDipole.id_index_map
@@ -76,7 +73,6 @@ TDipole
 		~TDipole.type
 		~TDipole.unfix_all_vars
 		~TDipole.unfix_binary
-		~TDipole.update_graph
 		~TDipole.valid_model_component
 		~TDipole.valid_problem_types
 		~TDipole.values
@@ -91,7 +87,6 @@ TDipole
 	.. autosummary::
 		
 		~TDipole.active
-		~TDipole.graph
 		~TDipole.local_name
 		~TDipole.name
 		

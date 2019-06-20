@@ -1,4 +1,4 @@
- Logical (lms2\.logical)
+Logical (lms2\.logical)
 ========================
 
 .. currentmodule:: lms2.logical

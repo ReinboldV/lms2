@@ -34,8 +34,6 @@ Abs
 		~Abs.component_map
 		~Abs.component_objects
 		~Abs.compute_statistics
-		~Abs.connect_effort
-		~Abs.connect_flux
 		~Abs.construct
 		~Abs.contains_component
 		~Abs.deactivate
@@ -46,9 +44,8 @@ Abs
 		~Abs.fix_all_vars
 		~Abs.fix_binary
 		~Abs.get_constraints_values
+		~Abs.get_doc
 		~Abs.get_duals
-		~Abs.get_optimal_values
-		~Abs.get_slack
 		~Abs.get_suffix_value
 		~Abs.getname
 		~Abs.id_index_map
@@ -76,7 +73,6 @@ Abs
 		~Abs.type
 		~Abs.unfix_all_vars
 		~Abs.unfix_binary
-		~Abs.update_graph
 		~Abs.valid_model_component
 		~Abs.valid_problem_types
 		~Abs.values
@@ -91,7 +87,6 @@ Abs
 	.. autosummary::
 		
 		~Abs.active
-		~Abs.graph
 		~Abs.local_name
 		~Abs.name
 		

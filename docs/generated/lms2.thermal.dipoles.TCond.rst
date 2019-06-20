@@ -34,8 +34,6 @@ TCond
 		~TCond.component_map
 		~TCond.component_objects
 		~TCond.compute_statistics
-		~TCond.connect_effort
-		~TCond.connect_flux
 		~TCond.construct
 		~TCond.contains_component
 		~TCond.deactivate
@@ -46,9 +44,8 @@ TCond
 		~TCond.fix_all_vars
 		~TCond.fix_binary
 		~TCond.get_constraints_values
+		~TCond.get_doc
 		~TCond.get_duals
-		~TCond.get_optimal_values
-		~TCond.get_slack
 		~TCond.get_suffix_value
 		~TCond.getname
 		~TCond.id_index_map
@@ -76,7 +73,6 @@ TCond
 		~TCond.type
 		~TCond.unfix_all_vars
 		~TCond.unfix_binary
-		~TCond.update_graph
 		~TCond.valid_model_component
 		~TCond.valid_problem_types
 		~TCond.values
@@ -91,7 +87,6 @@ TCond
 	.. autosummary::
 		
 		~TCond.active
-		~TCond.graph
 		~TCond.local_name
 		~TCond.name
 		

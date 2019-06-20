@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lms2.electric.abs_sources &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> lms2
+          
+
+          
+            
+            <img src="../../../_static/Logo-UPSUD_2014_UPSaclay-BLEU.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-a-block">2) Example of a block</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-pyomo">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#working-with-abstract-model">2) working with abstract model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library (lms2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base (lms2.base)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.base_units.html">base_units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.bound_profile.html">lms2.base.base_units.bound_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.fix_profile.html">lms2.base.base_units.fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.set_profile.html">lms2.base.base_units.set_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Abs.html">Abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsDynUnit.html">AbsDynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsEffortSource.html">AbsEffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowLoad.html">AbsFixedFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowSource.html">FlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.ScalableFlowSource.html">ScalableFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnit.html">SourceUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnitParam.html">SourceUnitParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Storage.html">Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.UnitA.html">UnitA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core (lms2.core)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.time.html">time</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.time.Time.html">Time</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.units.html">units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.Unit.html">Unit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic (lms2.economic)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric (lms2.electric)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.html">abs_batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV0.html">AbsBatteryV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV1.html">AbsBatteryV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV2.html">AbsBatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsNLBattery.html">AbsNLBattery</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.html">abs_maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.def_pin_pout.html">lms2.electric.abs_maingrids.def_pin_pout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV0.html">AbsMainGridV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV1.html">AbsMainGridV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV2.html">AbsMainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGrid_old.html">AbsMainGrid_old</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.html">abs_sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsDebugSource.html">AbsDebugSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerLoad.html">AbsFixedPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerSource.html">AbsFixedPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsPowerLoad.html">AbsPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsPowerSource.html">AbsPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment (lms2.environment)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">lms2.environment.ghg.def_linear_ghg_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids (lms2.fluids)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.logical.html">Logical (lms2.logical)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.html">hysteresis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic (lms2.mechanic)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.thermal.html">Thermal (lms2.thermal)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.html">dipoles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCond.html">TCond</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCondRes.html">TCondRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TConvRes.html">TConvRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TDipole.html">TDipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TResNL.html">TResNL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TStorage.html">TStorage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lms2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lms2.electric.abs_sources</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lms2.electric.abs_sources</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Electrical sources and loads</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">AbsFlowSource</span><span class="p">,</span> <span class="n">AbsFixedFlowSource</span><span class="p">,</span> <span class="n">AbsFlowLoad</span><span class="p">,</span> <span class="n">AbsFixedFlowLoad</span>
+<span class="kn">from</span> <span class="nn">lms2.base.base_units</span> <span class="k">import</span> <span class="n">fix_profile</span>
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">PositiveReals</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">Binary</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AbsPowerSource&#39;</span><span class="p">,</span>        <span class="s1">&#39;AbsFixedPowerSource&#39;</span><span class="p">,</span>      <span class="s1">&#39;AbsScalablePowerSource&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;AbsPowerLoad&#39;</span><span class="p">,</span>          <span class="s1">&#39;AbsFixedPowerLoad&#39;</span><span class="p">,</span>        <span class="s1">&#39;AbsScalablePowerLoad&#39;</span><span class="p">,</span>      <span class="s1">&#39;AbsDebugSource&#39;</span><span class="p">]</span>
+
+<span class="c1"># TODO unittest</span>
+<div class="viewcode-block" id="AbsPowerSource"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsPowerSource.html#lms2.electric.abs_sources.AbsPowerSource">[docs]</a><span class="k">class</span> <span class="nc">AbsPowerSource</span><span class="p">(</span><span class="n">AbsFlowSource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Simple Power Source.</span>
+
+<span class="sd">    Exposes a power output port.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
+
+<span class="c1"># TODO unittest</span>
+<div class="viewcode-block" id="AbsFixedPowerSource"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerSource.html#lms2.electric.abs_sources.AbsFixedPowerSource">[docs]</a><span class="k">class</span> <span class="nc">AbsFixedPowerSource</span><span class="p">(</span><span class="n">AbsFixedFlowSource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract Fixed Power Source Unit.</span>
+
+<span class="sd">    Abstract Power Source Unit who&#39;s power output is fixed using a given index set and indexed profile.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
+
+<span class="c1"># TODO unittest</span>
+<div class="viewcode-block" id="AbsScalablePowerSource"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html#lms2.electric.abs_sources.AbsScalablePowerSource">[docs]</a><span class="k">class</span> <span class="nc">AbsScalablePowerSource</span><span class="p">(</span><span class="n">AbsFixedPowerSource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Scalable Power Source</span>
+
+<span class="sd">    May be used for sizing sources, such as PV panel, wind turbines, etc.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="n">scaled_flow_name</span> <span class="o">=</span> <span class="n">flow_name</span><span class="o">+</span><span class="s1">&#39;_scaled&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;scaling factor within Positve reals&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scaled source flow&#39;</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">_debug_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mf">0.000001</span><span class="p">,</span> \
+                   <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">],</span>\
+                   <span class="mf">0.000001</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_scaling</span>       <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_scaling</span><span class="p">,</span>
+                                             <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug_flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_debug_flow_scaling</span><span class="p">,</span>
+                                             <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
+
+<span class="c1"># TODO unittest</span>
+<div class="viewcode-block" id="AbsPowerLoad"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsPowerLoad.html#lms2.electric.abs_sources.AbsPowerLoad">[docs]</a><span class="k">class</span> <span class="nc">AbsPowerLoad</span><span class="p">(</span><span class="n">AbsFlowLoad</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Simple Power Load.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param time: Continuous Time set</span>
+<span class="sd">        :param Series profile: Serie of power input (kW)</span>
+<span class="sd">        :param str flow_name: Name of the new flow variable</span>
+<span class="sd">        :param kwds:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
+
+
+<span class="c1"># TODO unittest</span>
+<div class="viewcode-block" id="AbsFixedPowerLoad"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerLoad.html#lms2.electric.abs_sources.AbsFixedPowerLoad">[docs]</a><span class="k">class</span> <span class="nc">AbsFixedPowerLoad</span><span class="p">(</span><span class="n">AbsFixedFlowLoad</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract Fixed Power Source Unit.</span>
+
+<span class="sd">    Abstract Power Source Unit who&#39;s power output is fixed using a given index set and indexed profile.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
+
+
+<span class="c1"># TODO unittest</span>
+<div class="viewcode-block" id="AbsScalablePowerLoad"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html#lms2.electric.abs_sources.AbsScalablePowerLoad">[docs]</a><span class="k">class</span> <span class="nc">AbsScalablePowerLoad</span><span class="p">(</span><span class="n">AbsFixedPowerLoad</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Scalable Power Load</span>
+
+<span class="sd">    May be used for sizing load.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="n">scaled_flow_name</span> <span class="o">=</span> <span class="n">flow_name</span><span class="o">+</span><span class="s1">&#39;_scaled&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;scaling factor within Positve reals&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scaled source flow&#39;</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">_debug_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mf">0.000001</span><span class="p">,</span> \
+                   <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">],</span>\
+                   <span class="mf">0.000001</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_scaling</span>       <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_scaling</span><span class="p">,</span>
+                                             <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug_flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_debug_flow_scaling</span><span class="p">,</span>
+                                             <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaled_inlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
+
+<span class="c1"># TODO unittest</span>
+<div class="viewcode-block" id="AbsProgrammableLoad"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html#lms2.electric.abs_sources.AbsProgrammableLoad">[docs]</a><span class="k">class</span> <span class="nc">AbsProgrammableLoad</span><span class="p">(</span><span class="n">AbsPowerLoad</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Programmable Load with fixed input profile.</span>
+
+<span class="sd">    This load can be programmed to be on at a free moment within t_1 andd t_2, when turning &#39;on&#39;, the load is consuming</span>
+<span class="sd">    the profile power. Ex : Washing machine.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_bound_u</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">&amp;</span> <span class="n">m</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+        <span class="n">fix_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;pp&#39;</span><span class="p">,</span> <span class="n">profile_name</span><span class="o">=</span><span class="s1">&#39;power_profile&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;power_index&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">_bound_u</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;binary, equals to 1 when the load is turned ON, 0 otherwise.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()],</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;time window where load can be turned ON.&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_delay</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span>  <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">last</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="p">])</span>
+
+        <span class="k">def</span> <span class="nf">_turned_on</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
+
+        <span class="k">def</span> <span class="nf">_bound_p</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">&amp;</span> <span class="n">m</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turned_on</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>           <span class="n">rule</span><span class="o">=</span><span class="n">_turned_on</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load is turned on only once&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delay</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_delay</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load follow the profile&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_p</span>  <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_bound_p</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load is contraint to be off &#39;</span>
+                                                                     <span class="s1">&#39;outside the time range&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbsDebugSource"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsDebugSource.html#lms2.electric.abs_sources.AbsDebugSource">[docs]</a><span class="k">class</span> <span class="nc">AbsDebugSource</span><span class="p">(</span><span class="n">AbsPowerSource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Debug Power source.</span>
+
+<span class="sd">    Consist of an unbounded power source to force convergence.</span>
+<span class="sd">    It is associated to an expensive (positive) cost function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param str flow_name: name of the variable to be weighted</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">def_linear_cost</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inst_cost</span> <span class="o">=</span> <span class="n">def_linear_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2019, lms2 Developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

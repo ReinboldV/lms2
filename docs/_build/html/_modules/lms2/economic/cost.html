@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.economic.cost &mdash; lms2 0.1.2+4.g6fcf95e.dirty documentation</title>
+  <title>lms2.economic.cost &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
   
 
   
@@ -79,6 +79,19 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-a-block">2) Example of a block</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-pyomo">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#working-with-abstract-model">2) working with abstract model</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
@@ -86,9 +99,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library (lms2)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base (lms2.base)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.base_units.html">base_units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.bound_profile.html">lms2.base.base_units.bound_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.fix_profile.html">lms2.base.base_units.fix_profile</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.set_profile.html">lms2.base.base_units.set_profile</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Abs.html">Abs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Dipole.html">Dipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsDynUnit.html">AbsDynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsEffortSource.html">AbsEffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowLoad.html">AbsFixedFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowSource.html">FlowSource</a></li>
@@ -107,12 +129,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core (lms2.core)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.param.html">param</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.param.is_effort.html">lms2.core.param.is_effort</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.param.is_flow.html">lms2.core.param.is_flow</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.time.html">time</a><ul>
@@ -120,53 +138,56 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.units.html">units</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.DynUnit.html">DynUnit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.Unit.html">Unit</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.var.html">var</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.var.is_effort.html">lms2.core.var.is_effort</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.var.is_flow.html">lms2.core.var.is_flow</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic (lms2.economic)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.PiecewiseLinearCost.html">PiecewiseLinearCost</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.SimpleCost.html">SimpleCost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric (lms2.electric)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.Battery.html">Battery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.html">abs_batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV0.html">AbsBatteryV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV1.html">AbsBatteryV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV2.html">AbsBatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsNLBattery.html">AbsNLBattery</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.html">maingrids</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGrid.html">MainGrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.html">abs_maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.def_pin_pout.html">lms2.electric.abs_maingrids.def_pin_pout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV0.html">AbsMainGridV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV1.html">AbsMainGridV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV2.html">AbsMainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGrid_old.html">AbsMainGrid_old</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.turbines.html">turbines</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit.html">LimitedThermalUnit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.LimitedThermalUnit2.html">LimitedThermalUnit2</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.turbines.SimpleThermalUnit.html">SimpleThermalUnit</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PowerLoad.html">PowerLoad</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PowerSource.html">PowerSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.PvPanelsWSurface.html">PvPanelsWSurface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.ScalablePowerSource.html">ScalablePowerSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.WindTurbine.html">WindTurbine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.html">abs_sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsDebugSource.html">AbsDebugSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerLoad.html">AbsFixedPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerSource.html">AbsFixedPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsPowerLoad.html">AbsPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsPowerSource.html">AbsPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment (lms2.environment)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.pollutions.html">pollutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">lms2.environment.ghg.def_linear_ghg_cost</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids (lms2.fluids)</a><ul>
@@ -177,8 +198,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.html">hysteresis</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.logical.html">Logical (lms2.logical)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.html">hysteresis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic (lms2.mechanic)</a><ul>
@@ -264,116 +288,221 @@
            <div itemprop="articleBody">
             
   <h1>Source code for lms2.economic.cost</h1><div class="highlight"><pre>
-<span></span><span class="c1"># abonnement = 130 euros/y</span>
-<span class="c1">#</span>
-<span class="c1">#     cout   0.1580€ 	 0.1230€</span>
-<span class="c1">#</span>
-<span class="c1">#     cin case : sell all energy</span>
-<span class="c1">#     ≤ 3 kwc 	18,72 €</span>
-<span class="c1">#     ≤ 9 kwc 	15,91 €</span>
-<span class="c1">#     ≤ 36 kwc    12,07 €</span>
-<span class="c1">#     ≤ 100 kwc   11,19 €</span>
-<span class="c1">#</span>
-<span class="c1">#     cin case : autoconsumptio</span>
-<span class="c1">#     ≤ 3 kwc    prime de 400 € /kwc + vente à 10 c€/kWh)</span>
-<span class="c1">#     ≤ 9 kwc    prime de 300 € /kwc + vente à 10 c€/kWh)</span>
-<span class="c1">#     ≤ 36 kwc 	prime de 190 € /kwc + vente à 6 c€/kWh)</span>
-<span class="c1">#     ≤ 100 kwc 	prime de 90 € /kwc + vente à 6 c€/kWh)</span>
-<span class="c1">#     &gt; 100 kwc 	0</span>
-<span class="c1">#</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Economic Units and methods</span>
 
-<span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">DynUnit</span>
+<span class="sd">This module contains Economic units and methods to define parameter, variables and objectives to an exiting block</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">DynUnit</span><span class="p">,</span> <span class="n">AbsDynUnit</span>
 <span class="kn">from</span> <span class="nn">lms2.base.base_units</span> <span class="k">import</span> <span class="n">set_profile</span>
-
-<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Expression</span>
-<span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span><span class="p">,</span> <span class="n">Arc</span>
-
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">PositiveReals</span><span class="p">,</span> <span class="n">Constraint</span>
+<span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;def_linear_cost&#39;</span><span class="p">,</span> <span class="s1">&#39;def_bilinear_cost&#39;</span><span class="p">,</span><span class="s1">&#39;def_linear_dyn_cost&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;def_bilinear_dynamic_cost&#39;</span><span class="p">,</span> <span class="s1">&#39;_OnePortEconomicUnit&#39;</span><span class="p">]</span>
 
-<span class="k">class</span> <span class="nc">_OnePortEconomicUnit</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
+
+<div class="viewcode-block" id="def_linear_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.def_linear_cost.html#lms2.economic.cost.def_linear_cost">[docs]</a><span class="k">def</span> <span class="nf">def_linear_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Dynamic Unit that is exposing one Economic Port</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    Method for adding a linear constant cost associated to variable &#39;p&#39;, to a block</span>
+<span class="sd">    Final instantaneous cost expression is called &quot;instant_cost&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="sd">    :param m: Block</span>
+<span class="sd">    :param str var_name: Names of the expensive variable</span>
+<span class="sd">    :return: A pyomo expression of the instantaneous cost</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">_OnePortEconomicUnit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">})</span>
+<span class="sd">    - Partial model:</span>
 
+<span class="sd">    .. math::</span>
+<span class="sd">        m.instant\_cost(t) = m.var(t) \\times m.cost, \ \\forall t \\in m.time</span>
 
-<div class="viewcode-block" id="SimpleCost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.SimpleCost.html#lms2.economic.cost.SimpleCost">[docs]</a><span class="k">class</span> <span class="nc">SimpleCost</span><span class="p">(</span><span class="n">_OnePortEconomicUnit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Unit that computes a Linear Economical Cost.</span>
+<span class="sd">    - Example of simple model using def_linear_cost():</span>
 
-<span class="sd">    For the sake of modularity, cost or other objectives functions may be computed outside of the &#39;physicals&#39; units.</span>
-<span class="sd">    This behaviour is also useful to sum up variables from different units and apply them a unique cost.</span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">        :caption: Creation of the Abstract model &quot;m&quot; (i.e. no data, no discretization)</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        from lms2 import AbsLModel, def_linear_cost</span>
+<span class="sd">        from pyomo.environ import Var, Objective</span>
+<span class="sd">        from pyomo.dae import ContinuousSet, Integral</span>
 
-<span class="sd">        :param cost: float, int or Pandas.Series</span>
-<span class="sd">        :param time: Set</span>
-<span class="sd">        :param kind: &#39;linear&#39; by default</span>
-<span class="sd">        :param fill_value:  &#39;extrapolate&#39; by default</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">SimpleCost</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="sd">        m = AbsLModel(name=&#39;example&#39;)</span>
+<span class="sd">        m.time = ContinuousSet()</span>
+<span class="sd">        m.v = Var(m.time, doc=&#39;an expensive variable, associated to cost &quot;c_v&quot;&#39;)</span>
+<span class="sd">        m.instant_cost  = def_linear_cost(m, var_name=&#39;v&#39;)</span>
+<span class="sd">        m.integral_cost = Integral(m.time, wrt=m.time, rule=lambda m, i: m.instant_cost[i])</span>
+<span class="sd">        m.obj = Objective(expr=m.integral_cost)</span>
 
-        <span class="k">if</span> <span class="n">cost</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">cost</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Cost of energy&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">Series</span><span class="p">):</span>
-                <span class="n">_init_input</span><span class="p">,</span> <span class="n">_set_bounds</span> <span class="o">=</span> <span class="n">set_profile</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="n">cost</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_init_input</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;buying cost of energy&#39;</span><span class="p">,</span>
-                                 <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Cost of energy is null&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">        :caption: Creation of a data set for the example, and instantiation of the problem</span>
 
-        <span class="c1"># Definition of the instant objectives to be integrated over the time</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="o">.</span><span class="n">is_indexed</span><span class="p">()</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cout</span><span class="o">.</span><span class="n">is_indexed</span><span class="p">():</span>
-            <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">/</span> <span class="mi">3600</span>
-        <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="o">.</span><span class="n">is_indexed</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cout</span><span class="o">.</span><span class="n">is_indexed</span><span class="p">()):</span>
-            <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3600</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">())</span>
+<span class="sd">        data = {None: {&#39;time&#39;: {None: [0, 10]}, &#39;cost&#39;: {None: 3.6}}}  # cost = 3.6 euro/kWh = 1e-3 euros/s</span>
+<span class="sd">        inst = m.create_instance(data)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">instant_cost</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;instantaneous cost in euros/s&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instant_cost</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;COST&#39;</span></div>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">        :caption: Discretization of the continuous time (here every (10-0)/5 = 2 seconds)</span>
 
+<span class="sd">        from pyomo.environ import TransformationFactory</span>
+<span class="sd">        TransformationFactory(&#39;dae.finite_difference&#39;).apply(inst, nfe=5)</span>
+<span class="sd">        inst.obj.expr.expr.to_string()</span>
 
-<div class="viewcode-block" id="PiecewiseLinearCost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.PiecewiseLinearCost.html#lms2.economic.cost.PiecewiseLinearCost">[docs]</a><span class="k">class</span> <span class="nc">PiecewiseLinearCost</span><span class="p">(</span><span class="n">_OnePortEconomicUnit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Economic Unit that computes a Piecewise Linear cost.</span>
-
-<span class="sd">    See :class:`pyomo.core.base.piecewise.Piecewise`</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">f_rule</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;EQ&#39;</span><span class="p">,</span> <span class="n">repn</span><span class="o">=</span><span class="s1">&#39;SOS2&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;simple linear cost, associated with variable </span><span class="si">{var_name}</span><span class="s1">, (euros/kWh)&#39;</span><span class="p">)</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">PiecewiseLinearCost</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost</span> <span class="o">/</span> <span class="mi">3600</span>
 
-        <span class="kn">from</span> <span class="nn">pyomo.core.base.piecewise</span> <span class="k">import</span> <span class="n">Piecewise</span>
-
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)),</span> <span class="n">f</span><span class="s1">&#39;&quot;cost&quot; must be an instance of list, tuple or dictionary,&#39;</span> \
-                                                      <span class="n">f</span><span class="s1">&#39; but actually is : {cost, type(cost)}&#39;</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">dcost</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-
-        <span class="n">kwds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;pw_constr_type&#39;</span><span class="p">:</span> <span class="n">bound</span><span class="p">,</span> <span class="s1">&#39;pw_repn&#39;</span><span class="p">:</span> <span class="n">repn</span><span class="p">,</span> <span class="s1">&#39;f_rule&#39;</span><span class="p">:</span> <span class="n">f_rule</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">piecewise</span> <span class="o">=</span> <span class="n">Piecewise</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dcost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dcost</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3600</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">instant_cost</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;instantaneous cost in euros/s&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instant_cost</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;COST&#39;</span></div>
+    <span class="k">return</span> <span class="n">Expression</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span>
+                      <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous linear cost (euros/s), associated with variable </span><span class="si">{var_name}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="def_linear_dyn_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.def_linear_dyn_cost.html#lms2.economic.cost.def_linear_dyn_cost">[docs]</a><span class="k">def</span> <span class="nf">def_linear_dyn_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method for adding a linear dynamic cost associated to variable &#39;p&#39;, to a block</span>
+<span class="sd">    Final instantaneous cost expression is called &quot;instant_cost&quot;</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        m.instant\_cost(t) = m.var(t) \\times m.cost(t), \ \\forall t \\in m.time</span>
+
+<span class="sd">    :param m: Block</span>
+<span class="sd">    :param str var_name: Names of the expensive variable</span>
+<span class="sd">    :return: pyomo Expression</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">lms2.base.base_units</span> <span class="k">import</span> <span class="n">fix_profile</span>
+
+
+    <span class="n">fix_profile</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;cost&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;cost_index&#39;</span><span class="p">,</span> <span class="n">profile_name</span><span class="o">=</span><span class="s1">&#39;cost_value&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3600</span>
+
+    <span class="k">return</span> <span class="n">Expression</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span>
+                      <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous linear cost (euros/s), associated with variable </span><span class="si">{var_name}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="def_absolute_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.def_absolute_cost.html#lms2.economic.cost.def_absolute_cost">[docs]</a><span class="k">def</span> <span class="nf">def_absolute_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method for adding absolute cost, i.e. a bilinear cost of coefficient -1 and +1 associated with variable &#39;p&#39;.</span>
+<span class="sd">    Final instantaneous cost expression is called &quot;instant_cost&quot;</span>
+
+<span class="sd">    :param m: Block</span>
+<span class="sd">    :param var_name: Names of the expensive variable</span>
+<span class="sd">    :return: pyomo Expression</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">abs_p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">cost</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">,</span>
+                    <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;cost associated to the absolute value of </span><span class="si">{var_name}</span><span class="s1"> (euros/kWh)&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_bound1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">abs_p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">cost</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_bound2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">abs_p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span>  <span class="n">m</span><span class="o">.</span><span class="n">cost</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">abs_p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost</span> <span class="o">/</span> <span class="mi">3600</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">_cost_bound1</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_bound1</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">_cost_bound2</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_bound2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Expression</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span>
+                      <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous bilinear cost (euros/s), associated with variable </span><span class="si">{var_name}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="def_bilinear_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.def_bilinear_cost.html#lms2.economic.cost.def_bilinear_cost">[docs]</a><span class="k">def</span> <span class="nf">def_bilinear_cost</span><span class="p">(</span><span class="n">bl</span><span class="p">,</span> <span class="n">var_in</span><span class="o">=</span><span class="s1">&#39;p_in&#39;</span><span class="p">,</span> <span class="n">var_out</span><span class="o">=</span><span class="s1">&#39;p_out&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method for adding bilinear cost to a block associated to variables &#39;var_in&#39;, &#39;var_out&#39;.</span>
+
+<span class="sd">    Names of costs are &#39;cost_in&#39; &#39;cost_out&#39; and are not tunable for the moment.</span>
+<span class="sd">    Final instantaneous cost expression is called &quot;instant_cost&quot;</span>
+
+<span class="sd">    :param bl: Block</span>
+<span class="sd">    :param str var_in: Name of the input variable</span>
+<span class="sd">    :param str var_out: Name of the input variable</span>
+<span class="sd">    :return: pyomo Expression</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl</span><span class="o">.</span><span class="n">cost_in</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;buying cost of variable </span><span class="si">{var_in}</span><span class="s1"> (euro/kWh)&#39;</span><span class="p">)</span>
+    <span class="n">bl</span><span class="o">.</span><span class="n">cost_out</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;selling cost of variable </span><span class="si">{var_out}</span><span class="s1"> (euro/kWh)&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_out</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost_out</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_in</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost_in</span><span class="p">)</span><span class="o">/</span><span class="mi">3600</span>
+
+    <span class="k">return</span> <span class="n">Expression</span><span class="p">(</span><span class="n">bl</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span>
+                      <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous bilinear cost (euros/s), associated with variable </span><span class="si">{var_in}</span><span class="s1"> and </span><span class="si">{var_out}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="def_bilinear_dynamic_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.def_bilinear_dynamic_cost.html#lms2.economic.cost.def_bilinear_dynamic_cost">[docs]</a><span class="k">def</span> <span class="nf">def_bilinear_dynamic_cost</span><span class="p">(</span><span class="n">bl</span><span class="p">,</span> <span class="n">var_in</span><span class="o">=</span><span class="s1">&#39;p_in&#39;</span><span class="p">,</span> <span class="n">var_out</span><span class="o">=</span><span class="s1">&#39;p_out&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method for adding bilinear dynamic cost to a block associated to variables &#39;var_in&#39;, &#39;var_out&#39;.</span>
+
+<span class="sd">    Names of costs are &#39;cost_in&#39; &#39;cost_out&#39; and are not tunable for the moment.</span>
+<span class="sd">    Final instantaneous cost expression is called &quot;instant_cost&quot;</span>
+
+<span class="sd">    :param bl: Block</span>
+<span class="sd">    :param str var_in: Name of the input variable</span>
+<span class="sd">    :param str var_out: Name of the input variable</span>
+<span class="sd">    :return: Expression</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># bl.cost_in  = Param(bl.time, default=0, mutable=True,</span>
+    <span class="c1">#                     doc=f&#39;buying cost of variable {var_in} with respect to time&#39;)</span>
+    <span class="c1"># bl.cost_out = Param(bl.time, default=0, mutable=True,</span>
+    <span class="c1">#                     doc=f&#39;selling cost of variable {var_out} with respect to time&#39;)</span>
+
+    <span class="kn">from</span> <span class="nn">lms2.base.base_units</span> <span class="k">import</span> <span class="n">fix_profile</span>
+
+    <span class="n">fix_profile</span><span class="p">(</span><span class="n">bl</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;cost_in&#39;</span><span class="p">,</span>  <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;cost_in_index&#39;</span><span class="p">,</span>  <span class="n">profile_name</span><span class="o">=</span><span class="s1">&#39;cost_in_value&#39;</span><span class="p">)</span>
+    <span class="n">fix_profile</span><span class="p">(</span><span class="n">bl</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;cost_out&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;cost_out_index&#39;</span><span class="p">,</span> <span class="n">profile_name</span><span class="o">=</span><span class="s1">&#39;cost_out_value&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_out</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost_out</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_in</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">cost_in</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">/</span><span class="mi">3600</span>
+
+    <span class="k">return</span> <span class="n">Expression</span><span class="p">(</span><span class="n">bl</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span>
+                      <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous bilinear and dynamic cost, associated with variable </span><span class="si">{var_in}</span><span class="s1"> and </span><span class="si">{var_out}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<span class="c1"># TODO : create maintenance cost, with frequency parameter, and computation for long and short term horizon</span>
+<span class="k">def</span> <span class="nf">maintenance_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="c1"># TODO : create recycling cost, computation for long and short term horizon</span>
+<span class="k">def</span> <span class="nf">recycling_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="c1"># TODO : create buying cost, computation for long and short term horizon</span>
+<span class="k">def</span> <span class="nf">buying_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method for defining an expression of the buying cost. This can be expressed for the time set defined by m.time.</span>
+
+<span class="sd">    :param m:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">buying_cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;buying cost associated with the device.&#39;</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">lifetime</span>    <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">31536000</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;lifetime of the device.&#39;</span><span class="p">)</span>
+    <span class="n">use_time</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">())</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">buying_cost</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">lifetime</span>
+
+
+    <span class="k">pass</span>
+
+<span class="c1"># TODO : create replacement cost, computation for long and short term horizon</span>
+<span class="k">def</span> <span class="nf">replacement_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">_OnePortEconomicUnit</span><span class="p">(</span><span class="n">AbsDynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dynamic Economical Unit that is exposing one Economic Port</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">_OnePortEconomicUnit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_in</span>   <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inlet</span>  <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_in</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span>
 </pre></div>
 
            </div>
@@ -386,7 +515,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, llmse Developers
+        &copy; Copyright 2015-2019, lms2 Developers
 
     </p>
   </div>

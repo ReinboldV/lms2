@@ -15,6 +15,7 @@ models
         :template: class.rst
         :toctree:
         
+        AbsLModel
         LModel
         
         

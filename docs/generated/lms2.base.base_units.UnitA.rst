@@ -34,8 +34,6 @@ UnitA
 		~UnitA.component_map
 		~UnitA.component_objects
 		~UnitA.compute_statistics
-		~UnitA.connect_effort
-		~UnitA.connect_flux
 		~UnitA.construct
 		~UnitA.contains_component
 		~UnitA.deactivate
@@ -46,9 +44,8 @@ UnitA
 		~UnitA.fix_all_vars
 		~UnitA.fix_binary
 		~UnitA.get_constraints_values
+		~UnitA.get_doc
 		~UnitA.get_duals
-		~UnitA.get_optimal_values
-		~UnitA.get_slack
 		~UnitA.get_suffix_value
 		~UnitA.getname
 		~UnitA.id_index_map
@@ -76,7 +73,6 @@ UnitA
 		~UnitA.type
 		~UnitA.unfix_all_vars
 		~UnitA.unfix_binary
-		~UnitA.update_graph
 		~UnitA.valid_model_component
 		~UnitA.valid_problem_types
 		~UnitA.values
@@ -91,7 +87,6 @@ UnitA
 	.. autosummary::
 		
 		~UnitA.active
-		~UnitA.graph
 		~UnitA.local_name
 		~UnitA.name
 		

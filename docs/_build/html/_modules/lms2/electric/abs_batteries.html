@@ -1,0 +1,759 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lms2.electric.abs_batteries &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> lms2
+          
+
+          
+            
+            <img src="../../../_static/Logo-UPSUD_2014_UPSaclay-BLEU.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-a-block">2) Example of a block</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-pyomo">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#working-with-abstract-model">2) working with abstract model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library (lms2)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base (lms2.base)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.base_units.html">base_units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.bound_profile.html">lms2.base.base_units.bound_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.fix_profile.html">lms2.base.base_units.fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.set_profile.html">lms2.base.base_units.set_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Abs.html">Abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsDynUnit.html">AbsDynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsEffortSource.html">AbsEffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowLoad.html">AbsFixedFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.FlowSource.html">FlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.ScalableFlowSource.html">ScalableFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnit.html">SourceUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.SourceUnitParam.html">SourceUnitParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.Storage.html">Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.UnitA.html">UnitA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core (lms2.core)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.time.html">time</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.time.Time.html">Time</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.units.html">units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.units.Unit.html">Unit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic (lms2.economic)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric (lms2.electric)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.html">abs_batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV0.html">AbsBatteryV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV1.html">AbsBatteryV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV2.html">AbsBatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_batteries.AbsNLBattery.html">AbsNLBattery</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.html">abs_maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.def_pin_pout.html">lms2.electric.abs_maingrids.def_pin_pout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV0.html">AbsMainGridV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV1.html">AbsMainGridV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGridV2.html">AbsMainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGrid_old.html">AbsMainGrid_old</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.html">abs_sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsDebugSource.html">AbsDebugSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerLoad.html">AbsFixedPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsFixedPowerSource.html">AbsFixedPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsPowerLoad.html">AbsPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsPowerSource.html">AbsPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment (lms2.environment)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">lms2.environment.ghg.def_linear_ghg_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids (lms2.fluids)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.logical.html">Logical (lms2.logical)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.html">hysteresis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic (lms2.mechanic)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.thermal.html">Thermal (lms2.thermal)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.html">dipoles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCond.html">TCond</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TCondRes.html">TCondRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TConvRes.html">TConvRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TDipole.html">TDipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TResNL.html">TResNL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.TStorage.html">TStorage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lms2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lms2.electric.abs_batteries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lms2.electric.abs_batteries</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Batteries&#39; Module.</span>
+
+<span class="sd">Contains electrical batteries linear models.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">AbsDynUnit</span>
+
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">Piecewise</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">PositiveReals</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span>
+<span class="kn">from</span> <span class="nn">pyomo.dae.diffvar</span> <span class="k">import</span> <span class="n">DerivativeVar</span>
+<span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="n">ContinuousSet</span>
+<span class="kn">from</span> <span class="nn">pyomo.core.kernel.set_types</span> <span class="k">import</span> <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Binary</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AbsBatteryV0&#39;</span><span class="p">,</span> <span class="s1">&#39;AbsBatteryV1&#39;</span><span class="p">,</span> <span class="s1">&#39;AbsBatteryV2&#39;</span><span class="p">]</span>
+
+<span class="n">UB</span> <span class="o">=</span> <span class="mf">10e6</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">time</span>    <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)},</span>
+    <span class="n">socmin</span>  <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">0</span>    <span class="p">},</span>
+    <span class="n">socmax</span>  <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">100</span>  <span class="p">},</span>
+    <span class="n">dpcmax</span>  <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="kc">None</span> <span class="p">},</span>
+    <span class="n">dpcmin</span>  <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="kc">None</span> <span class="p">},</span>
+    <span class="n">emin</span>    <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">0</span>    <span class="p">},</span>
+    <span class="n">emax</span>    <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="kc">None</span> <span class="p">},</span>
+    <span class="n">pcmax</span>   <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="n">UB</span>   <span class="p">},</span>
+    <span class="n">pdmax</span>   <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="n">UB</span>   <span class="p">},</span>
+    <span class="n">e0</span>      <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="kc">None</span> <span class="p">},</span>
+    <span class="n">ef</span>      <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="kc">None</span> <span class="p">},</span>
+    <span class="n">etac</span>    <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mf">1.0</span>  <span class="p">},</span>
+    <span class="n">etad</span>    <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mf">1.0</span>  <span class="p">}</span>
+<span class="p">)</span>
+
+
+<span class="c1">#   TODO  : add different model of ageing.</span>
+<span class="c1">#   do bibliography and add model from D. TENFEN</span>
+
+<div class="viewcode-block" id="AbsBatteryV0"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV0.html#lms2.electric.abs_batteries.AbsBatteryV0">[docs]</a><span class="k">class</span> <span class="nc">AbsBatteryV0</span><span class="p">(</span><span class="n">AbsDynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Battery with ideal efficiency.</span>
+
+<span class="sd">    This battery is limited in power, variation of power and energy. One can fix initial and final stored energy.</span>
+<span class="sd">    For fixing initial en final state of charge, consider using `AbsBatteryV1`.</span>
+<span class="sd">    It exposes one power port using source convention.</span>
+
+
+<span class="sd">    **Variables:**</span>
+
+<span class="sd">    - p           energy derivative with respect to time</span>
+<span class="sd">    - e           energy in battery</span>
+
+<span class="sd">    **DerivativeVar:**</span>
+
+<span class="sd">    - de          variation of energy  with respect to time</span>
+<span class="sd">    - dp          variation of the battery power with respect to time</span>
+
+<span class="sd">    **Param:**</span>
+
+<span class="sd">    - emin        minimum energy (kWh)</span>
+<span class="sd">    - emax        maximal energy</span>
+<span class="sd">    - e0          initial state</span>
+<span class="sd">    - ef          final state</span>
+<span class="sd">    - etac        charging efficiency</span>
+<span class="sd">    - etad        discharging efficiency</span>
+<span class="sd">    - dpdmax      maximal discharging power</span>
+<span class="sd">    - dpcmax      maximal charging power</span>
+<span class="sd">    - pcmax       maximal charging power</span>
+<span class="sd">    - pdmax       maximal discharging power</span>
+
+<span class="sd">    **Constraints:**</span>
+
+<span class="sd">    - _e_balance  Energy balance constraint</span>
+<span class="sd">    - _p_init     Initialize power</span>
+<span class="sd">    - _e_initial  Initial energy constraint</span>
+<span class="sd">    - _e_final    Final stored energy constraint</span>
+<span class="sd">    - _e_min      Minimal energy constraint</span>
+<span class="sd">    - _e_max      Maximal energy constraint</span>
+<span class="sd">    - _pmax       Power bounds constraint</span>
+<span class="sd">    - _dpdmax     Maximal varation of descharging power constraint</span>
+<span class="sd">    - _dpcmax     Maximal varation of charging power constraint</span>
+
+<span class="sd">    **Ports:**</span>
+
+<span class="sd">    - outlet</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span>      <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy derivative with respect to time&#39;</span><span class="p">,</span>  <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span>      <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span>                       <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">emin</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>       <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum energy (kWh)&#39;</span><span class="p">,</span>       <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emax</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal energy&#39;</span><span class="p">,</span>             <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e0</span>     <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;initial state&#39;</span><span class="p">,</span>              <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ef</span>     <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;final state&#39;</span><span class="p">,</span>                <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etac</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;charging efficiency&#39;</span><span class="p">,</span>        <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etad</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;discharging efficiency&#39;</span><span class="p">,</span>     <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpdmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span>  <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpcmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span>     <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcmax</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span>     <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdmax</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span>  <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">de</span>     <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of energy  with respect to time&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dp</span>     <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of the battery power with respect to time&#39;</span><span class="p">,</span>
+                                    <span class="n">bounds</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span>
+
+        <span class="k">def</span> <span class="nf">_p_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+        <span class="k">def</span> <span class="nf">_e_initial</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">e0</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">e0</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+        <span class="k">def</span> <span class="nf">_e_final</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">ef</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">ef</span><span class="o">-</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">ef</span><span class="o">+</span><span class="mf">1e-5</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+        <span class="k">def</span> <span class="nf">_e_min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">emin</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">emin</span>
+
+        <span class="k">def</span> <span class="nf">_e_max</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span>
+
+        <span class="k">def</span> <span class="nf">_pmax</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">pcmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">pcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">pdmax</span>
+
+        <span class="k">def</span> <span class="nf">_dpcmax</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dp</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span>
+
+        <span class="k">def</span> <span class="nf">_dpdmax</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dp</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span>
+
+        <span class="k">def</span> <span class="nf">_energy_balance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">de</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3600</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_energy_balance</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Energy balance constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p_init</span>    <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_p_init</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Initialize power&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_initial</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_initial</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Initial energy constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_final</span>   <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_final</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Final stored energy constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_min</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_min</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Minimal energy constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_max</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_max</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal energy constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pmax</span>      <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_pmax</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Power bounds constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dpdmax</span>    <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_dpdmax</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal varation of descharging power constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dpcmax</span>    <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_dpcmax</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal varation of charging power constraint&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbsBatteryV1"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV1.html#lms2.electric.abs_batteries.AbsBatteryV1">[docs]</a><span class="k">class</span> <span class="nc">AbsBatteryV1</span><span class="p">(</span><span class="n">AbsDynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Battery with ideal efficiency.</span>
+
+<span class="sd">    This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final</span>
+<span class="sd">    state of charge. For fixing initial and final energy, consider using `AbsBatteryV0`.</span>
+<span class="sd">    It exposes one power port using source convention.</span>
+
+<span class="sd">    Variables:</span>
+
+<span class="sd">        - p           energy derivative with respect to time</span>
+<span class="sd">        - e           energy in battery</span>
+
+<span class="sd">    DerivativeVar:</span>
+
+<span class="sd">        - de          variation of energy  with respect to time</span>
+<span class="sd">        - dp          variation of the battery power with respect to time</span>
+
+<span class="sd">    Param:</span>
+
+<span class="sd">        - emin        minimum energy (kWh)</span>
+<span class="sd">        - emax        maximal energy</span>
+<span class="sd">        - socmin      minimum soc</span>
+<span class="sd">        - socmax      maximal soc</span>
+<span class="sd">        - soc0        initial state</span>
+<span class="sd">        - socf        final state</span>
+<span class="sd">        - dpdmax      maximal discharging power</span>
+<span class="sd">        - dpcmax      maximal charging power</span>
+<span class="sd">        - pcmax       maximal charging power</span>
+<span class="sd">        - pdmax       maximal discharging power</span>
+
+<span class="sd">    Constraints:</span>
+
+<span class="sd">        - _e_balance  Energy balance constraint</span>
+<span class="sd">        - _p_init     Initialize power</span>
+<span class="sd">        - _e_min      Minimal energy constraint</span>
+<span class="sd">        - _e_max      Maximal energy constraint</span>
+<span class="sd">        - _soc_init   Initial soc constraint</span>
+<span class="sd">        - _soc_final  Final soc constraint</span>
+<span class="sd">        - _soc_min    Minimal state of charge constraint</span>
+<span class="sd">        - _soc_max    Maximal state of charge constraint</span>
+<span class="sd">        - _pmax       Power bounds constraint</span>
+<span class="sd">        - _dpdmax     Maximal varation of descharging power constraint</span>
+<span class="sd">        - _dpcmax     Maximal varation of charging power constraint</span>
+
+<span class="sd">    Ports:</span>
+
+<span class="sd">    - outlet</span>
+
+<span class="sd">    Expressions:</span>
+
+<span class="sd">    - soc         Expression of the state of charge</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span>  <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy derivative with respect to time&#39;</span><span class="p">,</span>  <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span>  <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span>                       <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">emin</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum energy (kWh)&#39;</span><span class="p">,</span>       <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emax</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal energy&#39;</span><span class="p">,</span>             <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socmin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum soc&#39;</span><span class="p">,</span>                <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal soc&#39;</span><span class="p">,</span>                <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">soc0</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;initial state&#39;</span><span class="p">,</span>              <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socf</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;final state&#39;</span><span class="p">,</span>                <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpdmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span>  <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dpcmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span>     <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcmax</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span>     <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdmax</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span>  <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">de</span>     <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of energy  with respect to time&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dp</span>     <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of the battery power with respect to time&#39;</span><span class="p">,</span>
+                                    <span class="n">bounds</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span>
+
+        <span class="k">def</span> <span class="nf">_p_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+        <span class="k">def</span> <span class="nf">_e_min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">emin</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">emin</span>
+
+        <span class="k">def</span> <span class="nf">_e_max</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span>
+
+        <span class="k">def</span> <span class="nf">_pmax</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">pcmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">pcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">pdmax</span>
+
+        <span class="k">def</span> <span class="nf">_soc_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">100</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+        <span class="k">def</span> <span class="nf">_soc_final</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">socf</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">socf</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">100</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+        <span class="k">def</span> <span class="nf">_soc_min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">socmin</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">socmin</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">100</span>
+
+        <span class="k">def</span> <span class="nf">_soc_max</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">socmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">socmax</span> <span class="o">/</span> <span class="mi">100</span>
+
+        <span class="k">def</span> <span class="nf">_dpcmax</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dp</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span>
+
+        <span class="k">def</span> <span class="nf">_dpdmax</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dp</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span>
+
+        <span class="k">def</span> <span class="nf">_energy_balance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">de</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3600</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_energy_balance</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Energy balance constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p_init</span>    <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_p_init</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Initialize power&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_min</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_min</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Minimal energy constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_max</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_max</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal energy constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_soc_init</span>  <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_init</span><span class="p">,</span>  <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Initial soc constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_soc_final</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_final</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Final soc constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_soc_min</span>   <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_min</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Minimal state of charge constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_soc_max</span>   <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_max</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal state of charge constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pmax</span>      <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_pmax</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Power bounds constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dpdmax</span>    <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_dpdmax</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal varation of descharging power constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dpcmax</span>    <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_dpcmax</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal varation of charging power constraint&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">soc</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">emax</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Expression of the state of charge&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbsBatteryV2"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_batteries.AbsBatteryV2.html#lms2.electric.abs_batteries.AbsBatteryV2">[docs]</a><span class="k">class</span> <span class="nc">AbsBatteryV2</span><span class="p">(</span><span class="n">AbsBatteryV1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bilinear battery Model.</span>
+
+<span class="sd">    This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final</span>
+<span class="sd">    state of charge.</span>
+<span class="sd">    Efficiency for charge and discharge are considered.</span>
+<span class="sd">    It exposes one power port using source convention.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pd</span>     <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;discharging power&#39;</span><span class="p">,</span>  <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pc</span>     <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;charging power&#39;</span><span class="p">,</span>     <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u</span>      <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;binary variable&#39;</span><span class="p">,</span>    <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span>           <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">etac</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;charging efficiency&#39;</span><span class="p">,</span>        <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etad</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;discharging efficiency&#39;</span><span class="p">,</span>     <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">del_component</span><span class="p">(</span><span class="s1">&#39;_e_balance&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">del_component</span><span class="p">(</span><span class="s1">&#39;_pmax&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_e_balance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">etac</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">etad</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mf">1.</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">de</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3600</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">etac</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">pd</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">etad</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">de</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3600</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">pd</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+
+        <span class="k">def</span> <span class="nf">_p_balance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">pd</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+
+        <span class="k">def</span> <span class="nf">_pdmax</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">pdmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">pd</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">pdmax</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+
+        <span class="k">def</span> <span class="nf">_pcmax</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">pcmax</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">pcmax</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="o">.</span><span class="n">pcmax</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pdmax</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_pdmax</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Discharging power bound&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pcmax</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_pcmax</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Charging power bound&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p_balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_p_balance</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Power balance constraint&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_balance</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Energy balance constraint&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbsNLBattery"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_batteries.AbsNLBattery.html#lms2.electric.abs_batteries.AbsNLBattery">[docs]</a><span class="k">class</span> <span class="nc">AbsNLBattery</span><span class="p">(</span><span class="n">AbsDynUnit</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">u</span>       <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;voltage&#39;</span><span class="p">,</span>  <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">i</span>       <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;current&#39;</span><span class="p">,</span>  <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ind_ocv</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;index for ocv vector&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ocv</span>     <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,)</span> <span class="c1"># todo here</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span>       <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+        <span class="c1"># self.emin   = Param(default=0,       doc=&#39;minimum energy (kWh)&#39;,       mutable=True, within=NonNegativeReals)</span>
+        <span class="c1"># self.emax   = Param(default=UB,      doc=&#39;maximal energy&#39;,             mutable=True)</span>
+        <span class="c1"># self.e0     = Param(default=None,    doc=&#39;initial state&#39;,              mutable=True)</span>
+        <span class="c1"># self.ef     = Param(default=None,    doc=&#39;final state&#39;,                mutable=True)</span>
+        <span class="c1"># self.etac   = Param(default=1.0,     doc=&#39;charging efficiency&#39;,        mutable=True)</span>
+        <span class="c1"># self.etad   = Param(default=1.0,     doc=&#39;discharging efficiency&#39;,     mutable=True)</span>
+        <span class="c1"># self.dpdmax = Param(default=UB,      doc=&#39;maximal discharging power&#39;,  mutable=True)</span>
+        <span class="c1"># self.dpcmax = Param(default=UB,      doc=&#39;maximal charging power&#39;,     mutable=True)</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.pcmax  = Param(default=UB,      doc=&#39;maximal charging power&#39;,     mutable=True, within=PositiveReals)</span>
+        <span class="c1"># self.pdmax  = Param(default=UB,      doc=&#39;maximal discharging power&#39;,  mutable=True, within=PositiveReals)</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.de     = DerivativeVar(self.e, wrt=self.time, initialize=0,</span>
+        <span class="c1">#                             doc=&#39;variation of energy  with respect to time&#39;)</span>
+        <span class="c1"># self.dp     = DerivativeVar(self.p, wrt=self.time, initialize=0,</span>
+        <span class="c1">#                             doc=&#39;variation of the battery power with respect to time&#39;,</span>
+        <span class="c1">#                             bounds=lambda m, t: (-m.dpcmax, m.dpdmax))</span>
+        <span class="c1">#</span>
+        <span class="c1"># self.outlet = Port(initialize={&#39;f&#39;: (self.p, Port.Conservative)})</span>
+
+
+
+        <span class="c1"># du =</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2019, lms2 Developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

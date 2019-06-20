@@ -34,11 +34,8 @@ LModel
 		~LModel.component_map
 		~LModel.component_objects
 		~LModel.compute_statistics
-		~LModel.connect_effort
-		~LModel.connect_flux
 		~LModel.construct
 		~LModel.construct_objective_from_expression_list
-		~LModel.construct_objective_from_tagged_expression
 		~LModel.contains_component
 		~LModel.create
 		~LModel.create_instance
@@ -84,7 +81,6 @@ LModel
 		~LModel.type
 		~LModel.unfix_all_vars
 		~LModel.unfix_binary
-		~LModel.update_graph
 		~LModel.valid_model_component
 		~LModel.valid_problem_types
 		~LModel.values

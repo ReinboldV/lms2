@@ -5,19 +5,21 @@ cost
 
     
     
-        
-
-    
-    
-    .. rubric:: Classes
-
+    .. rubric:: Functions
+	
     .. autosummary::
-        :template: class.rst
         :toctree:
         
-        PiecewiseLinearCost
-        SimpleCost
+        def_absolute_cost
+        def_bilinear_cost
+        def_bilinear_dynamic_cost
+        def_linear_cost
+        def_linear_dyn_cost
         
+        
+
+    
+    
         
 	
     
