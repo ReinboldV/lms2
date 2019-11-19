@@ -37,7 +37,7 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
         >>> lines = pplot(m.v, m.z, m.w, title='test', Marker='x')
     """
     import matplotlib.pyplot as plt
-    from pyomo.environ import Var, Param, Expression, value
+    from pyomo.environ import Var, Param, Expression, value, Constraint
 
     if fig is None:
         fig = plt.figure()
@@ -53,7 +53,8 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
     if isinstance(variable, Var):
         if index is None:
-            ld = Series(variable.get_values()).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
+            ld = Series(variable.get_values()).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig,
+                                                                 ax=ax, **kwarg)
         else:
             s = Series(variable.get_values()).sort_index()
             s.index = index
@@ -61,7 +62,8 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
     elif isinstance(variable, Param):
         if index is None:
-            ld = Series(variable.extract_values()).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
+            ld = Series(variable.extract_values()).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig,
+                                                                     ax=ax, **kwarg)
         else:
             s = Series(variable.extract_values()).sort_index()
             s.index = index
@@ -69,11 +71,22 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
     elif isinstance(variable, Expression):
         if index is None:
-            ld = Series([value(v) for v in variable.values()]).sort_index().plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
+            ld = Series([value(v) for v in variable.values()]).sort_index().plot(label=variable.name.replace('_', '\_'),
+                                                                                 fig=fig, ax=ax, **kwarg)
         else:
             s = Series([value(v) for v in variable.values()])
             s.index = index
             ld = s.plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
+
+    elif isinstance(variable, Constraint):
+        if index is None:
+            ld = Series([v() for v in variable.values()]).sort_index().plot(label=variable.name.replace('_', '\_'),
+                                                                                 fig=fig, ax=ax, **kwarg)
+        else:
+            s = Series([v() for v in variable.values()])
+            s.index = index
+            ld = s.plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
+
     else:
         raise(NotImplementedError(f'Argument "variable" must be of type Param or Var, but is actually'
                                   f'{variable, type(variable)}'))
@@ -83,15 +96,22 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
 def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs):
 
+    ncol            = kargs.pop('ncol', 4)
+    loc             = kargs.pop('loc', 'lower left')
+    bbox_to_anchor  = kargs.pop('bbox_to_anchor',(0, 1.02, 1, 0.2))
+    mode            = kargs.pop('mode', "expand")
+
     lines = []
     ld, ax, fig = _pplot(args[0], ax=ax, fig=fig, **kargs)
     lines.append(ld)
+
     for var in args[1:]:
         ld, ax, fig = _pplot(var, ax=ax, fig=fig, **kargs)
         lines.append(ld)
 
     if legend:
-        ax.legend()
+        ax.legend(bbox_to_anchor=bbox_to_anchor, loc=loc,
+                        mode=mode, borderaxespad=0, ncol=ncol)
     if title is not None:
         ax.set_title(title)
     if grid:

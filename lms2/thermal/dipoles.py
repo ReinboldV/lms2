@@ -4,11 +4,11 @@ Thermal dipole models
 """
 from lms2.base.base_units import DynUnit
 
+## DEPRECIATED
 
 class TDipole(DynUnit):
     pass
 
-    # TODO create
     # def __init__(self, time_horizon, name='TD0', description='', t1=None, t2=None, q12=None):
     #     # type: (Time, str, str, object, object, object) -> TDipole
     #     """
@@ -55,8 +55,6 @@ class TDipole(DynUnit):
 
 class TCondRes(DynUnit):
     pass
-
-    # TODO create
     # def __init__(self, time_horizon, name='TCdR0', description='', r=1, t1=None, t2=None, q12=None):
     #     """
     #     Simple thermal resistance.
@@ -90,7 +88,6 @@ class TCondRes(DynUnit):
 class TCond(DynUnit):
     pass
 
-    # TODO create
     # def __init__(self, time_horizon, name='TCdR0', description='', r=1, t1=None, t2=None, q12=None):
     #     """
     #     Simple thermal resistance.
@@ -125,7 +122,6 @@ class TResNL(DynUnit):
     """ Non linear thermal resistance for forced heat convection modelling """
     pass
 
-    # TODO create
     # def __init__(self, time_horizon, name='TRNL0', description='', relax=False, rho=1., e=None, ne=None,
     #              emax=0.8, qa=None, nqa=None, qamin=0, qamax=0.5, cp=1004, t1=None, t2=None, q12=None):
     #     """
@@ -221,8 +217,6 @@ class TStorage(DynUnit):
     """
     pass
 
-
-    # TODO create TStorage
     # def __init__(self, time_horizon, name='TSt0', description="Thermal storage connected to the ground, Euler's scheme",
     #              c=1, m=1, ts=None, ps_t=None, qc=None):
     #     """

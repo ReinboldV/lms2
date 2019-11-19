@@ -1,14 +1,11 @@
-import types
-
 from ._version import get_versions
 
 __version__ = get_versions()['version']
 del get_versions
 
-__all__ = ['lms2.core.expressions',
-           'lms2.core.models',
+__all__ = ['lms2.core.models',
            'lms2.core.time',
-           'lms2.core.unit',
+           'lms2.core.units',
            'lms2.electric.abs_batteries',
            'lms2.electric.abs_maingrids',
            'lms2.electric.abs_sources',
@@ -20,7 +17,6 @@ __all__ = ['lms2.core.expressions',
 
 from lms2.base.base_units import *
 from lms2.base.utils import *
-from lms2.core.expressions import *
 from lms2.core.models import *
 from lms2.core.time import *
 from lms2.core.units import *
@@ -32,4 +28,3 @@ from lms2.environment.ghg import *
 from lms2.mechanic.gears import *
 from lms2.logical.hysteresis import *
 from lms2.thermal.dipoles import *
-from lms2.template.drahix.abs_drahix import *

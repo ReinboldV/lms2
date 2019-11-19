@@ -14,7 +14,7 @@ __all__ = ['DynUnit',           'DynUnitTest',      'AbsDynUnit',           'Sto
            '_TwoPortBaseUnit',  'SourceUnit',       'AbsFixedFlowLoad',     'SourceUnitParam',  'ScalableFlowSource',
            'EffortSource',      'FlowSource',       'AbsFixedFlowSource',   'FlowLoad',         'AbsFlowSource',
            'AbsFlowLoad',       'AbsEffortSource',  'UnitA',                'Abs',              'set_profile',
-           '_init_input',       '_set_bounds',      'fix_profile',          'bound_profile']
+           '_init_input',       '_set_bounds',      'fix_profile',          'bound_profile',    'AbsTwoFlowUnit',]
 
 
 class DynUnit(Unit):
@@ -46,10 +46,10 @@ class DynUnit(Unit):
 
 class AbsDynUnit(Unit):
     def __init__(self, *args, **kwds):
-        """DEPRECIATED
+        """
         Abstract Dynamic Unit
 
-        Standard unit with a time argument for indexing variables and constraints.
+        Standard unit with time attribute to index variables and constraints.
 
         :param args:
         :param time:
@@ -62,10 +62,36 @@ class AbsDynUnit(Unit):
         self.doc = self.__doc__
 
     def get_constraints_values(self):
+        # TODO method for retrieving constraints slack
         return
 
     def get_duals(self):
+        # TODO method for retrieving dual variables
         return
+
+    def pplot(self, **kwargs):
+
+        """
+        Plotting method for AbsDyn Unit. It iterates on the component ctype of the Block and plots it.
+
+        Currently, it only works with Var, Constraints and Expressions.
+
+        Example :
+
+            >>> l, a, f = instance.block.pplot(ctype=Constraint, ncol=2)
+
+        :param kwargs:
+        :return: lines, axe and figure
+        """
+
+        from lms2.base.utils import pplot
+
+        ctype = kwargs.pop('ctype', Var)
+        active = kwargs.pop('active', True)
+
+        lines, ax, fig = pplot(*[v for v in self.component_objects(ctype=ctype, active=active)], **kwargs)
+
+        return lines, ax, fig
 
 
 class DynUnitTest(DynUnit):
@@ -349,7 +375,7 @@ class AbsFlowSource(AbsDynUnit):
         :param str flow_name: name of the flow variable
         """
         super().__init__(*args, **kwargs)
-        self.add_component(flow_name, Var(self.time, initialize=0, within=Reals))
+        self.add_component(flow_name, Var(self.time, initialize=None, within=Reals))
         self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
@@ -541,6 +567,22 @@ def bound_profile(m, t, flow_name='flow',
                                                                               low_profile_name=low_profile_name,
                                                                               up_profile_name=up_profile_name)))
 
+
+class AbsTwoFlowUnit(AbsDynUnit):
+    """
+    Abstract interface for two conservative ports block
+
+    :param AbsDynUnit:
+    :return:
+    """
+
+    def __init__(self, *args, flow_names=('flow_in', 'flow_out'), **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.intlet = Port(initialize={'f': (self.component(flow_names[0]), Port.Conservative)})
+        self.outlet = Port(initialize={'f': (self.component(flow_names[1]), Port.Conservative)})
+
+
 class AbsFixedFlowSource(AbsFlowSource):
     """
     Abstract Fixed Flow Source Unit.
@@ -611,3 +653,6 @@ def set_profile(profile, kind='linear', fill_value='extrapolate'):
             return b, b
 
     return _init_input, _set_bounds
+
+
+

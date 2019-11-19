@@ -6,18 +6,12 @@ Definition of Linear Model class.
 
 from pyomo.environ import ConcreteModel, Block, Constraint, Objective, Var, AbstractModel
 import logging
+import os
 
-logging.basicConfig(filename='/home/admin/Documents/02-Recherche/02-Python/lms2/lms2.log',
-                    filemode='w',
-                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S',
-                    level=logging.DEBUG)
 
-logging.info("Running LMS2 Logging...")
 
 __all__ = ['LModel', 'AbsLModel']
 logger = logging.getLogger('lms2.models')
-
 
 class LModel(ConcreteModel):
     """ Redefinition of ConcreteModel for the lms2 package"""
@@ -161,7 +155,7 @@ class LModel(ConcreteModel):
 class AbsLModel(AbstractModel):
     """ Redefinition of AbstractModel for the lms2 package"""
 
-    def __init__(self, name='model', *args):
+    def __init__(self, *args, name='model'):
         """
 
         :param str name: Name of the model
@@ -178,7 +172,6 @@ class AbsLModel(AbstractModel):
         """
         getter for the graph argument
         """
-        self.update_graph()
         return self._graph
 
     @graph.setter

@@ -4,24 +4,6 @@ Contains gears models for mechanics
 """
 
 
-# class MPole(FluxEffortPole):
-#     """ Mechanical pole for gears and rotation modelling """
-#     # TODO : implement MPole
-#     pass
-#
-#
-# class MDipole(TUnit):
-#     """ General Mechanical dipole for Gears """
-#     # TODO : implement MDipole
-#     pass
-
-#
-# class Red1():
-#     """Gear reduction, with factor k and efficiency e """
-#
-#     pass
-# todo create Red1
-
 #
 # def __init__(self, th, name='RED0', description='Gear reduction, witime_horizon factor k and efficiency e', w1=None, w2=None, t1=None, t2=None, e=1., k=1.):
 #     """

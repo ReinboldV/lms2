@@ -19,7 +19,6 @@ class Hysteresis(object):
     """
 
     pass
-    # TODO creates Hysteresis
 
     # def __init__(self, time_horizon, name='hys0', description='logical hysteresis', xr=None, dxm=1, dxM=1, xM=100, xm=100, init_x=0):
     #

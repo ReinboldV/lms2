@@ -1,2 +1,2 @@
-python3 -m unittest discover -s . -v -p "test_*"
+python -m unittest discover -s . -v -p "test_*"
 
