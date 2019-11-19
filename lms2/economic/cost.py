@@ -188,7 +188,10 @@ def recycling_cost(m):
 # TODO : create buying cost, computation for long and short term horizon
 def buying_cost(m):
     """
-    Method for defining an expression of the buying cost. This can be expressed for the time set defined by m.time.
+    Method for defining an expression of the buying cost.
+
+    This can be expressed for the time set defined by m.time. this will introduce a parameter called lifetime and return
+    the following expression $$ cost = \Delta T \times buying_cost / lifetime $$
 
     :param m:
     :return:
