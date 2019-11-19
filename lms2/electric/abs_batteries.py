@@ -46,52 +46,45 @@ class AbsBatteryV0(AbsDynUnit):
     It exposes one power port using source convention.
 
 
-    Variables:
-    ----------
+    **Variables:**
 
-    p           energy derivative with respect to time
-    e           energy in battery
+    - p           energy derivative with respect to time
+    - e           energy in battery
 
-    DerivativeVar:
-    ---------------
+    **DerivativeVar:**
 
-    de          variation of energy  with respect to time
-    dp          variation of the battery power with respect to time
+    - de          variation of energy  with respect to time
+    - dp          variation of the battery power with respect to time
 
-    Param:
-    ------
+    **Param:**
 
-    emin        minimum energy (kWh)
-    emax        maximal energy
-    e0          initial state
-    ef          final state
-    etac        charging efficiency
-    etad        discharging efficiency
-    dpdmax      maximal discharging power
-    dpcmax      maximal charging power
-    pcmax       maximal charging power
-    pdmax       maximal discharging power
+    - emin        minimum energy (kWh)
+    - emax        maximal energy
+    - e0          initial state
+    - ef          final state
+    - etac        charging efficiency
+    - etad        discharging efficiency
+    - dpdmax      maximal discharging power
+    - dpcmax      maximal charging power
+    - pcmax       maximal charging power
+    - pdmax       maximal discharging power
 
-    Constraints:
-    ---------
+    **Constraints:**
 
-    _e_balance  Energy balance constraint
-    _p_init     Initialize power
-    _e_initial  Initial energy constraint
-    _e_final    Final stored energy constraint
-    _e_min      Minimal energy constraint
-    _e_max      Maximal energy constraint
-    _pmax       Power bounds constraint
-    _dpdmax     Maximal varation of descharging power constraint
-    _dpcmax     Maximal varation of charging power constraint
+    - _e_balance  Energy balance constraint
+    - _p_init     Initialize power
+    - _e_initial  Initial energy constraint
+    - _e_final    Final stored energy constraint
+    - _e_min      Minimal energy constraint
+    - _e_max      Maximal energy constraint
+    - _pmax       Power bounds constraint
+    - _dpdmax     Maximal varation of descharging power constraint
+    - _dpcmax     Maximal varation of charging power constraint
 
-    Ports:
-    ------
+    **Ports:**
 
-    outlet
+    - outlet
 
-    Expressions:
-    ---------
     """
 
     def __init__(self, *args, **kwds):
@@ -190,66 +183,56 @@ class AbsBatteryV1(AbsDynUnit):
     It exposes one power port using source convention.
 
     Variables:
-    ----------
 
-    p           energy derivative with respect to time
-    e           energy in battery
+        - p           energy derivative with respect to time
+        - e           energy in battery
 
     DerivativeVar:
-    ---------------
 
-    de          variation of energy  with respect to time
-    dp          variation of the battery power with respect to time
+        - de          variation of energy  with respect to time
+        - dp          variation of the battery power with respect to time
 
     Param:
-    ------
 
-    emin        minimum energy (kWh)
-    emax        maximal energy
-    socmin      minimum soc
-    socmax      maximal soc
-    soc0        initial state
-    socf        final state
-    dpdmax      maximal discharging power
-    dpcmax      maximal charging power
-    pcmax       maximal charging power
-    pdmax       maximal discharging power
+        - emin        minimum energy (kWh)
+        - emax        maximal energy
+        - socmin      minimum soc
+        - socmax      maximal soc
+        - soc0        initial state
+        - socf        final state
+        - dpdmax      maximal discharging power
+        - dpcmax      maximal charging power
+        - pcmax       maximal charging power
+        - pdmax       maximal discharging power
 
     Constraints:
-    ---------
 
-    _e_balance  Energy balance constraint
-    _p_init     Initialize power
-    _e_min      Minimal energy constraint
-    _e_max      Maximal energy constraint
-    _soc_init   Initial soc constraint
-    _soc_final  Final soc constraint
-    _soc_min    Minimal state of charge constraint
-    _soc_max    Maximal state of charge constraint
-    _pmax       Power bounds constraint
-    _dpdmax     Maximal varation of descharging power constraint
-    _dpcmax     Maximal varation of charging power constraint
+        - _e_balance  Energy balance constraint
+        - _p_init     Initialize power
+        - _e_min      Minimal energy constraint
+        - _e_max      Maximal energy constraint
+        - _soc_init   Initial soc constraint
+        - _soc_final  Final soc constraint
+        - _soc_min    Minimal state of charge constraint
+        - _soc_max    Maximal state of charge constraint
+        - _pmax       Power bounds constraint
+        - _dpdmax     Maximal varation of descharging power constraint
+        - _dpcmax     Maximal varation of charging power constraint
 
     Ports:
-    ------
 
-    outlet
+    - outlet
 
     Expressions:
-    ---------
 
-    soc         Expression of the state of charge
+    - soc         Expression of the state of charge
 
 
     """
 
     def __init__(self, *args, **kwds):
 
-
         super().__init__(*args, **kwds)
-
-        self.p  = Var(self.time, doc='energy derivative with respect to time',  initialize=0)
-        self.e  = Var(self.time, doc='energy in battery',                       initialize=0)
 
         self.emin   = Param(default=0,      doc='minimum energy (kWh)',       mutable=True, within=NonNegativeReals)
         self.emax   = Param(default=UB,     doc='maximal energy',             mutable=True)
@@ -261,6 +244,12 @@ class AbsBatteryV1(AbsDynUnit):
         self.dpcmax = Param(default=UB,     doc='maximal charging power',     mutable=True)
         self.pcmax  = Param(default=UB,     doc='maximal charging power',     mutable=True, within=PositiveReals)
         self.pdmax  = Param(default=UB,     doc='maximal discharging power',  mutable=True, within=PositiveReals)
+
+        def _init_e(m, t):
+            return m.soc0*m.emax / 100
+
+        self.p = Var(self.time, doc='energy derivative with respect to time', initialize=0)
+        self.e = Var(self.time, doc='energy in battery', initialize=_init_e)
 
         self.de     = DerivativeVar(self.e, wrt=self.time, initialize=0, doc='variation of energy  with respect to time')
         self.dp     = DerivativeVar(self.p, wrt=self.time, initialize=0,
@@ -290,6 +279,7 @@ class AbsBatteryV1(AbsDynUnit):
             else:
                 return -m.pcmax, m.p[t], m.pdmax
 
+        @self.Constraint(self.time)
         def _soc_init(m, t):
             if m.soc0.value is not None:
                 if t == m.time.first():
@@ -334,7 +324,7 @@ class AbsBatteryV1(AbsDynUnit):
         self._p_init    = Constraint(self.time, rule=_p_init,    doc='Initialize power')
         self._e_min     = Constraint(self.time, rule=_e_min,     doc='Minimal energy constraint')
         self._e_max     = Constraint(self.time, rule=_e_max,     doc='Maximal energy constraint')
-        self._soc_init  = Constraint(self.time, rule=_soc_init,  doc='Initial soc constraint')
+        # self._soc_init  = Constraint(self.time, rule=_soc_init,  doc='Initial soc constraint')
         self._soc_final = Constraint(self.time, rule=_soc_final, doc='Final soc constraint')
         self._soc_min   = Constraint(self.time, rule=_soc_min,   doc='Minimal state of charge constraint')
         self._soc_max   = Constraint(self.time, rule=_soc_max,   doc='Maximal state of charge constraint')
@@ -392,3 +382,40 @@ class AbsBatteryV2(AbsBatteryV1):
         self._pcmax     = Constraint(self.time, rule=_pcmax,     doc='Charging power bound')
         self._p_balance = Constraint(self.time, rule=_p_balance, doc='Power balance constraint')
         self._e_balance = Constraint(self.time, rule=_e_balance, doc='Energy balance constraint')
+
+
+class AbsNLBattery(AbsDynUnit):
+
+    def __init__(self, *args, **kwds):
+
+        super().__init__(*args, **kwds)
+
+        self.u       = Var(self.time, doc='voltage',  initialize=0)
+        self.i       = Var(self.time, doc='current',  initialize=0)
+        self.ind_ocv = Set(initialize=[0, 50, 100], doc='index for ocv vector')
+        self.ocv     = Param(self.time,) # todo here
+        self.e       = Var(self.time, doc='energy in battery', initialize=0)
+
+        # self.emin   = Param(default=0,       doc='minimum energy (kWh)',       mutable=True, within=NonNegativeReals)
+        # self.emax   = Param(default=UB,      doc='maximal energy',             mutable=True)
+        # self.e0     = Param(default=None,    doc='initial state',              mutable=True)
+        # self.ef     = Param(default=None,    doc='final state',                mutable=True)
+        # self.etac   = Param(default=1.0,     doc='charging efficiency',        mutable=True)
+        # self.etad   = Param(default=1.0,     doc='discharging efficiency',     mutable=True)
+        # self.dpdmax = Param(default=UB,      doc='maximal discharging power',  mutable=True)
+        # self.dpcmax = Param(default=UB,      doc='maximal charging power',     mutable=True)
+        #
+        # self.pcmax  = Param(default=UB,      doc='maximal charging power',     mutable=True, within=PositiveReals)
+        # self.pdmax  = Param(default=UB,      doc='maximal discharging power',  mutable=True, within=PositiveReals)
+        #
+        # self.de     = DerivativeVar(self.e, wrt=self.time, initialize=0,
+        #                             doc='variation of energy  with respect to time')
+        # self.dp     = DerivativeVar(self.p, wrt=self.time, initialize=0,
+        #                             doc='variation of the battery power with respect to time',
+        #                             bounds=lambda m, t: (-m.dpcmax, m.dpdmax))
+        #
+        # self.outlet = Port(initialize={'f': (self.p, Port.Conservative)})
+
+
+
+        # du =

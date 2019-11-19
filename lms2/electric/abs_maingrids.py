@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Contains maingrid unit, i.e. electrical connection to the distribution grid.
-"""
-from lms2 import Expression, AbsDynUnit, AbsPowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
+Distribution Grid Units
 
-from pyomo.environ import Constraint,  Var, Param, Block, Piecewise
+Electrical connection to the distribution grid.
+
+"""
+from lms2 import AbsDynUnit, AbsPowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
+
+from pyomo.environ import Constraint,  Var, Param, Block, Expression, Piecewise
 from pyomo.network import Port
 from pyomo.environ import NonNegativeReals, Binary
 from pandas import Series
@@ -19,15 +22,22 @@ def def_pin_pout(m):
     # This could be better implemented.
     # In particular, it should not use m.p directly but m.find_component(name_var)
 
+    """
+    Defines power 'in' and 'out' variables
+
+    :param m:
+    :return:
+    """
+
     assert isinstance(m, Block),    f"argument 'm', must be an instance of Block, but is actually {type(m)}."
     assert hasattr(m, 'p'),         f"model m does not have attribute named 'p'. This is needed. "
 
     m.pmax  = Param(initialize=UB,  mutable=True, doc='maximal power out (kW)')
     m.pmin  = Param(initialize=UB,  mutable=True, doc='maximal power in (kW)')
 
-    m.pout  = Var(m.time, doc='power to the main grid',   within=NonNegativeReals,    initialize=0)
-    m.pin   = Var(m.time, doc='power from the main grid', within=NonNegativeReals,    initialize=0)
-    m.u     = Var(m.time, doc='binary variable',          within=Binary,              initialize=0)
+    m.pout  = Var(m.time, doc='power to the main grid',   within=NonNegativeReals,    initialize=None)
+    m.pin   = Var(m.time, doc='power from the main grid', within=NonNegativeReals,    initialize=None)
+    m.u     = Var(m.time, doc='binary variable',          within=Binary,              initialize=None)
 
     def _power_balance(b, t):
         return b.p[t] - b.pout[t] + b.pin[t] == 0
@@ -55,20 +65,16 @@ class AbsMainGridV0(AbsPowerSource):
     (Source convention)
 
     Variables:
-    ----------
-    p           Supplied power from the maingrid (source convention)
+        - p           Supplied power from the maingrid (source convention)
 
     Param:
-    ------
-    cost        simple linear cost, associated with variable p
+        - cost        simple linear cost, associated with variable p
 
     Ports:
-    ------
-    outlet
+        - outlet
 
     Expressions:
-    ---------
-    instant_cost  instantaneous linear cost, associated with variable p
+        - inst_cost  instantaneous linear cost, associated with variable p
     """
     def __init__(self, *args, flow_name='p', **kwgs):
 
@@ -87,34 +93,27 @@ class AbsMainGridV1(AbsPowerSource):
     (Source convention)
 
     Variables:
-    ----------
-    p           None
-    pout        power to the main grid
-    pin         power from the main grid
-    u           binary variable
-
-
+        - p           None
+        - pout        power to the main grid
+        - pin         power from the main grid
+        - u           binary variable
 
     Param:
-    ------
-    pmax        maximal power out (kW)
-    pmin        maximal power in (kW)
-    cost_in     buying cost of variable pin
-    cost_out    selling cost of variable pout
+        - pmax        maximal power out (kW)
+        - pmin        maximal power in (kW)
+        - cost_in     buying cost of variable pin
+        - cost_out    selling cost of variable pout
 
     Constraints:
-    ------------
-    _pmin       Low bound
-    _pmax       Up bound
-    _p_balance  Power balance
+        - _pmin       Low bound
+        - _pmax       Up bound
+        - _p_balance  Power balance
 
     Ports:
-    ------
-    outlet      None
+        - outlet      None
 
     Expressions:
-    ---------
-    instant_cost  instantaneous bilinear cost, associated with variable pin and pout
+        - inst_cost  instantaneous bilinear cost, associated with variable pin and pout
 
     """
     def __init__(self, *args, flow_name='p', **kwgs):
@@ -137,39 +136,33 @@ class AbsMainGridV2(AbsPowerSource):
     (Source convention)
 
     Sets:
-    ----------
-    cost_in_index    None
-    cost_out_index   None
+        - cost_in_index    None
+        - cost_out_index   None
 
     Variables:
-    ----------
-    p                None
-    pout             power to the main grid
-    pin              power from the main grid
-    u                binary variable
+        - p                None
+        - pout             power to the main grid
+        - pin              power from the main grid
+        - u                binary variable
 
     Param:
-    ------
-    pmax             maximal power out (kW)
-    pmin             maximal power in (kW)
-    cost_in_value    None
-    cost_in          None
-    cost_out_value   None
-    cost_out         None
+        - pmax             maximal power out (kW)
+        - pmin             maximal power in (kW)
+        - cost_in_value    None
+        - cost_in          None
+        - cost_out_value   None
+        - cost_out         None
 
     Constraints:
-    -----------
-    _pmin            Low bound
-    _pmax            Up bound
-    _p_balance       Power balance
+        - _pmin            Low bound
+        - _pmax            Up bound
+        - _p_balance       Power balance
 
     Ports:
-    ------
-    outlet           None
+        - outlet           None
 
     Expressions:
-    ---------
-    instant_cost     instantaneous bilinear and dynamic cost, associated with variable pin and pout
+        - inst_cost     instantaneous bilinear and dynamic cost, associated with variable pin and pout
     """
 
     def __init__(self, *args, flow_name='p', **kwgs):
@@ -178,11 +171,12 @@ class AbsMainGridV2(AbsPowerSource):
 
         def_pin_pout(self)
 
-        self.instant_cost = def_bilinear_dynamic_cost(self, var_in='pin', var_out='pout')
+        self.inst_cost = def_bilinear_dynamic_cost(self, var_in='pin', var_out='pout')
 
 
 class AbsMainGrid_old(AbsDynUnit):
     """
+    DEPRECIATED 
     Simple main Grid unit
     """
     def __init__(self, *args, pmax=None, pmin=None, cout=None, cin=None, mixco2=None, kind='linear',
