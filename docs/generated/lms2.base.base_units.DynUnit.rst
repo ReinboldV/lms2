@@ -68,6 +68,7 @@ DynUnit
 		~DynUnit.root_block
 		~DynUnit.set_suffix_value
 		~DynUnit.set_value
+		~DynUnit.sync_first_step
 		~DynUnit.to_dense_data
 		~DynUnit.to_string
 		~DynUnit.type

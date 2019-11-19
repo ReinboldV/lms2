@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.electric.abs_batteries &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>lms2.electric.abs_batteries &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -109,6 +109,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -183,6 +184,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -525,11 +527,66 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        **Blocks:**</span>
 
+<span class="sd">        Sets:</span>
+
+<span class="sd">        **Variables:**</span>
+<span class="sd">            - p                energy derivative with respect to time</span>
+<span class="sd">            - e                energy in battery</span>
+<span class="sd">            - pd               discharging power</span>
+<span class="sd">            - pc               charging power</span>
+<span class="sd">            - u                binary variable</span>
+
+<span class="sd">        **DerivativeVar:**</span>
+
+<span class="sd">            - de               variation of energy  with respect to time</span>
+<span class="sd">            - dp               variation of the battery power with respect to time</span>
+
+<span class="sd">        **Param:**</span>
+
+<span class="sd">            - emin             minimum energy (kWh)</span>
+<span class="sd">            - emax             maximal energy</span>
+<span class="sd">            - socmin           minimum soc</span>
+<span class="sd">            - socmax           maximal soc</span>
+<span class="sd">            - soc0             initial state</span>
+<span class="sd">            - socf             final state</span>
+<span class="sd">            - dpdmax           maximal discharging power</span>
+<span class="sd">            - dpcmax           maximal charging power</span>
+<span class="sd">            - pcmax            maximal charging power</span>
+<span class="sd">            - pdmax            maximal discharging power</span>
+<span class="sd">            - etac             charging efficiency</span>
+<span class="sd">            - etad             discharging efficiency</span>
+
+<span class="sd">        **Constraints:**</span>
+<span class="sd">            - _soc_init        None</span>
+<span class="sd">            - _p_init          Initialize power</span>
+<span class="sd">            - _e_min           Minimal energy constraint</span>
+<span class="sd">            - _e_max           Maximal energy constraint</span>
+<span class="sd">            - _soc_final       Final soc constraint</span>
+<span class="sd">            - _soc_min         Minimal state of charge constraint</span>
+<span class="sd">            - _soc_max         Maximal state of charge constraint</span>
+<span class="sd">            - _dpdmax          Maximal varation of descharging power constraint</span>
+<span class="sd">            - _dpcmax          Maximal varation of charging power constraint</span>
+<span class="sd">            - _pdmax           Discharging power bound</span>
+<span class="sd">            - _pcmax           Charging power bound</span>
+<span class="sd">            - _p_balance       Power balance constraint</span>
+<span class="sd">            - _e_balance       Energy balance constraint</span>
+
+<span class="sd">        **Ports:**</span>
+
+<span class="sd">            - outlet           output power of the battery (kW), using source convention</span>
+
+<span class="sd">        **Expressions:**</span>
+
+<span class="sd">            - soc              Expression of the state of charge</span>
+
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param kwds:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">p</span>  <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy derivative with respect to time&#39;</span><span class="p">,</span>  <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">e</span>  <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span>                       <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">emin</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>      <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum energy (kWh)&#39;</span><span class="p">,</span>       <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">emax</span>   <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal energy&#39;</span><span class="p">,</span>             <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -542,12 +599,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pcmax</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span>     <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pdmax</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span>  <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">_init_e</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">100</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy derivative with respect to time&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_e</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">de</span>     <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of energy  with respect to time&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dp</span>     <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of the battery power with respect to time&#39;</span><span class="p">,</span>
                                     <span class="n">bounds</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)},</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;output power of the battery (kW), &#39;</span>
+                                                                              <span class="s1">&#39;using source convention&#39;</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">_p_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
@@ -570,6 +634,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">pcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">pdmax</span>
 
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">_soc_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
@@ -614,7 +679,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_p_init</span>    <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_p_init</span><span class="p">,</span>    <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Initialize power&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_e_min</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_min</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Minimal energy constraint&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_e_max</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_max</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal energy constraint&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_soc_init</span>  <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_init</span><span class="p">,</span>  <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Initial soc constraint&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_soc_final</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_final</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Final soc constraint&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_soc_min</span>   <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_min</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Minimal state of charge constraint&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_soc_max</span>   <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_max</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal state of charge constraint&#39;</span><span class="p">)</span>
@@ -705,10 +769,6 @@
         <span class="c1">#                             bounds=lambda m, t: (-m.dpcmax, m.dpdmax))</span>
         <span class="c1">#</span>
         <span class="c1"># self.outlet = Port(initialize={&#39;f&#39;: (self.p, Port.Conservative)})</span>
-
-
-
-        <span class="c1"># du =</span>
 </pre></div>
 
            </div>

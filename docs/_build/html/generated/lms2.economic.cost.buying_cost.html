@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.economic.cost.buying_cost &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>lms2.economic.cost.buying_cost &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -306,7 +308,9 @@
 <dl class="function">
 <dt id="lms2.economic.cost.buying_cost">
 <code class="descclassname">lms2.economic.cost.</code><code class="descname">buying_cost</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/economic/cost.html#buying_cost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.economic.cost.buying_cost" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for defining an expression of the buying cost. This can be expressed for the time set defined by m.time.</p>
+<dd><p>Method for defining an expression of the buying cost.</p>
+<p>This can be expressed for the time set defined by m.time. this will introduce a parameter called lifetime and return
+the following expression $$ cost = Delta T         imes buying_cost / lifetime $$</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

@@ -68,6 +68,7 @@ ScalableFlowSource
 		~ScalableFlowSource.root_block
 		~ScalableFlowSource.set_suffix_value
 		~ScalableFlowSource.set_value
+		~ScalableFlowSource.sync_first_step
 		~ScalableFlowSource.to_dense_data
 		~ScalableFlowSource.to_string
 		~ScalableFlowSource.type

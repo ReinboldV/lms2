@@ -62,12 +62,14 @@ AbsFlowSource
 		~AbsFlowSource.model
 		~AbsFlowSource.parent_block
 		~AbsFlowSource.parent_component
+		~AbsFlowSource.pplot
 		~AbsFlowSource.pprint
 		~AbsFlowSource.reclassify_component_type
 		~AbsFlowSource.reconstruct
 		~AbsFlowSource.root_block
 		~AbsFlowSource.set_suffix_value
 		~AbsFlowSource.set_value
+		~AbsFlowSource.sync_first_step
 		~AbsFlowSource.to_dense_data
 		~AbsFlowSource.to_string
 		~AbsFlowSource.type

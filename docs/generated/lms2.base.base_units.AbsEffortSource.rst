@@ -62,12 +62,14 @@ AbsEffortSource
 		~AbsEffortSource.model
 		~AbsEffortSource.parent_block
 		~AbsEffortSource.parent_component
+		~AbsEffortSource.pplot
 		~AbsEffortSource.pprint
 		~AbsEffortSource.reclassify_component_type
 		~AbsEffortSource.reconstruct
 		~AbsEffortSource.root_block
 		~AbsEffortSource.set_suffix_value
 		~AbsEffortSource.set_value
+		~AbsEffortSource.sync_first_step
 		~AbsEffortSource.to_dense_data
 		~AbsEffortSource.to_string
 		~AbsEffortSource.type

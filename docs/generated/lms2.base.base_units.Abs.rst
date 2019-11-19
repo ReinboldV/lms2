@@ -68,6 +68,7 @@ Abs
 		~Abs.root_block
 		~Abs.set_suffix_value
 		~Abs.set_value
+		~Abs.sync_first_step
 		~Abs.to_dense_data
 		~Abs.to_string
 		~Abs.type

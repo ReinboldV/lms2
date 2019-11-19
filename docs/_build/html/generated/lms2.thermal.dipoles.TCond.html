@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TCond &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>TCond &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -460,8 +462,8 @@
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_component</span></code>()</td>
 <td>Returns the component associated with this object.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([filename,&nbsp;ostream,&nbsp;verbose,&nbsp;prefix])</td>
-<td>Print block information</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([ostream,&nbsp;verbose,&nbsp;prefix])</td>
+<td>Print component information</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reclassify_component_type</span></code>(name_or_object,&nbsp;…)</td>
 <td>TODO</td>
@@ -478,31 +480,34 @@
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value</span></code>(val)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense_data</span></code>()</td>
-<td>TODO</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>([verbose,&nbsp;labeler,&nbsp;smap,&nbsp;…])</td>
-<td>Return a string representation of this component, applying the labeler if passed one.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code>()</td>
-<td>Return the class type for this component</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_all_vars</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_first_step</span></code>(horizon,&nbsp;old_sol)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_binary</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense_data</span></code>()</td>
+<td>TODO</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>([verbose,&nbsp;labeler,&nbsp;smap,&nbsp;…])</td>
+<td>Return a string representation of this component, applying the labeler if passed one.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code>()</td>
+<td>Return the class type for this component</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_all_vars</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_binary</span></code>()</td>
 <td>Unfix binary variables</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_model_component</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_model_component</span></code>()</td>
 <td>Return True if this can be used as a model component.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_problem_types</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_problem_types</span></code>()</td>
 <td>This method allows the pyomo.opt convert function to work with a Model object.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code>()</td>
 <td>Return an iterator of the component data objects in the dictionary</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>([filename,&nbsp;format,&nbsp;solver_capability,&nbsp;…])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>([filename,&nbsp;format,&nbsp;solver_capability,&nbsp;…])</td>
 <td>Write the model to a file, with a given format.</td>
 </tr>
 </tbody>

@@ -68,6 +68,7 @@ DynUnitTest
 		~DynUnitTest.root_block
 		~DynUnitTest.set_suffix_value
 		~DynUnitTest.set_value
+		~DynUnitTest.sync_first_step
 		~DynUnitTest.to_dense_data
 		~DynUnitTest.to_string
 		~DynUnitTest.type

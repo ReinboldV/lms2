@@ -62,12 +62,14 @@ AbsScalablePowerLoad
 		~AbsScalablePowerLoad.model
 		~AbsScalablePowerLoad.parent_block
 		~AbsScalablePowerLoad.parent_component
+		~AbsScalablePowerLoad.pplot
 		~AbsScalablePowerLoad.pprint
 		~AbsScalablePowerLoad.reclassify_component_type
 		~AbsScalablePowerLoad.reconstruct
 		~AbsScalablePowerLoad.root_block
 		~AbsScalablePowerLoad.set_suffix_value
 		~AbsScalablePowerLoad.set_value
+		~AbsScalablePowerLoad.sync_first_step
 		~AbsScalablePowerLoad.to_dense_data
 		~AbsScalablePowerLoad.to_string
 		~AbsScalablePowerLoad.type

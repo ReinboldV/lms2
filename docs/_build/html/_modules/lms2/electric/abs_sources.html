@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.electric.abs_sources &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>lms2.electric.abs_sources &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -109,6 +109,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -183,6 +184,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -303,7 +305,8 @@
 <span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AbsPowerSource&#39;</span><span class="p">,</span>        <span class="s1">&#39;AbsFixedPowerSource&#39;</span><span class="p">,</span>      <span class="s1">&#39;AbsScalablePowerSource&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;AbsPowerLoad&#39;</span><span class="p">,</span>          <span class="s1">&#39;AbsFixedPowerLoad&#39;</span><span class="p">,</span>        <span class="s1">&#39;AbsScalablePowerLoad&#39;</span><span class="p">,</span>      <span class="s1">&#39;AbsDebugSource&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;AbsPowerLoad&#39;</span><span class="p">,</span>          <span class="s1">&#39;AbsFixedPowerLoad&#39;</span><span class="p">,</span>        <span class="s1">&#39;AbsScalablePowerLoad&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;AbsProgrammableLoad&#39;</span><span class="p">,</span>   <span class="s1">&#39;AbsDebugSource&#39;</span><span class="p">,</span> <span class="s1">&#39;PVPanels&#39;</span><span class="p">]</span>
 
 <span class="c1"># TODO unittest</span>
 <div class="viewcode-block" id="AbsPowerSource"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsPowerSource.html#lms2.electric.abs_sources.AbsPowerSource">[docs]</a><span class="k">class</span> <span class="nc">AbsPowerSource</span><span class="p">(</span><span class="n">AbsFlowSource</span><span class="p">):</span>
@@ -330,21 +333,28 @@
 
 <span class="sd">    May be used for sizing sources, such as PV panel, wind turbines, etc.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">scale_fact</span><span class="o">=</span><span class="s1">&#39;scale_fact&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
         <span class="n">scaled_flow_name</span> <span class="o">=</span> <span class="n">flow_name</span><span class="o">+</span><span class="s1">&#39;_scaled&#39;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;scaling factor within Positve reals&#39;</span><span class="p">)</span>
+        <span class="c1">#self.scale_fact = Var(initialize=1, within=PositiveReals, doc=&#39;scaling factor within Positve reals&#39;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                           <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">,</span>
+                                           <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;scaling factor within Positve reals&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scaled source flow&#39;</span><span class="p">))</span>
 
         <span class="k">def</span> <span class="nf">_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+            <span class="c1"># return m.find_component(scaled_flow_name)[t] == m.scale_fact*m.find_component(flow_name)[t]</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
 
         <span class="k">def</span> <span class="nf">_debug_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="c1"># return -0.000001, \</span>
+            <span class="c1">#        m.find_component(scaled_flow_name)[t] - m.scale_fact * m.find_component(flow_name)[t],\</span>
+            <span class="c1">#        0.000001</span>
             <span class="k">return</span> <span class="o">-</span><span class="mf">0.000001</span><span class="p">,</span> \
-                   <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">scale_fact</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">],</span>\
+                   <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">],</span>\
                    <span class="mf">0.000001</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">flow_scaling</span>       <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_scaling</span><span class="p">,</span>
@@ -352,7 +362,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">debug_flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_debug_flow_scaling</span><span class="p">,</span>
                                              <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">del_component</span><span class="p">(</span><span class="s1">&#39;outlet&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
+
+
+<div class="viewcode-block" id="PVPanels"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.PVPanels.html#lms2.electric.abs_sources.PVPanels">[docs]</a><span class="k">class</span> <span class="nc">PVPanels</span><span class="p">(</span><span class="n">AbsScalablePowerSource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Scalable PV panel module.</span>
+
+<span class="sd">    Derives from a Abstract scalable power source.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">scale_fact</span><span class="o">=</span><span class="s1">&#39;surf&#39;</span><span class="p">)</span></div>
+
 
 <span class="c1"># TODO unittest</span>
 <div class="viewcode-block" id="AbsPowerLoad"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsPowerLoad.html#lms2.electric.abs_sources.AbsPowerLoad">[docs]</a><span class="k">class</span> <span class="nc">AbsPowerLoad</span><span class="p">(</span><span class="n">AbsFlowLoad</span><span class="p">):</span>
@@ -362,8 +384,6 @@
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param args:</span>
-<span class="sd">        :param time: Continuous Time set</span>
-<span class="sd">        :param Series profile: Serie of power input (kW)</span>
 <span class="sd">        :param str flow_name: Name of the new flow variable</span>
 <span class="sd">        :param kwds:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -378,6 +398,12 @@
 <span class="sd">    Abstract Power Source Unit who&#39;s power output is fixed using a given index set and indexed profile.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param args:</span>
+<span class="sd">        :param str flow_name: Name of the new flow variable</span>
+<span class="sd">        :param kwds:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
 
 
@@ -388,8 +414,13 @@
 <span class="sd">    May be used for sizing load.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="sd">        :param args:</span>
+<span class="sd">        :param str flow_name: Name of the new flow variable</span>
+<span class="sd">        :param kwds:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
         <span class="n">scaled_flow_name</span> <span class="o">=</span> <span class="n">flow_name</span><span class="o">+</span><span class="s1">&#39;_scaled&#39;</span>
 
@@ -412,7 +443,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">scaled_inlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
 
 <span class="c1"># TODO unittest</span>
-<div class="viewcode-block" id="AbsProgrammableLoad"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html#lms2.electric.abs_sources.AbsProgrammableLoad">[docs]</a><span class="k">class</span> <span class="nc">AbsProgrammableLoad</span><span class="p">(</span><span class="n">AbsPowerLoad</span><span class="p">):</span>
+<div class="viewcode-block" id="AbsProgrammableLoad"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html#lms2.electric.abs_sources.AbsProgrammableLoad">[docs]</a><span class="k">class</span> <span class="nc">AbsProgrammableLoad</span><span class="p">(</span><span class="n">AbsPowerSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Programmable Load with fixed input profile.</span>
 
@@ -421,36 +452,49 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">fix_profile</span>
+        <span class="kn">from</span> <span class="nn">pyomo.core.base.sets</span> <span class="k">import</span> <span class="n">SimpleSet</span>
+        <span class="c1">#from pyomo.environ import Binary</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">_bound_u</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">&amp;</span> <span class="n">m</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
 
-        <span class="n">fix_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;pp&#39;</span><span class="p">,</span> <span class="n">profile_name</span><span class="o">=</span><span class="s1">&#39;power_profile&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;power_index&#39;</span><span class="p">)</span>
+        <span class="n">fix_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;pp&#39;</span><span class="p">,</span> <span class="n">profile_name</span><span class="o">=</span><span class="s1">&#39;profile_value&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;profile_index&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">_bound_u</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;binary, equals to 1 when the load is turned ON, 0 otherwise.&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()],</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;time window where load can be turned ON.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">=</span> <span class="n">Param</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">=</span> <span class="n">Param</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">SimpleSet</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;time window where load can be turned ON.&#39;</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">_delay</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">if</span>  <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">last</span><span class="p">():</span>
-                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">_bound_u</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span>
+                     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;binary, equals to 1 when the load is turned ON, 0 otherwise.&#39;</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">_turned_on</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
 
         <span class="k">def</span> <span class="nf">_bound_p</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">&amp;</span> <span class="n">m</span><span class="o">.</span><span class="n">windows</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="mi">0</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_turned_on</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>           <span class="n">rule</span><span class="o">=</span><span class="n">_turned_on</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load is turned on only once&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_delay</span>     <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_delay</span><span class="p">,</span>     <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load follow the profile&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_p</span>  <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_bound_p</span><span class="p">,</span>   <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load is contraint to be off &#39;</span>
-                                                                     <span class="s1">&#39;outside the time range&#39;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turned_on</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">_turned_on</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load is turned on only once&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_p</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_bound_p</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load is contraint to be off &#39;</span>
+                                                                  <span class="s1">&#39;outside the time range&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AbsProgrammableLoad.compile"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html#lms2.electric.abs_sources.AbsProgrammableLoad.compile">[docs]</a>    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">_delay</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="nb">max</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">profile_index</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">profile_value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">profile_index</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delay</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_delay</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;the load follow the profile&#39;</span><span class="p">)</span></div></div>
+
+
 
 
 <div class="viewcode-block" id="AbsDebugSource"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_sources.AbsDebugSource.html#lms2.electric.abs_sources.AbsDebugSource">[docs]</a><span class="k">class</span> <span class="nc">AbsDebugSource</span><span class="p">(</span><span class="n">AbsPowerSource</span><span class="p">):</span>
@@ -468,14 +512,20 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
-        <span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">def_linear_cost</span>
+        <span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">def_linear_cost</span><span class="p">,</span> <span class="n">def_absolute_cost</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">inst_cost</span> <span class="o">=</span> <span class="n">def_linear_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inst_cost</span> <span class="o">=</span> <span class="n">def_absolute_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">AbstractModel</span><span class="p">,</span> <span class="n">TransformationFactory</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Var</span>
+    <span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="n">ContinuousSet</span>
+    <span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span>
 
-    <span class="k">pass</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">AbstractModel</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">prog</span> <span class="o">=</span> <span class="n">AbsProgrammableLoad</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">AbsDebugSource</span><span class="p">()</span>
 </pre></div>
 
            </div>

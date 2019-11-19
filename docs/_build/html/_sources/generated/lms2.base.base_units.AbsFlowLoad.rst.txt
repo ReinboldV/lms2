@@ -62,12 +62,14 @@ AbsFlowLoad
 		~AbsFlowLoad.model
 		~AbsFlowLoad.parent_block
 		~AbsFlowLoad.parent_component
+		~AbsFlowLoad.pplot
 		~AbsFlowLoad.pprint
 		~AbsFlowLoad.reclassify_component_type
 		~AbsFlowLoad.reconstruct
 		~AbsFlowLoad.root_block
 		~AbsFlowLoad.set_suffix_value
 		~AbsFlowLoad.set_value
+		~AbsFlowLoad.sync_first_step
 		~AbsFlowLoad.to_dense_data
 		~AbsFlowLoad.to_string
 		~AbsFlowLoad.type

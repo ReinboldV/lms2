@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorial Examples &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>Tutorial Examples &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -312,23 +314,6 @@
 <div class="section" id="example-of-model-by-aggregating-blocks-of-the-library">
 <h3>1) Example of model by aggregating blocks of the library<a class="headerlink" href="#example-of-model-by-aggregating-blocks-of-the-library" title="Permalink to this headline">¶</a></h3>
 <p>Here is an example of micro-grid model exctrated from on <cite>lms2/template/drahix/abs_drahix.py</cite></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">dual</span>   <span class="o">=</span> <span class="n">Suffix</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="n">Suffix</span><span class="o">.</span><span class="n">IMPORT</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">AbsDrahiX_v2</span><span class="p">(</span><span class="n">AbsLModel</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;DrahiX_v2&#39;</span><span class="p">):</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="n">ContinuousSet</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">batt</span>   <span class="o">=</span> <span class="n">AbsBatteryV2</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Battery&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mg</span>     <span class="o">=</span> <span class="n">AbsMainGridV2</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Main Grid with dynamic bilinear costs&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ps</span>     <span class="o">=</span> <span class="n">AbsScalablePowerSource</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scalable Power Source&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pl</span>     <span class="o">=</span> <span class="n">AbsFixedPowerLoad</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Fixed Power Load&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arc3</span>   <span class="o">=</span> <span class="n">Arc</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ps</span><span class="o">.</span><span class="n">outlet</span><span class="p">,</span>    <span class="n">dest</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">inlet</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="example-of-a-block">
 <h3>2) Example of a block<a class="headerlink" href="#example-of-a-block" title="Permalink to this headline">¶</a></h3>

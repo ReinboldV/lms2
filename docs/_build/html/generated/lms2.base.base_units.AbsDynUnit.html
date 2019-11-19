@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AbsDynUnit &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>AbsDynUnit &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -460,22 +462,28 @@
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_component</span></code>()</td>
 <td>Returns the component associated with this object.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([filename,&nbsp;ostream,&nbsp;verbose,&nbsp;prefix])</td>
-<td>Print block information</td>
+<tr class="row-even"><td><a class="reference internal" href="#lms2.base.base_units.AbsDynUnit.pplot" title="lms2.base.base_units.AbsDynUnit.pplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pplot</span></code></a>(**kwargs)</td>
+<td>Plotting method for AbsDyn Unit.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reclassify_component_type</span></code>(name_or_object,&nbsp;…)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([ostream,&nbsp;verbose,&nbsp;prefix])</td>
+<td>Print component information</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reclassify_component_type</span></code>(name_or_object,&nbsp;…)</td>
 <td>TODO</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reconstruct</span></code>([data])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reconstruct</span></code>([data])</td>
 <td>Re-construct model expressions</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_block</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_block</span></code>()</td>
 <td>Return self.model()</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_suffix_value</span></code>(suffix_or_name,&nbsp;value[,&nbsp;expand])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_suffix_value</span></code>(suffix_or_name,&nbsp;value[,&nbsp;expand])</td>
 <td>Set the suffix value for this component data</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value</span></code>(val)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value</span></code>(val)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_first_step</span></code>(horizon,&nbsp;old_sol)</td>
 <td></td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense_data</span></code>()</td>
@@ -534,6 +542,27 @@
 <dt id="lms2.base.base_units.AbsDynUnit.get_duals">
 <code class="descname">get_duals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/base/base_units.html#AbsDynUnit.get_duals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.base.base_units.AbsDynUnit.get_duals" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="lms2.base.base_units.AbsDynUnit.pplot">
+<code class="descname">pplot</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/base/base_units.html#AbsDynUnit.pplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.base.base_units.AbsDynUnit.pplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plotting method for AbsDyn Unit. It iterates on the component ctype of the Block and plots it.</p>
+<p>Currently, it only works with Var, Constraints and Expressions.</p>
+<p>Example :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">block</span><span class="o">.</span><span class="n">pplot</span><span class="p">(</span><span class="n">ctype</span><span class="o">=</span><span class="n">Constraint</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">lines, axe and figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

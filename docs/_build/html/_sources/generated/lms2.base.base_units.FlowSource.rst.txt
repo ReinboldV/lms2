@@ -68,6 +68,7 @@ FlowSource
 		~FlowSource.root_block
 		~FlowSource.set_suffix_value
 		~FlowSource.set_value
+		~FlowSource.sync_first_step
 		~FlowSource.to_dense_data
 		~FlowSource.to_string
 		~FlowSource.type

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AbsFixedFlowLoad &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>AbsFixedFlowLoad &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -471,22 +473,28 @@
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_component</span></code>()</td>
 <td>Returns the component associated with this object.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([filename,&nbsp;ostream,&nbsp;verbose,&nbsp;prefix])</td>
-<td>Print block information</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pplot</span></code>(**kwargs)</td>
+<td>Plotting method for AbsDyn Unit.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reclassify_component_type</span></code>(name_or_object,&nbsp;…)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([ostream,&nbsp;verbose,&nbsp;prefix])</td>
+<td>Print component information</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reclassify_component_type</span></code>(name_or_object,&nbsp;…)</td>
 <td>TODO</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reconstruct</span></code>([data])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reconstruct</span></code>([data])</td>
 <td>Re-construct model expressions</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_block</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_block</span></code>()</td>
 <td>Return self.model()</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_suffix_value</span></code>(suffix_or_name,&nbsp;value[,&nbsp;expand])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_suffix_value</span></code>(suffix_or_name,&nbsp;value[,&nbsp;expand])</td>
 <td>Set the suffix value for this component data</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value</span></code>(val)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value</span></code>(val)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_first_step</span></code>(horizon,&nbsp;old_sol)</td>
 <td></td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense_data</span></code>()</td>

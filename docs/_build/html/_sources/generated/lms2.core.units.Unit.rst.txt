@@ -66,6 +66,7 @@ Unit
 		~Unit.root_block
 		~Unit.set_suffix_value
 		~Unit.set_value
+		~Unit.sync_first_step
 		~Unit.to_dense_data
 		~Unit.to_string
 		~Unit.type

@@ -68,6 +68,7 @@ Storage
 		~Storage.root_block
 		~Storage.set_suffix_value
 		~Storage.set_value
+		~Storage.sync_first_step
 		~Storage.to_dense_data
 		~Storage.to_string
 		~Storage.type

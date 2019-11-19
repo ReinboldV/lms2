@@ -62,12 +62,14 @@ AbsDynUnit
 		~AbsDynUnit.model
 		~AbsDynUnit.parent_block
 		~AbsDynUnit.parent_component
+		~AbsDynUnit.pplot
 		~AbsDynUnit.pprint
 		~AbsDynUnit.reclassify_component_type
 		~AbsDynUnit.reconstruct
 		~AbsDynUnit.root_block
 		~AbsDynUnit.set_suffix_value
 		~AbsDynUnit.set_value
+		~AbsDynUnit.sync_first_step
 		~AbsDynUnit.to_dense_data
 		~AbsDynUnit.to_string
 		~AbsDynUnit.type

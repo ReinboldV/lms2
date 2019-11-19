@@ -31,6 +31,7 @@ base\_units
         AbsFixedFlowSource
         AbsFlowLoad
         AbsFlowSource
+        AbsTwoFlowUnit
         DynUnit
         DynUnitTest
         EffortSource

@@ -62,12 +62,14 @@ AbsPowerLoad
 		~AbsPowerLoad.model
 		~AbsPowerLoad.parent_block
 		~AbsPowerLoad.parent_component
+		~AbsPowerLoad.pplot
 		~AbsPowerLoad.pprint
 		~AbsPowerLoad.reclassify_component_type
 		~AbsPowerLoad.reconstruct
 		~AbsPowerLoad.root_block
 		~AbsPowerLoad.set_suffix_value
 		~AbsPowerLoad.set_value
+		~AbsPowerLoad.sync_first_step
 		~AbsPowerLoad.to_dense_data
 		~AbsPowerLoad.to_string
 		~AbsPowerLoad.type

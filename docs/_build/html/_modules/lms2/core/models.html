@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.core.models &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>lms2.core.models &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -109,6 +109,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -183,6 +184,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -300,18 +302,12 @@
 
 <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Block</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">Objective</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">AbstractModel</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;/home/admin/Documents/02-Recherche/02-Python/lms2/lms2.log&#39;</span><span class="p">,</span>
-                    <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span>
-                    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1">,</span><span class="si">%(msecs)d</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">,</span>
-                    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running LMS2 Logging...&quot;</span><span class="p">)</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LModel&#39;</span><span class="p">,</span> <span class="s1">&#39;AbsLModel&#39;</span><span class="p">]</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;lms2.models&#39;</span><span class="p">)</span>
-
 
 <div class="viewcode-block" id="LModel"><a class="viewcode-back" href="../../../generated/lms2.core.models.LModel.html#lms2.core.models.LModel">[docs]</a><span class="k">class</span> <span class="nc">LModel</span><span class="p">(</span><span class="n">ConcreteModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Redefinition of ConcreteModel for the lms2 package&quot;&quot;&quot;</span>
@@ -455,7 +451,7 @@
 <div class="viewcode-block" id="AbsLModel"><a class="viewcode-back" href="../../../generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel">[docs]</a><span class="k">class</span> <span class="nc">AbsLModel</span><span class="p">(</span><span class="n">AbstractModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Redefinition of AbstractModel for the lms2 package&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param str name: Name of the model</span>

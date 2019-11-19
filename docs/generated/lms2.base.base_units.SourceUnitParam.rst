@@ -68,6 +68,7 @@ SourceUnitParam
 		~SourceUnitParam.root_block
 		~SourceUnitParam.set_suffix_value
 		~SourceUnitParam.set_value
+		~SourceUnitParam.sync_first_step
 		~SourceUnitParam.to_dense_data
 		~SourceUnitParam.to_string
 		~SourceUnitParam.type

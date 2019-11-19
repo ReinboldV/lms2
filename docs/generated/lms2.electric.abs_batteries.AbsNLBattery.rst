@@ -62,12 +62,14 @@ AbsNLBattery
 		~AbsNLBattery.model
 		~AbsNLBattery.parent_block
 		~AbsNLBattery.parent_component
+		~AbsNLBattery.pplot
 		~AbsNLBattery.pprint
 		~AbsNLBattery.reclassify_component_type
 		~AbsNLBattery.reconstruct
 		~AbsNLBattery.root_block
 		~AbsNLBattery.set_suffix_value
 		~AbsNLBattery.set_value
+		~AbsNLBattery.sync_first_step
 		~AbsNLBattery.to_dense_data
 		~AbsNLBattery.to_string
 		~AbsNLBattery.type

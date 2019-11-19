@@ -68,6 +68,7 @@ EffortSource
 		~EffortSource.root_block
 		~EffortSource.set_suffix_value
 		~EffortSource.set_value
+		~EffortSource.sync_first_step
 		~EffortSource.to_dense_data
 		~EffortSource.to_string
 		~EffortSource.type

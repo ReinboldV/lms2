@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.base.base_units &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>lms2.base.base_units &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -109,6 +109,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -183,6 +184,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -308,7 +310,7 @@
            <span class="s1">&#39;_TwoPortBaseUnit&#39;</span><span class="p">,</span>  <span class="s1">&#39;SourceUnit&#39;</span><span class="p">,</span>       <span class="s1">&#39;AbsFixedFlowLoad&#39;</span><span class="p">,</span>     <span class="s1">&#39;SourceUnitParam&#39;</span><span class="p">,</span>  <span class="s1">&#39;ScalableFlowSource&#39;</span><span class="p">,</span>
            <span class="s1">&#39;EffortSource&#39;</span><span class="p">,</span>      <span class="s1">&#39;FlowSource&#39;</span><span class="p">,</span>       <span class="s1">&#39;AbsFixedFlowSource&#39;</span><span class="p">,</span>   <span class="s1">&#39;FlowLoad&#39;</span><span class="p">,</span>         <span class="s1">&#39;AbsFlowSource&#39;</span><span class="p">,</span>
            <span class="s1">&#39;AbsFlowLoad&#39;</span><span class="p">,</span>       <span class="s1">&#39;AbsEffortSource&#39;</span><span class="p">,</span>  <span class="s1">&#39;UnitA&#39;</span><span class="p">,</span>                <span class="s1">&#39;Abs&#39;</span><span class="p">,</span>              <span class="s1">&#39;set_profile&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;_init_input&#39;</span><span class="p">,</span>       <span class="s1">&#39;_set_bounds&#39;</span><span class="p">,</span>      <span class="s1">&#39;fix_profile&#39;</span><span class="p">,</span>          <span class="s1">&#39;bound_profile&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;_init_input&#39;</span><span class="p">,</span>       <span class="s1">&#39;_set_bounds&#39;</span><span class="p">,</span>      <span class="s1">&#39;fix_profile&#39;</span><span class="p">,</span>          <span class="s1">&#39;bound_profile&#39;</span><span class="p">,</span>    <span class="s1">&#39;AbsTwoFlowUnit&#39;</span><span class="p">,]</span>
 
 
 <div class="viewcode-block" id="DynUnit"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.DynUnit.html#lms2.base.base_units.DynUnit">[docs]</a><span class="k">class</span> <span class="nc">DynUnit</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
@@ -361,7 +363,31 @@
 
 <div class="viewcode-block" id="AbsDynUnit.get_duals"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.AbsDynUnit.html#lms2.base.base_units.AbsDynUnit.get_duals">[docs]</a>    <span class="k">def</span> <span class="nf">get_duals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO method for retrieving dual variables</span>
-        <span class="k">return</span></div></div>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="AbsDynUnit.pplot"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.AbsDynUnit.html#lms2.base.base_units.AbsDynUnit.pplot">[docs]</a>    <span class="k">def</span> <span class="nf">pplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plotting method for AbsDyn Unit. It iterates on the component ctype of the Block and plots it.</span>
+
+<span class="sd">        Currently, it only works with Var, Constraints and Expressions.</span>
+
+<span class="sd">        Example :</span>
+
+<span class="sd">            &gt;&gt;&gt; l, a, f = instance.block.pplot(ctype=Constraint, ncol=2)</span>
+
+<span class="sd">        :param kwargs:</span>
+<span class="sd">        :return: lines, axe and figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">lms2.base.utils</span> <span class="k">import</span> <span class="n">pplot</span>
+
+        <span class="n">ctype</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ctype&#39;</span><span class="p">,</span> <span class="n">Var</span><span class="p">)</span>
+        <span class="n">active</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">lines</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">pplot</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_objects</span><span class="p">(</span><span class="n">ctype</span><span class="o">=</span><span class="n">ctype</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="n">active</span><span class="p">)],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">lines</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span></div></div>
 
 
 <div class="viewcode-block" id="DynUnitTest"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.DynUnitTest.html#lms2.base.base_units.DynUnitTest">[docs]</a><span class="k">class</span> <span class="nc">DynUnitTest</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
@@ -645,7 +671,7 @@
 <span class="sd">        :param str flow_name: name of the flow variable</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
 
 
@@ -837,6 +863,22 @@
                                                                               <span class="n">low_profile_name</span><span class="o">=</span><span class="n">low_profile_name</span><span class="p">,</span>
                                                                               <span class="n">up_profile_name</span><span class="o">=</span><span class="n">up_profile_name</span><span class="p">)))</span></div>
 
+
+<div class="viewcode-block" id="AbsTwoFlowUnit"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.AbsTwoFlowUnit.html#lms2.base.base_units.AbsTwoFlowUnit">[docs]</a><span class="k">class</span> <span class="nc">AbsTwoFlowUnit</span><span class="p">(</span><span class="n">AbsDynUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract interface for two conservative ports block</span>
+
+<span class="sd">    :param AbsDynUnit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;flow_in&#39;</span><span class="p">,</span> <span class="s1">&#39;flow_out&#39;</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">intlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">flow_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
+
+
 <div class="viewcode-block" id="AbsFixedFlowSource"><a class="viewcode-back" href="../../../generated/lms2.base.base_units.AbsFixedFlowSource.html#lms2.base.base_units.AbsFixedFlowSource">[docs]</a><span class="k">class</span> <span class="nc">AbsFixedFlowSource</span><span class="p">(</span><span class="n">AbsFlowSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Abstract Fixed Flow Source Unit.</span>
@@ -907,6 +949,9 @@
             <span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="n">b</span>
 
     <span class="k">return</span> <span class="n">_init_input</span><span class="p">,</span> <span class="n">_set_bounds</span></div>
+
+
+
 </pre></div>
 
            </div>

@@ -62,12 +62,14 @@ AbsDebugSource
 		~AbsDebugSource.model
 		~AbsDebugSource.parent_block
 		~AbsDebugSource.parent_component
+		~AbsDebugSource.pplot
 		~AbsDebugSource.pprint
 		~AbsDebugSource.reclassify_component_type
 		~AbsDebugSource.reconstruct
 		~AbsDebugSource.root_block
 		~AbsDebugSource.set_suffix_value
 		~AbsDebugSource.set_value
+		~AbsDebugSource.sync_first_step
 		~AbsDebugSource.to_dense_data
 		~AbsDebugSource.to_string
 		~AbsDebugSource.type

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AbsProgrammableLoad &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>AbsProgrammableLoad &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -321,7 +323,8 @@ the profile power. Ex : Washing machine.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param args:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param str flow_name:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">name of the flow variable</td>
 </tr>
 </tbody>
 </table>
@@ -369,110 +372,116 @@ the profile power. Ex : Washing machine.</p>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">collect_ctypes</span></code>([active,&nbsp;descend_into])</td>
 <td>Count all component types stored on or under this block.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component</span></code>(name_or_object)</td>
+<tr class="row-even"><td><a class="reference internal" href="#lms2.electric.abs_sources.AbsProgrammableLoad.compile" title="lms2.electric.abs_sources.AbsProgrammableLoad.compile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile</span></code></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component</span></code>(name_or_object)</td>
 <td>Return a child component of this block.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_data_iterindex</span></code>([ctype,&nbsp;active,&nbsp;…])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_data_iterindex</span></code>([ctype,&nbsp;active,&nbsp;…])</td>
 <td>Return a generator that returns a tuple for each component data object in a block.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_data_objects</span></code>([ctype,&nbsp;active,&nbsp;…])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_data_objects</span></code>([ctype,&nbsp;active,&nbsp;…])</td>
 <td>Return a generator that iterates through the component data objects for all components in a block.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_map</span></code>([ctype,&nbsp;active,&nbsp;sort])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_map</span></code>([ctype,&nbsp;active,&nbsp;sort])</td>
 <td>Returns a PseudoMap of the components in this block.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_objects</span></code>([ctype,&nbsp;active,&nbsp;sort,&nbsp;…])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">component_objects</span></code>([ctype,&nbsp;active,&nbsp;sort,&nbsp;…])</td>
 <td>Return a generator that iterates through the component objects in a block.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_statistics</span></code>([active])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_statistics</span></code>([active])</td>
 <td>Compute model statistics</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">construct</span></code>([data])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">construct</span></code>([data])</td>
 <td>Initialize the block</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains_component</span></code>(ctype)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains_component</span></code>(ctype)</td>
 <td>Return True if the component type is in _ctypes and …</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">deactivate</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">deactivate</span></code>()</td>
 <td>Set the active attribute to False</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">del_component</span></code>(name_or_object)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">del_component</span></code>(name_or_object)</td>
 <td>Delete a component from this block.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">dim</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">dim</span></code>()</td>
 <td>Return the dimension of the index</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">display</span></code>([filename,&nbsp;ostream,&nbsp;prefix])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">display</span></code>([filename,&nbsp;ostream,&nbsp;prefix])</td>
 <td>Display values in the block</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_component</span></code>(label_or_component)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_component</span></code>(label_or_component)</td>
 <td>Return a block component given a name.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_all_vars</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_all_vars</span></code>()</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_binary</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_binary</span></code>()</td>
 <td>Fix binary variables to their values</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_constraints_values</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_constraints_values</span></code>()</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_doc</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_doc</span></code>()</td>
 <td>dev function to print documentation</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_duals</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_duals</span></code>()</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_suffix_value</span></code>(suffix_or_name[,&nbsp;default])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_suffix_value</span></code>(suffix_or_name[,&nbsp;default])</td>
 <td>Get the suffix value for this component data</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getname</span></code>([fully_qualified,&nbsp;name_buffer,&nbsp;…])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">getname</span></code>([fully_qualified,&nbsp;name_buffer,&nbsp;…])</td>
 <td>Return a string with the component name and index</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_index_map</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">id_index_map</span></code>()</td>
 <td>Return an dictionary id-&gt;index for all ComponentData instances.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code>()</td>
 <td>Returns the index of this ComponentData instance relative to the parent component index set.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_set</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_set</span></code>()</td>
 <td>Return the index set</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_component_type</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_component_type</span></code>()</td>
 <td>Return True if this class is a Pyomo component</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_constructed</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_constructed</span></code>()</td>
 <td>A boolean indicating whether or not all <em>active</em> components of the input model have been properly constructed.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_indexed</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_indexed</span></code>()</td>
 <td>Return true if this component is indexed</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">items</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">items</span></code>()</td>
 <td>Return an iterator of (index,data) tuples from the dictionary</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">iteritems</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">iteritems</span></code>()</td>
 <td>Return an iterator of (index,data) tuples from the dictionary</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterkeys</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterkeys</span></code>()</td>
 <td>Return an iterator of the keys in the dictionary</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">itervalues</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">itervalues</span></code>()</td>
 <td>Return an iterator of the component data objects in the dictionary</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code>()</td>
 <td>Return an iterator of the keys in the dictionary</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">model</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">model</span></code>()</td>
 <td>Return the model of the component that owns this data.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_block</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_block</span></code>()</td>
 <td>Return the parent of the component that owns this data.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_component</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent_component</span></code>()</td>
 <td>Returns the component associated with this object.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([filename,&nbsp;ostream,&nbsp;verbose,&nbsp;prefix])</td>
-<td>Print block information</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pplot</span></code>(**kwargs)</td>
+<td>Plotting method for AbsDyn Unit.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">pprint</span></code>([ostream,&nbsp;verbose,&nbsp;prefix])</td>
+<td>Print component information</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">reclassify_component_type</span></code>(name_or_object,&nbsp;…)</td>
 <td>TODO</td>
@@ -489,31 +498,34 @@ the profile power. Ex : Washing machine.</p>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value</span></code>(val)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense_data</span></code>()</td>
-<td>TODO</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>([verbose,&nbsp;labeler,&nbsp;smap,&nbsp;…])</td>
-<td>Return a string representation of this component, applying the labeler if passed one.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code>()</td>
-<td>Return the class type for this component</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_all_vars</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_first_step</span></code>(horizon,&nbsp;old_sol)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_binary</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dense_data</span></code>()</td>
+<td>TODO</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_string</span></code>([verbose,&nbsp;labeler,&nbsp;smap,&nbsp;…])</td>
+<td>Return a string representation of this component, applying the labeler if passed one.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code>()</td>
+<td>Return the class type for this component</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_all_vars</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfix_binary</span></code>()</td>
 <td>Unfix binary variables</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_model_component</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_model_component</span></code>()</td>
 <td>Return True if this can be used as a model component.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_problem_types</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">valid_problem_types</span></code>()</td>
 <td>This method allows the pyomo.opt convert function to work with a Model object.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code>()</td>
 <td>Return an iterator of the component data objects in the dictionary</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>([filename,&nbsp;format,&nbsp;solver_capability,&nbsp;…])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>([filename,&nbsp;format,&nbsp;solver_capability,&nbsp;…])</td>
 <td>Write the model to a file, with a given format.</td>
 </tr>
 </tbody>
@@ -536,6 +548,11 @@ the profile power. Ex : Washing machine.</p>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="lms2.electric.abs_sources.AbsProgrammableLoad.compile">
+<code class="descname">compile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/electric/abs_sources.html#AbsProgrammableLoad.compile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.electric.abs_sources.AbsProgrammableLoad.compile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>

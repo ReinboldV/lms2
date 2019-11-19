@@ -68,6 +68,7 @@ UnitA
 		~UnitA.root_block
 		~UnitA.set_suffix_value
 		~UnitA.set_value
+		~UnitA.sync_first_step
 		~UnitA.to_dense_data
 		~UnitA.to_string
 		~UnitA.type

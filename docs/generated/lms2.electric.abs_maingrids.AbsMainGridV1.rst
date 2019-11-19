@@ -62,12 +62,14 @@ AbsMainGridV1
 		~AbsMainGridV1.model
 		~AbsMainGridV1.parent_block
 		~AbsMainGridV1.parent_component
+		~AbsMainGridV1.pplot
 		~AbsMainGridV1.pprint
 		~AbsMainGridV1.reclassify_component_type
 		~AbsMainGridV1.reconstruct
 		~AbsMainGridV1.root_block
 		~AbsMainGridV1.set_suffix_value
 		~AbsMainGridV1.set_value
+		~AbsMainGridV1.sync_first_step
 		~AbsMainGridV1.to_dense_data
 		~AbsMainGridV1.to_string
 		~AbsMainGridV1.type

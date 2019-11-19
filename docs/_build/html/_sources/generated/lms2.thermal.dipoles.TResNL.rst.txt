@@ -68,6 +68,7 @@ TResNL
 		~TResNL.root_block
 		~TResNL.set_suffix_value
 		~TResNL.set_value
+		~TResNL.sync_first_step
 		~TResNL.to_dense_data
 		~TResNL.to_string
 		~TResNL.type

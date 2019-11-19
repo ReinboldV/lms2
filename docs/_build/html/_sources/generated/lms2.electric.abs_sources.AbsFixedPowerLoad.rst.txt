@@ -62,12 +62,14 @@ AbsFixedPowerLoad
 		~AbsFixedPowerLoad.model
 		~AbsFixedPowerLoad.parent_block
 		~AbsFixedPowerLoad.parent_component
+		~AbsFixedPowerLoad.pplot
 		~AbsFixedPowerLoad.pprint
 		~AbsFixedPowerLoad.reclassify_component_type
 		~AbsFixedPowerLoad.reconstruct
 		~AbsFixedPowerLoad.root_block
 		~AbsFixedPowerLoad.set_suffix_value
 		~AbsFixedPowerLoad.set_value
+		~AbsFixedPowerLoad.sync_first_step
 		~AbsFixedPowerLoad.to_dense_data
 		~AbsFixedPowerLoad.to_string
 		~AbsFixedPowerLoad.type

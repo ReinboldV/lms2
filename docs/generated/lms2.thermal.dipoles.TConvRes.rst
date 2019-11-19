@@ -68,6 +68,7 @@ TConvRes
 		~TConvRes.root_block
 		~TConvRes.set_suffix_value
 		~TConvRes.set_value
+		~TConvRes.sync_first_step
 		~TConvRes.to_dense_data
 		~TConvRes.to_string
 		~TConvRes.type

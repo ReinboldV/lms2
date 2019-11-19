@@ -68,6 +68,7 @@ TDipole
 		~TDipole.root_block
 		~TDipole.set_suffix_value
 		~TDipole.set_value
+		~TDipole.sync_first_step
 		~TDipole.to_dense_data
 		~TDipole.to_string
 		~TDipole.type

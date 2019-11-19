@@ -62,12 +62,14 @@ AbsFixedPowerSource
 		~AbsFixedPowerSource.model
 		~AbsFixedPowerSource.parent_block
 		~AbsFixedPowerSource.parent_component
+		~AbsFixedPowerSource.pplot
 		~AbsFixedPowerSource.pprint
 		~AbsFixedPowerSource.reclassify_component_type
 		~AbsFixedPowerSource.reconstruct
 		~AbsFixedPowerSource.root_block
 		~AbsFixedPowerSource.set_suffix_value
 		~AbsFixedPowerSource.set_value
+		~AbsFixedPowerSource.sync_first_step
 		~AbsFixedPowerSource.to_dense_data
 		~AbsFixedPowerSource.to_string
 		~AbsFixedPowerSource.type

@@ -62,12 +62,14 @@ AbsPowerSource
 		~AbsPowerSource.model
 		~AbsPowerSource.parent_block
 		~AbsPowerSource.parent_component
+		~AbsPowerSource.pplot
 		~AbsPowerSource.pprint
 		~AbsPowerSource.reclassify_component_type
 		~AbsPowerSource.reconstruct
 		~AbsPowerSource.root_block
 		~AbsPowerSource.set_suffix_value
 		~AbsPowerSource.set_value
+		~AbsPowerSource.sync_first_step
 		~AbsPowerSource.to_dense_data
 		~AbsPowerSource.to_string
 		~AbsPowerSource.type

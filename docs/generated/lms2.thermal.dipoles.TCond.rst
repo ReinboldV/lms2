@@ -68,6 +68,7 @@ TCond
 		~TCond.root_block
 		~TCond.set_suffix_value
 		~TCond.set_value
+		~TCond.sync_first_step
 		~TCond.to_dense_data
 		~TCond.to_string
 		~TCond.type

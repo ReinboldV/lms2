@@ -68,6 +68,7 @@ TStorage
 		~TStorage.root_block
 		~TStorage.set_suffix_value
 		~TStorage.set_value
+		~TStorage.sync_first_step
 		~TStorage.to_dense_data
 		~TStorage.to_string
 		~TStorage.type

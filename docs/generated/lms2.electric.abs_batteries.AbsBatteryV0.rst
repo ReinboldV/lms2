@@ -62,12 +62,14 @@ AbsBatteryV0
 		~AbsBatteryV0.model
 		~AbsBatteryV0.parent_block
 		~AbsBatteryV0.parent_component
+		~AbsBatteryV0.pplot
 		~AbsBatteryV0.pprint
 		~AbsBatteryV0.reclassify_component_type
 		~AbsBatteryV0.reconstruct
 		~AbsBatteryV0.root_block
 		~AbsBatteryV0.set_suffix_value
 		~AbsBatteryV0.set_value
+		~AbsBatteryV0.sync_first_step
 		~AbsBatteryV0.to_dense_data
 		~AbsBatteryV0.to_string
 		~AbsBatteryV0.type

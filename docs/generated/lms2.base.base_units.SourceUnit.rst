@@ -68,6 +68,7 @@ SourceUnit
 		~SourceUnit.root_block
 		~SourceUnit.set_suffix_value
 		~SourceUnit.set_value
+		~SourceUnit.sync_first_step
 		~SourceUnit.to_dense_data
 		~SourceUnit.to_string
 		~SourceUnit.type

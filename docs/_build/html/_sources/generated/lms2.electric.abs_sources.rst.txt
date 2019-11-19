@@ -23,6 +23,7 @@ abs\_sources
         AbsProgrammableLoad
         AbsScalablePowerLoad
         AbsScalablePowerSource
+        PVPanels
         
         
 	

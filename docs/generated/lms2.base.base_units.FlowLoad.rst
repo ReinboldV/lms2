@@ -68,6 +68,7 @@ FlowLoad
 		~FlowLoad.root_block
 		~FlowLoad.set_suffix_value
 		~FlowLoad.set_value
+		~FlowLoad.sync_first_step
 		~FlowLoad.to_dense_data
 		~FlowLoad.to_string
 		~FlowLoad.type

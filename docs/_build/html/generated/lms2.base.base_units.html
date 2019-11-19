@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>base_units &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
+  <title>base_units &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
   
 
   
@@ -111,6 +111,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
 </ul>
 </li>
 </ul>
@@ -348,34 +350,37 @@
 <tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html#lms2.base.base_units.AbsFlowSource" title="lms2.base.base_units.AbsFlowSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AbsFlowSource</span></code></a>(*args[,&nbsp;flow_name])</td>
 <td>Abstract Flow Source Unit.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.DynUnit.html#lms2.base.base_units.DynUnit" title="lms2.base.base_units.DynUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DynUnit</span></code></a>(*args[,&nbsp;time])</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html#lms2.base.base_units.AbsTwoFlowUnit" title="lms2.base.base_units.AbsTwoFlowUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AbsTwoFlowUnit</span></code></a>(*args[,&nbsp;flow_names])</td>
+<td>Abstract interface for two conservative ports block</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.DynUnit.html#lms2.base.base_units.DynUnit" title="lms2.base.base_units.DynUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DynUnit</span></code></a>(*args[,&nbsp;time])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html#lms2.base.base_units.DynUnitTest" title="lms2.base.base_units.DynUnitTest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DynUnitTest</span></code></a>(*args[,&nbsp;time])</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html#lms2.base.base_units.DynUnitTest" title="lms2.base.base_units.DynUnitTest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DynUnitTest</span></code></a>(*args[,&nbsp;time])</td>
 <td>Dynamic Test Unit</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.EffortSource.html#lms2.base.base_units.EffortSource" title="lms2.base.base_units.EffortSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EffortSource</span></code></a>(*args,&nbsp;time,&nbsp;effort[,&nbsp;kind,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.EffortSource.html#lms2.base.base_units.EffortSource" title="lms2.base.base_units.EffortSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EffortSource</span></code></a>(*args,&nbsp;time,&nbsp;effort[,&nbsp;kind,&nbsp;…])</td>
 <td>DEPRECIATED Base Effort Source Unit.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.FlowLoad.html#lms2.base.base_units.FlowLoad" title="lms2.base.base_units.FlowLoad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowLoad</span></code></a>(*args,&nbsp;time,&nbsp;profile[,&nbsp;kind,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.FlowLoad.html#lms2.base.base_units.FlowLoad" title="lms2.base.base_units.FlowLoad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowLoad</span></code></a>(*args,&nbsp;time,&nbsp;profile[,&nbsp;kind,&nbsp;…])</td>
 <td>DEPRECIATED Base Flow Load Unit.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.FlowSource.html#lms2.base.base_units.FlowSource" title="lms2.base.base_units.FlowSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowSource</span></code></a>(*args,&nbsp;time,&nbsp;profile[,&nbsp;kind,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.FlowSource.html#lms2.base.base_units.FlowSource" title="lms2.base.base_units.FlowSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowSource</span></code></a>(*args,&nbsp;time,&nbsp;profile[,&nbsp;kind,&nbsp;…])</td>
 <td>DEPRECIATED Base Flow Source Unit.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.ScalableFlowSource.html#lms2.base.base_units.ScalableFlowSource" title="lms2.base.base_units.ScalableFlowSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScalableFlowSource</span></code></a>(*args,&nbsp;time,&nbsp;flow[,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.ScalableFlowSource.html#lms2.base.base_units.ScalableFlowSource" title="lms2.base.base_units.ScalableFlowSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScalableFlowSource</span></code></a>(*args,&nbsp;time,&nbsp;flow[,&nbsp;…])</td>
 <td>DEPRECIATED General Scalable Flow Source Unit.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.SourceUnit.html#lms2.base.base_units.SourceUnit" title="lms2.base.base_units.SourceUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SourceUnit</span></code></a>(*args,&nbsp;time,&nbsp;flow[,&nbsp;kind,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.SourceUnit.html#lms2.base.base_units.SourceUnit" title="lms2.base.base_units.SourceUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SourceUnit</span></code></a>(*args,&nbsp;time,&nbsp;flow[,&nbsp;kind,&nbsp;…])</td>
 <td>DEPRECIATED General Source Unit.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.SourceUnitParam.html#lms2.base.base_units.SourceUnitParam" title="lms2.base.base_units.SourceUnitParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SourceUnitParam</span></code></a>(*args,&nbsp;time,&nbsp;flow[,&nbsp;kind,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.SourceUnitParam.html#lms2.base.base_units.SourceUnitParam" title="lms2.base.base_units.SourceUnitParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SourceUnitParam</span></code></a>(*args,&nbsp;time,&nbsp;flow[,&nbsp;kind,&nbsp;…])</td>
 <td>DEPRECIATED General Source Unit.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.Storage.html#lms2.base.base_units.Storage" title="lms2.base.base_units.Storage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Storage</span></code></a>(*args[,&nbsp;time,&nbsp;capa])</td>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.Storage.html#lms2.base.base_units.Storage" title="lms2.base.base_units.Storage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Storage</span></code></a>(*args[,&nbsp;time,&nbsp;capa])</td>
 <td>DEPRECIATED  General storage unit</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="lms2.base.base_units.UnitA.html#lms2.base.base_units.UnitA" title="lms2.base.base_units.UnitA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnitA</span></code></a>(*args,&nbsp;time,&nbsp;flow)</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.base.base_units.UnitA.html#lms2.base.base_units.UnitA" title="lms2.base.base_units.UnitA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnitA</span></code></a>(*args,&nbsp;time,&nbsp;flow)</td>
 <td>DEPRECIATED Base units for tests</td>
 </tr>
 </tbody>

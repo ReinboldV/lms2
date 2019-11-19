@@ -62,12 +62,14 @@ AbsFixedFlowSource
 		~AbsFixedFlowSource.model
 		~AbsFixedFlowSource.parent_block
 		~AbsFixedFlowSource.parent_component
+		~AbsFixedFlowSource.pplot
 		~AbsFixedFlowSource.pprint
 		~AbsFixedFlowSource.reclassify_component_type
 		~AbsFixedFlowSource.reconstruct
 		~AbsFixedFlowSource.root_block
 		~AbsFixedFlowSource.set_suffix_value
 		~AbsFixedFlowSource.set_value
+		~AbsFixedFlowSource.sync_first_step
 		~AbsFixedFlowSource.to_dense_data
 		~AbsFixedFlowSource.to_string
 		~AbsFixedFlowSource.type

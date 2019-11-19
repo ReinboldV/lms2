@@ -28,6 +28,7 @@ AbsProgrammableLoad
 		~AbsProgrammableLoad.clone
 		~AbsProgrammableLoad.cname
 		~AbsProgrammableLoad.collect_ctypes
+		~AbsProgrammableLoad.compile
 		~AbsProgrammableLoad.component
 		~AbsProgrammableLoad.component_data_iterindex
 		~AbsProgrammableLoad.component_data_objects
@@ -62,12 +63,14 @@ AbsProgrammableLoad
 		~AbsProgrammableLoad.model
 		~AbsProgrammableLoad.parent_block
 		~AbsProgrammableLoad.parent_component
+		~AbsProgrammableLoad.pplot
 		~AbsProgrammableLoad.pprint
 		~AbsProgrammableLoad.reclassify_component_type
 		~AbsProgrammableLoad.reconstruct
 		~AbsProgrammableLoad.root_block
 		~AbsProgrammableLoad.set_suffix_value
 		~AbsProgrammableLoad.set_value
+		~AbsProgrammableLoad.sync_first_step
 		~AbsProgrammableLoad.to_dense_data
 		~AbsProgrammableLoad.to_string
 		~AbsProgrammableLoad.type
