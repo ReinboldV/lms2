@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.economic.cost &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
+  <title>lms2.economic.cost &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
   
 
   
@@ -145,11 +145,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic (lms2.economic)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.buying_cost.html">lms2.economic.cost.buying_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
 </ul>
 </li>
 </ul>
@@ -465,15 +469,15 @@
                       <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous bilinear and dynamic cost, associated with variable </span><span class="si">{var_in}</span><span class="s1"> and </span><span class="si">{var_out}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 <span class="c1"># TODO : create maintenance cost, with frequency parameter, and computation for long and short term horizon</span>
-<span class="k">def</span> <span class="nf">maintenance_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">pass</span>
+<div class="viewcode-block" id="maintenance_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.maintenance_cost.html#lms2.economic.cost.maintenance_cost">[docs]</a><span class="k">def</span> <span class="nf">maintenance_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">pass</span></div>
 
 <span class="c1"># TODO : create recycling cost, computation for long and short term horizon</span>
-<span class="k">def</span> <span class="nf">recycling_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">pass</span>
+<div class="viewcode-block" id="recycling_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.recycling_cost.html#lms2.economic.cost.recycling_cost">[docs]</a><span class="k">def</span> <span class="nf">recycling_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">pass</span></div>
 
 <span class="c1"># TODO : create buying cost, computation for long and short term horizon</span>
-<span class="k">def</span> <span class="nf">buying_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<div class="viewcode-block" id="buying_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.buying_cost.html#lms2.economic.cost.buying_cost">[docs]</a><span class="k">def</span> <span class="nf">buying_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Method for defining an expression of the buying cost. This can be expressed for the time set defined by m.time.</span>
 
@@ -487,11 +491,11 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">())</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">buying_cost</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">lifetime</span>
 
 
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
 <span class="c1"># TODO : create replacement cost, computation for long and short term horizon</span>
-<span class="k">def</span> <span class="nf">replacement_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">pass</span>
+<div class="viewcode-block" id="replacement_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.replacement_cost.html#lms2.economic.cost.replacement_cost">[docs]</a><span class="k">def</span> <span class="nf">replacement_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">pass</span></div>
 
 <span class="k">class</span> <span class="nc">_OnePortEconomicUnit</span><span class="p">(</span><span class="n">AbsDynUnit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

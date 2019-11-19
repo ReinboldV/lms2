@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorial Examples &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
+  <title>Tutorial Examples &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
   
 
   
@@ -147,11 +147,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.economic.html">Economic (lms2.economic)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.buying_cost.html">lms2.economic.cost.buying_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
 </ul>
 </li>
 </ul>
@@ -308,7 +312,10 @@
 <div class="section" id="example-of-model-by-aggregating-blocks-of-the-library">
 <h3>1) Example of model by aggregating blocks of the library<a class="headerlink" href="#example-of-model-by-aggregating-blocks-of-the-library" title="Permalink to this headline">¶</a></h3>
 <p>Here is an example of micro-grid model exctrated from on <cite>lms2/template/drahix/abs_drahix.py</cite></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AbsDrahiX_v2</span><span class="p">(</span><span class="n">AbsLModel</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">dual</span>   <span class="o">=</span> <span class="n">Suffix</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="n">Suffix</span><span class="o">.</span><span class="n">IMPORT</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">AbsDrahiX_v2</span><span class="p">(</span><span class="n">AbsLModel</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;DrahiX_v2&#39;</span><span class="p">):</span>
 
@@ -320,9 +327,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ps</span>     <span class="o">=</span> <span class="n">AbsScalablePowerSource</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scalable Power Source&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pl</span>     <span class="o">=</span> <span class="n">AbsFixedPowerLoad</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Fixed Power Load&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arc3</span>   <span class="o">=</span> <span class="n">Arc</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ps</span><span class="o">.</span><span class="n">outlet</span><span class="p">,</span>    <span class="n">dest</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">inlet</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arc1</span>   <span class="o">=</span> <span class="n">Arc</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mg</span><span class="o">.</span><span class="n">outlet</span><span class="p">,</span>    <span class="n">dest</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">inlet</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arc2</span>   <span class="o">=</span> <span class="n">Arc</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batt</span><span class="o">.</span><span class="n">outlet</span><span class="p">,</span>  <span class="n">dest</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">inlet</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dual</span>   <span class="o">=</span> <span class="n">Suffix</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="n">Suffix</span><span class="o">.</span><span class="n">IMPORT</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

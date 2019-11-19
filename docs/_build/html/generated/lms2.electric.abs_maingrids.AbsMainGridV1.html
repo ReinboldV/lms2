@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AbsMainGridV1 &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
+  <title>AbsMainGridV1 &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
   
 
   
@@ -147,11 +147,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lms2.economic.html">Economic (lms2.economic)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.buying_cost.html">lms2.economic.cost.buying_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
 </ul>
 </li>
 </ul>
@@ -307,19 +311,41 @@
 associated with a bilinear cost (selling and buying cost, i.e. c_in and c_out).
 A binary variable ‘u’ is declared to tackle the price discontinuity at p=0.
 (Source convention)</p>
-<p>p           None
-pout        power to the main grid
-pin         power from the main grid
-u           binary variable</p>
-<p>pmax        maximal power out (kW)
-pmin        maximal power in (kW)
-cost_in     buying cost of variable pin
-cost_out    selling cost of variable pout</p>
-<p>_pmin       Low bound
-_pmax       Up bound
-_p_balance  Power balance</p>
-<p>outlet      None</p>
-<p>instant_cost  instantaneous bilinear cost, associated with variable pin and pout</p>
+<dl class="docutils">
+<dt>Variables:</dt>
+<dd><ul class="first last simple">
+<li>p           None</li>
+<li>pout        power to the main grid</li>
+<li>pin         power from the main grid</li>
+<li>u           binary variable</li>
+</ul>
+</dd>
+<dt>Param:</dt>
+<dd><ul class="first last simple">
+<li>pmax        maximal power out (kW)</li>
+<li>pmin        maximal power in (kW)</li>
+<li>cost_in     buying cost of variable pin</li>
+<li>cost_out    selling cost of variable pout</li>
+</ul>
+</dd>
+<dt>Constraints:</dt>
+<dd><ul class="first last simple">
+<li>_pmin       Low bound</li>
+<li>_pmax       Up bound</li>
+<li>_p_balance  Power balance</li>
+</ul>
+</dd>
+<dt>Ports:</dt>
+<dd><ul class="first last simple">
+<li>outlet      None</li>
+</ul>
+</dd>
+<dt>Expressions:</dt>
+<dd><ul class="first last simple">
+<li>instant_cost  instantaneous bilinear cost, associated with variable pin and pout</li>
+</ul>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>

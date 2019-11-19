@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cost &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
+  <title>cost &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="lms2.economic.cost.def_absolute_cost" href="lms2.economic.cost.def_absolute_cost.html" />
+    <link rel="next" title="lms2.economic.cost.buying_cost" href="lms2.economic.cost.buying_cost.html" />
     <link rel="prev" title="Economic (lms2.economic)" href="../lms2.economic.html" /> 
 
   
@@ -147,11 +147,15 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../lms2.economic.html">Economic (lms2.economic)</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.buying_cost.html">lms2.economic.cost.buying_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
 </ul>
 </li>
 </ul>
@@ -306,20 +310,32 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.def_absolute_cost.html#lms2.economic.cost.def_absolute_cost" title="lms2.economic.cost.def_absolute_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_absolute_cost</span></code></a>(m[,&nbsp;var_name])</td>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.buying_cost.html#lms2.economic.cost.buying_cost" title="lms2.economic.cost.buying_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buying_cost</span></code></a>(m)</td>
+<td>Method for defining an expression of the buying cost.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="lms2.economic.cost.def_absolute_cost.html#lms2.economic.cost.def_absolute_cost" title="lms2.economic.cost.def_absolute_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_absolute_cost</span></code></a>(m[,&nbsp;var_name])</td>
 <td>Method for adding absolute cost, i.e.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="lms2.economic.cost.def_bilinear_cost.html#lms2.economic.cost.def_bilinear_cost" title="lms2.economic.cost.def_bilinear_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_bilinear_cost</span></code></a>(bl[,&nbsp;var_in,&nbsp;var_out])</td>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.def_bilinear_cost.html#lms2.economic.cost.def_bilinear_cost" title="lms2.economic.cost.def_bilinear_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_bilinear_cost</span></code></a>(bl[,&nbsp;var_in,&nbsp;var_out])</td>
 <td>Method for adding bilinear cost to a block associated to variables ‘var_in’, ‘var_out’.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.def_bilinear_dynamic_cost.html#lms2.economic.cost.def_bilinear_dynamic_cost" title="lms2.economic.cost.def_bilinear_dynamic_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_bilinear_dynamic_cost</span></code></a>(bl[,&nbsp;var_in,&nbsp;var_out])</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.economic.cost.def_bilinear_dynamic_cost.html#lms2.economic.cost.def_bilinear_dynamic_cost" title="lms2.economic.cost.def_bilinear_dynamic_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_bilinear_dynamic_cost</span></code></a>(bl[,&nbsp;var_in,&nbsp;var_out])</td>
 <td>Method for adding bilinear dynamic cost to a block associated to variables ‘var_in’, ‘var_out’.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="lms2.economic.cost.def_linear_cost.html#lms2.economic.cost.def_linear_cost" title="lms2.economic.cost.def_linear_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_linear_cost</span></code></a>(m[,&nbsp;var_name])</td>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.def_linear_cost.html#lms2.economic.cost.def_linear_cost" title="lms2.economic.cost.def_linear_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_linear_cost</span></code></a>(m[,&nbsp;var_name])</td>
 <td>Method for adding a linear constant cost associated to variable ‘p’, to a block Final instantaneous cost expression is called “instant_cost”</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.def_linear_dyn_cost.html#lms2.economic.cost.def_linear_dyn_cost" title="lms2.economic.cost.def_linear_dyn_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_linear_dyn_cost</span></code></a>(m[,&nbsp;var_name])</td>
+<tr class="row-even"><td><a class="reference internal" href="lms2.economic.cost.def_linear_dyn_cost.html#lms2.economic.cost.def_linear_dyn_cost" title="lms2.economic.cost.def_linear_dyn_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">def_linear_dyn_cost</span></code></a>(m[,&nbsp;var_name])</td>
 <td>Method for adding a linear dynamic cost associated to variable ‘p’, to a block Final instantaneous cost expression is called “instant_cost”</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.maintenance_cost.html#lms2.economic.cost.maintenance_cost" title="lms2.economic.cost.maintenance_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maintenance_cost</span></code></a>(m)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="lms2.economic.cost.recycling_cost.html#lms2.economic.cost.recycling_cost" title="lms2.economic.cost.recycling_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recycling_cost</span></code></a>(m)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="lms2.economic.cost.replacement_cost.html#lms2.economic.cost.replacement_cost" title="lms2.economic.cost.replacement_cost"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replacement_cost</span></code></a>(m)</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -333,7 +349,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="lms2.economic.cost.def_absolute_cost.html" class="btn btn-neutral float-right" title="lms2.economic.cost.def_absolute_cost" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lms2.economic.cost.buying_cost.html" class="btn btn-neutral float-right" title="lms2.economic.cost.buying_cost" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../lms2.economic.html" class="btn btn-neutral" title="Economic (lms2.economic)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

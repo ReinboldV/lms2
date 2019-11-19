@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.electric.abs_maingrids &mdash; lms2 0.1.2+31.gca2937e.dirty documentation</title>
+  <title>lms2.electric.abs_maingrids &mdash; lms2 0.1.2+32.gf7f6da3.dirty documentation</title>
   
 
   
@@ -145,11 +145,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic (lms2.economic)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.buying_cost.html">lms2.economic.cost.buying_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
 </ul>
 </li>
 </ul>
@@ -355,20 +359,16 @@
 <span class="sd">    (Source convention)</span>
 
 <span class="sd">    Variables:</span>
-<span class="sd">    ----------</span>
-<span class="sd">    p           Supplied power from the maingrid (source convention)</span>
+<span class="sd">        - p           Supplied power from the maingrid (source convention)</span>
 
 <span class="sd">    Param:</span>
-<span class="sd">    ------</span>
-<span class="sd">    cost        simple linear cost, associated with variable p</span>
+<span class="sd">        - cost        simple linear cost, associated with variable p</span>
 
 <span class="sd">    Ports:</span>
-<span class="sd">    ------</span>
-<span class="sd">    outlet</span>
+<span class="sd">        - outlet</span>
 
 <span class="sd">    Expressions:</span>
-<span class="sd">    ---------</span>
-<span class="sd">    instant_cost  instantaneous linear cost, associated with variable p</span>
+<span class="sd">        - instant_cost  instantaneous linear cost, associated with variable p</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwgs</span><span class="p">):</span>
 
@@ -387,34 +387,27 @@
 <span class="sd">    (Source convention)</span>
 
 <span class="sd">    Variables:</span>
-<span class="sd">    ----------</span>
-<span class="sd">    p           None</span>
-<span class="sd">    pout        power to the main grid</span>
-<span class="sd">    pin         power from the main grid</span>
-<span class="sd">    u           binary variable</span>
-
-
+<span class="sd">        - p           None</span>
+<span class="sd">        - pout        power to the main grid</span>
+<span class="sd">        - pin         power from the main grid</span>
+<span class="sd">        - u           binary variable</span>
 
 <span class="sd">    Param:</span>
-<span class="sd">    ------</span>
-<span class="sd">    pmax        maximal power out (kW)</span>
-<span class="sd">    pmin        maximal power in (kW)</span>
-<span class="sd">    cost_in     buying cost of variable pin</span>
-<span class="sd">    cost_out    selling cost of variable pout</span>
+<span class="sd">        - pmax        maximal power out (kW)</span>
+<span class="sd">        - pmin        maximal power in (kW)</span>
+<span class="sd">        - cost_in     buying cost of variable pin</span>
+<span class="sd">        - cost_out    selling cost of variable pout</span>
 
 <span class="sd">    Constraints:</span>
-<span class="sd">    ------------</span>
-<span class="sd">    _pmin       Low bound</span>
-<span class="sd">    _pmax       Up bound</span>
-<span class="sd">    _p_balance  Power balance</span>
+<span class="sd">        - _pmin       Low bound</span>
+<span class="sd">        - _pmax       Up bound</span>
+<span class="sd">        - _p_balance  Power balance</span>
 
 <span class="sd">    Ports:</span>
-<span class="sd">    ------</span>
-<span class="sd">    outlet      None</span>
+<span class="sd">        - outlet      None</span>
 
 <span class="sd">    Expressions:</span>
-<span class="sd">    ---------</span>
-<span class="sd">    instant_cost  instantaneous bilinear cost, associated with variable pin and pout</span>
+<span class="sd">        - instant_cost  instantaneous bilinear cost, associated with variable pin and pout</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwgs</span><span class="p">):</span>
@@ -437,39 +430,33 @@
 <span class="sd">    (Source convention)</span>
 
 <span class="sd">    Sets:</span>
-<span class="sd">    ----------</span>
-<span class="sd">    cost_in_index    None</span>
-<span class="sd">    cost_out_index   None</span>
+<span class="sd">        - cost_in_index    None</span>
+<span class="sd">        - cost_out_index   None</span>
 
 <span class="sd">    Variables:</span>
-<span class="sd">    ----------</span>
-<span class="sd">    p                None</span>
-<span class="sd">    pout             power to the main grid</span>
-<span class="sd">    pin              power from the main grid</span>
-<span class="sd">    u                binary variable</span>
+<span class="sd">        - p                None</span>
+<span class="sd">        - pout             power to the main grid</span>
+<span class="sd">        - pin              power from the main grid</span>
+<span class="sd">        - u                binary variable</span>
 
 <span class="sd">    Param:</span>
-<span class="sd">    ------</span>
-<span class="sd">    pmax             maximal power out (kW)</span>
-<span class="sd">    pmin             maximal power in (kW)</span>
-<span class="sd">    cost_in_value    None</span>
-<span class="sd">    cost_in          None</span>
-<span class="sd">    cost_out_value   None</span>
-<span class="sd">    cost_out         None</span>
+<span class="sd">        - pmax             maximal power out (kW)</span>
+<span class="sd">        - pmin             maximal power in (kW)</span>
+<span class="sd">        - cost_in_value    None</span>
+<span class="sd">        - cost_in          None</span>
+<span class="sd">        - cost_out_value   None</span>
+<span class="sd">        - cost_out         None</span>
 
 <span class="sd">    Constraints:</span>
-<span class="sd">    -----------</span>
-<span class="sd">    _pmin            Low bound</span>
-<span class="sd">    _pmax            Up bound</span>
-<span class="sd">    _p_balance       Power balance</span>
+<span class="sd">        - _pmin            Low bound</span>
+<span class="sd">        - _pmax            Up bound</span>
+<span class="sd">        - _p_balance       Power balance</span>
 
 <span class="sd">    Ports:</span>
-<span class="sd">    ------</span>
-<span class="sd">    outlet           None</span>
+<span class="sd">        - outlet           None</span>
 
 <span class="sd">    Expressions:</span>
-<span class="sd">    ---------</span>
-<span class="sd">    instant_cost     instantaneous bilinear and dynamic cost, associated with variable pin and pout</span>
+<span class="sd">        - instant_cost     instantaneous bilinear and dynamic cost, associated with variable pin and pout</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwgs</span><span class="p">):</span>
@@ -483,6 +470,7 @@
 
 <div class="viewcode-block" id="AbsMainGrid_old"><a class="viewcode-back" href="../../../generated/lms2.electric.abs_maingrids.AbsMainGrid_old.html#lms2.electric.abs_maingrids.AbsMainGrid_old">[docs]</a><span class="k">class</span> <span class="nc">AbsMainGrid_old</span><span class="p">(</span><span class="n">AbsDynUnit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DEPRECIATED </span>
 <span class="sd">    Simple main Grid unit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mixco2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
