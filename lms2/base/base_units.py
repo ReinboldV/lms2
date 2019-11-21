@@ -8,12 +8,12 @@ from pyomo.network import Port
 
 from lms2.core.units import Unit
 
-__all__ = ['AbsDynUnit', 'AbsFixedFlowLoad', 'AbsFixedFlowSource', 'AbsFlowSource',
-           'AbsFlowLoad', 'AbsEffortSource', '_init_input',        '_set_bounds',
-           'fix_profile', 'bound_profile', 'AbsTwoFlowUnit', ]
+__all__ = ['DynUnit', 'FixedFlowLoad', 'FixedFlowSource', 'FlowSource',
+           'FlowLoad', 'EffortSource', '_init_input', '_set_bounds',
+           'fix_profile', 'bound_profile', 'TwoFlowUnit', ]
 
 
-class AbsDynUnit(Unit):
+class DynUnit(Unit):
     def __init__(self, *args, **kwds):
         """
         Abstract Dynamic Unit
@@ -63,7 +63,7 @@ class AbsDynUnit(Unit):
         return lines, ax, fig
 
 
-class AbsFlowSource(AbsDynUnit):
+class FlowSource(DynUnit):
     """
     Abstract Flow Source Unit.
 
@@ -79,7 +79,7 @@ class AbsFlowSource(AbsDynUnit):
         self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
-class AbsFlowLoad(AbsDynUnit):
+class FlowLoad(DynUnit):
     """
     Abstract Flow Load Unit.
 
@@ -97,7 +97,7 @@ class AbsFlowLoad(AbsDynUnit):
         self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
-class AbsEffortSource(AbsDynUnit):
+class EffortSource(DynUnit):
     """
     Abstract Effort source unit.
 
@@ -268,7 +268,7 @@ def bound_profile(m, t, flow_name='flow',
                                                                               up_profile_name=up_profile_name)))
 
 
-class AbsTwoFlowUnit(AbsDynUnit):
+class TwoFlowUnit(DynUnit):
     """
     Abstract interface for two conservative ports block
 
@@ -283,7 +283,7 @@ class AbsTwoFlowUnit(AbsDynUnit):
         self.outlet = Port(initialize={'f': (self.component(flow_names[1]), Port.Conservative)})
 
 
-class AbsFixedFlowSource(AbsFlowSource):
+class FixedFlowSource(FlowSource):
     """
     Abstract Fixed Flow Source Unit.
 
@@ -299,7 +299,7 @@ class AbsFixedFlowSource(AbsFlowSource):
         self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
 
 
-class AbsFixedFlowLoad(AbsFlowLoad):
+class FixedFlowLoad(FlowLoad):
     """
     Abstract Fixed Flow Load Unit.
 

@@ -3,15 +3,13 @@
 Definition of Linear Model class.
 """
 
-
-from pyomo.environ import ConcreteModel, Block, Constraint, Objective, Var, AbstractModel
 import logging
-import os
 
-
+from pyomo.environ import ConcreteModel, Constraint, Objective, Var, AbstractModel
 
 __all__ = ['LModel', 'AbsLModel']
 logger = logging.getLogger('lms2.models')
+
 
 class LModel(ConcreteModel):
     """ Redefinition of ConcreteModel for the lms2 package"""
@@ -41,12 +39,12 @@ class LModel(ConcreteModel):
         """
         Setter method for the graph attribute
 
-        :param Graph g: Grpah of the Unit
+        :param Graph g: Graph of the Unit
         :return: None
         """
         from networkx import Graph
         assert isinstance(g, Graph), f'graph attribute must be an instance of networkx.Graph, ' \
-            f'but received {type(g)} instead.'
+                                     f'but received {type(g)} instead.'
 
     def __setattr__(self, key, value):
 
@@ -104,8 +102,8 @@ class LModel(ConcreteModel):
         for cst in self.component_objects(Constraint, active=True):
             if cst.is_indexed():
                 s = DataFrame(
-                    {cst.getname(fully_qualified=True)+'_'+dual_name: {i: self.component(dual_name)[c]
-                                                                       for (i, c) in cst.iteritems()}})
+                    {cst.getname(fully_qualified=True) + '_' + dual_name: {i: self.component(dual_name)[c]
+                                                                           for (i, c) in cst.iteritems()}})
                 df = concat([df, s], axis=1)
             else:
                 Warning('Trying to get dual coefficient from a non-index variable. Not Implemented Yet')
@@ -126,10 +124,10 @@ class LModel(ConcreteModel):
             if c.is_indexed():
                 s1 = Series({i: c[i].lslack() for i in c.__iter__()})
                 s2 = Series({i: c[i].uslack() for i in c.__iter__()})
-                df_c = DataFrame({c.getname(fully_qualified=True).replace('.', '_')+'_ls': s1, c.getname()+'_us': s2})
+                df_c = DataFrame(
+                    {c.getname(fully_qualified=True).replace('.', '_') + '_ls': s1, c.getname() + '_us': s2})
                 df = concat([df, df_c], axis=1)
         return df
-
 
     def construct_objective_from_expression_list(self, wrt, *args):
         """
@@ -184,7 +182,7 @@ class AbsLModel(AbstractModel):
         """
         from networkx import Graph
         assert isinstance(g, Graph), f'graph attribute must be an instance of networkx.Graph, ' \
-            f'but received {type(g)} instead.'
+                                     f'but received {type(g)} instead.'
 
     def __setattr__(self, key, value):
 
@@ -242,8 +240,8 @@ class AbsLModel(AbstractModel):
         for cst in self.component_objects(Constraint, active=True):
             if cst.is_indexed():
                 s = DataFrame(
-                    {cst.getname(fully_qualified=True)+'_'+dual_name: {i: self.component(dual_name)[c]
-                                                                       for (i, c) in cst.iteritems()}})
+                    {cst.getname(fully_qualified=True) + '_' + dual_name: {i: self.component(dual_name)[c]
+                                                                           for (i, c) in cst.iteritems()}})
                 df = concat([df, s], axis=1)
             else:
                 Warning('Trying to get dual coefficient from a non-index variable. Not Implemented Yet')
@@ -264,20 +262,21 @@ class AbsLModel(AbstractModel):
             if c.is_indexed():
                 s1 = Series({i: c[i].lslack() for i in c.__iter__()})
                 s2 = Series({i: c[i].uslack() for i in c.__iter__()})
-                df_c = DataFrame({c.getname(fully_qualified=True).replace('.', '_')+'_ls': s1, c.getname()+'_us': s2})
+                df_c = DataFrame(
+                    {c.getname(fully_qualified=True).replace('.', '_') + '_ls': s1, c.getname() + '_us': s2})
                 df = concat([df, df_c], axis=1)
         return df
 
     def construct_objective_from_expression_list(self, wrt, *args):
         """
-        Consruct objective from list of expression to be integrated with respect to wrt.
+        Construct objective from list of expression to be integrated with respect to wrt.
 
         :param str name: name of the new integral expression (optional)
         :param wrt: Set for the integration of the expressions
         :param args: Expression of instantaneous objectives
         :return: Objective
         """
-        from lms2 import Expression
+        from pyomo.environ import Expression
         from pyomo.dae import Integral
         for exp in args:
             assert isinstance(exp, Expression), ValueError(f'args should be a list of pyomo Expression,'
