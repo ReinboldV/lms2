@@ -239,37 +239,37 @@ class TestBattery(unittest.TestCase):
         m.arc2 = Arc(source=m.b.outlet, dest=m.ps.inlet)
 
         data_batt = dict(
-            time=   {None: [0, 10]},
-            dpcmax= {None: 100},
-            dpdmax= {None: 100},
-            socmin= {None: 10},
-            socmax= {None: 55},
-            soc0=   {None: 50},
-            socf=   {None: None},
-            emin=   {None: 0},
-            emax=   {None: 10},
-            pcmax=  {None: 80},
-            pdmax=  {None: 80},
-            etac=   {None: 1.0},
-            etad=   {None: 1.0})
+            time={None: [0, 10]},
+            dpcmax={None: 100},
+            dpdmax={None: 100},
+            socmin={None: 10},
+            socmax={None: 55},
+            soc0={None: 50},
+            socf={None: None},
+            emin={None: 0},
+            emax={None: 10},
+            pcmax={None: 80},
+            pdmax={None: 80},
+            etac={None: 1.0},
+            etad={None: 1.0})
 
         data_pl = {
-            'time':             {None: [0, 10]},
-            'profile_index':    {None: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
-            'profile_value':    dict(zip([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 0, -10, -40, -10, 20, 30, 40, 40, 10]))
+            'time': {None: [0, 10]},
+            'profile_index': {None: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
+            'profile_value': dict(zip([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 0, -10, -40, -10, 20, 30, 40, 40, 10]))
         }
 
         data_ps = {
             'time': {None: (0, 10)}
         }
 
-        data    = {None: {
+        data = {None: {
             'time': {None: [0, 10]},
-            'b':    data_batt,
-            'pl':   data_pl,
-            'ps':   data_ps
-            }
-            }
+            'b': data_batt,
+            'pl': data_pl,
+            'ps': data_ps
+        }
+        }
 
         inst = m.create_instance(data)
 

@@ -64,7 +64,6 @@ class TestAbsPrommableLoad(TestCase):
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=10)
 
         inst.prog.compile()
-        inst.pprint()
 
 if __name__ == '__main__':
     import unittest
