@@ -3,14 +3,14 @@
 Electrical sources and loads
 """
 
-from lms2 import AbsFlowSource, AbsFixedFlowSource, AbsFlowLoad, AbsFixedFlowLoad
-from lms2.base.base_units import fix_profile
-from pyomo.environ import Var, PositiveReals, Constraint, Binary, Param, Set
-from pyomo.network import Port
+from pyomo.environ import PositiveReals, Constraint, Binary
 
-__all__ = ['AbsPowerSource',        'AbsFixedPowerSource',      'AbsScalablePowerSource',
-           'AbsPowerLoad',          'AbsFixedPowerLoad',        'AbsScalablePowerLoad',
-           'AbsProgrammableLoad',   'AbsDebugSource', 'PVPanels']
+from lms2 import AbsFlowSource, AbsFixedFlowSource, AbsFlowLoad, AbsFixedFlowLoad
+
+__all__ = ['AbsPowerSource', 'AbsFixedPowerSource', 'AbsScalablePowerSource',
+           'AbsPowerLoad', 'AbsFixedPowerLoad', 'AbsScalablePowerLoad',
+           'AbsProgrammableLoad', 'AbsDebugSource', 'PVPanels']
+
 
 # TODO unittest
 class AbsPowerSource(AbsFlowSource):
@@ -18,8 +18,10 @@ class AbsPowerSource(AbsFlowSource):
 
     Exposes a power output port.
     """
+
     def __init__(self, *args, flow_name='p', **kwds):
         super().__init__(*args, flow_name=flow_name, **kwds)
+
 
 # TODO unittest
 class AbsFixedPowerSource(AbsFixedFlowSource):
@@ -28,8 +30,10 @@ class AbsFixedPowerSource(AbsFixedFlowSource):
 
     Abstract Power Source Unit who's power output is fixed using a given index set and indexed profile.
     """
+
     def __init__(self, *args, flow_name='p', **kwds):
         super().__init__(*args, flow_name=flow_name, **kwds)
+
 
 # TODO unittest
 class AbsScalablePowerSource(AbsFixedPowerSource):
@@ -38,12 +42,11 @@ class AbsScalablePowerSource(AbsFixedPowerSource):
     May be used for sizing sources, such as PV panel, wind turbines, etc."""
 
     def __init__(self, *args, flow_name='p', scale_fact='scale_fact', **kwds):
-
         super().__init__(*args, flow_name=flow_name, **kwds)
 
-        scaled_flow_name = flow_name+'_scaled'
+        scaled_flow_name = flow_name + '_scaled'
 
-        #self.scale_fact = Var(initialize=1, within=PositiveReals, doc='scaling factor within Positve reals')
+        # self.scale_fact = Var(initialize=1, within=PositiveReals, doc='scaling factor within Positve reals')
         self.add_component(scale_fact, Var(initialize=1,
                                            within=PositiveReals,
                                            doc='scaling factor within Positve reals'))
@@ -51,18 +54,20 @@ class AbsScalablePowerSource(AbsFixedPowerSource):
 
         def _flow_scaling(m, t):
             # return m.find_component(scaled_flow_name)[t] == m.scale_fact*m.find_component(flow_name)[t]
-            return m.find_component(scaled_flow_name)[t] == m.find_component(scale_fact)*m.find_component(flow_name)[t]
+            return m.find_component(scaled_flow_name)[t] == m.find_component(scale_fact) * m.find_component(flow_name)[
+                t]
 
         def _debug_flow_scaling(m, t):
             # return -0.000001, \
             #        m.find_component(scaled_flow_name)[t] - m.scale_fact * m.find_component(flow_name)[t],\
             #        0.000001
             return -0.000001, \
-                   m.find_component(scaled_flow_name)[t] - m.find_component(scale_fact)*m.find_component(flow_name)[t],\
+                   m.find_component(scaled_flow_name)[t] - m.find_component(scale_fact) * m.find_component(flow_name)[
+                       t], \
                    0.000001
 
-        self.flow_scaling       = Constraint(self.time, rule=_flow_scaling,
-                                             doc='Constraint equality for flow scaling')
+        self.flow_scaling = Constraint(self.time, rule=_flow_scaling,
+                                       doc='Constraint equality for flow scaling')
         self.debug_flow_scaling = Constraint(self.time, rule=_debug_flow_scaling,
                                              doc='Constraint equality for flow scaling')
 
@@ -76,6 +81,7 @@ class PVPanels(AbsScalablePowerSource):
 
     Derives from a Abstract scalable power source.
     """
+
     def __init__(self):
         super().__init__(flow_name='p', scale_fact='surf')
 
@@ -101,6 +107,7 @@ class AbsFixedPowerLoad(AbsFixedFlowLoad):
 
     Abstract Power Source Unit who's power output is fixed using a given index set and indexed profile.
     """
+
     def __init__(self, *args, flow_name='p', **kwds):
         """
 
@@ -124,27 +131,28 @@ class AbsScalablePowerLoad(AbsFixedPowerLoad):
         :param str flow_name: Name of the new flow variable
         :param kwds:
         """
-        super().__init__( *args, flow_name=flow_name, **kwds)
+        super().__init__(*args, flow_name=flow_name, **kwds)
 
-        scaled_flow_name = flow_name+'_scaled'
+        scaled_flow_name = flow_name + '_scaled'
 
         self.scale_fact = Var(initialize=1, within=PositiveReals, doc='scaling factor within Positve reals')
         self.add_component(scaled_flow_name, Var(self.time, doc='Scaled source flow'))
 
         def _flow_scaling(m, t):
-            return m.scale_fact*m.find_component(scaled_flow_name)[t] == m.find_component(flow_name)[t]
+            return m.scale_fact * m.find_component(scaled_flow_name)[t] == m.find_component(flow_name)[t]
 
         def _debug_flow_scaling(m, t):
             return -0.000001, \
-                   m.scale_fact * m.find_component(scaled_flow_name)[t] - m.find_component(flow_name)[t],\
+                   m.scale_fact * m.find_component(scaled_flow_name)[t] - m.find_component(flow_name)[t], \
                    0.000001
 
-        self.flow_scaling       = Constraint(self.time, rule=_flow_scaling,
-                                             doc='Constraint equality for flow scaling')
+        self.flow_scaling = Constraint(self.time, rule=_flow_scaling,
+                                       doc='Constraint equality for flow scaling')
         self.debug_flow_scaling = Constraint(self.time, rule=_debug_flow_scaling,
                                              doc='Constraint equality for flow scaling')
 
         self.scaled_inlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Conservative)})
+
 
 # TODO unittest
 class AbsProgrammableLoad(AbsPowerSource):
@@ -154,11 +162,12 @@ class AbsProgrammableLoad(AbsPowerSource):
     This load can be programmed to be on at a free moment within t_1 andd t_2, when turning 'on', the load is consuming
     the profile power. Ex : Washing machine.
     """
+
     def __init__(self, *args, flow_name='p', **kwds):
 
         from lms2 import fix_profile
         from pyomo.core.base.sets import SimpleSet
-        #from pyomo.environ import Binary
+        from pyomo.environ import Binary, Param, Var
 
         super().__init__(*args, flow_name=flow_name, **kwds)
 
@@ -193,12 +202,11 @@ class AbsProgrammableLoad(AbsPowerSource):
     def compile(self):
         def _delay(m, t):
             if t >= max(m.profile_index):
-                return m.p[t] == sum([m.u[t-i] * m.profile_value[i] for i in m.profile_index])
+                return m.p[t] == sum([m.u[t - i] * m.profile_value[i] for i in m.profile_index])
             else:
                 return Constraint.Skip
+
         self._delay = Constraint(self.time, rule=_delay, doc='the load follow the profile')
-
-
 
 
 class AbsDebugSource(AbsPowerSource):
@@ -216,13 +224,13 @@ class AbsDebugSource(AbsPowerSource):
         """
         super().__init__(*args, flow_name=flow_name, **kwds)
 
-        from lms2 import def_linear_cost, def_absolute_cost
+        from lms2 import def_absolute_cost
 
         self.inst_cost = def_absolute_cost(self, var_name='p')
 
 
 if __name__ == '__main__':
-    from pyomo.environ import AbstractModel, TransformationFactory, Param, Var
+    from pyomo.environ import AbstractModel, Param, Var
     from pyomo.dae import ContinuousSet
     from pyomo.network import Port
 

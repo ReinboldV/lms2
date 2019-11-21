@@ -5,32 +5,31 @@ Batteries' Module.
 Contains electrical batteries linear models.
 """
 
-from lms2 import AbsDynUnit
-
-from pyomo.environ import Constraint, Var, Param, Expression, Piecewise, value, PositiveReals, Set
-from pyomo.network import Port
-from pyomo.dae.diffvar import DerivativeVar
-from pyomo.dae import ContinuousSet
 from pyomo.core.kernel.set_types import NonNegativeReals, Binary
+from pyomo.dae.diffvar import DerivativeVar
+from pyomo.environ import Constraint, Var, Param, Expression, PositiveReals, Set
+from pyomo.network import Port
+
+from lms2 import AbsDynUnit
 
 __all__ = ['AbsBatteryV0', 'AbsBatteryV1', 'AbsBatteryV2']
 
 UB = 10e6
 
 data = dict(
-    time    = {None: (0,1)},
-    socmin  = {None: 0    },
-    socmax  = {None: 100  },
-    dpcmax  = {None: None },
-    dpcmin  = {None: None },
-    emin    = {None: 0    },
-    emax    = {None: None },
-    pcmax   = {None: UB   },
-    pdmax   = {None: UB   },
-    e0      = {None: None },
-    ef      = {None: None },
-    etac    = {None: 1.0  },
-    etad    = {None: 1.0  }
+    time={None: (0, 1)},
+    socmin={None: 0},
+    socmax={None: 100},
+    dpcmax={None: None},
+    dpcmin={None: None},
+    emin={None: 0},
+    emax={None: None},
+    pcmax={None: UB},
+    pdmax={None: UB},
+    e0={None: None},
+    ef={None: None},
+    etac={None: 1.0},
+    etad={None: 1.0}
 )
 
 
@@ -91,26 +90,26 @@ class AbsBatteryV0(AbsDynUnit):
 
         super().__init__(*args, **kwds)
 
-        self.p      = Var(self.time, doc='energy derivative with respect to time',  initialize=0)
-        self.e      = Var(self.time, doc='energy in battery',                       initialize=0)
+        self.p = Var(self.time, doc='energy derivative with respect to time', initialize=0)
+        self.e = Var(self.time, doc='energy in battery', initialize=0)
 
-        self.emin   = Param(default=0,       doc='minimum energy (kWh)',       mutable=True, within=NonNegativeReals)
-        self.emax   = Param(default=UB,      doc='maximal energy',             mutable=True)
-        self.e0     = Param(default=None,    doc='initial state',              mutable=True)
-        self.ef     = Param(default=None,    doc='final state',                mutable=True)
-        self.etac   = Param(default=1.0,     doc='charging efficiency',        mutable=True)
-        self.etad   = Param(default=1.0,     doc='discharging efficiency',     mutable=True)
-        self.dpdmax = Param(default=UB,      doc='maximal discharging power',  mutable=True)
-        self.dpcmax = Param(default=UB,      doc='maximal charging power',     mutable=True)
+        self.emin = Param(default=0, doc='minimum energy (kWh)', mutable=True, within=NonNegativeReals)
+        self.emax = Param(default=UB, doc='maximal energy', mutable=True)
+        self.e0 = Param(default=None, doc='initial state', mutable=True)
+        self.ef = Param(default=None, doc='final state', mutable=True)
+        self.etac = Param(default=1.0, doc='charging efficiency', mutable=True)
+        self.etad = Param(default=1.0, doc='discharging efficiency', mutable=True)
+        self.dpdmax = Param(default=UB, doc='maximal discharging power', mutable=True)
+        self.dpcmax = Param(default=UB, doc='maximal charging power', mutable=True)
 
-        self.pcmax  = Param(default=UB,      doc='maximal charging power',     mutable=True, within=PositiveReals)
-        self.pdmax  = Param(default=UB,      doc='maximal discharging power',  mutable=True, within=PositiveReals)
+        self.pcmax = Param(default=UB, doc='maximal charging power', mutable=True, within=PositiveReals)
+        self.pdmax = Param(default=UB, doc='maximal discharging power', mutable=True, within=PositiveReals)
 
-        self.de     = DerivativeVar(self.e, wrt=self.time, initialize=0,
-                                    doc='variation of energy  with respect to time')
-        self.dp     = DerivativeVar(self.p, wrt=self.time, initialize=0,
-                                    doc='variation of the battery power with respect to time',
-                                    bounds=lambda m, t: (-m.dpcmax, m.dpdmax))
+        self.de = DerivativeVar(self.e, wrt=self.time, initialize=0,
+                                doc='variation of energy  with respect to time')
+        self.dp = DerivativeVar(self.p, wrt=self.time, initialize=0,
+                                doc='variation of the battery power with respect to time',
+                                bounds=lambda m, t: (-m.dpcmax, m.dpdmax))
 
         self.outlet = Port(initialize={'f': (self.p, Port.Conservative)})
 
@@ -129,7 +128,7 @@ class AbsBatteryV0(AbsDynUnit):
             if m.ef.value is None:
                 return Constraint.Skip
             if t == m.time.last():
-                return m.ef-1e-5, m.e[t], m.ef+1e-5
+                return m.ef - 1e-5, m.e[t], m.ef + 1e-5
             else:
                 return Constraint.Skip
 
@@ -162,17 +161,17 @@ class AbsBatteryV0(AbsDynUnit):
                 return m.dp[t] <= m.dpdmax
 
         def _energy_balance(m, t):
-            return m.de[t] == 1/3600*(m.p[t])
+            return m.de[t] == 1 / 3600 * (m.p[t])
 
         self._e_balance = Constraint(self.time, rule=_energy_balance, doc='Energy balance constraint')
-        self._p_init    = Constraint(self.time, rule=_p_init,    doc='Initialize power')
+        self._p_init = Constraint(self.time, rule=_p_init, doc='Initialize power')
         self._e_initial = Constraint(self.time, rule=_e_initial, doc='Initial energy constraint')
-        self._e_final   = Constraint(self.time, rule=_e_final,   doc='Final stored energy constraint')
-        self._e_min     = Constraint(self.time, rule=_e_min,     doc='Minimal energy constraint')
-        self._e_max     = Constraint(self.time, rule=_e_max,     doc='Maximal energy constraint')
-        self._pmax      = Constraint(self.time, rule=_pmax,      doc='Power bounds constraint')
-        self._dpdmax    = Constraint(self.time, rule=_dpdmax,    doc='Maximal varation of descharging power constraint')
-        self._dpcmax    = Constraint(self.time, rule=_dpcmax,    doc='Maximal varation of charging power constraint')
+        self._e_final = Constraint(self.time, rule=_e_final, doc='Final stored energy constraint')
+        self._e_min = Constraint(self.time, rule=_e_min, doc='Minimal energy constraint')
+        self._e_max = Constraint(self.time, rule=_e_max, doc='Maximal energy constraint')
+        self._pmax = Constraint(self.time, rule=_pmax, doc='Power bounds constraint')
+        self._dpdmax = Constraint(self.time, rule=_dpdmax, doc='Maximal varation of descharging power constraint')
+        self._dpcmax = Constraint(self.time, rule=_dpcmax, doc='Maximal varation of charging power constraint')
 
 
 class AbsBatteryV1(AbsDynUnit):
@@ -292,27 +291,27 @@ class AbsBatteryV1(AbsDynUnit):
         """
         super().__init__(*args, **kwds)
 
-        self.emin   = Param(default=0,      doc='minimum energy (kWh)',       mutable=True, within=NonNegativeReals)
-        self.emax   = Param(default=UB,     doc='maximal energy',             mutable=True)
-        self.socmin = Param(default=0,      doc='minimum soc',                mutable=True)
-        self.socmax = Param(default=100,    doc='maximal soc',                mutable=True)
-        self.soc0   = Param(default=50,     doc='initial state',              mutable=True)
-        self.socf   = Param(default=None,   doc='final state',                mutable=True)
-        self.dpdmax = Param(default=UB,     doc='maximal discharging power',  mutable=True)
-        self.dpcmax = Param(default=UB,     doc='maximal charging power',     mutable=True)
-        self.pcmax  = Param(default=UB,     doc='maximal charging power',     mutable=True, within=PositiveReals)
-        self.pdmax  = Param(default=UB,     doc='maximal discharging power',  mutable=True, within=PositiveReals)
+        self.emin = Param(default=0, doc='minimum energy (kWh)', mutable=True, within=NonNegativeReals)
+        self.emax = Param(default=UB, doc='maximal energy', mutable=True)
+        self.socmin = Param(default=0, doc='minimum soc', mutable=True)
+        self.socmax = Param(default=100, doc='maximal soc', mutable=True)
+        self.soc0 = Param(default=50, doc='initial state', mutable=True)
+        self.socf = Param(default=None, doc='final state', mutable=True)
+        self.dpdmax = Param(default=UB, doc='maximal discharging power', mutable=True)
+        self.dpcmax = Param(default=UB, doc='maximal charging power', mutable=True)
+        self.pcmax = Param(default=UB, doc='maximal charging power', mutable=True, within=PositiveReals)
+        self.pdmax = Param(default=UB, doc='maximal discharging power', mutable=True, within=PositiveReals)
 
         def _init_e(m, t):
-            return m.soc0*m.emax / 100
+            return m.soc0 * m.emax / 100
 
         self.p = Var(self.time, doc='energy derivative with respect to time', initialize=0)
         self.e = Var(self.time, doc='energy in battery', initialize=_init_e)
 
-        self.de     = DerivativeVar(self.e, wrt=self.time, initialize=0, doc='variation of energy  with respect to time')
-        self.dp     = DerivativeVar(self.p, wrt=self.time, initialize=0,
-                                    doc='variation of the battery power with respect to time',
-                                    bounds=lambda m, t: (-m.dpcmax, m.dpdmax))
+        self.de = DerivativeVar(self.e, wrt=self.time, initialize=0, doc='variation of energy  with respect to time')
+        self.dp = DerivativeVar(self.p, wrt=self.time, initialize=0,
+                                doc='variation of the battery power with respect to time',
+                                bounds=lambda m, t: (-m.dpcmax, m.dpdmax))
 
         self.outlet = Port(initialize={'f': (self.p, Port.Conservative)}, doc='output power of the battery (kW), '
                                                                               'using source convention')
@@ -342,7 +341,7 @@ class AbsBatteryV1(AbsDynUnit):
         def _soc_init(m, t):
             if m.soc0.value is not None:
                 if t == m.time.first():
-                    return m.e[t] == m.soc0*m.emax / 100
+                    return m.e[t] == m.soc0 * m.emax / 100
             return Constraint.Skip
 
         def _soc_final(m, t):
@@ -350,7 +349,7 @@ class AbsBatteryV1(AbsDynUnit):
                 return Constraint.Skip
             else:
                 if t == m.time.last():
-                    return m.e[t] == m.socf*m.emax / 100
+                    return m.e[t] == m.socf * m.emax / 100
                 else:
                     return Constraint.Skip
 
@@ -377,20 +376,21 @@ class AbsBatteryV1(AbsDynUnit):
                 return m.dp[t] <= m.dpdmax
 
         def _energy_balance(m, t):
-            return m.de[t] == 1/3600*m.p[t]
+            return m.de[t] == 1 / 3600 * m.p[t]
 
         self._e_balance = Constraint(self.time, rule=_energy_balance, doc='Energy balance constraint')
-        self._p_init    = Constraint(self.time, rule=_p_init,    doc='Initialize power')
-        self._e_min     = Constraint(self.time, rule=_e_min,     doc='Minimal energy constraint')
-        self._e_max     = Constraint(self.time, rule=_e_max,     doc='Maximal energy constraint')
+        self._p_init = Constraint(self.time, rule=_p_init, doc='Initialize power')
+        self._e_min = Constraint(self.time, rule=_e_min, doc='Minimal energy constraint')
+        self._e_max = Constraint(self.time, rule=_e_max, doc='Maximal energy constraint')
         self._soc_final = Constraint(self.time, rule=_soc_final, doc='Final soc constraint')
-        self._soc_min   = Constraint(self.time, rule=_soc_min,   doc='Minimal state of charge constraint')
-        self._soc_max   = Constraint(self.time, rule=_soc_max,   doc='Maximal state of charge constraint')
-        self._pmax      = Constraint(self.time, rule=_pmax,      doc='Power bounds constraint')
-        self._dpdmax    = Constraint(self.time, rule=_dpdmax,    doc='Maximal varation of descharging power constraint')
-        self._dpcmax    = Constraint(self.time, rule=_dpcmax,    doc='Maximal varation of charging power constraint')
+        self._soc_min = Constraint(self.time, rule=_soc_min, doc='Minimal state of charge constraint')
+        self._soc_max = Constraint(self.time, rule=_soc_max, doc='Maximal state of charge constraint')
+        self._pmax = Constraint(self.time, rule=_pmax, doc='Power bounds constraint')
+        self._dpdmax = Constraint(self.time, rule=_dpdmax, doc='Maximal varation of descharging power constraint')
+        self._dpcmax = Constraint(self.time, rule=_dpcmax, doc='Maximal varation of charging power constraint')
 
-        self.soc = Expression(self.time, rule=lambda m, t: 100*m.e[t]/m.emax, doc='Expression of the state of charge')
+        self.soc = Expression(self.time, rule=lambda m, t: 100 * m.e[t] / m.emax,
+                              doc='Expression of the state of charge')
 
 
 class AbsBatteryV2(AbsBatteryV1):
@@ -407,12 +407,12 @@ class AbsBatteryV2(AbsBatteryV1):
 
         super().__init__(*args, **kwargs)
 
-        self.pd     = Var(self.time, doc='discharging power',  within=NonNegativeReals, initialize=0)
-        self.pc     = Var(self.time, doc='charging power',     within=NonNegativeReals, initialize=0)
-        self.u      = Var(self.time, doc='binary variable',    within=Binary,           initialize=0)
+        self.pd = Var(self.time, doc='discharging power', within=NonNegativeReals, initialize=0)
+        self.pc = Var(self.time, doc='charging power', within=NonNegativeReals, initialize=0)
+        self.u = Var(self.time, doc='binary variable', within=Binary, initialize=0)
 
-        self.etac   = Param(default=1.0,    doc='charging efficiency',        mutable=True)
-        self.etad   = Param(default=1.0,    doc='discharging efficiency',     mutable=True)
+        self.etac = Param(default=1.0, doc='charging efficiency', mutable=True)
+        self.etad = Param(default=1.0, doc='discharging efficiency', mutable=True)
 
         self.del_component('_e_balance')
         self.del_component('_pmax')
@@ -436,8 +436,8 @@ class AbsBatteryV2(AbsBatteryV1):
                 return Constraint.Skip
             return b.pc[t] + b.u[t] * b.pcmax <= b.pcmax
 
-        self._pdmax     = Constraint(self.time, rule=_pdmax,     doc='Discharging power bound')
-        self._pcmax     = Constraint(self.time, rule=_pcmax,     doc='Charging power bound')
+        self._pdmax = Constraint(self.time, rule=_pdmax, doc='Discharging power bound')
+        self._pcmax = Constraint(self.time, rule=_pcmax, doc='Charging power bound')
         self._p_balance = Constraint(self.time, rule=_p_balance, doc='Power balance constraint')
         self._e_balance = Constraint(self.time, rule=_e_balance, doc='Energy balance constraint')
 
@@ -445,14 +445,13 @@ class AbsBatteryV2(AbsBatteryV1):
 class AbsNLBattery(AbsDynUnit):
 
     def __init__(self, *args, **kwds):
-
         super().__init__(*args, **kwds)
 
-        self.u       = Var(self.time, doc='voltage',  initialize=0)
-        self.i       = Var(self.time, doc='current',  initialize=0)
+        self.u = Var(self.time, doc='voltage', initialize=0)
+        self.i = Var(self.time, doc='current', initialize=0)
         self.ind_ocv = Set(initialize=[0, 50, 100], doc='index for ocv vector')
-        self.ocv     = Param(self.time,) # todo here
-        self.e       = Var(self.time, doc='energy in battery', initialize=0)
+        self.ocv = Param(self.time, )  # todo here
+        self.e = Var(self.time, doc='energy in battery', initialize=0)
 
         # self.emin   = Param(default=0,       doc='minimum energy (kWh)',       mutable=True, within=NonNegativeReals)
         # self.emax   = Param(default=UB,      doc='maximal energy',             mutable=True)

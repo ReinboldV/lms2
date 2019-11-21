@@ -3,11 +3,10 @@ Economic Units and methods
 
 This module contains Economic units and methods to define parameter, variables and objectives to an exiting block
 """
-from lms2 import DynUnit, AbsDynUnit
-from lms2.base.base_units import set_profile
 from pyomo.environ import Param, Var, Expression, NonNegativeReals, PositiveReals, Constraint
 from pyomo.network import Port
-from pandas import Series
+
+from lms2 import AbsDynUnit
 
 __all__ = ['def_linear_cost', 'def_bilinear_cost','def_linear_dyn_cost',
            'def_bilinear_dynamic_cost', '_OnePortEconomicUnit', 'def_absolute_cost']
@@ -25,7 +24,7 @@ def def_linear_cost(m, var_name='p'):
     - Partial model:
 
     .. math::
-        m.instant\_cost(t) = m.var(t) \\times m.cost, \ \\forall t \\in m.time
+        m.instantcost(t) = m.var(t) \\times m.cost, \ \\forall t \\in m.time
 
     - Example of simple model using def_linear_cost():
 
@@ -74,7 +73,7 @@ def def_linear_dyn_cost(m, var_name='p'):
     Final instantaneous cost expression is called "inst_cost"
 
     .. math::
-        m.instant\_cost(t) = m.var(t) \\times m.cost(t), \ \\forall t \\in m.time
+        m.instantcost(t) = m.var(t) \\times m.cost(t), \ \\forall t \\in m.time
 
     :param m: Block
     :param str var_name: Names of the expensive variable

@@ -21,9 +21,9 @@ from lms2.core.models import *
 from lms2.core.time import *
 from lms2.core.units import *
 from lms2.economic.cost import *
-from lms2.electric.abs_sources import *
-from lms2.electric.abs_batteries import *
-from lms2.electric.abs_maingrids import *
+from lms2.electric.sources import *
+from lms2.electric.batteries import *
+from lms2.electric.maingrids import *
 from lms2.environment.ghg import *
 from lms2.mechanic.gears import *
 from lms2.logical.hysteresis import *

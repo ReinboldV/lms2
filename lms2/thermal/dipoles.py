@@ -2,11 +2,11 @@
 """
 Thermal dipole models
 """
-from lms2.base.base_units import DynUnit
+from lms2.base.base_units import AbsDynUnit
 
 ## DEPRECIATED
 
-class TDipole(DynUnit):
+class TDipole(AbsDynUnit):
     pass
 
     # def __init__(self, time_horizon, name='TD0', description='', t1=None, t2=None, q12=None):
@@ -53,7 +53,7 @@ class TDipole(DynUnit):
     #                  TPole('q12_out', self.quantities['q12'], self.quantities['t2'], 'out'))
 
 
-class TCondRes(DynUnit):
+class TCondRes(AbsDynUnit):
     pass
     # def __init__(self, time_horizon, name='TCdR0', description='', r=1, t1=None, t2=None, q12=None):
     #     """
@@ -85,7 +85,7 @@ class TCondRes(DynUnit):
     #     self.addconst(name='cond', exp=exp)
 
 
-class TCond(DynUnit):
+class TCond(AbsDynUnit):
     pass
 
     # def __init__(self, time_horizon, name='TCdR0', description='', r=1, t1=None, t2=None, q12=None):
@@ -118,7 +118,7 @@ class TCond(DynUnit):
     #     self.addconst(name='cond', exp=exp)
 
 
-class TResNL(DynUnit):
+class TResNL(AbsDynUnit):
     """ Non linear thermal resistance for forced heat convection modelling """
     pass
 
@@ -175,7 +175,7 @@ class TResNL(DynUnit):
     #         self.addconst(name='cond', exp=exp)
 
 
-class TConvRes(DynUnit):
+class TConvRes(AbsDynUnit):
     """ Thermal resistance for convective heat transfer """
     pass
 
@@ -201,7 +201,7 @@ class TConvRes(DynUnit):
     #     self.addconst(name='conv', exp=exp)
 
 
-class TStorage(DynUnit):
+class TStorage(AbsDynUnit):
     """ Thermal storage/capacity.   
      
     Model : 
@@ -250,7 +250,3 @@ class TStorage(DynUnit):
     #     self.addconst(name='cst', exp=exp)
     #     self.addpole(TPole('tp', self.quantities['qc'], self.quantities['ts'], 'in'))
 
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(verbose=True)

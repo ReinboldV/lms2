@@ -18,8 +18,8 @@ class TestAbsDynUnit(TestCase):
         data = \
             {None:
                 {
-                    'time'  : {None: [0, 15]},
-                    'u'     : data_absdyn
+                    'time': {None: [0, 15]},
+                    'u': data_absdyn
                 }
             }
 
@@ -48,7 +48,7 @@ class TestAbsFlowSource(TestCase):
             {None:
                 {
                     'time': {None: [0, 15]},
-                    'u'   : data_unit
+                    'u': data_unit
                 }
             }
 
@@ -214,7 +214,7 @@ class TestAbsFixedFlowSource(TestCase):
 
         self.assertEqual(inst.u.time.data(), {0, 7.5, 15})
         self.assertEqual(inst.time.data(), {0, 7.5, 15})
-        self.assertEqual(inst.u.p.extract_values(), {0: 10.0, 7.5: 10.75 , 15: 12.0})
+        self.assertEqual(inst.u.p.extract_values(), {0: 10.0, 7.5: 10.75, 15: 12.0})
 
 
 class TestAbsFixedFlowLoad(TestCase):
@@ -261,4 +261,5 @@ class TestAbsFixedFlowLoad(TestCase):
 
 if __name__ == '__main__':
     import unittest
+
     unittest.main()
