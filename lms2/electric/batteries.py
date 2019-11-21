@@ -443,6 +443,10 @@ class AbsBatteryV2(BatteryV1):
 
 
 class NLBattery(DynUnit):
+    """
+    Non linear Battery model in development
+
+    """
 
     def __init__(self, *args, **kwds):
         super().__init__(*args, **kwds)
@@ -453,6 +457,7 @@ class NLBattery(DynUnit):
         self.ocv = Param(self.time, )  # todo here
         self.e = Var(self.time, doc='energy in battery', initialize=0)
 
+        # TODO : model and tests
         # self.emin   = Param(default=0,       doc='minimum energy (kWh)',       mutable=True, within=NonNegativeReals)
         # self.emax   = Param(default=UB,      doc='maximal energy',             mutable=True)
         # self.e0     = Param(default=None,    doc='initial state',              mutable=True)
