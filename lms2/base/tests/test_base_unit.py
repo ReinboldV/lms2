@@ -4,13 +4,13 @@ from unittest import TestCase
 class TestAbsDynUnit(TestCase):
 
     def test_abs(self):
-        from lms2 import AbsDynUnit
+        from lms2 import DynUnit
         from pyomo.environ import AbstractModel, TransformationFactory
         from pyomo.dae import ContinuousSet
 
         m = AbstractModel()
         m.time = ContinuousSet()
-        m.u = AbsDynUnit()
+        m.u = DynUnit()
 
         data_absdyn = dict(
             time={None: [0, 15]})
@@ -32,14 +32,14 @@ class TestAbsDynUnit(TestCase):
 class TestAbsFlowSource(TestCase):
 
     def test_abs(self):
-        from lms2 import AbsFlowSource
+        from lms2 import FlowSource
         from pyomo.environ import AbstractModel, TransformationFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet()
-        m.u = AbsFlowSource(flow_name='p')
+        m.u = FlowSource(flow_name='p')
 
         data_unit = dict(
             time={None: [0, 15]})
@@ -66,14 +66,14 @@ class TestAbsFlowSource(TestCase):
 class TestFixVariable(TestCase):
 
     def test_fix_profile(self):
-        from lms2 import AbsFlowSource, fix_profile
+        from lms2 import FlowSource, fix_profile
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Set
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet()
-        m.u = AbsFlowSource(flow_name='p')
+        m.u = FlowSource(flow_name='p')
 
         fix_profile(m.u, flow_name='p', profile_name='pro', index_name='ind')
 
@@ -109,14 +109,14 @@ class TestFixVariable(TestCase):
 class TestAbsFlowLoad(TestCase):
 
     def test_abs(self):
-        from lms2 import AbsFlowLoad
+        from lms2 import FlowLoad
         from pyomo.environ import AbstractModel, TransformationFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet()
-        m.u = AbsFlowLoad(flow_name='p')
+        m.u = FlowLoad(flow_name='p')
 
         data_unit = dict(
             time={None: [0, 15]})
@@ -143,14 +143,14 @@ class TestAbsFlowLoad(TestCase):
 class TestAbsEffortSource(TestCase):
 
     def test_abs(self):
-        from lms2 import AbsEffortSource
+        from lms2 import EffortSource
         from pyomo.environ import AbstractModel, TransformationFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet()
-        m.u = AbsEffortSource(effort_name='e')
+        m.u = EffortSource(effort_name='e')
 
         data_unit = dict(
             time={None: [0, 15]})
@@ -177,14 +177,14 @@ class TestAbsEffortSource(TestCase):
 class TestAbsFixedFlowSource(TestCase):
 
     def test_abs(self):
-        from lms2 import AbsFixedFlowSource
+        from lms2 import FixedFlowSource
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Set
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet()
-        m.u = AbsFixedFlowSource(flow_name='p')
+        m.u = FixedFlowSource(flow_name='p')
 
         self.assertTrue(hasattr(m.u, 'p'))
         self.assertTrue(hasattr(m.u, 'profile_index'))
@@ -219,14 +219,14 @@ class TestAbsFixedFlowSource(TestCase):
 
 class TestAbsFixedFlowLoad(TestCase):
     def test_abs(self):
-        from lms2 import AbsFixedFlowLoad
+        from lms2 import FixedFlowLoad
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Set
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet()
-        m.u = AbsFixedFlowLoad(flow_name='p')
+        m.u = FixedFlowLoad(flow_name='p')
 
         self.assertTrue(hasattr(m.u, 'p'))
         self.assertTrue(hasattr(m.u, 'profile_index'))

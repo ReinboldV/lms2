@@ -6,12 +6,12 @@ Electrical converters
 from pyomo.environ import Var, Param, NonNegativeReals, Constraint
 from pyomo.network import Port
 
-from lms2 import AbsDynUnit
+from lms2 import DynUnit
 
 __all__ = ['SimpleConverter']
 
 
-class SimpleConverter(AbsDynUnit):
+class SimpleConverter(DynUnit):
     """
     Simple Unidirectional converter.
 

@@ -10,7 +10,7 @@ from pyomo.environ import Constraint, Var, Param, Block, Expression
 from pyomo.environ import NonNegativeReals, Binary
 from pyomo.network import Port
 
-from lms2 import AbsDynUnit, AbsPowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
+from lms2 import DynUnit, AbsPowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
 
 __all__ = ['AbsMainGridV0', 'AbsMainGridV1', 'AbsMainGridV2']
 
@@ -171,7 +171,7 @@ class AbsMainGridV2(AbsPowerSource):
         self.inst_cost = def_bilinear_dynamic_cost(self, var_in='pin', var_out='pout')
 
 
-class AbsMainGrid_old(AbsDynUnit):
+class MainGrid_old(DynUnit):
     """
     DEPRECIATED 
     Simple main Grid unit

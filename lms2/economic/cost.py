@@ -6,7 +6,7 @@ This module contains Economic units and methods to define parameter, variables a
 from pyomo.environ import Param, Var, Expression, NonNegativeReals, PositiveReals, Constraint
 from pyomo.network import Port
 
-from lms2 import AbsDynUnit
+from lms2 import DynUnit
 
 __all__ = ['def_linear_cost', 'def_bilinear_cost','def_linear_dyn_cost',
            'def_bilinear_dynamic_cost', '_OnePortEconomicUnit', 'def_absolute_cost']
@@ -206,7 +206,7 @@ def buying_cost(m):
 def replacement_cost(m):
     pass
 
-class _OnePortEconomicUnit(AbsDynUnit):
+class _OnePortEconomicUnit(DynUnit):
     """
     Dynamic Economical Unit that is exposing one Economic Port
     """

@@ -10,9 +10,9 @@ from pyomo.dae.diffvar import DerivativeVar
 from pyomo.environ import Constraint, Var, Param, Expression, PositiveReals, Set
 from pyomo.network import Port
 
-from lms2 import AbsDynUnit
+from lms2 import DynUnit
 
-__all__ = ['AbsBatteryV0', 'AbsBatteryV1', 'AbsBatteryV2']
+__all__ = ['BatteryV0', 'BatteryV1', 'AbsBatteryV2']
 
 UB = 10e6
 
@@ -36,7 +36,7 @@ data = dict(
 #   TODO  : add different model of ageing.
 #   do bibliography and add model from D. TENFEN
 
-class AbsBatteryV0(AbsDynUnit):
+class BatteryV0(DynUnit):
     """
     Battery with ideal efficiency.
 
@@ -174,7 +174,7 @@ class AbsBatteryV0(AbsDynUnit):
         self._dpcmax = Constraint(self.time, rule=_dpcmax, doc='Maximal varation of charging power constraint')
 
 
-class AbsBatteryV1(AbsDynUnit):
+class BatteryV1(DynUnit):
     """ Battery with ideal efficiency.
 
     This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final
@@ -393,7 +393,7 @@ class AbsBatteryV1(AbsDynUnit):
                               doc='Expression of the state of charge')
 
 
-class AbsBatteryV2(AbsBatteryV1):
+class AbsBatteryV2(BatteryV1):
     """
     Bilinear battery Model.
 
@@ -442,7 +442,7 @@ class AbsBatteryV2(AbsBatteryV1):
         self._e_balance = Constraint(self.time, rule=_e_balance, doc='Energy balance constraint')
 
 
-class AbsNLBattery(AbsDynUnit):
+class NLBattery(DynUnit):
 
     def __init__(self, *args, **kwds):
         super().__init__(*args, **kwds)

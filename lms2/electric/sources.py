@@ -5,15 +5,15 @@ Electrical sources and loads
 
 from pyomo.environ import PositiveReals, Constraint, Binary
 
-from lms2 import AbsFlowSource, AbsFixedFlowSource, AbsFlowLoad, AbsFixedFlowLoad
+from lms2 import FlowSource, FixedFlowSource, FlowLoad, FixedFlowLoad
 
-__all__ = ['AbsPowerSource', 'AbsFixedPowerSource', 'AbsScalablePowerSource',
-           'AbsPowerLoad', 'AbsFixedPowerLoad', 'AbsScalablePowerLoad',
+__all__ = ['AbsPowerSource', 'FixedPowerSource', 'AbsScalablePowerSource',
+           'AbsPowerLoad', 'FixedPowerLoad', 'AbsScalablePowerLoad',
            'AbsProgrammableLoad', 'AbsDebugSource', 'PVPanels']
 
 
 # TODO unittest
-class AbsPowerSource(AbsFlowSource):
+class AbsPowerSource(FlowSource):
     """ Simple Power Source.
 
     Exposes a power output port.
@@ -24,7 +24,7 @@ class AbsPowerSource(AbsFlowSource):
 
 
 # TODO unittest
-class AbsFixedPowerSource(AbsFixedFlowSource):
+class FixedPowerSource(FixedFlowSource):
     """
     Abstract Fixed Power Source Unit.
 
@@ -36,7 +36,7 @@ class AbsFixedPowerSource(AbsFixedFlowSource):
 
 
 # TODO unittest
-class AbsScalablePowerSource(AbsFixedPowerSource):
+class AbsScalablePowerSource(FixedPowerSource):
     """ Scalable Power Source
 
     May be used for sizing sources, such as PV panel, wind turbines, etc."""
@@ -87,7 +87,7 @@ class PVPanels(AbsScalablePowerSource):
 
 
 # TODO unittest
-class AbsPowerLoad(AbsFlowLoad):
+class AbsPowerLoad(FlowLoad):
     """ Simple Power Load."""
 
     def __init__(self, *args, flow_name='p', **kwds):
@@ -101,7 +101,7 @@ class AbsPowerLoad(AbsFlowLoad):
 
 
 # TODO unittest
-class AbsFixedPowerLoad(AbsFixedFlowLoad):
+class FixedPowerLoad(FixedFlowLoad):
     """
     Abstract Fixed Power Source Unit.
 
@@ -119,7 +119,7 @@ class AbsFixedPowerLoad(AbsFixedFlowLoad):
 
 
 # TODO unittest
-class AbsScalablePowerLoad(AbsFixedPowerLoad):
+class AbsScalablePowerLoad(FixedPowerLoad):
     """ Scalable Power Load
 
     May be used for sizing load."""

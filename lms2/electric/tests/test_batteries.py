@@ -4,14 +4,14 @@ import unittest
 class TestBattery(unittest.TestCase):
 
     def test_instanciate_battery_v0(self):
-        from lms2 import AbsBatteryV0
+        from lms2 import BatteryV0
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Var
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet(bounds=(0, 1))
-        m.b = AbsBatteryV0()
+        m.b = BatteryV0()
 
         UB = 1e6
 
@@ -79,15 +79,15 @@ class TestBattery(unittest.TestCase):
         self.assertIsInstance(m.b.dp, Var)
 
     def test_battery_v0(self):
-        from lms2 import AbsBatteryV0, AbsPowerLoad, AbsFixedPowerLoad, AbsLModel
+        from lms2 import BatteryV0, AbsPowerLoad, FixedPowerLoad, AbsLModel
         from pyomo.environ import TransformationFactory, SolverFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Arc
 
         m = AbsLModel()
         m.time = ContinuousSet()
-        m.b = AbsBatteryV0()
-        m.pl = AbsFixedPowerLoad()
+        m.b = BatteryV0()
+        m.pl = FixedPowerLoad()
         m.ps = AbsPowerLoad()
         m.arc1 = Arc(source=m.b.outlet, dest=m.pl.inlet)
         m.arc2 = Arc(source=m.b.outlet, dest=m.ps.inlet)
@@ -152,15 +152,15 @@ class TestBattery(unittest.TestCase):
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
 
     def test_battery_v1(self):
-        from lms2 import AbsBatteryV1, AbsPowerLoad, AbsFixedPowerLoad, AbsLModel
+        from lms2 import BatteryV1, AbsPowerLoad, FixedPowerLoad, AbsLModel
         from pyomo.environ import TransformationFactory, SolverFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Arc
 
         m = AbsLModel()
         m.time = ContinuousSet()
-        m.b = AbsBatteryV1()
-        m.pl = AbsFixedPowerLoad()
+        m.b = BatteryV1()
+        m.pl = FixedPowerLoad()
         m.ps = AbsPowerLoad()
         m.arc1 = Arc(source=m.b.outlet, dest=m.pl.inlet)
         m.arc2 = Arc(source=m.b.outlet, dest=m.ps.inlet)
@@ -225,7 +225,7 @@ class TestBattery(unittest.TestCase):
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
 
     def test_battery_v2(self):
-        from lms2 import AbsBatteryV2, AbsPowerLoad, AbsFixedPowerLoad, AbsLModel
+        from lms2 import AbsBatteryV2, AbsPowerLoad, FixedPowerLoad, AbsLModel
         from pyomo.environ import TransformationFactory, SolverFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Arc
@@ -233,7 +233,7 @@ class TestBattery(unittest.TestCase):
         m = AbsLModel()
         m.time = ContinuousSet()
         m.b = AbsBatteryV2()
-        m.pl = AbsFixedPowerLoad()
+        m.pl = FixedPowerLoad()
         m.ps = AbsPowerLoad()
         m.arc1 = Arc(source=m.b.outlet, dest=m.pl.inlet)
         m.arc2 = Arc(source=m.b.outlet, dest=m.ps.inlet)
