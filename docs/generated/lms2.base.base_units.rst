@@ -9,10 +9,10 @@ base\_units
 	
     .. autosummary::
         :toctree:
+        :nosignatures:
         
         bound_profile
         fix_profile
-        set_profile
         
         
 
@@ -24,24 +24,13 @@ base\_units
         :template: class.rst
         :toctree:
         
-        Abs
-        AbsDynUnit
-        AbsEffortSource
-        AbsFixedFlowLoad
-        AbsFixedFlowSource
-        AbsFlowLoad
-        AbsFlowSource
-        AbsTwoFlowUnit
         DynUnit
-        DynUnitTest
         EffortSource
+        FixedFlowLoad
+        FixedFlowSource
         FlowLoad
         FlowSource
-        ScalableFlowSource
-        SourceUnit
-        SourceUnitParam
-        Storage
-        UnitA
+        TwoFlowUnit
         
         
 	

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.base.base_units.fix_profile &mdash; lms2 0.1.2+38.g951ef3d.dirty documentation</title>
+  <title>lms2.base.base_units.fix_profile &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="lms2.base.base_units.set_profile" href="lms2.base.base_units.set_profile.html" />
+    <link rel="next" title="DynUnit" href="lms2.base.base_units.DynUnit.html" />
     <link rel="prev" title="lms2.base.base_units.bound_profile" href="lms2.base.base_units.bound_profile.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -53,7 +55,7 @@
 
           
             
-            <img src="../_static/Logo-UPSUD_2014_UPSaclay-BLEU.png" class="logo" alt="Logo"/>
+            <img src="../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
           
           </a>
 
@@ -80,16 +82,20 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Tutorial Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples.html#example-of-a-block">2) Example of a block</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Tutorial Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#working-with-pyomo">Working with Pyomo</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples.html#working-with-abstract-model">2) working with abstract model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples.html#example-of-a-block">2) Example of a block</a></li>
 </ul>
 </li>
 </ul>
@@ -98,39 +104,28 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../lms2.html">Library (lms2)</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../lms2.base.html">Base (lms2.base)</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../lms2.html">Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../lms2.base.html">Base</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="lms2.base.base_units.html">base_units</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.bound_profile.html">lms2.base.base_units.bound_profile</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">lms2.base.base_units.fix_profile</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.set_profile.html">lms2.base.base_units.set_profile</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.Abs.html">Abs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsDynUnit.html">AbsDynUnit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsEffortSource.html">AbsEffortSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowLoad.html">AbsFixedFlowLoad</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFixedFlowSource.html">AbsFixedFlowSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowLoad.html">AbsFlowLoad</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsFlowSource.html">AbsFlowSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.AbsTwoFlowUnit.html">AbsTwoFlowUnit</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnitTest.html">DynUnitTest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FixedFlowLoad.html">FixedFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FixedFlowSource.html">FixedFlowSource</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FlowSource.html">FlowSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.ScalableFlowSource.html">ScalableFlowSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.SourceUnit.html">SourceUnit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.SourceUnitParam.html">SourceUnitParam</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.Storage.html">Storage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.UnitA.html">UnitA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.TwoFlowUnit.html">TwoFlowUnit</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.get_doc_2.html">lms2.base.utils.get_doc_2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.core.html">Core (lms2.core)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.core.html">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.core.models.html">models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.core.models.AbsLModel.html">AbsLModel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.core.models.LModel.html">LModel</a></li>
@@ -146,7 +141,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.economic.html">Economic (lms2.economic)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.economic.html">Economic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.economic.cost.html">cost</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.buying_cost.html">lms2.economic.cost.buying_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
@@ -161,44 +156,43 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.electric.html">Electric (lms2.electric)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lms2.electric.abs_batteries.html">abs_batteries</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_batteries.AbsBatteryV0.html">AbsBatteryV0</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_batteries.AbsBatteryV1.html">AbsBatteryV1</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_batteries.AbsBatteryV2.html">AbsBatteryV2</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_batteries.AbsNLBattery.html">AbsNLBattery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="lms2.electric.abs_maingrids.html">abs_maingrids</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_maingrids.def_pin_pout.html">lms2.electric.abs_maingrids.def_pin_pout</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_maingrids.AbsMainGridV0.html">AbsMainGridV0</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_maingrids.AbsMainGridV1.html">AbsMainGridV1</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_maingrids.AbsMainGridV2.html">AbsMainGridV2</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_maingrids.AbsMainGrid_old.html">AbsMainGrid_old</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.maingrids.html">maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.def_pin_pout.html">lms2.electric.maingrids.def_pin_pout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="lms2.electric.abs_sources.html">abs_sources</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsDebugSource.html">AbsDebugSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsFixedPowerLoad.html">AbsFixedPowerLoad</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsFixedPowerSource.html">AbsFixedPowerSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsPowerLoad.html">AbsPowerLoad</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsPowerSource.html">AbsPowerSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsProgrammableLoad.html">AbsProgrammableLoad</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerLoad.html">AbsScalablePowerLoad</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.AbsScalablePowerSource.html">AbsScalablePowerSource</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.abs_sources.PVPanels.html">PVPanels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.DebugSource.html">DebugSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.FixedPowerLoad.html">FixedPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.FixedPowerSource.html">FixedPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PVPanels.html">PVPanels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PowerLoad.html">PowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PowerSource.html">PowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.ProgrammableLoad.html">ProgrammableLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.ScalablePowerLoad.html">ScalablePowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.ScalablePowerSource.html">ScalablePowerSource</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.environment.html">Environment (lms2.environment)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.environment.html">Environment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.environment.ghg.html">ghg</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.environment.ghg.def_linear_ghg_cost.html">lms2.environment.ghg.def_linear_ghg_cost</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids (lms2.fluids)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.fluids.modelCO2.html">modelCO2</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
@@ -206,18 +200,18 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.logical.html">Logical (lms2.logical)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.logical.html">Logical</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.logical.hysteresis.html">hysteresis</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.mechanic.html">Mechanic (lms2.mechanic)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.mechanic.html">Mechanic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.mechanic.gears.html">gears</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.thermal.html">Thermal (lms2.thermal)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.thermal.html">Thermal</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.thermal.dipoles.html">dipoles</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TCond.html">TCond</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TCondRes.html">TCondRes</a></li>
@@ -278,9 +272,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../lms2.html">Library (lms2)</a> &raquo;</li>
+          <li><a href="../lms2.html">Library</a> &raquo;</li>
         
-          <li><a href="../lms2.base.html">Base (lms2.base)</a> &raquo;</li>
+          <li><a href="../lms2.base.html">Base</a> &raquo;</li>
         
           <li><a href="lms2.base.base_units.html">base_units</a> &raquo;</li>
         
@@ -307,28 +301,24 @@
 <h1>lms2.base.base_units.fix_profile<a class="headerlink" href="#lms2-base-base-units-fix-profile" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="lms2.base.base_units.fix_profile">
-<code class="descclassname">lms2.base.base_units.</code><code class="descname">fix_profile</code><span class="sig-paren">(</span><em>m</em>, <em>flow_name='flow'</em>, <em>index_name='profile_index'</em>, <em>profile_name='profile_value'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/base/base_units.html#fix_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.base.base_units.fix_profile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">lms2.base.base_units.</code><code class="sig-name descname">fix_profile</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">flow_name='flow'</em>, <em class="sig-param">index_name='profile_index'</em>, <em class="sig-param">profile_name='profile_value'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/base/base_units.html#fix_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.base.base_units.fix_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method for fixing a variable to a given dynamic profile.</p>
 <p>It replaces the variable “flow_name” by a parameter, whom initialization
 corresponds to the interpolation of a given profile with respect to his profile index.
 It generates One Set, named index_name, one Parameter, named profile_name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>m</strong> – Block</li>
-<li><strong>flow_name</strong> (<em>str</em>) – name of the value to be fixed</li>
-<li><strong>index_name</strong> – name of the index set</li>
-<li><strong>profile_name</strong> – name of the profile parameter</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – Block</p></li>
+<li><p><strong>flow_name</strong> (<em>str</em>) – name of the value to be fixed</p></li>
+<li><p><strong>index_name</strong> – name of the index set</p></li>
+<li><p><strong>profile_name</strong> – name of the profile parameter</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -341,10 +331,10 @@ It generates One Set, named index_name, one Parameter, named profile_name.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="lms2.base.base_units.set_profile.html" class="btn btn-neutral float-right" title="lms2.base.base_units.set_profile" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lms2.base.base_units.DynUnit.html" class="btn btn-neutral float-right" title="DynUnit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="lms2.base.base_units.bound_profile.html" class="btn btn-neutral" title="lms2.base.base_units.bound_profile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lms2.base.base_units.bound_profile.html" class="btn btn-neutral float-left" title="lms2.base.base_units.bound_profile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -370,26 +360,16 @@ It generates One Set, named index_name, one Parameter, named profile_name.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

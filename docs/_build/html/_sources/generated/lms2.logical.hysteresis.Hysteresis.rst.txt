@@ -6,11 +6,3 @@ Hysteresis
 .. autoclass:: Hysteresis
 	:members:
 	:undoc-members:
-	
-	
-	
-		
-	
-	
-	
-		

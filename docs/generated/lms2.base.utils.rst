@@ -9,7 +9,9 @@ utils
 	
     .. autosummary::
         :toctree:
+        :nosignatures:
         
+        get_doc_2
         pplot
         
         

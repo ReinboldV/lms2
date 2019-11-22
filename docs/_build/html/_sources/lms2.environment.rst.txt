@@ -1,5 +1,5 @@
-Environment (lms2\.environment)
-===============================
+Environment
+===========
 
 .. currentmodule:: lms2.environment
 

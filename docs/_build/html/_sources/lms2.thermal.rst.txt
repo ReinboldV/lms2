@@ -1,5 +1,5 @@
-Thermal (lms2\.thermal)
-=======================
+Thermal
+=======
 
 .. currentmodule:: lms2.thermal
 

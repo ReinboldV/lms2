@@ -9,6 +9,7 @@ cost
 	
     .. autosummary::
         :toctree:
+        :nosignatures:
         
         buying_cost
         def_absolute_cost

@@ -6,11 +6,3 @@ ModelCO2
 .. autoclass:: ModelCO2
 	:members:
 	:undoc-members:
-	
-	
-	
-		
-	
-	
-	
-		

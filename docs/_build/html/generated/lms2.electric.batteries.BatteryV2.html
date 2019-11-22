@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>BatteryV2 &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NLBattery" href="lms2.electric.batteries.NLBattery.html" />
+    <link rel="prev" title="BatteryV1" href="lms2.electric.batteries.BatteryV1.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lms2
+          
+
+          
+            
+            <img src="../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Tutorial Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#working-with-pyomo">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples.html#working-with-abstract-model">2) working with abstract model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples.html#example-of-a-block">2) Example of a block</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../lms2.html">Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.base.base_units.html">base_units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.bound_profile.html">lms2.base.base_units.bound_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.fix_profile.html">lms2.base.base_units.fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.DynUnit.html">DynUnit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.EffortSource.html">EffortSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FixedFlowLoad.html">FixedFlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FixedFlowSource.html">FixedFlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FlowLoad.html">FlowLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.FlowSource.html">FlowSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.base_units.TwoFlowUnit.html">TwoFlowUnit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.get_doc_2.html">lms2.base.utils.get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.time.html">time</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.time.Time.html">Time</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.units.html">units</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.units.Unit.html">Unit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.economic.html">Economic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.buying_cost.html">lms2.economic.cost.buying_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_absolute_cost.html">lms2.economic.cost.def_absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_bilinear_cost.html">lms2.economic.cost.def_bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_bilinear_dynamic_cost.html">lms2.economic.cost.def_bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_linear_cost.html">lms2.economic.cost.def_linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.def_linear_dyn_cost.html">lms2.economic.cost.def_linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.maingrids.html">maingrids</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.def_pin_pout.html">lms2.electric.maingrids.def_pin_pout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.DebugSource.html">DebugSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.FixedPowerLoad.html">FixedPowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.FixedPowerSource.html">FixedPowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PVPanels.html">PVPanels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PowerLoad.html">PowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.PowerSource.html">PowerSource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.ProgrammableLoad.html">ProgrammableLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.ScalablePowerLoad.html">ScalablePowerLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.ScalablePowerSource.html">ScalablePowerSource</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.environment.html">Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.environment.ghg.def_linear_ghg_cost.html">lms2.environment.ghg.def_linear_ghg_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.logical.hysteresis.html">hysteresis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.logical.hysteresis.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.mechanic.html">Mechanic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.thermal.html">Thermal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.thermal.dipoles.html">dipoles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TCond.html">TCond</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TCondRes.html">TCondRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TConvRes.html">TConvRes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TDipole.html">TDipole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TResNL.html">TResNL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.thermal.dipoles.TStorage.html">TStorage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lms2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../lms2.html">Library</a> &raquo;</li>
+        
+          <li><a href="../lms2.electric.html">Electric</a> &raquo;</li>
+        
+          <li><a href="lms2.electric.batteries.html">batteries</a> &raquo;</li>
+        
+      <li>BatteryV2</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/lms2.electric.batteries.BatteryV2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="batteryv2">
+<h1>BatteryV2<a class="headerlink" href="#batteryv2" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lms2.electric.batteries.BatteryV2">
+<em class="property">class </em><code class="sig-prename descclassname">lms2.electric.batteries.</code><code class="sig-name descname">BatteryV2</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/electric/batteries.html#BatteryV2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.electric.batteries.BatteryV2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bilinear battery Model.</p>
+<p>This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final
+state of charge.
+Efficiency for charge and discharge are considered.
+It exposes one power port using source convention.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variables</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p</p></td>
+<td><p>energy derivative with respect to time</p></td>
+</tr>
+<tr class="row-odd"><td><p>e</p></td>
+<td><p>energy in battery</p></td>
+</tr>
+<tr class="row-even"><td><p>pd</p></td>
+<td><p>discharging power</p></td>
+</tr>
+<tr class="row-odd"><td><p>pc</p></td>
+<td><p>charging power</p></td>
+</tr>
+<tr class="row-even"><td><p>u</p></td>
+<td><p>binary variable</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Derivative Var</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>de</p></td>
+<td><p>variation of energy  with respect to time</p></td>
+</tr>
+<tr class="row-odd"><td><p>dp</p></td>
+<td><p>variation of the battery power with respect to time</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameters</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>emin</p></td>
+<td><p>minimum energy (kWh)</p></td>
+</tr>
+<tr class="row-odd"><td><p>emax</p></td>
+<td><p>maximal energy</p></td>
+</tr>
+<tr class="row-even"><td><p>socmin</p></td>
+<td><p>minimum soc</p></td>
+</tr>
+<tr class="row-odd"><td><p>socmax</p></td>
+<td><p>maximal soc</p></td>
+</tr>
+<tr class="row-even"><td><p>soc0</p></td>
+<td><p>initial state</p></td>
+</tr>
+<tr class="row-odd"><td><p>socf</p></td>
+<td><p>final state</p></td>
+</tr>
+<tr class="row-even"><td><p>dpdmax</p></td>
+<td><p>maximal discharging power</p></td>
+</tr>
+<tr class="row-odd"><td><p>dpcmax</p></td>
+<td><p>maximal charging power</p></td>
+</tr>
+<tr class="row-even"><td><p>pcmax</p></td>
+<td><p>maximal charging power</p></td>
+</tr>
+<tr class="row-odd"><td><p>pdmax</p></td>
+<td><p>maximal discharging power</p></td>
+</tr>
+<tr class="row-even"><td><p>etac</p></td>
+<td><p>charging efficiency</p></td>
+</tr>
+<tr class="row-odd"><td><p>etad</p></td>
+<td><p>discharging efficiency</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Constraints</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>_soc_init</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>_p_init</p></td>
+<td><p>Initialize power</p></td>
+</tr>
+<tr class="row-even"><td><p>_e_min</p></td>
+<td><p>Minimal energy constraint</p></td>
+</tr>
+<tr class="row-odd"><td><p>_e_max</p></td>
+<td><p>Maximal energy constraint</p></td>
+</tr>
+<tr class="row-even"><td><p>_soc_final</p></td>
+<td><p>Final soc constraint</p></td>
+</tr>
+<tr class="row-odd"><td><p>_soc_min</p></td>
+<td><p>Minimal state of charge constraint</p></td>
+</tr>
+<tr class="row-even"><td><p>_soc_max</p></td>
+<td><p>Maximal state of charge constraint</p></td>
+</tr>
+<tr class="row-odd"><td><p>_dpdmax</p></td>
+<td><p>Maximal varation of descharging power constraint</p></td>
+</tr>
+<tr class="row-even"><td><p>_dpcmax</p></td>
+<td><p>Maximal varation of charging power constraint</p></td>
+</tr>
+<tr class="row-odd"><td><p>_pdmax</p></td>
+<td><p>Discharging power bound</p></td>
+</tr>
+<tr class="row-even"><td><p>_pcmax</p></td>
+<td><p>Charging power bound</p></td>
+</tr>
+<tr class="row-odd"><td><p>_p_balance</p></td>
+<td><p>Power balance constraint</p></td>
+</tr>
+<tr class="row-even"><td><p>_e_balance</p></td>
+<td><p>Energy balance constraint</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ports</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>outlet</p></td>
+<td><p>output power of the battery (kW), using source convention</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Expressions</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>soc</p></td>
+<td><p>Expression of the state of charge</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lms2.electric.batteries.NLBattery.html" class="btn btn-neutral float-right" title="NLBattery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lms2.electric.batteries.BatteryV1.html" class="btn btn-neutral float-left" title="BatteryV1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2019, lms2 Developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

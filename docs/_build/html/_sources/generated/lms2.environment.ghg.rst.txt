@@ -9,6 +9,7 @@ ghg
 	
     .. autosummary::
         :toctree:
+        :nosignatures:
         
         def_linear_ghg_cost
         

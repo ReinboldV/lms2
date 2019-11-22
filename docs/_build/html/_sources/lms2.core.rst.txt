@@ -1,5 +1,5 @@
-Core (lms2\.core)
-==================
+Core
+======
 
 .. currentmodule:: lms2.core
 

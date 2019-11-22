@@ -6,17 +6,3 @@ Time
 .. autoclass:: Time
 	:members:
 	:undoc-members:
-	
-	
-	
-	.. rubric:: Methods
-	
-	.. autosummary::
-		
-		~Time.__init__
-		
-		
-	
-	
-	
-		
