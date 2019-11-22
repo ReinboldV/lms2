@@ -42,8 +42,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = ""
     cfg.tag_prefix = "v"
-    cfg.parentdir_prefix = "llmse-"
-    cfg.versionfile_source = "llmse/_version.py"
+    cfg.parentdir_prefix = "lms2-"
+    cfg.versionfile_source = "lms2/_version.py"
     cfg.verbose = False
     return cfg
 
