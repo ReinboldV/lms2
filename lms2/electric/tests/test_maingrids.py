@@ -5,14 +5,14 @@ class TestAbsMainGridV0(TestCase):
 
     def test_mgv0(self):
 
-        from lms2 import AbsMainGridV0
+        from lms2 import MainGridV0
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Var
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet(bounds=(0, 1))
-        m.mg = AbsMainGridV0()
+        m.mg = MainGridV0()
 
         data_main_grid_v0 = {
             'time': {None: [0, 2]},
@@ -38,14 +38,14 @@ class TestAbsMainGridV1(TestCase):
 
     def test_mgv1(self):
 
-        from lms2 import AbsMainGridV1
+        from lms2 import MainGridV1
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Var
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet(bounds=(0, 1))
-        m.mg = AbsMainGridV1()
+        m.mg = MainGridV1()
 
         data_main_grid_v1 = {
             'time':      {None: [0, 2]},
@@ -69,14 +69,14 @@ class TestAbsMainGridV2(TestCase):
 
     def test_mgv2(self):
 
-        from lms2 import AbsMainGridV2
+        from lms2 import MainGridV2
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Var
         from pyomo.dae import ContinuousSet
         from pyomo.network import Port
 
         m = AbstractModel()
         m.time = ContinuousSet(bounds=(0, 1))
-        m.mg = AbsMainGridV2()
+        m.mg = MainGridV2()
 
         data_main_grid_v2 = {
             'time':             {None: [0, 2]},

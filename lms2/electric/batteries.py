@@ -12,7 +12,7 @@ from pyomo.network import Port
 
 from lms2 import DynUnit
 
-__all__ = ['BatteryV0', 'BatteryV1', 'AbsBatteryV2']
+__all__ = ['BatteryV0', 'BatteryV1', 'BatteryV2']
 
 UB = 10e6
 
@@ -44,53 +44,65 @@ class BatteryV0(DynUnit):
     For fixing initial en final state of charge, consider using `AbsBatteryV1`.
     It exposes one power port using source convention.
 
-
-    **Variables:**
-
-    - p           energy derivative with respect to time
-    - e           energy in battery
-
-    **DerivativeVar:**
-
-    - de          variation of energy  with respect to time
-    - dp          variation of the battery power with respect to time
-
-    **Param:**
-
-    - emin        minimum energy (kWh)
-    - emax        maximal energy
-    - e0          initial state
-    - ef          final state
-    - etac        charging efficiency
-    - etad        discharging efficiency
-    - dpdmax      maximal discharging power
-    - dpcmax      maximal charging power
-    - pcmax       maximal charging power
-    - pdmax       maximal discharging power
-
-    **Constraints:**
-
-    - _e_balance  Energy balance constraint
-    - _p_init     Initialize power
-    - _e_initial  Initial energy constraint
-    - _e_final    Final stored energy constraint
-    - _e_min      Minimal energy constraint
-    - _e_max      Maximal energy constraint
-    - _pmax       Power bounds constraint
-    - _dpdmax     Maximal varation of descharging power constraint
-    - _dpcmax     Maximal varation of charging power constraint
-
-    **Ports:**
-
-    - outlet
-
     """
 
     def __init__(self, *args, **kwds):
+        """
+
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        p               energy derivative with respect to time
+        e               energy in battery
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Derivative Var  Documentation
+        =============== ===================================================================
+        de              variation of energy  with respect to time
+        dp              variation of the battery power with respect to time
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        emin            minimum energy (kWh)
+        emax            maximal energy
+        e0              initial state
+        ef              final state
+        etac            charging efficiency
+        etad            discharging efficiency
+        dpdmax          maximal discharging power
+        dpcmax          maximal charging power
+        pcmax           maximal charging power
+        pdmax           maximal discharging power
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        _e_balance      Energy balance constraint
+        _p_init         Initialize power
+        _e_initial      Initial energy constraint
+        _e_final        Final stored energy constraint
+        _e_min          Minimal energy constraint
+        _e_max          Maximal energy constraint
+        _pmax           Power bounds constraint
+        _dpdmax         Maximal varation of descharging power constraint
+        _dpcmax         Maximal varation of charging power constraint
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Ports           Documentation
+        =============== ===================================================================
+        outlet          None
+        =============== ===================================================================
+
+        """
 
         super().__init__(*args, **kwds)
 
-        self.p = Var(self.time, doc='energy derivative with respect to time', initialize=0)
+        self.p = Var(self.time, doc='energy derivative with respect to time', initialize=0) #: initial value: par1
         self.e = Var(self.time, doc='energy in battery', initialize=0)
 
         self.emin = Param(default=0, doc='minimum energy (kWh)', mutable=True, within=NonNegativeReals)
@@ -180,114 +192,67 @@ class BatteryV1(DynUnit):
     This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final
     state of charge. For fixing initial and final energy, consider using `AbsBatteryV0`.
     It exposes one power port using source convention.
-
-    Variables:
-
-        - p           energy derivative with respect to time
-        - e           energy in battery
-
-    DerivativeVar:
-
-        - de          variation of energy  with respect to time
-        - dp          variation of the battery power with respect to time
-
-    Param:
-
-        - emin        minimum energy (kWh)
-        - emax        maximal energy
-        - socmin      minimum soc
-        - socmax      maximal soc
-        - soc0        initial state
-        - socf        final state
-        - dpdmax      maximal discharging power
-        - dpcmax      maximal charging power
-        - pcmax       maximal charging power
-        - pdmax       maximal discharging power
-
-    Constraints:
-
-        - _e_balance  Energy balance constraint
-        - _p_init     Initialize power
-        - _e_min      Minimal energy constraint
-        - _e_max      Maximal energy constraint
-        - _soc_init   Initial soc constraint
-        - _soc_final  Final soc constraint
-        - _soc_min    Minimal state of charge constraint
-        - _soc_max    Maximal state of charge constraint
-        - _pmax       Power bounds constraint
-        - _dpdmax     Maximal varation of descharging power constraint
-        - _dpcmax     Maximal varation of charging power constraint
-
-    Ports:
-
-    - outlet
-
-    Expressions:
-
-    - soc         Expression of the state of charge
-
-
     """
 
     def __init__(self, *args, **kwds):
         """
-        **Blocks:**
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        p               energy derivative with respect to time
+        e               energy in battery
+        =============== ===================================================================
 
-        Sets:
+        =============== ===================================================================
+        Derivative Var  Documentation
+        =============== ===================================================================
+        de              variation of energy  with respect to time
+        dp              variation of the battery power with respect to time
+        =============== ===================================================================
 
-        **Variables:**
-            - p                energy derivative with respect to time
-            - e                energy in battery
-            - pd               discharging power
-            - pc               charging power
-            - u                binary variable
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        emin            minimum energy (kWh)
+        emax            maximal energy
+        socmin          minimum soc
+        socmax          maximal soc
+        soc0            initial state
+        socf            final state
+        dpdmax          maximal discharging power
+        dpcmax          maximal charging power
+        pcmax           maximal charging power
+        pdmax           maximal discharging power
+        =============== ===================================================================
 
-        **DerivativeVar:**
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        _soc_init       None
+        _e_balance      Energy balance constraint
+        _p_init         Initialize power
+        _e_min          Minimal energy constraint
+        _e_max          Maximal energy constraint
+        _soc_final      Final soc constraint
+        _soc_min        Minimal state of charge constraint
+        _soc_max        Maximal state of charge constraint
+        _pmax           Power bounds constraint
+        _dpdmax         Maximal varation of descharging power constraint
+        _dpcmax         Maximal varation of charging power constraint
+        =============== ===================================================================
 
-            - de               variation of energy  with respect to time
-            - dp               variation of the battery power with respect to time
+        =============== ===================================================================
+        Ports           Documentation
+        =============== ===================================================================
+        outlet          output power of the battery (kW), using source convention
+        =============== ===================================================================
 
-        **Param:**
+        =============== ===================================================================
+        Expressions     Documentation
+        =============== ===================================================================
+        soc             Expression of the state of charge
+        =============== ===================================================================
 
-            - emin             minimum energy (kWh)
-            - emax             maximal energy
-            - socmin           minimum soc
-            - socmax           maximal soc
-            - soc0             initial state
-            - socf             final state
-            - dpdmax           maximal discharging power
-            - dpcmax           maximal charging power
-            - pcmax            maximal charging power
-            - pdmax            maximal discharging power
-            - etac             charging efficiency
-            - etad             discharging efficiency
-
-        **Constraints:**
-            - _soc_init        None
-            - _p_init          Initialize power
-            - _e_min           Minimal energy constraint
-            - _e_max           Maximal energy constraint
-            - _soc_final       Final soc constraint
-            - _soc_min         Minimal state of charge constraint
-            - _soc_max         Maximal state of charge constraint
-            - _dpdmax          Maximal varation of descharging power constraint
-            - _dpcmax          Maximal varation of charging power constraint
-            - _pdmax           Discharging power bound
-            - _pcmax           Charging power bound
-            - _p_balance       Power balance constraint
-            - _e_balance       Energy balance constraint
-
-        **Ports:**
-
-            - outlet           output power of the battery (kW), using source convention
-
-        **Expressions:**
-
-            - soc              Expression of the state of charge
-
-
-        :param args:
-        :param kwds:
         """
         super().__init__(*args, **kwds)
 
@@ -393,7 +358,7 @@ class BatteryV1(DynUnit):
                               doc='Expression of the state of charge')
 
 
-class AbsBatteryV2(BatteryV1):
+class BatteryV2(BatteryV1):
     """
     Bilinear battery Model.
 
@@ -404,6 +369,72 @@ class AbsBatteryV2(BatteryV1):
     """
 
     def __init__(self, *args, **kwargs):
+        """
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        p               energy derivative with respect to time
+        e               energy in battery
+        pd              discharging power
+        pc              charging power
+        u               binary variable
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Derivative Var  Documentation
+        =============== ===================================================================
+        de              variation of energy  with respect to time
+        dp              variation of the battery power with respect to time
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        emin            minimum energy (kWh)
+        emax            maximal energy
+        socmin          minimum soc
+        socmax          maximal soc
+        soc0            initial state
+        socf            final state
+        dpdmax          maximal discharging power
+        dpcmax          maximal charging power
+        pcmax           maximal charging power
+        pdmax           maximal discharging power
+        etac            charging efficiency
+        etad            discharging efficiency
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        _soc_init       None
+        _p_init         Initialize power
+        _e_min          Minimal energy constraint
+        _e_max          Maximal energy constraint
+        _soc_final      Final soc constraint
+        _soc_min        Minimal state of charge constraint
+        _soc_max        Maximal state of charge constraint
+        _dpdmax         Maximal varation of descharging power constraint
+        _dpcmax         Maximal varation of charging power constraint
+        _pdmax          Discharging power bound
+        _pcmax          Charging power bound
+        _p_balance      Power balance constraint
+        _e_balance      Energy balance constraint
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Ports           Documentation
+        =============== ===================================================================
+        outlet          output power of the battery (kW), using source convention
+        =============== ===================================================================
+
+        =============== ===================================================================
+        Expressions     Documentation
+        =============== ===================================================================
+        soc             Expression of the state of charge
+        =============== ===================================================================
+
+        """
 
         super().__init__(*args, **kwargs)
 

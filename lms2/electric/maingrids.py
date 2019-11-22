@@ -10,9 +10,9 @@ from pyomo.environ import Constraint, Var, Param, Block, Expression
 from pyomo.environ import NonNegativeReals, Binary
 from pyomo.network import Port
 
-from lms2 import DynUnit, AbsPowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
+from lms2 import DynUnit, PowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
 
-__all__ = ['AbsMainGridV0', 'AbsMainGridV1', 'AbsMainGridV2']
+__all__ = ['MainGridV0', 'MainGridV1', 'MainGridV2']
 
 UB = 10e6
 
@@ -56,7 +56,7 @@ def def_pin_pout(m):
     m._p_balance = Constraint(m.time, rule=_power_balance, doc='power balance')
 
 
-class AbsMainGridV0(AbsPowerSource):
+class MainGridV0(PowerSource):
     """
     Simple MainGrid Unit.
 
@@ -82,7 +82,7 @@ class AbsMainGridV0(AbsPowerSource):
         self.component(flow_name).doc = 'Supplied power from the maingrid (source convention)'
 
 
-class AbsMainGridV1(AbsPowerSource):
+class MainGridV1(PowerSource):
     """
     Main Grid Unit.
 
@@ -124,7 +124,7 @@ class AbsMainGridV1(AbsPowerSource):
         self.instant_cost = def_bilinear_cost(self, var_in='pin', var_out='pout')
 
 
-class AbsMainGridV2(AbsPowerSource):
+class MainGridV2(PowerSource):
     """
     Main Grid Unit v2.
 

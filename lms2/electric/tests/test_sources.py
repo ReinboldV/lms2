@@ -31,14 +31,14 @@ class TestAbsDebugSource(TestCase):
 class TestAbsPrommableLoad(TestCase):
 
     def test_instanciate_prog(self):
-        from lms2 import AbsProgrammableLoad, AbsDebugSource
+        from lms2 import ProgrammableLoad, DebugSource
         from pyomo.environ import AbstractModel, TransformationFactory, Param, Var
         from pyomo.dae import ContinuousSet
         import pandas as pd
 
         m = AbstractModel()
         m.time = ContinuousSet(bounds=(0, 1))
-        m.prog = AbsProgrammableLoad()
+        m.prog = ProgrammableLoad()
 
         UB = 1e6
 

@@ -84,6 +84,81 @@ class Unit(SimpleBlock):
                 if u.is_binary():
                     u.unfix()
 
+    def get_doc_2(self):
+        """
+        dev function to print documentation v2
+
+        :return: doc
+        """
+
+        doc = ""
+
+        if len(list(self.component_objects(ctype=Set))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Sets            Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=Set):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=Block))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Blocks          Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=Block):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=Var))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Variables       Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=Var):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=DerivativeVar))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Derivative Var  Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=DerivativeVar):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=Param))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Parameters      Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=Param):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=Constraint))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Constraints     Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=Constraint):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=Port))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Ports           Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=Port):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=Expression))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'Expressions     Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=Expression):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        return doc
+
     def get_doc(self):
         """
         dev function to print documentation

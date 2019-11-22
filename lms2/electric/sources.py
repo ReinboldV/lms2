@@ -3,17 +3,17 @@
 Electrical sources and loads
 """
 
-from pyomo.environ import PositiveReals, Constraint, Binary
+from pyomo.environ import PositiveReals, Constraint
 
 from lms2 import FlowSource, FixedFlowSource, FlowLoad, FixedFlowLoad
 
-__all__ = ['AbsPowerSource', 'FixedPowerSource', 'AbsScalablePowerSource',
-           'AbsPowerLoad', 'FixedPowerLoad', 'AbsScalablePowerLoad',
-           'AbsProgrammableLoad', 'AbsDebugSource', 'PVPanels']
+__all__ = ['PowerSource', 'FixedPowerSource', 'ScalablePowerSource',
+           'PowerLoad', 'FixedPowerLoad', 'ScalablePowerLoad',
+           'ProgrammableLoad', 'DebugSource', 'PVPanels']
 
 
 # TODO unittest
-class AbsPowerSource(FlowSource):
+class PowerSource(FlowSource):
     """ Simple Power Source.
 
     Exposes a power output port.
@@ -36,7 +36,7 @@ class FixedPowerSource(FixedFlowSource):
 
 
 # TODO unittest
-class AbsScalablePowerSource(FixedPowerSource):
+class ScalablePowerSource(FixedPowerSource):
     """ Scalable Power Source
 
     May be used for sizing sources, such as PV panel, wind turbines, etc."""
@@ -75,7 +75,7 @@ class AbsScalablePowerSource(FixedPowerSource):
         self.outlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Conservative)})
 
 
-class PVPanels(AbsScalablePowerSource):
+class PVPanels(ScalablePowerSource):
     """
     Scalable PV panel module.
 
@@ -87,7 +87,7 @@ class PVPanels(AbsScalablePowerSource):
 
 
 # TODO unittest
-class AbsPowerLoad(FlowLoad):
+class PowerLoad(FlowLoad):
     """ Simple Power Load."""
 
     def __init__(self, *args, flow_name='p', **kwds):
@@ -119,7 +119,7 @@ class FixedPowerLoad(FixedFlowLoad):
 
 
 # TODO unittest
-class AbsScalablePowerLoad(FixedPowerLoad):
+class ScalablePowerLoad(FixedPowerLoad):
     """ Scalable Power Load
 
     May be used for sizing load."""
@@ -155,7 +155,7 @@ class AbsScalablePowerLoad(FixedPowerLoad):
 
 
 # TODO unittest
-class AbsProgrammableLoad(AbsPowerSource):
+class ProgrammableLoad(PowerSource):
     """
     Programmable Load with fixed input profile.
 
@@ -209,7 +209,7 @@ class AbsProgrammableLoad(AbsPowerSource):
         self._delay = Constraint(self.time, rule=_delay, doc='the load follow the profile')
 
 
-class AbsDebugSource(AbsPowerSource):
+class DebugSource(PowerSource):
     """
     Debug Power source.
 
@@ -236,5 +236,5 @@ if __name__ == '__main__':
 
     m = AbstractModel()
     m.time = ContinuousSet(bounds=(0, 1))
-    m.prog = AbsProgrammableLoad()
-    m.b = AbsDebugSource()
+    m.prog = ProgrammableLoad()
+    m.b = DebugSource()

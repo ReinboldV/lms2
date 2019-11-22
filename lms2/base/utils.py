@@ -6,6 +6,7 @@ Utils and tool for linearization and plots
 
 from pandas import Series
 
+__all__ = ['pplot']
 
 def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
     """
@@ -120,18 +121,103 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs)
     return lines, ax, fig
 
 
+def get_doc_2(bloc):
+    """
+    dev function to print documentation v2
+
+    :return: doc
+    """
+    from pyomo.environ import Set, Block, Var, Param, Constraint, Expression
+    from pyomo.dae import DerivativeVar
+    from pyomo.network import Port
+
+    doc = ""
+
+    if len(list(bloc.component_objects(ctype=Set))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Sets            Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=Set):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    if len(list(bloc.component_objects(ctype=Block))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Blocks          Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=Block):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    if len(list(bloc.component_objects(ctype=Var))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Variables       Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=Var):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    if len(list(bloc.component_objects(ctype=DerivativeVar))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Derivative Var  Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=DerivativeVar):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    if len(list(bloc.component_objects(ctype=Param))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Parameters      Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=Param):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    if len(list(bloc.component_objects(ctype=Constraint))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Constraints     Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=Constraint):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    if len(list(bloc.component_objects(ctype=Port))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Ports           Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=Port):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    if len(list(bloc.component_objects(ctype=Expression))) != 0:
+        doc += '=============== ===================================================================\n'
+        doc += 'Expressions     Documentation                                                      \n'
+        doc += '=============== ===================================================================\n'
+        for k in bloc.component_objects(ctype=Expression):
+            doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+        doc += '=============== ===================================================================\n\n'
+
+    return doc
+
+
 if __name__ == '__main__':
 
-    from lms2 import Time, LModel
+    # from lms2 import Time, LModel
+    #
+    # from pyomo.environ import *
+    # import matplotlib.pyplot as plt
+    #
+    # time = Time(start='00:00:00', end='01:00:00', freq='5Min')
+    # m = LModel('test_utils')
+    # m.v = Var(time.datetime, initialize=10)
+    # m.w = Var(time.datetime, initialize=5)
+    # m.z = Var(time.datetime, initialize=3)
+    #
+    # l, a, f = pplot(m.v, m.z, m.w, title='test', Marker='x')
+    # plt.show()
+    from pyomo.environ import AbstractModel
+    from lms2.electric.batteries import BatteryV0
 
-    from pyomo.environ import *
-    import matplotlib.pyplot as plt
-
-    time = Time(start='00:00:00', end='01:00:00', freq='5Min')
-    m = LModel('test_utils')
-    m.v = Var(time.datetime, initialize=10)
-    m.w = Var(time.datetime, initialize=5)
-    m.z = Var(time.datetime, initialize=3)
-
-    l, a, f = pplot(m.v, m.z, m.w, title='test', Marker='x')
-    plt.show()
+    m = AbstractModel()
+    m.b = BatteryV0()
+    print(get_doc_2(m.b))

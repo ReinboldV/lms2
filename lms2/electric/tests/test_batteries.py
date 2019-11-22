@@ -79,7 +79,7 @@ class TestBattery(unittest.TestCase):
         self.assertIsInstance(m.b.dp, Var)
 
     def test_battery_v0(self):
-        from lms2 import BatteryV0, AbsPowerLoad, FixedPowerLoad, AbsLModel
+        from lms2 import BatteryV0, PowerLoad, FixedPowerLoad, AbsLModel
         from pyomo.environ import TransformationFactory, SolverFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Arc
@@ -88,7 +88,7 @@ class TestBattery(unittest.TestCase):
         m.time = ContinuousSet()
         m.b = BatteryV0()
         m.pl = FixedPowerLoad()
-        m.ps = AbsPowerLoad()
+        m.ps = PowerLoad()
         m.arc1 = Arc(source=m.b.outlet, dest=m.pl.inlet)
         m.arc2 = Arc(source=m.b.outlet, dest=m.ps.inlet)
 
@@ -152,7 +152,7 @@ class TestBattery(unittest.TestCase):
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
 
     def test_battery_v1(self):
-        from lms2 import BatteryV1, AbsPowerLoad, FixedPowerLoad, AbsLModel
+        from lms2 import BatteryV1, PowerLoad, FixedPowerLoad, AbsLModel
         from pyomo.environ import TransformationFactory, SolverFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Arc
@@ -161,7 +161,7 @@ class TestBattery(unittest.TestCase):
         m.time = ContinuousSet()
         m.b = BatteryV1()
         m.pl = FixedPowerLoad()
-        m.ps = AbsPowerLoad()
+        m.ps = PowerLoad()
         m.arc1 = Arc(source=m.b.outlet, dest=m.pl.inlet)
         m.arc2 = Arc(source=m.b.outlet, dest=m.ps.inlet)
 
@@ -225,16 +225,16 @@ class TestBattery(unittest.TestCase):
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
 
     def test_battery_v2(self):
-        from lms2 import AbsBatteryV2, AbsPowerLoad, FixedPowerLoad, AbsLModel
+        from lms2 import BatteryV2, PowerLoad, FixedPowerLoad, AbsLModel
         from pyomo.environ import TransformationFactory, SolverFactory
         from pyomo.dae import ContinuousSet
         from pyomo.network import Arc
 
         m = AbsLModel()
         m.time = ContinuousSet()
-        m.b = AbsBatteryV2()
+        m.b = BatteryV2()
         m.pl = FixedPowerLoad()
-        m.ps = AbsPowerLoad()
+        m.ps = PowerLoad()
         m.arc1 = Arc(source=m.b.outlet, dest=m.pl.inlet)
         m.arc2 = Arc(source=m.b.outlet, dest=m.ps.inlet)
 

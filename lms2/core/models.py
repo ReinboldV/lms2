@@ -77,6 +77,7 @@ class LModel(ConcreteModel):
 
         :return:
         """
+
         for u in self.component_objects(Var):
             if u.is_indexed():
                 for ui in u.itervalues():
@@ -93,6 +94,7 @@ class LModel(ConcreteModel):
         :param str dual_name: name of the Suffix
         :return : Dual coefficient (DataFrame)
         """
+
         from pandas import DataFrame, concat
         from pyomo.environ import Constraint
         df = DataFrame()
@@ -194,8 +196,8 @@ class AbsLModel(AbstractModel):
         Fix binary variables to their values
 
         :return:
-
         """
+
         from pyomo.environ import RealSet
 
         for u in self.component_objects(Var):
@@ -226,7 +228,7 @@ class AbsLModel(AbstractModel):
 
     def get_duals(self, dual_name='dual'):
         """
-        Return dual coefficient of LP model.
+        Return dual coefficient of LP abstract model.
 
         :param str dual_name: name of the Suffix
         :return : Dual coefficient (DataFrame)
@@ -250,7 +252,7 @@ class AbsLModel(AbstractModel):
     def get_slack(self):
         """
         Return slack variables values for all
-        the active constraints of a model.
+        the active constraints of a abstract model.
 
         :return: DataFrame
         """

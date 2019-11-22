@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
+
 """
 CO2 concentration in a room
 """
-# from llmse.fluids.io import Vpole
-# from llmse.core.quantity import *
-# from llmse.core.units import TUnit
-
 
 class ModelCO2():
     """  Model of a CO2 concentration in a given volume.
