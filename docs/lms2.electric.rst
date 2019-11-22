@@ -1,12 +1,13 @@
-Electric (lms2\.electric)
-==========================
+Electric
+========
 
 .. currentmodule:: lms2.electric
 
 .. autosummary::
     :template: module.rst
+    :nosignatures:
     :toctree: generated
 
-    abs_batteries
-    abs_maingrids
-    abs_sources
+    batteries
+    maingrids
+    sources

@@ -1,5 +1,5 @@
-Base (lms2\.base)
-==================
+Base
+=====
 
 .. currentmodule:: lms2.base
 

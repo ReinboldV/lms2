@@ -1,5 +1,5 @@
-Fluids (lms2\.fluids)
-=====================
+Fluids
+======
 
 .. currentmodule:: lms2.fluids
 

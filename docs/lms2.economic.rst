@@ -1,10 +1,11 @@
-Economic (lms2\.economic)
-===============================
+Economic
+=========
 
 .. currentmodule:: lms2.economic
 
 .. autosummary::
     :template: module.rst
+    :nosignatures:
     :toctree: generated
 
     cost

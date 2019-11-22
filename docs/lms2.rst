@@ -1,5 +1,5 @@
-Library (lms2)
-==============
+Library
+=======
 .. currentmodule:: lms2
 
 .. toctree::

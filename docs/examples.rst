@@ -1,44 +1,18 @@
 Tutorial Examples
-=================
-
-
-Working with lms2 library components
-------------------------------------
-
-Pyomo supports an object-oriented design for the definition of optimization models. The basic steps of a simple modeling process are:
-
-- Create model and declare components
-- Instantiate the model
-- Apply solver
-- Interrogate solver results
-
-Lms2 library gather mathematical models described using the pyomo mathematical language. All components, e.g. batteries, distribution grid, sources and charges are based on classes that inherite from pyomo Simple Blocks. Available models are classified based on their fields, such as electric, thermal, economic, environement, etc.
-
-Models are then created by aggregating blocks and create connexion, i.e. creating constraints between variable from different block, or gathering objectives of different blocks.
-
-The time is modeled as a continuous set by means of the modeling extension pyomo.dae (See : https://pyomo.readthedocs.io/en/latest/modeling_extensions/dae.html. For now, all blocks has his own time set.
-
-1) Example of model by aggregating blocks of the library
-#########################################################
-
-
-Here is an example of micro-grid model exctrated from on `lms2/template/drahix/abs_drahix.py`
-
-.. literalinclude:: ../lms2/template/drahix/abs_drahix.py
-    :lines: 25-39
-
-2) Example of a block
-#####################
-
-
+*****************
 
 Working with Pyomo
--------------------
+==================
 
-The LMS2 library is based on the pyomo package. Documentation on the pyomo language is available at : https://pyomo.readthedocs.io/en/latest/index.html
+The LMS2 library is based on the pyomo package. Some references for documentation, exercices and examples :
+
+-Documentation on the pyomo language is available at : http://www.pyomo.org/documentation/
+-Get started with Pyomo : https://github.com/Pyomo/PyomoGettingStarted
+-Gallery of state-of-the-art optimization problem : https://github.com/Pyomo/PyomoGallery
+-Pyomo Workshop, slides + exercices + solutions (2018) : http://www.pyomo.org/workshop-examples
 
 1) Simple example using pyomo language
-#######################################
+---------------------------------------
 
 - Creating an basic Model using pyomo package
 
@@ -95,7 +69,7 @@ The LMS2 library is based on the pyomo package. Documentation on the pyomo langu
     >>> 1.0
 
 2) working with abstract model
-###############################
+-------------------------------
 
 Lms2 is based on abstract models that allows a clear separation between the mathematical model and data (i.e. values of parameters, set or initial values). see : https://pyomo.readthedocs.io/en/latest/working_abstractmodels/index.html for more details.
 
@@ -108,4 +82,30 @@ Lms2 is based on abstract models that allows a clear separation between the math
 
 
     inst2 = m.create_instance(data)
+
+
+
+Working with lms2 library components
+====================================
+
+Pyomo supports an object-oriented design for the definition of optimization models. The basic steps of a simple modeling process are:
+
+- Create model and declare components
+- Instantiate the model
+- Apply solver
+- Interrogate solver results
+
+Lms2 library gather mathematical models described using the pyomo mathematical language. All components, e.g. batteries, distribution grid, sources and charges are based on classes that inherite from pyomo Simple Blocks. Available models are classified based on their fields, such as electric, thermal, economic, environement, etc.
+
+Models are then created by aggregating blocks and create connexion, i.e. creating constraints between variable from different block, or gathering objectives of different blocks.
+
+The time is modeled as a continuous set by means of the modeling extension pyomo.dae (See : https://pyomo.readthedocs.io/en/latest/modeling_extensions/dae.html. For now, all blocks has his own time set.
+
+1) Example of model by aggregating blocks of the library
+---------------------------------------------------------
+
+
+2) Example of a block
+------------------------
+
 

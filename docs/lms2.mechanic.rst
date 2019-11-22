@@ -1,5 +1,5 @@
-Mechanic (lms2\.mechanic)
-=========================
+Mechanic
+========
 
 .. currentmodule:: lms2.mechanic
 
