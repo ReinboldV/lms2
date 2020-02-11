@@ -81,7 +81,6 @@ def def_linear_dyn_cost(m, var_name='p'):
     """
     from lms2.base.base_units import fix_profile
 
-
     fix_profile(m, flow_name='cost', index_name='cost_index', profile_name='cost_value')
 
     def _instant_cost(m, t):
@@ -89,7 +88,6 @@ def def_linear_dyn_cost(m, var_name='p'):
 
     return Expression(m.time, rule=_instant_cost,
                       doc=f'instantaneous linear cost (euros/s), associated with variable {var_name}')
-
 
 
 def def_absolute_cost(m, var_name='p'):
@@ -104,25 +102,20 @@ def def_absolute_cost(m, var_name='p'):
 
     abs_var_name = f'abs_{var_name}'
     m.add_component(abs_var_name, Var(m.time, within=NonNegativeReals, initialize=0, doc=f'Absolute value of variable {var_name}'))
-    m.add_component(f'{var_name}_cost', Param(default=1, mutable=True,within=PositiveReals,
+    m.add_component(f'{var_name}_cost', Param(default=1, mutable=True, within=PositiveReals,
                     doc=f'cost associated to the absolute value of {var_name} (euros/kWh)'))
 
+    @m.Constraint(m.time, doc='absolute value constraint 1')
     def _bound1(m, t):
         return m.find_component(abs_var_name)[t] >= -m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
 
+    @m.Constraint(m.time, doc='absolute value constraint 2')
     def _bound2(m, t):
         return m.find_component(abs_var_name)[t] >=  m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
 
+    @m.Expression(m.time, doc=f'instantaneous bilinear cost (euros/s), associated with variable {var_name}')
     def _instant_cost(m, t):
         return m.find_component(abs_var_name)[t] * m.find_component(f'{var_name}_cost') / 3600
-
-    m.add_component(f'_{var_name}_cost_1', Constraint(m.time, rule=_bound1))
-    m.add_component(f'_{var_name}_cost_2', Constraint(m.time, rule=_bound2))
-    # m._cost_bound1 = Constraint(m.time, rule=_bound1)
-    # m._cost_bound2 = Constraint(m.time, rule=_bound2)
-
-    return Expression(m.time, rule=_instant_cost,
-                      doc=f'instantaneous bilinear cost (euros/s), associated with variable {var_name}')
 
 
 def def_bilinear_cost(bl, var_in='p_in', var_out='p_out'):
@@ -167,8 +160,12 @@ def def_bilinear_dynamic_cost(bl, var_in='p_in', var_out='p_out'):
 
     from lms2.base.base_units import fix_profile
 
-    fix_profile(bl, flow_name='cost_in',  index_name='cost_in_index',  profile_name='cost_in_value')
-    fix_profile(bl, flow_name='cost_out', index_name='cost_out_index', profile_name='cost_out_value')
+    fix_profile(bl, flow_name='cost_in',  index_name='cost_in_index',  profile_name='cost_in_value',
+                doc_index=f'index for the dynamic cost related to variable {var_in}',
+                doc_value=f'values for dynamic cost related to variable {var_in}')
+    fix_profile(bl, flow_name='cost_out', index_name='cost_out_index', profile_name='cost_out_value',
+                doc_index=f'index for the dynamic cost related to variable {var_out}',
+                doc_value=f'values for dynamic cost related to variable {var_out}')
 
     def _instant_cost(m, t):
         return (m.find_component(var_out)[t] * m.cost_out[t] - m.find_component(var_in)[t] * m.cost_in[t])/3600
@@ -176,13 +173,16 @@ def def_bilinear_dynamic_cost(bl, var_in='p_in', var_out='p_out'):
     return Expression(bl.time, rule=_instant_cost,
                       doc=f'instantaneous bilinear and dynamic cost, associated with variable {var_in} and {var_out}')
 
+
 # TODO : create maintenance cost, with frequency parameter, and computation for long and short term horizon
 def maintenance_cost(m):
     pass
 
+
 # TODO : create recycling cost, computation for long and short term horizon
 def recycling_cost(m):
     pass
+
 
 # TODO : create buying cost, computation for long and short term horizon
 def buying_cost(m):
@@ -205,6 +205,7 @@ def buying_cost(m):
 # TODO : create replacement cost, computation for long and short term horizon
 def replacement_cost(m):
     pass
+
 
 class _OnePortEconomicUnit(DynUnit):
     """

@@ -2,8 +2,9 @@
 """
 Electrical sources and loads
 """
-
-from pyomo.environ import PositiveReals, Constraint
+from networkx.algorithms import flow
+from pyomo.environ import PositiveReals, Constraint, Var, Param, NonNegativeReals
+from pyomo.network import Port
 
 from lms2 import FlowSource, FixedFlowSource, FlowLoad, FixedFlowLoad
 
@@ -17,10 +18,29 @@ class PowerSource(FlowSource):
     """ Simple Power Source.
 
     Exposes a power output port.
+
+    =============== ===================================================================
+    ContinuousSets  Documentation
+    =============== ===================================================================
+    time            Time continuous set (s)
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p               Power output flow (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          Power output port, using source convention (kW)
+    =============== ===================================================================
+
     """
 
     def __init__(self, *args, flow_name='p', **kwds):
-        super().__init__(*args, flow_name=flow_name, **kwds)
+        super().__init__(*args, flow_name=flow_name, doc_flow='Power output flow (kW)', **kwds)
+
+        self.outlet.doc = 'Power output port, using source convention (kW)'
 
 
 # TODO unittest
@@ -29,6 +49,29 @@ class FixedPowerSource(FixedFlowSource):
     Abstract Fixed Power Source Unit.
 
     Abstract Power Source Unit who's power output is fixed using a given index set and indexed profile.
+
+    =============== ===================================================================
+    Sets            Documentation
+    =============== ===================================================================
+    profile_index   profile index
+    =============== ===================================================================
+    =============== ===================================================================
+    ContinuousSets  Documentation
+    =============== ===================================================================
+    time            Time continuous set (s)
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    profile_value   profile value
+    p               new profile, indexed by time
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          output flow source using source convention
+    =============== ===================================================================
+
     """
 
     def __init__(self, *args, flow_name='p', **kwds):
@@ -39,40 +82,91 @@ class FixedPowerSource(FixedFlowSource):
 class ScalablePowerSource(FixedPowerSource):
     """ Scalable Power Source
 
-    May be used for sizing sources, such as PV panel, wind turbines, etc."""
+    May be used for sizing sources, such as PV panel, wind turbines, etc.
 
-    def __init__(self, *args, flow_name='p', scale_fact='scale_fact', **kwds):
+    =============== ===================================================================
+    Sets            Documentation
+    =============== ===================================================================
+    profile_index   profile index
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p_scaled        Scaled output flow (kW)
+    scale_fact      scaling factor within Positve reals (1)
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    profile_value   profile value
+    p               new profile, indexed by time
+    fact_min        factor lower bound
+    fact_max        factor upper bound
+    =============== ===================================================================
+    =============== ===================================================================
+    Constraints     Documentation
+    =============== ===================================================================
+    _scale_fact_bounds optional bound constraint for the scaling factor.
+    _flow_scaling   Constraint equality for flow scaling
+    _debug_flow_scaling Debug constraint equality for flow scaling
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          output power using source convention
+    =============== ===================================================================
+
+
+    """
+
+    def __init__(self, *args, flow_name='p', scale_fact='scale_fact', curtailable=False, **kwds):
         super().__init__(*args, flow_name=flow_name, **kwds)
 
         scaled_flow_name = flow_name + '_scaled'
+        self.fact_min = Param(default=None, mutable=True, doc='factor lower bound')
+        self.fact_max = Param(default=None, mutable=True, doc='factor upper bound')
 
-        # self.scale_fact = Var(initialize=1, within=PositiveReals, doc='scaling factor within Positve reals')
+        self.add_component(scaled_flow_name, Var(self.time, doc='Scaled output flow (kW)', initialize=0))
+
         self.add_component(scale_fact, Var(initialize=1,
                                            within=PositiveReals,
-                                           doc='scaling factor within Positve reals'))
-        self.add_component(scaled_flow_name, Var(self.time, doc='Scaled source flow'))
+                                           doc='scaling factor within Positve reals (1)'))
 
-        def _flow_scaling(m, t):
-            # return m.find_component(scaled_flow_name)[t] == m.scale_fact*m.find_component(flow_name)[t]
-            return m.find_component(scaled_flow_name)[t] == m.find_component(scale_fact) * m.find_component(flow_name)[
-                t]
+        @self.Constraint(self.time, doc='optional bound constraint for the scaling factor.')
+        def _scale_fact_bounds(m, t):
+            if (m.fact_max.value is None) and (m.fact_min.value is None):
+                return Constraint.Skip
+            else:
+                return m.fact_min, m.find_component(scale_fact), m.fact_max
 
-        def _debug_flow_scaling(m, t):
-            # return -0.000001, \
-            #        m.find_component(scaled_flow_name)[t] - m.scale_fact * m.find_component(flow_name)[t],\
-            #        0.000001
-            return -0.000001, \
-                   m.find_component(scaled_flow_name)[t] - m.find_component(scale_fact) * m.find_component(flow_name)[
-                       t], \
-                   0.000001
+        if curtailable:
+            # creation of a new positive variable, that should be smaller than the production scale_fact*p
+            self.p_curt = Var(self.time, within=NonNegativeReals, doc='curtailed flow (kW)')
 
-        self.flow_scaling = Constraint(self.time, rule=_flow_scaling,
-                                       doc='Constraint equality for flow scaling')
-        self.debug_flow_scaling = Constraint(self.time, rule=_debug_flow_scaling,
-                                             doc='Constraint equality for flow scaling')
+            @self.Constraint(self.time, doc='Constraint equality for flow scaling')
+            def _flow_scaling(m, t):
+                return m.find_component(scaled_flow_name)[t] + m.p_curt[t] == \
+                       m.find_component(scale_fact) * m.find_component(flow_name)[t]
+
+            @self.Constraint(self.time, doc='Curtailment must be smaller than production')
+            def _curt_up_bound(m, t):
+                return 0, m.find_component(scaled_flow_name)[t], None
+
+        else:
+            @self.Constraint(self.time, doc='Constraint equality for flow scaling')
+            def _flow_scaling(m, t):
+                return m.find_component(scaled_flow_name)[t] == \
+                       m.find_component(scale_fact) * m.find_component(flow_name)[t]
+
+            @self.Constraint(self.time, doc='Debug constraint equality for flow scaling')
+            def _debug_flow_scaling(m, t):
+                return -0.000001, m.find_component(scaled_flow_name)[t] - \
+                       m.find_component(scale_fact) * m.find_component(flow_name)[t], 0.000001
 
         self.del_component('outlet')
-        self.outlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Conservative)})
+        self.outlet = Port(initialize={'f': (self.component(scaled_flow_name),
+                                             Port.Extensive,
+                                             {'include_splitfrac': False})}, doc='output power using source convention')
 
 
 class PVPanels(ScalablePowerSource):
@@ -80,10 +174,42 @@ class PVPanels(ScalablePowerSource):
     Scalable PV panel module.
 
     Derives from a Abstract scalable power source.
+
+    =============== ===================================================================
+    Sets            Documentation
+    =============== ===================================================================
+    profile_index   profile index
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p_scaled        Scaled output flow (kW)
+    surf            scaling factor within Positve reals (1)
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    profile_value   profile value
+    p               new profile, indexed by time
+    fact_min        factor lower bound
+    fact_max        factor upper bound
+    =============== ===================================================================
+    =============== ===================================================================
+    Constraints     Documentation
+    =============== ===================================================================
+    _scale_fact_bounds optional bound constraint for the scaling factor.
+    _flow_scaling   Constraint equality for flow scaling
+    _debug_flow_scaling Debug constraint equality for flow scaling
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          output power using source convention
+    =============== ===================================================================
     """
 
-    def __init__(self):
-        super().__init__(flow_name='p', scale_fact='surf')
+    def __init__(self, **kwds):
+        super().__init__(flow_name='p', scale_fact='surf', **kwds)
 
 
 # TODO unittest
@@ -151,7 +277,7 @@ class ScalablePowerLoad(FixedPowerLoad):
         self.debug_flow_scaling = Constraint(self.time, rule=_debug_flow_scaling,
                                              doc='Constraint equality for flow scaling')
 
-        self.scaled_inlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Conservative)})
+        self.scaled_inlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Extensive, {'include_splitfrac': False})})
 
 
 # TODO unittest
@@ -215,12 +341,49 @@ class DebugSource(PowerSource):
 
     Consist of an unbounded power source to force convergence.
     It is associated to an expensive (positive) cost function.
+
+    =============== ===================================================================
+    ContinuousSets  Documentation
+    =============== ===================================================================
+    time            Time continuous set (s)
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p               Power output flow (kW)
+    abs_p           Absolute value of variable p
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    p_cost          cost associated to the absolute value of p (euros/kWh)
+    =============== ===================================================================
+    =============== ===================================================================
+    Constraints     Documentation
+    =============== ===================================================================
+    _bound1         absolute value constraint 2
+    _bound2         absolute value constraint 1
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          Power output port, using source convention (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Expressions     Documentation
+    =============== ===================================================================
+    _instant_cost   instantaneous bilinear cost (euros/s), associated with variable p
+    =============== ===================================================================
+
+
     """
 
     def __init__(self, *args, flow_name='p', **kwds):
         """
 
         :param str flow_name: name of the variable to be weighted
+
+
         """
         super().__init__(*args, flow_name=flow_name, **kwds)
 

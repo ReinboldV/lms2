@@ -10,9 +10,9 @@ from pyomo.environ import Constraint, Var, Param, Block, Expression
 from pyomo.environ import NonNegativeReals, Binary
 from pyomo.network import Port
 
-from lms2 import DynUnit, PowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
+from lms2 import DynUnit, PowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost, def_linear_dyn_cost
 
-__all__ = ['MainGridV0', 'MainGridV1', 'MainGridV2']
+__all__ = ['MainGridV0', 'MainGridV1', 'MainGridV2', 'MainGridV3']
 
 UB = 10e6
 
@@ -22,7 +22,7 @@ def def_pin_pout(m):
     # In particular, it should not use m.p directly but m.find_component(name_var)
 
     """
-    Defines power 'in' and 'out' variables
+    Defines power flow variables 'in' and 'out'
 
     :param m:
     :return:
@@ -34,9 +34,9 @@ def def_pin_pout(m):
     m.pmax = Param(initialize=UB, mutable=True, doc='maximal power out (kW)')
     m.pmin = Param(initialize=UB, mutable=True, doc='maximal power in (kW)')
 
-    m.pout = Var(m.time, doc='power to the main grid', within=NonNegativeReals, initialize=None)
-    m.pin = Var(m.time, doc='power from the main grid', within=NonNegativeReals, initialize=None)
-    m.u = Var(m.time, doc='binary variable', within=Binary, initialize=None)
+    m.pout = Var(m.time, doc='power to the main grid', within=NonNegativeReals, initialize=0)
+    m.pin = Var(m.time, doc='power from the main grid', within=NonNegativeReals, initialize=0)
+    m.u = Var(m.time, doc='binary variable', within=Binary, initialize=0)
 
     def _power_balance(b, t):
         return b.p[t] - b.pout[t] + b.pin[t] == 0
@@ -63,17 +63,32 @@ class MainGridV0(PowerSource):
     One Power port (named 'p' by default) associated with a simple cost (named 'cost').
     (Source convention)
 
-    Variables:
-        - p           Supplied power from the maingrid (source convention)
+    =============== ===================================================================
+    ContinuousSets  Documentation
+    =============== ===================================================================
+    time            Time continuous set (s)
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p               Supplied power from the maingrid (source convention)
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    cost            simple linear cost, associated with variable p, (euros/kWh)
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          Power output port, using source convention (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Expressions     Documentation
+    =============== ===================================================================
+    instant_cost    instantaneous linear cost (euros/s), associated with variable p
+    =============== ===================================================================
 
-    Param:
-        - cost        simple linear cost, associated with variable p
-
-    Ports:
-        - outlet
-
-    Expressions:
-        - inst_cost  instantaneous linear cost, associated with variable p
     """
 
     def __init__(self, *args, flow_name='p', **kwgs):
@@ -91,28 +106,44 @@ class MainGridV1(PowerSource):
     A binary variable 'u' is declared to tackle the price discontinuity at p=0.
     (Source convention)
 
-    Variables:
-        - p           None
-        - pout        power to the main grid
-        - pin         power from the main grid
-        - u           binary variable
-
-    Param:
-        - pmax        maximal power out (kW)
-        - pmin        maximal power in (kW)
-        - cost_in     buying cost of variable pin
-        - cost_out    selling cost of variable pout
-
-    Constraints:
-        - _pmin       Low bound
-        - _pmax       Up bound
-        - _p_balance  Power balance
-
-    Ports:
-        - outlet      None
-
-    Expressions:
-        - inst_cost  instantaneous bilinear cost, associated with variable pin and pout
+    =============== ===================================================================
+    ContinuousSets  Documentation
+    =============== ===================================================================
+    time            Time continuous set (s)
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p               Power output flow (kW)
+    pout            power to the main grid
+    pin             power from the main grid
+    u               binary variable
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    pmax            maximal power out (kW)
+    pmin            maximal power in (kW)
+    cost_in         buying cost of variable pin (euro/kWh)
+    cost_out        selling cost of variable pout (euro/kWh)
+    =============== ===================================================================
+    =============== ===================================================================
+    Constraints     Documentation
+    =============== ===================================================================
+    _pmin           low bound
+    _pmax           up bound
+    _p_balance      power balance
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          Power output port, using source convention (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Expressions     Documentation
+    =============== ===================================================================
+    instant_cost    instantaneous bilinear cost (euros/s), associated with variable pin and pout
+    =============== ===================================================================
 
     """
 
@@ -133,34 +164,54 @@ class MainGridV2(PowerSource):
     A binary variable 'u' is declared to tackle the price discontinuity at p=0.
     (Source convention)
 
-    Sets:
-        - cost_in_index    None
-        - cost_out_index   None
+    =============== ===================================================================
+    Sets            Documentation
+    =============== ===================================================================
+    cost_in_index   index for the dynamic cost related to variable pin
+    cost_out_index  index for the dynamic cost related to variable pout
+    =============== ===================================================================
+    =============== ===================================================================
+    ContinuousSets  Documentation
+    =============== ===================================================================
+    time            Time continuous set (s)
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p               Power output flow (kW)
+    pout            power to the main grid
+    pin             power from the main grid
+    u               binary variable
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    pmax            maximal power out (kW)
+    pmin            maximal power in (kW)
+    cost_in_value   values for dynamic cost related to variable pin
+    cost_in         new profile, indexed by time
+    cost_out_value  values for dynamic cost related to variable pout
+    cost_out        new profile, indexed by time
+    =============== ===================================================================
+    =============== ===================================================================
+    Constraints     Documentation
+    =============== ===================================================================
+    _pmin           low bound
+    _pmax           up bound
+    _p_balance      power balance
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          Power output port, using source convention (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Expressions     Documentation
+    =============== ===================================================================
+    inst_cost       instantaneous bilinear and dynamic cost, associated with variable pin and pout
+    =============== ===================================================================
 
-    Variables:
-        - p                None
-        - pout             power to the main grid
-        - pin              power from the main grid
-        - u                binary variable
 
-    Param:
-        - pmax             maximal power out (kW)
-        - pmin             maximal power in (kW)
-        - cost_in_value    None
-        - cost_in          None
-        - cost_out_value   None
-        - cost_out         None
-
-    Constraints:
-        - _pmin            Low bound
-        - _pmax            Up bound
-        - _p_balance       Power balance
-
-    Ports:
-        - outlet           None
-
-    Expressions:
-        - inst_cost     instantaneous bilinear and dynamic cost, associated with variable pin and pout
     """
 
     def __init__(self, *args, flow_name='p', **kwgs):
@@ -170,3 +221,54 @@ class MainGridV2(PowerSource):
 
         self.inst_cost = def_bilinear_dynamic_cost(self, var_in='pin', var_out='pout')
 
+
+class MainGridV3(PowerSource):
+    """
+    Main Grid Unit v3.
+
+    Consists of a power source with limits (pmin, pmax),
+    associated with a dynamic cost with respect to time (buying cost and no selling possible).
+    A binary variable 'u' is declared to tackle the price discontinuity at p=0.
+    (Source convention)
+
+    =============== ===================================================================
+    Sets            Documentation
+    =============== ===================================================================
+    cost_index      profile index
+    =============== ===================================================================
+    =============== ===================================================================
+    ContinuousSets  Documentation
+    =============== ===================================================================
+    time            Time continuous set (s)
+    =============== ===================================================================
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p               Power output flow (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    pmax            maximal power out (kW)
+    cost_value      profile value
+    cost            new profile, indexed by time
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    outlet          Power output port, using source convention (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Expressions     Documentation
+    =============== ===================================================================
+    inst_cost       instantaneous linear cost (euros/s), associated with variable p
+    =============== ===================================================================
+
+    """
+
+    def __init__(self, *args, flow_name='p', **kwgs):
+        super().__init__(*args, flow_name=flow_name, **kwgs)
+
+        self.pmax = Param(initialize=UB, mutable=True, doc='maximal power out (kW)')
+
+        self.inst_cost = def_linear_dyn_cost(self, var_name=flow_name)

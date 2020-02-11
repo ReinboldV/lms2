@@ -27,7 +27,7 @@ class DynUnit(Unit):
         from pyomo.dae.contset import ContinuousSet
 
         super().__init__(*args, **kwds)
-        self.time = ContinuousSet()
+        self.time = ContinuousSet(initialize=(0, 1), doc='Time continuous set (s)')
         self.doc = self.__doc__
 
     def get_constraints_values(self):
@@ -67,16 +67,18 @@ class FlowSource(DynUnit):
     """
     Abstract Flow Source Unit.
 
-    Exposes a conservative port for generic flow variable.
+    Exposes a conservative output port for generic flow variable.
     """
 
-    def __init__(self, *args, flow_name='flow', **kwargs):
+    def __init__(self, *args, flow_name='flow', doc_flow='generic flow', **kwargs):
         """
+        :param str doc_flow: documentation for inherited units
         :param str flow_name: name of the flow variable
         """
         super().__init__(*args, **kwargs)
-        self.add_component(flow_name, Var(self.time, initialize=None, within=Reals))
-        self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
+        self.add_component(flow_name, Var(self.time, initialize=0, within=Reals, doc=doc_flow))
+        self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Extensive, {'include_splitfrac': False})},
+                           doc='output flow port using source convention. ')
 
 
 class FlowLoad(DynUnit):
@@ -93,8 +95,9 @@ class FlowLoad(DynUnit):
         """
 
         super().__init__(*args, **kwargs)
-        self.add_component(flow_name, Var(self.time, initialize=0, within=Reals))
-        self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
+        self.add_component(flow_name, Var(self.time, initialize=0, within=Reals, doc='flow variable'))
+        self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Extensive, {'include_splitfrac': False})},
+                          doc='Input flow inlet, using load convention')
 
 
 class EffortSource(DynUnit):
@@ -138,7 +141,7 @@ def _init_input(m, t,
         raise TypeError(f'{profile_name} is not a instance of Param,'
                         f' but is actually : f{type(m.component(profile_name))}. Cannot proceed.')
 
-    interp_x = list(m.component(index_name).value)
+    interp_x = list(m.component(index_name).value_list)
     interp_y = list(m.component(profile_name).extract_values().values())
     funct = interp1d(interp_x, interp_y, kind='linear', fill_value='extrapolate')
     b = float(funct(t))
@@ -204,7 +207,8 @@ def _set_bounds(m, t,
         return bl, bu
 
 
-def fix_profile(m, flow_name='flow', index_name='profile_index', profile_name='profile_value'):
+def fix_profile(m, flow_name='flow', index_name='profile_index', profile_name='profile_value',
+                doc_index = 'profile index', doc_value='profile value'):
     """
     Method for fixing a variable to a given dynamic profile.
 
@@ -212,23 +216,28 @@ def fix_profile(m, flow_name='flow', index_name='profile_index', profile_name='p
     corresponds to the interpolation of a given profile with respect to his profile index.
     It generates One Set, named index_name, one Parameter, named profile_name.
 
+
     :param m: Block
     :param str flow_name: name of the value to be fixed
     :param index_name: name of the index set
     :param profile_name: name of the profile parameter
+    :param doc_value: documentation for inherited units
+    :param doc_index: documentation for inherited units
     :return: None
     """
 
     def _rule(bl, t):
         return 0
 
-    m.add_component(index_name, Set())
-    m.add_component(profile_name, Param(m.component(index_name), default=_rule))
+    m.add_component(index_name, Set(doc=doc_index))
+    m.add_component(profile_name, Param(m.component(index_name), default=_rule, doc=doc_value))
 
     m.del_component(flow_name)
-    m.add_component(flow_name, Param(m.time, default=lambda bl, t: _init_input(bl, t,
-                                                                               index_name=index_name,
-                                                                               profile_name=profile_name)))
+    m.add_component(flow_name, Param(m.time,
+                                     doc='new profile, indexed by time',
+                                     default=lambda bl, t: _init_input(bl, t,
+                                                                       index_name=index_name,
+                                                                       profile_name=profile_name)))
 
 
 def bound_profile(m, t, flow_name='flow',
@@ -279,8 +288,8 @@ class TwoFlowUnit(DynUnit):
     def __init__(self, *args, flow_names=('flow_in', 'flow_out'), **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.intlet = Port(initialize={'f': (self.component(flow_names[0]), Port.Conservative)})
-        self.outlet = Port(initialize={'f': (self.component(flow_names[1]), Port.Conservative)})
+        self.intlet = Port(initialize={'f': (self.component(flow_names[0]), Port.Extensive, {'include_splitfrac': False})})
+        self.outlet = Port(initialize={'f': (self.component(flow_names[1]), Port.Extensive, {'include_splitfrac': False})})
 
 
 class FixedFlowSource(FlowSource):
@@ -296,7 +305,10 @@ class FixedFlowSource(FlowSource):
         fix_profile(self, flow_name=flow_name, index_name='profile_index', profile_name='profile_value')
 
         self.del_component('outlet')
-        self.outlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
+        self.outlet = Port(initialize={'f': (self.component(flow_name),
+                                             Port.Extensive,
+                                             {'include_splitfrac': False})},
+                           doc='output flow source using source convention')
 
 
 class FixedFlowLoad(FlowLoad):
@@ -315,4 +327,4 @@ class FixedFlowLoad(FlowLoad):
         fix_profile(self, flow_name=flow_name, index_name='profile_index', profile_name='profile_value')
 
         self.del_component('inlet')
-        self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Conservative)})
+        self.inlet = Port(initialize={'f': (self.component(flow_name), Port.Extensive, {'include_splitfrac': False})})

@@ -72,10 +72,10 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
     elif isinstance(variable, Expression):
         if index is None:
-            ld = Series([value(v) for v in variable.values()]).sort_index().plot(label=variable.name.replace('_', '\_'),
+            ld = Series({i: v() for i, v in variable.iteritems()} ).sort_index().plot(label=variable.name.replace('_', '\_'),
                                                                                  fig=fig, ax=ax, **kwarg)
         else:
-            s = Series([value(v) for v in variable.values()])
+            s = Series({i: v() for i, v in variable.iteritems()} ).sort_index()
             s.index = index
             ld = s.plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
 
