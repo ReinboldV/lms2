@@ -90,6 +90,7 @@ class Unit(SimpleBlock):
 
         :return: doc
         """
+        from pyomo.dae import ContinuousSet
 
         doc = ""
 
@@ -98,6 +99,14 @@ class Unit(SimpleBlock):
             doc += 'Sets            Documentation                                                      \n'
             doc += '=============== ===================================================================\n'
             for k in self.component_objects(ctype=Set):
+                doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
+            doc += '=============== ===================================================================\n\n'
+
+        if len(list(self.component_objects(ctype=ContinuousSet))) != 0:
+            doc += '=============== ===================================================================\n'
+            doc += 'ContinuousSets  Documentation                                                      \n'
+            doc += '=============== ===================================================================\n'
+            for k in self.component_objects(ctype=ContinuousSet):
                 doc += '{:<15} {:<50}'.format(k.getname(), str(k.doc)) + '\n'
             doc += '=============== ===================================================================\n\n'
 
