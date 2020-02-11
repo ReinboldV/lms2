@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.electric.sources &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>lms2.electric.sources &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -156,9 +156,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -167,6 +170,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
@@ -292,8 +296,9 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Electrical sources and loads</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">PositiveReals</span><span class="p">,</span> <span class="n">Constraint</span>
+<span class="kn">from</span> <span class="nn">networkx.algorithms</span> <span class="k">import</span> <span class="n">flow</span>
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">PositiveReals</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">NonNegativeReals</span>
+<span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span>
 
 <span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">FlowSource</span><span class="p">,</span> <span class="n">FixedFlowSource</span><span class="p">,</span> <span class="n">FlowLoad</span><span class="p">,</span> <span class="n">FixedFlowLoad</span>
 
@@ -307,10 +312,31 @@
     <span class="sd">&quot;&quot;&quot; Simple Power Source.</span>
 
 <span class="sd">    Exposes a power output port.</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    ContinuousSets  Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    time            Time continuous set (s)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Variables       Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    p               Power output flow (kW)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Ports           Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    outlet          Power output port, using source convention (kW)</span>
+<span class="sd">    =============== ===================================================================</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="n">doc_flow</span><span class="o">=</span><span class="s1">&#39;Power output flow (kW)&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;Power output port, using source convention (kW)&#39;</span></div>
 
 
 <span class="c1"># TODO unittest</span>
@@ -319,6 +345,33 @@
 <span class="sd">    Abstract Fixed Power Source Unit.</span>
 
 <span class="sd">    Abstract Power Source Unit who&#39;s power output is fixed using a given index set and indexed profile.</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Sets            Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    profile_index   profile index</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    ContinuousSets  Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    time            Time continuous set (s)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Parameters      Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    profile_value   profile value</span>
+<span class="sd">    p               new profile, indexed by time</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Ports           Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    outlet          output flow source using source convention</span>
+<span class="sd">    =============== ===================================================================</span>
+
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
@@ -329,40 +382,95 @@
 <div class="viewcode-block" id="ScalablePowerSource"><a class="viewcode-back" href="../../../generated/lms2.electric.sources.ScalablePowerSource.html#lms2.electric.sources.ScalablePowerSource">[docs]</a><span class="k">class</span> <span class="nc">ScalablePowerSource</span><span class="p">(</span><span class="n">FixedPowerSource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Scalable Power Source</span>
 
-<span class="sd">    May be used for sizing sources, such as PV panel, wind turbines, etc.&quot;&quot;&quot;</span>
+<span class="sd">    May be used for sizing sources, such as PV panel, wind turbines, etc.</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">scale_fact</span><span class="o">=</span><span class="s1">&#39;scale_fact&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Sets            Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    profile_index   profile index</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Variables       Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    p_scaled        Scaled output flow (kW)</span>
+<span class="sd">    scale_fact      scaling factor within Positve reals (1)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Parameters      Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    profile_value   profile value</span>
+<span class="sd">    p               new profile, indexed by time</span>
+<span class="sd">    fact_min        factor lower bound</span>
+<span class="sd">    fact_max        factor upper bound</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    ==================== ===================================================================</span>
+<span class="sd">    Constraints          Documentation</span>
+<span class="sd">    ==================== ===================================================================</span>
+<span class="sd">    _scale_fact_bounds   optional bound constraint for the scaling factor.</span>
+<span class="sd">    _flow_scaling        Constraint equality for flow scaling</span>
+<span class="sd">    _debug_flow_scaling  Debug constraint equality for flow scaling</span>
+<span class="sd">    ==================== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Ports           Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    outlet          output power using source convention</span>
+<span class="sd">    =============== ===================================================================</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">scale_fact</span><span class="o">=</span><span class="s1">&#39;scale_fact&#39;</span><span class="p">,</span> <span class="n">curtailable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
         <span class="n">scaled_flow_name</span> <span class="o">=</span> <span class="n">flow_name</span> <span class="o">+</span> <span class="s1">&#39;_scaled&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fact_min</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;factor lower bound&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fact_max</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;factor upper bound&#39;</span><span class="p">)</span>
 
-        <span class="c1"># self.scale_fact = Var(initialize=1, within=PositiveReals, doc=&#39;scaling factor within Positve reals&#39;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scaled output flow (kW)&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                                            <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">,</span>
-                                           <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;scaling factor within Positve reals&#39;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">,</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Scaled source flow&#39;</span><span class="p">))</span>
+                                           <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;scaling factor within Positve reals (1)&#39;</span><span class="p">))</span>
 
-        <span class="k">def</span> <span class="nf">_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="c1"># return m.find_component(scaled_flow_name)[t] == m.scale_fact*m.find_component(flow_name)[t]</span>
-            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span>
-                <span class="n">t</span><span class="p">]</span>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;optional bound constraint for the scaling factor.&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_scale_fact_bounds</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">fact_max</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">fact_min</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">fact_min</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">),</span> <span class="n">m</span><span class="o">.</span><span class="n">fact_max</span>
 
-        <span class="k">def</span> <span class="nf">_debug_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="c1"># return -0.000001, \</span>
-            <span class="c1">#        m.find_component(scaled_flow_name)[t] - m.scale_fact * m.find_component(flow_name)[t],\</span>
-            <span class="c1">#        0.000001</span>
-            <span class="k">return</span> <span class="o">-</span><span class="mf">0.000001</span><span class="p">,</span> \
-                   <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span>
-                       <span class="n">t</span><span class="p">],</span> \
-                   <span class="mf">0.000001</span>
+        <span class="k">if</span> <span class="n">curtailable</span><span class="p">:</span>
+            <span class="c1"># creation of a new positive variable, that should be smaller than the production scale_fact*p</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p_curt</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;curtailed flow (kW)&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_scaling</span><span class="p">,</span>
-                                       <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debug_flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_debug_flow_scaling</span><span class="p">,</span>
-                                             <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+            <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">p_curt</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> \
+                       <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+
+            <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Curtailment must be smaller than production&#39;</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">_curt_up_bound</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">],</span> <span class="kc">None</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> \
+                       <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
+
+            <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Debug constraint equality for flow scaling&#39;</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">_debug_flow_scaling</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mf">0.000001</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> \
+                       <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">scale_fact</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">flow_name</span><span class="p">)[</span><span class="n">t</span><span class="p">],</span> <span class="mf">0.000001</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">del_component</span><span class="p">(</span><span class="s1">&#39;outlet&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span>
+                                             <span class="n">Port</span><span class="o">.</span><span class="n">Extensive</span><span class="p">,</span>
+                                             <span class="p">{</span><span class="s1">&#39;include_splitfrac&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})},</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;output power using source convention&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PVPanels"><a class="viewcode-back" href="../../../generated/lms2.electric.sources.PVPanels.html#lms2.electric.sources.PVPanels">[docs]</a><span class="k">class</span> <span class="nc">PVPanels</span><span class="p">(</span><span class="n">ScalablePowerSource</span><span class="p">):</span>
@@ -370,10 +478,46 @@
 <span class="sd">    Scalable PV panel module.</span>
 
 <span class="sd">    Derives from a Abstract scalable power source.</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Sets            Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    profile_index   profile index</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Variables       Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    p_scaled        Scaled output flow (kW)</span>
+<span class="sd">    surf            scaling factor within Positve reals (1)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Parameters      Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    profile_value   profile value</span>
+<span class="sd">    p               new profile, indexed by time</span>
+<span class="sd">    fact_min        factor lower bound</span>
+<span class="sd">    fact_max        factor upper bound</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    ==================== ===================================================================</span>
+<span class="sd">    Constraints          Documentation</span>
+<span class="sd">    ==================== ===================================================================</span>
+<span class="sd">    _scale_fact_bounds   optional bound constraint for the scaling factor.</span>
+<span class="sd">    _flow_scaling        Constraint equality for flow scaling</span>
+<span class="sd">    _debug_flow_scaling  Debug constraint equality for flow scaling</span>
+<span class="sd">    ==================== ===================================================================</span>
+
+<span class="sd">    ================== ===================================================================</span>
+<span class="sd">    Ports              Documentation</span>
+<span class="sd">    ================== ===================================================================</span>
+<span class="sd">    outlet             output power using source convention</span>
+<span class="sd">    ================== ===================================================================</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">scale_fact</span><span class="o">=</span><span class="s1">&#39;surf&#39;</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">scale_fact</span><span class="o">=</span><span class="s1">&#39;surf&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
 
 
 <span class="c1"># TODO unittest</span>
@@ -441,7 +585,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">debug_flow_scaling</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_debug_flow_scaling</span><span class="p">,</span>
                                              <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Constraint equality for flow scaling&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">scaled_inlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaled_inlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">scaled_flow_name</span><span class="p">),</span> <span class="n">Port</span><span class="o">.</span><span class="n">Extensive</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;include_splitfrac&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})})</span></div>
 
 
 <span class="c1"># TODO unittest</span>
@@ -505,12 +649,54 @@
 
 <span class="sd">    Consist of an unbounded power source to force convergence.</span>
 <span class="sd">    It is associated to an expensive (positive) cost function.</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    ContinuousSets  Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    time            Time continuous set (s)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Variables       Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    p               Power output flow (kW)</span>
+<span class="sd">    abs_p           Absolute value of variable p</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Parameters      Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    p_cost          cost associated to the absolute value of p (euros/kWh)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Constraints     Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    _bound1         absolute value constraint 2</span>
+<span class="sd">    _bound2         absolute value constraint 1</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Ports           Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    outlet          Power output port, using source convention (kW)</span>
+<span class="sd">    =============== ===================================================================</span>
+
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    Expressions     Documentation</span>
+<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    _instant_cost   instantaneous bilinear cost (euros/s), associated with variable p</span>
+<span class="sd">    =============== ===================================================================</span>
+
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param str flow_name: name of the variable to be weighted</span>
+
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">flow_name</span><span class="o">=</span><span class="n">flow_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
@@ -540,7 +726,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>

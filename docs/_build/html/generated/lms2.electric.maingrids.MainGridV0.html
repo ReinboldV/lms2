@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>MainGridV0 &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>MainGridV0 &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -158,9 +158,12 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -169,6 +172,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul>
@@ -305,27 +309,92 @@
 <dd><p>Simple MainGrid Unit.</p>
 <p>One Power port (named ‘p’ by default) associated with a simple cost (named ‘cost’).
 (Source convention)</p>
-<dl class="simple">
-<dt>Variables:</dt><dd><ul class="simple">
-<li><p>p           Supplied power from the maingrid (source convention)</p></li>
-</ul>
-</dd>
-<dt>Param:</dt><dd><ul class="simple">
-<li><p>cost        simple linear cost, associated with variable p</p></li>
-</ul>
-</dd>
-<dt>Ports:</dt><dd><ul class="simple">
-<li><p>outlet</p></li>
-</ul>
-</dd>
-<dt>Expressions:</dt><dd><ul class="simple">
-<li><p>inst_cost  instantaneous linear cost, associated with variable p</p></li>
-</ul>
-</dd>
-</dl>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ContinuousSets</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>Time continuous set (s)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variables</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p</p></td>
+<td><p>Supplied power from the maingrid (source convention)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameters</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cost</p></td>
+<td><p>simple linear cost, associated with variable p, (euros/kWh)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ports</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>outlet</p></td>
+<td><p>Power output port, using source convention (kW)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Expressions</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>instant_cost</p></td>
+<td><p>instantaneous linear cost (euros/s), associated with variable p</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>flow_name</strong> (<em>str</em>) – name of the flow variable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc_flow</strong> (<em>str</em>) – documentation for inherited units</p></li>
+<li><p><strong>flow_name</strong> (<em>str</em>) – name of the flow variable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -352,7 +421,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>

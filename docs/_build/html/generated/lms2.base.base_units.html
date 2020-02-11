@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>base_units &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>base_units &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -158,9 +158,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -169,6 +172,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul>
@@ -335,7 +339,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="lms2.base.base_units.FlowLoad.html#lms2.base.base_units.FlowLoad" title="lms2.base.base_units.FlowLoad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowLoad</span></code></a>(*args[, flow_name])</p></td>
 <td><p>Abstract Flow Load Unit.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="lms2.base.base_units.FlowSource.html#lms2.base.base_units.FlowSource" title="lms2.base.base_units.FlowSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowSource</span></code></a>(*args[, flow_name])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="lms2.base.base_units.FlowSource.html#lms2.base.base_units.FlowSource" title="lms2.base.base_units.FlowSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowSource</span></code></a>(*args[, flow_name, doc_flow])</p></td>
 <td><p>Abstract Flow Source Unit.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="lms2.base.base_units.TwoFlowUnit.html#lms2.base.base_units.TwoFlowUnit" title="lms2.base.base_units.TwoFlowUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TwoFlowUnit</span></code></a>(*args[, flow_names])</p></td>
@@ -365,7 +369,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>

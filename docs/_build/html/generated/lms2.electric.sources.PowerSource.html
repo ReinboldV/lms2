@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PowerSource &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>PowerSource &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -158,9 +158,12 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -169,6 +172,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul class="current">
@@ -304,9 +308,60 @@
 <em class="property">class </em><code class="sig-prename descclassname">lms2.electric.sources.</code><code class="sig-name descname">PowerSource</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">flow_name='p'</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/electric/sources.html#PowerSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.electric.sources.PowerSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple Power Source.</p>
 <p>Exposes a power output port.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ContinuousSets</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>Time continuous set (s)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variables</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p</p></td>
+<td><p>Power output flow (kW)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ports</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>outlet</p></td>
+<td><p>Power output port, using source convention (kW)</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>flow_name</strong> (<em>str</em>) – name of the flow variable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc_flow</strong> (<em>str</em>) – documentation for inherited units</p></li>
+<li><p><strong>flow_name</strong> (<em>str</em>) – name of the flow variable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -333,7 +388,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>

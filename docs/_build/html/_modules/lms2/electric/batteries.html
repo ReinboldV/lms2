@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.electric.batteries &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>lms2.electric.batteries &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -156,9 +156,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -167,6 +170,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
@@ -297,12 +301,13 @@
 
 <span class="kn">from</span> <span class="nn">pyomo.core.kernel.set_types</span> <span class="k">import</span> <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Binary</span>
 <span class="kn">from</span> <span class="nn">pyomo.dae.diffvar</span> <span class="k">import</span> <span class="n">DerivativeVar</span>
+<span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="n">Integral</span>
 <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">PositiveReals</span><span class="p">,</span> <span class="n">Set</span>
 <span class="kn">from</span> <span class="nn">pyomo.network</span> <span class="k">import</span> <span class="n">Port</span>
 
 <span class="kn">from</span> <span class="nn">lms2</span> <span class="k">import</span> <span class="n">DynUnit</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BatteryV0&#39;</span><span class="p">,</span> <span class="s1">&#39;BatteryV1&#39;</span><span class="p">,</span> <span class="s1">&#39;BatteryV2&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BatteryV0&#39;</span><span class="p">,</span> <span class="s1">&#39;BatteryV1&#39;</span><span class="p">,</span> <span class="s1">&#39;BatteryV2&#39;</span><span class="p">,</span> <span class="s1">&#39;BatteryV3&#39;</span><span class="p">]</span>
 
 <span class="n">UB</span> <span class="o">=</span> <span class="mf">10e6</span>
 
@@ -392,8 +397,8 @@
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy derivative with respect to time&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#: initial value: par1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Output power of the battery (kW)&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#: initial value: par1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Energy in battery (kWh)&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">emin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum energy (kWh)&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">emax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal energy&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -413,7 +418,7 @@
                                 <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of the battery power with respect to time&#39;</span><span class="p">,</span>
                                 <span class="n">bounds</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Extensive</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;include_splitfrac&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})})</span>
 
         <span class="k">def</span> <span class="nf">_p_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
@@ -549,16 +554,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">emin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum energy (kWh)&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">emax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal energy&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">socmin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum soc&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pinit</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;initial output power of the battery (default : None)&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">socmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal soc&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">soc0</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;initial state&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">socf</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;final state&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">socf</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;final state&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dpdmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dpcmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pcmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">PositiveReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pcmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal charging power&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">UB</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal discharging power&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">_init_e</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">100</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">100</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">50</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy derivative with respect to time&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_e</span><span class="p">)</span>
@@ -568,12 +577,14 @@
                                 <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of the battery power with respect to time&#39;</span><span class="p">,</span>
                                 <span class="n">bounds</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">dpcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">dpdmax</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Conservative</span><span class="p">)},</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;output power of the battery (kW), &#39;</span>
-                                                                              <span class="s1">&#39;using source convention&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outlet</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="o">.</span><span class="n">Extensive</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;include_splitfrac&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})},</span>
+                           <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;output power of the battery (kW), using source convention&#39;</span><span class="p">)</span>
 
+        <span class="c1"># initializing pinit should not be done, since it can introduce infeasibility in case of moving horizon</span>
         <span class="k">def</span> <span class="nf">_p_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">bounds</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">pinit</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">pinit</span>
             <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
 
         <span class="k">def</span> <span class="nf">_e_min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
@@ -592,12 +603,15 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">pcmax</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">pdmax</span>
 
-        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;initial state of charge&#39;</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">_soc_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
                     <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">soc0</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">100</span>
-            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
 
         <span class="k">def</span> <span class="nf">_soc_final</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">socf</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -763,6 +777,329 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_e_balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_e_balance</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Energy balance constraint&#39;</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="BatteryV3"><a class="viewcode-back" href="../../../generated/lms2.electric.batteries.BatteryV3.html#lms2.electric.batteries.BatteryV3">[docs]</a><span class="k">class</span> <span class="nc">BatteryV3</span><span class="p">(</span><span class="n">BatteryV2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bilinear battery Model.</span>
+
+<span class="sd">    This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final</span>
+<span class="sd">    state of charge.</span>
+<span class="sd">    Efficiency for charge and discharge are considered.</span>
+<span class="sd">    It exposes one power port using source convention.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Variables       Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        p               energy derivative with respect to time</span>
+<span class="sd">        e               energy in battery</span>
+<span class="sd">        pd              discharging power</span>
+<span class="sd">        pc              charging power</span>
+<span class="sd">        u               binary variable</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Derivative Var  Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        de              variation of energy  with respect to time</span>
+<span class="sd">        dp              variation of the battery power with respect to time</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Parameters      Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        emin            minimum energy (kWh)</span>
+<span class="sd">        emax            maximal energy</span>
+<span class="sd">        socmin          minimum soc</span>
+<span class="sd">        socmax          maximal soc</span>
+<span class="sd">        soc0            initial state</span>
+<span class="sd">        socf            final state</span>
+<span class="sd">        dpdmax          maximal discharging power</span>
+<span class="sd">        dpcmax          maximal charging power</span>
+<span class="sd">        pcmax           maximal charging power</span>
+<span class="sd">        pdmax           maximal discharging power</span>
+<span class="sd">        etac            charging efficiency</span>
+<span class="sd">        etad            discharging efficiency</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Constraints     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        _soc_init       None</span>
+<span class="sd">        _p_init         Initialize power</span>
+<span class="sd">        _e_min          Minimal energy constraint</span>
+<span class="sd">        _e_max          Maximal energy constraint</span>
+<span class="sd">        _soc_final      Final soc constraint</span>
+<span class="sd">        _soc_min        Minimal state of charge constraint</span>
+<span class="sd">        _soc_max        Maximal state of charge constraint</span>
+<span class="sd">        _dpdmax         Maximal varation of descharging power constraint</span>
+<span class="sd">        _dpcmax         Maximal varation of charging power constraint</span>
+<span class="sd">        _pdmax          Discharging power bound</span>
+<span class="sd">        _pcmax          Charging power bound</span>
+<span class="sd">        _p_balance      Power balance constraint</span>
+<span class="sd">        _e_balance      Energy balance constraint</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Ports           Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        outlet          output power of the battery (kW), using source convention</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Expressions     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        soc             Expression of the state of charge</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># # TODO : rainflow counting method</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nbrcycles</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">emax</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">etac</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">pd</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">etad</span><span class="p">)</span><span class="o">/</span><span class="mi">3600</span><span class="p">)</span>
+
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Expression</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">cycles</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+
+            <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">/</span> <span class="mi">3600</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">m</span><span class="o">.</span><span class="n">etac</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">pd</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">etad</span>
+                <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">etac</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">pd</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">etad</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                                                <span class="k">for</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)</span> <span class="k">if</span> <span class="n">tmp</span> <span class="o">&lt;</span> <span class="n">t</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">add_phase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;absorption phase&#39;</span><span class="p">)</span>
+        <span class="n">add_phase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;float phase&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mut3&#39;</span><span class="p">,</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;minimal duration of the up time for float phase (h)&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mdt3&#39;</span><span class="p">,</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;minimal duration of the down time for float phase (h)&#39;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">u1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">)</span>
+
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;charging phase is during bulk, absorption or floating phases&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_bulk_pahse</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">u1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">u2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">u3</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="c1"># @self.Constraint(self.time)</span>
+        <span class="c1"># def _absorption_phase(m, t):</span>
+        <span class="c1">#     return 0, m.u[t] + m.u2[t], 1</span>
+        <span class="c1">#</span>
+        <span class="c1"># @self.Constraint(self.time)</span>
+        <span class="c1"># def _float_phase(m, t):</span>
+        <span class="c1">#     return 0, m.u[t] + m.u3[t], 1</span>
+
+        <span class="c1"># redefining the constraint _soc_max such that when u1 = 1, 0 &lt; soc &lt; 100 and when u1 = 0, 0 &lt; soc &lt; socmax</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_soc_max</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_soc_min</span>
+
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal soc constraint&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_soc_max</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">u1</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">u3</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">u2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimal soc constraint&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_soc_min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">e</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">emax</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">u3</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="mi">90</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">u2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="mi">40</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+        <span class="c1"># case where floating phase is not every time followed by a floating phase:</span>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_sequence_2_3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">sd2</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">su3</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>  <span class="c1"># equality constraint if always floating phase</span>
+
+        <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">arange</span>
+
+        <span class="c1"># @self.Constraint(self.time, doc=&#39;minimal time for the full recharging sequence (h)&#39;)</span>
+        <span class="c1"># def _min_t_up2(m, t):</span>
+        <span class="c1">#     for (i, tmp) in enumerate(sorted(m.time)):</span>
+        <span class="c1">#         if t == tmp:</span>
+        <span class="c1">#             idx = i + 1</span>
+        <span class="c1">#             if idx &lt;= 1 or tmp == m.time.last():</span>
+        <span class="c1">#                 return Constraint.Skip</span>
+        <span class="c1">#             else:</span>
+        <span class="c1">#                 return sum([m.su2[m.time[idx - i]] for i in arange(len(m.time) + 1)</span>
+        <span class="c1">#                             if idx - i &gt;= 1 if m.time[idx - i] &gt;= m.time[idx] - m.mut2 * 3600])</span>
+        <span class="c1">#                             &lt;= m.u2[m.time[idx]]</span>
+
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimal time for the full recharging sequence (h)&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_min_t_up3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">mut3</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                        <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">tmp</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">():</span>
+                            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">su3</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="n">i</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                                        <span class="k">if</span> <span class="n">idx</span> <span class="o">-</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">mut3</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">])</span> \
+                                   <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">u3</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+
+        <span class="nd">@self</span><span class="o">.</span><span class="n">BuildAction</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Hack for the last index of the expression using index and time.&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_build_action</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="k">del</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">_start1_3</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()])</span>
+            <span class="k">del</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">_stop3_3</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()])</span>
+            <span class="k">del</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">_start4_3</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()])</span>
+            <span class="k">del</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">_start1_2</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()])</span>
+            <span class="k">del</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">_stop3_2</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()])</span>
+            <span class="k">del</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">_start4_2</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()])</span>
+            <span class="k">del</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">cycles</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">()])</span>
+        <span class="c1">#</span>
+        <span class="c1"># Controlling the number of float_phases</span>
+        <span class="c1"># TODO find a way to properly update the passed state of the variables cycle_passed, u1, sd1, su1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cycle_passed</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;passed cycles of the battery&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_cycles</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal number of cycle between two full charge sequence&#39;</span><span class="p">)</span>
+
+        <span class="c1"># @self.Constraint(self.time, doc=&#39;Imposes a full recharge at least every 25 cycles&#39;)</span>
+        <span class="c1"># def _nbr_charge_complete2(m, t):</span>
+        <span class="c1">#     if t == m.time.last():</span>
+        <span class="c1">#         return Constraint.Skip</span>
+        <span class="c1">#     return m.cycles[t] + m.cycle_passed &lt;= m.max_cycles*(1 + sum([m.sd3[i] for i in m.time if i &lt;= t if i &gt; m.time.first()]))</span>
+
+        <span class="nd">@self</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Imposes a full recharge at least every 25 days&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_nbr_charge_complete3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">last</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">t</span><span class="o">/</span><span class="mi">3600</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">max_cycles</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">su3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">first</span><span class="p">()]))</span>\
+                       <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">cycle_passed</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+        <span class="c1">#</span>
+        <span class="c1"># if 0:</span>
+        <span class="c1">#</span>
+        <span class="c1">#     from pyomo.environ import Piecewise</span>
+        <span class="c1">#</span>
+        <span class="c1">#     self.voc = Var(self.time, within=NonNegativeReals, bounds=(35, 53))</span>
+        <span class="c1">#     del self.soc</span>
+        <span class="c1">#     self.soc = Var(self.time, within=NonNegativeReals, bounds=(0, 100))</span>
+        <span class="c1">#</span>
+        <span class="c1">#     @self.Constraint(self.time)</span>
+        <span class="c1">#     def _s(m, t):</span>
+        <span class="c1">#         return m.soc[t] == 100 * m.e[t] / m.emax</span>
+        <span class="c1">#</span>
+        <span class="c1">#     self.SOC = Set(initialize=[0, 10, 40, 50, 75, 80, 85, 90, 95, 100])</span>
+        <span class="c1">#</span>
+        <span class="c1">#     self._voc_soc = Piecewise(self.time, self.voc, self.soc,</span>
+        <span class="c1">#                               pw_pts=[0, 40, 90, 100],</span>
+        <span class="c1">#                               pw_repn=&#39;SOS2&#39;,</span>
+        <span class="c1">#                               pw_constr_type=&#39;EQ&#39;,</span>
+        <span class="c1">#                               f_rule=lambda m, t, x: vod_soc_lead_acid_gel(x))</span>
+
+
+<div class="viewcode-block" id="add_phase"><a class="viewcode-back" href="../../../generated/lms2.electric.batteries.add_phase.html#lms2.electric.batteries.add_phase">[docs]</a><span class="k">def</span> <span class="nf">add_phase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;new phase&#39;</span><span class="p">,</span> <span class="n">start_up</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shut_down</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>   <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{name}</span><span class="s1"> is running&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;su</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;starting of </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;sd</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;stoping of </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;intermediary binary variable for the &#39;</span>
+                                                                         <span class="n">f</span><span class="s1">&#39;starting-up of </span><span class="si">{name}</span><span class="s1">.&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;intermediary binary variable for the&#39;</span>
+                                                                         <span class="n">f</span><span class="s1">&#39; shutting down of </span><span class="si">{name}</span><span class="s1">.&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;su</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="n">su</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start1_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start1</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 1 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;su</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">su</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mu</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start2_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 2 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mu</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start3_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start3</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 3 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start4</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">mu</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start4_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 4 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">sd</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;sd</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="n">sd</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop1_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop1</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 1 for  </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">sd</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;sd</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sd</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">md</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop2_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 2 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">md</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop3_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop3</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 3 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop4</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">md</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop4_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 4 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="vod_soc_lead_acid_gel"><a class="viewcode-back" href="../../../generated/lms2.electric.batteries.vod_soc_lead_acid_gel.html#lms2.electric.batteries.vod_soc_lead_acid_gel">[docs]</a><span class="k">def</span> <span class="nf">vod_soc_lead_acid_gel</span><span class="p">(</span><span class="n">soc</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">exp</span>
+    <span class="k">return</span> <span class="mi">50</span> <span class="o">-</span> <span class="mf">0.08</span><span class="o">*</span><span class="p">(</span><span class="mi">100</span><span class="o">-</span><span class="n">soc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mi">100</span><span class="o">-</span><span class="n">soc</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(((</span><span class="mi">100</span><span class="o">-</span><span class="n">soc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">85</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="NLBattery"><a class="viewcode-back" href="../../../generated/lms2.electric.batteries.NLBattery.html#lms2.electric.batteries.NLBattery">[docs]</a><span class="k">class</span> <span class="nc">NLBattery</span><span class="p">(</span><span class="n">DynUnit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Non linear Battery model in development</span>
@@ -810,7 +1147,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>

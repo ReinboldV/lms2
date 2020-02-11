@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>batteries &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>batteries &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="BatteryV0" href="lms2.electric.batteries.BatteryV0.html" />
+    <link rel="next" title="lms2.electric.batteries.add_phase" href="lms2.electric.batteries.add_phase.html" />
     <link rel="prev" title="Electric" href="../lms2.electric.html" /> 
 </head>
 
@@ -158,9 +158,12 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -169,6 +172,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul>
@@ -299,6 +303,21 @@
 <span id="batteries"></span><h1>batteries<a class="headerlink" href="#module-lms2.electric.batteries" title="Permalink to this headline">¶</a></h1>
 <p>Batteries’ Module.</p>
 <p>Contains electrical batteries linear models.</p>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="lms2.electric.batteries.add_phase.html#lms2.electric.batteries.add_phase" title="lms2.electric.batteries.add_phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_phase</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html#lms2.electric.batteries.vod_soc_lead_acid_gel" title="lms2.electric.batteries.vod_soc_lead_acid_gel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vod_soc_lead_acid_gel</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Classes</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -315,7 +334,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html#lms2.electric.batteries.BatteryV2" title="lms2.electric.batteries.BatteryV2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatteryV2</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Bilinear battery Model.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="lms2.electric.batteries.NLBattery.html#lms2.electric.batteries.NLBattery" title="lms2.electric.batteries.NLBattery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NLBattery</span></code></a>(*args, **kwds)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="lms2.electric.batteries.BatteryV3.html#lms2.electric.batteries.BatteryV3" title="lms2.electric.batteries.BatteryV3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatteryV3</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Bilinear battery Model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="lms2.electric.batteries.NLBattery.html#lms2.electric.batteries.NLBattery" title="lms2.electric.batteries.NLBattery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NLBattery</span></code></a>(*args, **kwds)</p></td>
 <td><p>Non linear Battery model in development</p></td>
 </tr>
 </tbody>
@@ -330,7 +352,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="lms2.electric.batteries.BatteryV0.html" class="btn btn-neutral float-right" title="BatteryV0" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lms2.electric.batteries.add_phase.html" class="btn btn-neutral float-right" title="lms2.electric.batteries.add_phase" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../lms2.electric.html" class="btn btn-neutral float-left" title="Electric" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -342,7 +364,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>

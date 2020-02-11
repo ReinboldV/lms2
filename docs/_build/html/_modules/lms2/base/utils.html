@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.base.utils &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>lms2.base.utils &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -156,9 +156,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -167,6 +170,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
@@ -298,6 +302,7 @@
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pplot&#39;</span><span class="p">]</span>
 
+
 <span class="k">def</span> <span class="nf">_pplot</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that plots pyomo Variable or Parameter</span>
@@ -362,10 +367,10 @@
 
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">Expression</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">ld</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span><span class="n">value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">),</span>
+            <span class="n">ld</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()}</span> <span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">),</span>
                                                                                  <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span><span class="n">value</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()}</span> <span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
             <span class="n">s</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
             <span class="n">ld</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">),</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
 
@@ -386,6 +391,35 @@
 
 
 <div class="viewcode-block" id="pplot"><a class="viewcode-back" href="../../../generated/lms2.base.utils.pplot.html#lms2.base.utils.pplot">[docs]</a><span class="k">def</span> <span class="nf">pplot</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function that plots pyomo Variable or Parameter</span>
+
+<span class="sd">        :param var: Var or Param to be plotted</span>
+<span class="sd">        :param index: New index for plotting purpose (optional)</span>
+<span class="sd">        :param fig: figure handle (optional)</span>
+<span class="sd">        :param ax: axes handle (optional)</span>
+<span class="sd">        :param kwarg: any Series.plot keyword argument</span>
+<span class="sd">        :return:  line handle, axe handle, figure handle</span>
+
+<span class="sd">    **Returns**</span>
+<span class="sd">        - arg1 the matplotlib.pyplot.Figure handle object</span>
+<span class="sd">        - arg2 the matplotlib.pyplot.Axes handle object</span>
+<span class="sd">        - arg3 the matplotlib.pyplot.Line2D handle object</span>
+
+<span class="sd">    Example::</span>
+<span class="sd">        &gt;&gt;&gt; from lms2.core.models import LModel</span>
+<span class="sd">        &gt;&gt;&gt; from lms2.core.time import Time</span>
+<span class="sd">        &gt;&gt;&gt; from pyomo.environ import Var</span>
+
+<span class="sd">        &gt;&gt;&gt; time = Time(start=&#39;00:00:00&#39;, end=&#39;01:00:00&#39;, freq=&#39;5Min&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; m = LModel(&#39;test_utils&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; m.v = Var(time.datetime, initialize=10)</span>
+<span class="sd">        &gt;&gt;&gt; m.w = Var(time.datetime, initialize=5)</span>
+<span class="sd">        &gt;&gt;&gt; m.z = Var(time.datetime, initialize=3)</span>
+
+<span class="sd">        &gt;&gt;&gt; lines = pplot(m.v, m.z, m.w, title=&#39;test&#39;, Marker=&#39;x&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ncol</span>            <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ncol&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">loc</span>             <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;loc&#39;</span><span class="p">,</span> <span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
@@ -413,9 +447,9 @@
 
 <div class="viewcode-block" id="get_doc_2"><a class="viewcode-back" href="../../../generated/lms2.base.utils.get_doc_2.html#lms2.base.utils.get_doc_2">[docs]</a><span class="k">def</span> <span class="nf">get_doc_2</span><span class="p">(</span><span class="n">bloc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    dev function to print documentation v2</span>
+<span class="sd">    Function that create automatic documentation of a Pyomo block, based on variables, parametres, constraint, etc.</span>
 
-<span class="sd">    :return: doc</span>
+<span class="sd">    :return: Docstring tabular</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Block</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">Expression</span>
     <span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="n">DerivativeVar</span>
@@ -491,20 +525,6 @@
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="c1"># from lms2 import Time, LModel</span>
-    <span class="c1">#</span>
-    <span class="c1"># from pyomo.environ import *</span>
-    <span class="c1"># import matplotlib.pyplot as plt</span>
-    <span class="c1">#</span>
-    <span class="c1"># time = Time(start=&#39;00:00:00&#39;, end=&#39;01:00:00&#39;, freq=&#39;5Min&#39;)</span>
-    <span class="c1"># m = LModel(&#39;test_utils&#39;)</span>
-    <span class="c1"># m.v = Var(time.datetime, initialize=10)</span>
-    <span class="c1"># m.w = Var(time.datetime, initialize=5)</span>
-    <span class="c1"># m.z = Var(time.datetime, initialize=3)</span>
-    <span class="c1">#</span>
-    <span class="c1"># l, a, f = pplot(m.v, m.z, m.w, title=&#39;test&#39;, Marker=&#39;x&#39;)</span>
-    <span class="c1"># plt.show()</span>
     <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">AbstractModel</span>
     <span class="kn">from</span> <span class="nn">lms2.electric.batteries</span> <span class="k">import</span> <span class="n">BatteryV0</span>
 
@@ -523,7 +543,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>

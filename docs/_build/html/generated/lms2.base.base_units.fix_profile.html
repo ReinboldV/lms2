@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.base.base_units.fix_profile &mdash; lms2 0.1.2+46.g4417f26.dirty documentation</title>
+  <title>lms2.base.base_units.fix_profile &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
   
 
   
@@ -158,9 +158,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV3.html">BatteryV3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.NLBattery.html">NLBattery</a></li>
 </ul>
 </li>
@@ -169,6 +172,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV0.html">MainGridV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV1.html">MainGridV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV2.html">MainGridV2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.maingrids.MainGridV3.html">MainGridV3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul>
@@ -301,7 +305,7 @@
 <h1>lms2.base.base_units.fix_profile<a class="headerlink" href="#lms2-base-base-units-fix-profile" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="lms2.base.base_units.fix_profile">
-<code class="sig-prename descclassname">lms2.base.base_units.</code><code class="sig-name descname">fix_profile</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">flow_name='flow'</em>, <em class="sig-param">index_name='profile_index'</em>, <em class="sig-param">profile_name='profile_value'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/base/base_units.html#fix_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.base.base_units.fix_profile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">lms2.base.base_units.</code><code class="sig-name descname">fix_profile</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">flow_name='flow'</em>, <em class="sig-param">index_name='profile_index'</em>, <em class="sig-param">profile_name='profile_value'</em>, <em class="sig-param">doc_index='profile index'</em>, <em class="sig-param">doc_value='profile value'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/base/base_units.html#fix_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.base.base_units.fix_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method for fixing a variable to a given dynamic profile.</p>
 <p>It replaces the variable “flow_name” by a parameter, whom initialization
 corresponds to the interpolation of a given profile with respect to his profile index.
@@ -313,6 +317,8 @@ It generates One Set, named index_name, one Parameter, named profile_name.</p>
 <li><p><strong>flow_name</strong> (<em>str</em>) – name of the value to be fixed</p></li>
 <li><p><strong>index_name</strong> – name of the index set</p></li>
 <li><p><strong>profile_name</strong> – name of the profile parameter</p></li>
+<li><p><strong>doc_value</strong> – documentation for inherited units</p></li>
+<li><p><strong>doc_index</strong> – documentation for inherited units</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -343,7 +349,7 @@ It generates One Set, named index_name, one Parameter, named profile_name.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2015-2019, lms2 Developers
+        &copy; Copyright 2015-2020, lms2 Developers
 
     </p>
   </div>
