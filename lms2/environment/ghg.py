@@ -6,6 +6,7 @@ Contains units and models for emissions
 
 from pyomo.environ import Expression, Param
 
+
 def def_linear_ghg_cost(m, var_name='p_out', init_cost=0):
     """
     Method for adding a linear GHG cost to a given unit.
