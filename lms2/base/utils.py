@@ -8,6 +8,7 @@ from pandas import Series
 
 __all__ = ['pplot']
 
+
 def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
     """
     Function that plots pyomo Variable or Parameter
@@ -97,6 +98,35 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
 def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs):
 
+    """
+    Function that plots pyomo Variable or Parameter
+
+        :param var: Var or Param to be plotted
+        :param index: New index for plotting purpose (optional)
+        :param fig: figure handle (optional)
+        :param ax: axes handle (optional)
+        :param kwarg: any Series.plot keyword argument
+        :return:  line handle, axe handle, figure handle
+
+    **Returns**
+        - arg1 the matplotlib.pyplot.Figure handle object
+        - arg2 the matplotlib.pyplot.Axes handle object
+        - arg3 the matplotlib.pyplot.Line2D handle object
+
+    Example::
+        >>> from lms2.core.models import LModel
+        >>> from lms2.core.time import Time
+        >>> from pyomo.environ import Var
+
+        >>> time = Time(start='00:00:00', end='01:00:00', freq='5Min')
+        >>> m = LModel('test_utils')
+        >>> m.v = Var(time.datetime, initialize=10)
+        >>> m.w = Var(time.datetime, initialize=5)
+        >>> m.z = Var(time.datetime, initialize=3)
+
+        >>> lines = pplot(m.v, m.z, m.w, title='test', Marker='x')
+    """
+
     ncol            = kargs.pop('ncol', 4)
     loc             = kargs.pop('loc', 'lower left')
     bbox_to_anchor  = kargs.pop('bbox_to_anchor',(0, 1.02, 1, 0.2))
@@ -123,9 +153,9 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs)
 
 def get_doc_2(bloc):
     """
-    dev function to print documentation v2
+    Function that create automatic documentation of a Pyomo block, based on variables, parametres, constraint, etc.
 
-    :return: doc
+    :return: Docstring tabular
     """
     from pyomo.environ import Set, Block, Var, Param, Constraint, Expression
     from pyomo.dae import DerivativeVar
@@ -201,20 +231,6 @@ def get_doc_2(bloc):
 
 
 if __name__ == '__main__':
-
-    # from lms2 import Time, LModel
-    #
-    # from pyomo.environ import *
-    # import matplotlib.pyplot as plt
-    #
-    # time = Time(start='00:00:00', end='01:00:00', freq='5Min')
-    # m = LModel('test_utils')
-    # m.v = Var(time.datetime, initialize=10)
-    # m.w = Var(time.datetime, initialize=5)
-    # m.z = Var(time.datetime, initialize=3)
-    #
-    # l, a, f = pplot(m.v, m.z, m.w, title='test', Marker='x')
-    # plt.show()
     from pyomo.environ import AbstractModel
     from lms2.electric.batteries import BatteryV0
 
