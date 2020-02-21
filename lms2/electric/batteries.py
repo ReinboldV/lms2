@@ -5,10 +5,10 @@ Batteries' Module.
 Contains electrical batteries linear models.
 """
 
-from pyomo.core.kernel.set_types import NonNegativeReals, Binary
+from pyomo.core.kernel.set_types import NonNegativeReals, Binary, Integers
 from pyomo.dae.diffvar import DerivativeVar
 from pyomo.dae import Integral
-from pyomo.environ import Constraint, Var, Param, Expression, PositiveReals, Set
+from pyomo.environ import Constraint, Var, Param, Expression, PositiveReals, Set, BuildCheck, ConstraintList, RangeSet
 from pyomo.network import Port
 
 from lms2 import DynUnit
@@ -458,11 +458,9 @@ class BatteryV2(BatteryV1):
         self.del_component('_e_balance')
         self.del_component('_pmax')
 
+        @self.Constraint(self.time, doc='Energy balance constraint')
         def _e_balance(m, t):
-            if not (m.etac.value and m.etad.value == 1.):
-                return m.de[t] == 1 / 3600 * (m.pc[t] * m.etac - m.pd[t] / m.etad)
-            else:
-                return m.de[t] == 1 / 3600 * (m.pc[t] - m.pd[t])
+            return m.de[t] == 1 / 3600 * (m.pc[t] * m.etac - m.pd[t] / m.etad)
 
         def _p_balance(b, t):
             return b.p[t] - b.pd[t] + b.pc[t] == 0
@@ -480,7 +478,6 @@ class BatteryV2(BatteryV1):
         self._pdmax = Constraint(self.time, rule=_pdmax, doc='Discharging power bound')
         self._pcmax = Constraint(self.time, rule=_pcmax, doc='Charging power bound')
         self._p_balance = Constraint(self.time, rule=_p_balance, doc='Power balance constraint')
-        self._e_balance = Constraint(self.time, rule=_e_balance, doc='Energy balance constraint')
 
 
 class BatteryV3(BatteryV2):
@@ -493,137 +490,316 @@ class BatteryV3(BatteryV2):
     It exposes one power port using source convention.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, voc_rule=None, method='linear', **kwargs):
         """
-        =============== ===================================================================
-        Variables       Documentation
-        =============== ===================================================================
-        p               energy derivative with respect to time
-        e               energy in battery
-        pd              discharging power
-        pc              charging power
-        u               binary variable
-        =============== ===================================================================
+        =============== =============== =====================================================================
+        Name            Type            Documentation
+        =============== =============== =====================================================================
+        e               Var             energy in battery
+        md2             Var             intermediary binary variable for the shutting down of absorption phase.
+        md3             Var             intermediary binary variable for the shutting down of float phase.
+        mu2             Var             intermediary binary variable for the starting-up of absorption phase.
+        mu3             Var             intermediary binary variable for the starting-up of float phase.
+        p               Var             energy derivative with respect to time
+        pc              Var             charging power
+        pd              Var             discharging power
+        sd2             Var             stoping of absorption phase
+        sd3             Var             stoping of float phase
+        su2             Var             starting of absorption phase
+        su3             Var             starting of float phase
+        u               Var             binary variable
+        u1              Var             None
+        u2              Var             absorption phase is running
+        u3              Var             float phase is running
+        outlet          Port            output power of the battery (kW), using source convention
+        cycle_passed    Param           passed cycles of the battery
+        dpcmax          Param           maximal charging power
+        dpdmax          Param           maximal discharging power
+        emax            Param           maximal energy
+        emin            Param           minimum energy (kWh)
+        etac            Param           charging efficiency
+        etad            Param           discharging efficiency
+        max_cycles      Param           maximal number of cycle between two full charge sequence
+        mdt3            Param           minimal duration of the down time for float phase (h)
+        mut3            Param           minimal duration of the up time for float phase (h)
+        pcmax           Param           maximal charging power
+        pdmax           Param           maximal discharging power
+        pinit           Param           initial output power of the battery (default : None)
+        soc0            Param           initial state
+        socf            Param           final state
+        socmax          Param           maximal soc
+        socmin          Param           minimum soc
+        nbrcycles       Integral        None
+        cycles          Expression      None
+        soc             Expression      Expression of the state of charge
+        de              DerivativeVar   variation of energy  with respect to time
+        dp              DerivativeVar   variation of the battery power with respect to time
+        time            ContinuousSet   Time continuous set (s)
+        _bulk_phase     Constraint      charging phase is during bulk, absorption or floating phases
+        _dpcmax         Constraint      Maximal varation of charging power constraint
+        _dpdmax         Constraint      Maximal varation of descharging power constraint
+        _e_balance      Constraint      Energy balance constraint
+        _e_max          Constraint      Maximal energy constraint
+        _e_min          Constraint      Minimal energy constraint
+        _min_t_up3      Constraint      minimal time for the full recharging sequence (h)
+        _nbr_charge     Constraint      Imposes a full recharge at least every 25 days
+        _p_balance      Constraint      Power balance constraint
+        _p_init         Constraint      Initialize power
+        _pcmax          Constraint      Charging power bound
+        _pdmax          Constraint      Discharging power bound
+        _sequence_2_3   Constraint      floating phase only after absorption phase
+        _soc_final      Constraint      Final soc constraint
+        _soc_init       Constraint      initial state of charge
+        _soc_max        Constraint      maximal soc constraint
+        _soc_min        Constraint      minimal soc constraint
+        _start1_2       Constraint      start up constraint 1 for absorption phase
+        _start1_3       Constraint      start up constraint 1 for float phase
+        _start2_2       Constraint      start up constraint 2 for absorption phase
+        _start2_3       Constraint      start up constraint 2 for float phase
+        _start3_2       Constraint      start up constraint 3 for absorption phase
+        _start3_3       Constraint      start up constraint 3 for float phase
+        _start4_2       Constraint      start up constraint 4 for absorption phase
+        _start4_3       Constraint      start up constraint 4 for float phase
+        _stop1_2        Constraint      shutting down constraint 1 for  absorption phase
+        _stop1_3        Constraint      shutting down constraint 1 for  float phase
+        _stop2_2        Constraint      shutting down constraint 2 for absorption phase
+        _stop2_3        Constraint      shutting down constraint 2 for float phase
+        _stop3_2        Constraint      shutting down constraint 3 for absorption phase
+        _stop3_3        Constraint      shutting down constraint 3 for float phase
+        _stop4_2        Constraint      shutting down constraint 4 for absorption phase
+        _stop4_3        Constraint      shutting down constraint 4 for float phase
+        _build_action   BuildAction     Hack for the last index of the expression using index and time.
+        =============== =============== =====================================================================
 
-        =============== ===================================================================
-        Derivative Var  Documentation
-        =============== ===================================================================
-        de              variation of energy  with respect to time
-        dp              variation of the battery power with respect to time
-        =============== ===================================================================
-
-        =============== ===================================================================
-        Parameters      Documentation
-        =============== ===================================================================
-        emin            minimum energy (kWh)
-        emax            maximal energy
-        socmin          minimum soc
-        socmax          maximal soc
-        soc0            initial state
-        socf            final state
-        dpdmax          maximal discharging power
-        dpcmax          maximal charging power
-        pcmax           maximal charging power
-        pdmax           maximal discharging power
-        etac            charging efficiency
-        etad            discharging efficiency
-        =============== ===================================================================
-
-        =============== ===================================================================
-        Constraints     Documentation
-        =============== ===================================================================
-        _soc_init       None
-        _p_init         Initialize power
-        _e_min          Minimal energy constraint
-        _e_max          Maximal energy constraint
-        _soc_final      Final soc constraint
-        _soc_min        Minimal state of charge constraint
-        _soc_max        Maximal state of charge constraint
-        _dpdmax         Maximal varation of descharging power constraint
-        _dpcmax         Maximal varation of charging power constraint
-        _pdmax          Discharging power bound
-        _pcmax          Charging power bound
-        _p_balance      Power balance constraint
-        _e_balance      Energy balance constraint
-        =============== ===================================================================
-
-        =============== ===================================================================
-        Ports           Documentation
-        =============== ===================================================================
-        outlet          output power of the battery (kW), using source convention
-        =============== ===================================================================
-
-        =============== ===================================================================
-        Expressions     Documentation
-        =============== ===================================================================
-        soc             Expression of the state of charge
-        =============== ===================================================================
+        :type ocv_rule: Method that return the open circuit voltage with respect to the state of charge.
+        This function is used to compute power profile during absorption phase and floating phase.
 
         """
 
         super().__init__(*args, **kwargs)
 
-        # # TODO : rainflow counting method
+        if method not in ['linear', 'piecewise', 'constant']:
+            raise ValueError(f'method for calculating open circuit voltage should be either '
+                             '`linear, piecewise` or `constant`, but is actually {method}')
+        else:
+            self.method=method
 
-        self.nbrcycles = Integral(self.time, wrt=self.time, rule=lambda m, t: 1/(m.emax)*(m.etac*m.pc[t] + m.pd[t]/m.etad)/3600)
-
-        @self.Expression(self.time)
-        def cycles(m, t):
-
-            return 1 / m.emax / 3600 / 2 * sum([(m.etac * m.pc[m.time[idx + 1]] + m.pd[m.time[idx + 1]] / m.etad
-                + m.etac * m.pc[m.time[idx + 2]] + m.pd[m.time[idx + 2]] / m.etad) * (m.time[idx + 2] - m.time[idx + 1])
-                                                for (idx, tmp) in enumerate(m.time) if tmp < t if idx + 1 >= 0])
-
+        # @self.BuildCheck(doc='Checking the model')
+        # def _build_check(m):
+        #     if (voc_rule is not None) and (not callable(voc_rule)):
+        #         return False
         add_phase(self, prefix='2', name='absorption phase')
         add_phase(self, prefix='3', name='float phase')
 
-        self.add_component(f'mut3', Param(initialize=2, doc=f'minimal duration of the up time for float phase (h)'))
-        self.add_component(f'mdt3', Param(initialize=2, doc=f'minimal duration of the down time for float phase (h)'))
+        self.voc_rule = voc_rule
 
-        self.u1 = Var(self.time, within=Binary)
+        self.mut3   = Param(initialize=4,       doc=f'minimal duration of the up time for float phase (h)')
+        self.mdt3   = Param(initialize=2,       doc=f'minimal duration of the down time for float phase (h)')
+        self.socabs = Param(initialize=85,      doc='Absorption phase : soc lower limit')
+        self.pfloat = Param(initialize=0.250,   doc='Float Phase, losses (kW)')
+        self.u1 = Var(self.time, within=Binary, doc='bulk charging phase')
 
-        @self.Constraint(self.time, doc='charging phase is during bulk, absorption or floating phases')
-        def _bulk_pahse(m, t):
-            return m.u1[t] + m.u2[t] + m.u3[t], 1 - m.u[t]
-
-        # @self.Constraint(self.time)
-        # def _absorption_phase(m, t):
-        #     return 0, m.u[t] + m.u2[t], 1
+        # self.Ufloat = Param(initialize=54, within=NonNegativeReals,
+        #                     doc='Battery voltage during float phase, imposed by the charger (V)')
         #
-        # @self.Constraint(self.time)
-        # def _float_phase(m, t):
-        #     return 0, m.u[t] + m.u3[t], 1
+        # self.Umax = Param(initialize=57, within=NonNegativeReals,
+        #                   doc = 'Battery voltage during the absorption phase, imposed by the charger (V)')
+        #
+        # self.R0 = Param(initialize=0.2, within=NonNegativeReals,
+        #                 doc='Serial resistance R0 of the Thevenin model (Ohm)')
+        #
+        # self.Ifloat = Param(initialize=0, within=NonNegativeReals,
+        #                     doc='Auto discharging current during the floating phase (A). ')
 
-        # redefining the constraint _soc_max such that when u1 = 1, 0 < soc < 100 and when u1 = 0, 0 < soc < socmax
+        from pyomo.environ import Piecewise
+
+        # #############################
+        # OCV modeling
+        # #############################
+
+        if self.method in ['piecewise', 'linear']:
+
+            self.voc = Var(self.time, within=NonNegativeReals,
+                           doc='open circuit voltage (V)')
+
+            # del self.soc
+            # self.soc = Var(self.time, within=NonNegativeReals, bounds=(0, 100))
+            #
+            # @self.Constraint(self.time, doc='Calculus of the state of charge.')
+            # def _s(m, t):
+            #     return m.soc[t] == 100 * m.e[t] / m.emax
+
+        if self.method == 'piecewise':
+
+            self.pw_i     = Set(initialize=[1, 2, 3], ordered=True)
+            self.pw_j     = Set(initialize=[1, 2], ordered=True)
+            self.pw_soc   = Param(self.pw_i, initialize={1: 40, 2: 85, 3: 100})
+            self.pw_voc   = Param(self.pw_i, initialize={1: 49.5, 2: 51, 3: 56})
+            self.pw_pcmax = Param(self.pw_i, initialize={1: 20,   2: 20, 3: 2})
+
+            self.soc_w      = Var(self.pw_i, self.time, bounds=(0, 1))
+            self.pw_u       = Var(self.pw_j, self.time, within=Binary)
+
+            # self.pcM = Var(self.time, within=NonNegativeReals,
+            #                doc='Upper bound of charging power')
+            # self.soc_w0 = Var(self.time, bounds=(0, 1),
+            #                   doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
+            # self.soc_w1 = Var(self.time, bounds=(0, 1),
+            #                   doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
+            # self.soc_w2 = Var(self.time, bounds=(0, 1),
+            #                   doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
+
+            @self.Constraint(self.time)
+            def _sos2_voc1(m, t):
+                # return m.soc_w0[t] + m.soc_w1[t] + m.soc_w2[t], 1
+                return sum([m.soc_w[i, t] for i in m.pw_i]), 1
+
+            @self.Constraint(self.time)
+            def _sos2_pcm2(m, t):
+                # return m.soc_w0[t]*m.pcmax + m.soc_w1[t]*m.pcmax + m.soc_w2[t]*m.pcmax/20 >= m.pc[t]# == m.pcM[t]
+                return sum([m.soc_w[i, t]*m.pw_pcmax[i] for i in m.pw_i]) >= m.pc[t]
+
+            @self.Constraint(self.time)
+            def _sos2_voc2(m, t):
+                # return m.soc_w0[t]*40 + m.soc_w1[t]*85 + m.soc_w2[t]*100, m.soc[t]
+                return sum([m.soc_w[i, t]*m.pw_soc[i] for i in m.pw_i]), m.soc[t]
+
+            @self.Constraint(self.time)
+            def _sos2_voc3(m, t):
+                # return m.soc_w0[t]*49.5 + m.soc_w1[t]*51 + m.soc_w2[t]*56, m.voc[t]
+                return sum([m.soc_w[i, t] * m.pw_voc[i] for i in m.pw_i]), m.voc[t]
+
+            # @self.Constraint(self.time)
+            # def _sos2_voc4(m, t):
+            #     return m.soc_w0[t] <= m.ua[t]
+            #
+            # @self.Constraint(self.time)
+            # def _sos2_voc5(m, t):
+            #     return m.soc_w1[t] <= 1
+            #
+            # @self.Constraint(self.time)
+            # def _sos2_voc6(m, t):
+            #     return m.soc_w2[t] <= 1-m.ua[t]
+
+            @self.Constraint(self.pw_i, self.time)
+            def _sos2_voc4(m, i, t):
+                if i == m.pw_i.first():
+                    return m.soc_w[i, t] <= m.pw_u[i, t]
+                elif i == m.pw_i.last():
+                    return m.soc_w[i, t] <= m.pw_u[i-1, t]
+                else:
+                    return m.soc_w[i, t] <= m.pw_u[i-1, t] + m.pw_u[i, t]
+
+            @self.Constraint(self.time)
+            def _sos2_voc5(m, t):
+                return sum([m.pw_u[j, t] for j in m.pw_j]), 1
+
+            # self._voc_soc = Piecewise(self.time, self.voc, self.soc,
+            #                           pw_pts=self.pw_soc.value_list,
+            #                           pw_repn='SOS2',
+            #                           pw_constr_type='EQ',
+            #                           f_rule=lambda m, t, x: self.voc_rule(x))
+        # if self.method == 'linear':
+        #     self._voc_soc = Piecewise(self.time, self.voc, self.soc,
+        #                               pw_pts=[self.socmin, 100],
+        #                               pw_repn='SOS2',
+        #                               pw_constr_type='EQ',
+        #                               f_rule=lambda m, t, x: self.voc_rule(x))
+
+        # if self.method == 'constant':
+        #     self.socref = Param(initialize=75, doc='Reference soc for calculating ocv')
+
+            # def _init_voc(m, t):
+            #     return m.voc_rule(75)
+            #
+            # self.voc = Param(self.time,
+            #                  initialize= _init_voc,
+            #                  default=51,
+            #                  within= NonNegativeReals,
+            #                  mutable=True,
+            #                  doc='open circuit voltage (V), assumed constant.')
+
+            # @self.Constraint(self.time, doc = 'The open circuit voltage is considered constant at soc = socref')
+            # def _constant_ocv(m, t):
+            #     return m.voc[t] == m.voc_rule(m.socref)
+
+        # ################################
+        # SOC upper and lower constraint
+        # ################################
+
+        # redefining the constraint _soc_max such that when u2 = 1, 0 < soc < 100 and when u1 = 1, 0 < soc < socmax
         del self._soc_max
         del self._soc_min
 
         @self.Constraint(self.time, doc='maximal soc constraint')
         def _soc_max(m, t):
-            return m.e[t]*100/m.emax <= 90*m.u1[t] + 100*(m.u3[t] + m.u2[t] + m.u[t])
+            return m.soc[t] <= m.socabs*m.u1[t] + m.socmax*(m.u3[t] + m.u2[t] + m.u[t])
 
         @self.Constraint(self.time, doc='minimal soc constraint')
         def _soc_min(m, t):
-            return m.e[t]*100/m.emax >= 100*m.u3[t] + 90*m.u2[t] + 40*m.u[t]
+            return m.soc[t] >= m.socmax*m.u3[t] + m.socabs*m.u2[t] + m.socmin*(m.u[t]+m.u1[t])
+
+        # #############################
+        # Bulk phase modeling
+        # #############################
+
+        @self.Constraint(self.time, doc='charging phase is during bulk, absorption or floating phases')
+        def _bulk_phase(m, t):
+            return m.u1[t] + m.u2[t] + m.u3[t], 1 - m.u[t]
+
+        # #############################
+        # Absorption phase modeling
+        # #############################
+
+        # self.y2 = Var(self.time, within=NonNegativeReals,
+        #               doc='intermediary variable for power equality constraint during absorption phase')
+        # del self._pcmax
+
+        # @self.Constraint(self.time, doc='Lower power constraint when charging '
+        #                                 '(either 0 or Pabs during absorption phase)')
+        # def _pcmin(m, t):
+        #     return m.pc[t] >= m.u2[t]*5 #(m.Umax*m.Umax/m.R0/1000 - 51*m.Umax/m.R0/1000)
+
+        # def _pcmax(b, t):
+        #     if b.pcmax.value is None:
+        #         return Constraint.Skip
+        #     return b.pc[t] + b.u[t] * b.pcmax <= b.pcmax
+
+        # @self.Constraint(self.time, doc='Upper power constraint when charging, either 0 when discharging,'
+        #                                 ' or pcM when charging')
+        # def _pcmax2(m, t):
+        #     return m.pc[t] <= m.pcM[t]  #m.u1[t]*m.pcmax + m.u2[t]*5 #  (m.Umax*m.Umax/m.R0/1000 - 51*m.Umax/m.R0/1000)
+
+        # @self.Constraint(self.time, doc='Upper power constraint when charging, either 0 when discharging,'
+        #                                 ' or pcM when charging')
+        # def _pcmax3(m, t):
+        #     return m.pc[t] <= m.pcmax*(1-m.u[t])
+
+        # @self.Constraint(self.time, doc='Product u2 times ocv, constraint 1')
+        # def _product_1(m, t):
+        #     return 0, m.voc[t] - m.y2[t], None
+        #
+        # @self.Constraint(self.time, doc='Product u2 times ocv, constraint 2')
+        # def _product_2(m, t):
+        #     return 0, m.y2[t] - m.voc[t] + m.Umax*(1 - m.u2[t]), None
+        #
+        # @self.Constraint(self.time, doc='Product u2 times ocv, constraint 3')
+        # def _product_3(m, t):
+        #     return 0, m.Umax*m.u2[t] - m.y2[t], None
+
+        # #############################
+        # Floating  phase modeling
+        # #############################
+        del self._p_balance
+
+        @self.Constraint(self.time, doc='Power balance constraint')
+        def _p_balance(b, t):
+            return b.p[t] - b.pd[t] + b.pc[t] + b.u3[t] * b.pfloat == 0
 
         # case where floating phase is not every time followed by a floating phase:
-        @self.Constraint(self.time, doc='')
+        @self.Constraint(self.time, doc='floating phase only after absorption phase')
         def _sequence_2_3(m, t):
             return m.sd2[t] >= m.su3[t]  # equality constraint if always floating phase
-
-        from numpy import arange
-
-        # @self.Constraint(self.time, doc='minimal time for the full recharging sequence (h)')
-        # def _min_t_up2(m, t):
-        #     for (i, tmp) in enumerate(sorted(m.time)):
-        #         if t == tmp:
-        #             idx = i + 1
-        #             if idx <= 1 or tmp == m.time.last():
-        #                 return Constraint.Skip
-        #             else:
-        #                 return sum([m.su2[m.time[idx - i]] for i in arange(len(m.time) + 1)
-        #                             if idx - i >= 1 if m.time[idx - i] >= m.time[idx] - m.mut2 * 3600])
-        #                             <= m.u2[m.time[idx]]
 
         @self.Constraint(self.time, doc='minimal time for the full recharging sequence (h)')
         def _min_t_up3(m, t):
@@ -636,9 +812,32 @@ class BatteryV3(BatteryV2):
                         if idx <= 1 or tmp == m.time.last():
                             return Constraint.Skip
                         else:
-                            return sum([m.su3[m.time[idx - i]] for i in arange(len(m.time) + 1)
+                            return sum([m.su3[m.time[idx - i]] for i in range(len(m.time) + 1)
                                         if idx - i >= 1 if m.time[idx - i] >= m.time[idx] - m.mut3 * 3600]) \
                                    <= m.u3[m.time[idx]]
+
+        # #############################
+        # Cycling modeling
+        # #############################
+
+        # TODO find a way to properly update the passed state of the variables cycle_passed, u1, sd1, su1
+        self.cycle_passed = Param(initialize=0, doc='passed cycles of the battery')
+        self.max_cycles = Param(initialize=10, doc='maximal number of cycle between two full charge sequence')
+
+        @self.Expression(self.time)
+        def cycles(m, t):
+            return 1 / m.emax / 3600 / 2 * sum([(m.etac * m.pc[m.time[idx + 1]] + m.pd[m.time[idx + 1]] / m.etad
+                                                 + m.etac * m.pc[m.time[idx + 2]] + m.pd[m.time[idx + 2]] / m.etad) * (
+                                                            m.time[idx + 2] - m.time[idx + 1])
+                                                for (idx, tmp) in enumerate(m.time) if tmp < t if idx + 1 >= 0])
+
+        @self.Constraint(self.time, doc='Imposes a full recharge at least every 25 days')
+        def _nbr_charge(m, t):
+            if t == m.time.last():
+                return Constraint.Skip
+            else:
+                return t/3600/24, m.max_cycles*(1 + sum([m.su3[i] for i in m.time if i <= t if i > m.time.first()]))\
+                       - m.cycle_passed, None
 
         @self.BuildAction(doc='Hack for the last index of the expression using index and time.')
         def _build_action(m):
@@ -649,50 +848,56 @@ class BatteryV3(BatteryV2):
             del (m._stop3_2[m.time.last()])
             del (m._start4_2[m.time.last()])
             del (m.cycles[m.time.last()])
-        #
-        # Controlling the number of float_phases
-        # TODO find a way to properly update the passed state of the variables cycle_passed, u1, sd1, su1
-        self.cycle_passed = Param(initialize=0, doc='passed cycles of the battery')
-        self.max_cycles = Param(initialize=10, doc='maximal number of cycle between two full charge sequence')
+
+        # self.nbrcycles = Integral(self.time, wrt=self.time,
+        # rule=lambda m, t: 1/(m.emax)*(m.etac*m.pc[t] + m.pd[t]/m.etad)/3600)
 
         # @self.Constraint(self.time, doc='Imposes a full recharge at least every 25 cycles')
         # def _nbr_charge_complete2(m, t):
         #     if t == m.time.last():
         #         return Constraint.Skip
-        #     return m.cycles[t] + m.cycle_passed <= m.max_cycles*(1 + sum([m.sd3[i] for i in m.time if i <= t if i > m.time.first()]))
+        #     return m.cycles[t] + m.cycle_passed <= m.max_cycles*(1 + sum([m.sd3[i] for i in m.time if i
+        #     <= t if i > m.time.first)]))
 
-        @self.Constraint(self.time, doc='Imposes a full recharge at least every 25 days')
-        def _nbr_charge_complete3(m, t):
-            if t == m.time.last():
-                return Constraint.Skip
-            else:
-                return t/3600/24, m.max_cycles*(1 + sum([m.su3[i] for i in m.time if i <= t if i > m.time.first()]))\
-                       - m.cycle_passed, None
-
-
+        # @self.Constraint(self.time, doc='minimal time for the full recharging sequence (h)')
+        # def _min_t_up2(m, t):
+        #     for (i, tmp) in enumerate(sorted(m.time)):
+        #         if t == tmp:
+        #             idx = i + 1
+        #             if idx <= 1 or tmp == m.time.last():
+        #                 return Constraint.Skip
+        #             else:
+        #                 return sum([m.su2[m.time[idx - i]] for i in arange(len(m.time) + 1)
+        #                             if idx - i >= 1 if m.time[idx - i] >= m.time[idx] - m.mut2 * 3600])
+        #                             <= m.u2[m.time[idx]]
         #
-        # if 0:
-        #
-        #     from pyomo.environ import Piecewise
-        #
-        #     self.voc = Var(self.time, within=NonNegativeReals, bounds=(35, 53))
-        #     del self.soc
-        #     self.soc = Var(self.time, within=NonNegativeReals, bounds=(0, 100))
-        #
-        #     @self.Constraint(self.time)
-        #     def _s(m, t):
-        #         return m.soc[t] == 100 * m.e[t] / m.emax
-        #
-        #     self.SOC = Set(initialize=[0, 10, 40, 50, 75, 80, 85, 90, 95, 100])
-        #
-        #     self._voc_soc = Piecewise(self.time, self.voc, self.soc,
-        #                               pw_pts=[0, 40, 90, 100],
-        #                               pw_repn='SOS2',
-        #                               pw_constr_type='EQ',
-        #                               f_rule=lambda m, t, x: vod_soc_lead_acid_gel(x))
+        # @self.Constraint(self.time, doc='Energy balance constraint')
+        # def _e_balance(m, t):
+        #     if m.U0.value is not None and m.I_float is not None:
+        #         return m.de[t] == 1 / 3600 * (m.pc[t] * m.etac - m.pd[t] / m.etad) \
+        #                - 1 / 3600 * m.u3[t] * m.U0 * m.I_float
+        #     else:
+        #         return m.de[t] == 1 / 3600 * (m.pc[t] * m.etac - m.pd[t] / m.etad)
 
 
 def add_phase(self, prefix='1', name='new phase', start_up=True, shut_down=True):
+
+    """
+    Method to introduce a phase to a block.
+
+    This function declare a binary variable indexed by the time.
+    It also declare binary variables for starting up, called `su` and shutting down, called `sd`.
+    This is used for battery charging phases and imposing minimal up-time, minimal down-time or number of starting up
+    and shtting down.
+
+    :param self: Parent block
+    :param str prefix: Prefix to be added to the created variables (e.g.:  with prefix = '1',
+    the created variabled will be called u_1)
+    :param str name: Name to be display in the documentation
+    :param start_up: Not used for now
+    :param shut_down: Not used for now
+    :return:
+    """
 
     self.add_component(f'u{prefix}',   Var(self.time, within=Binary, doc=f'{name} is running'))
     self.add_component(f'su{prefix}',  Var(self.time, within=Binary, doc=f'starting of {name}'))
@@ -801,9 +1006,9 @@ def add_phase(self, prefix='1', name='new phase', start_up=True, shut_down=True)
                        Constraint(self.time, rule=_stop4, doc=f'shutting down constraint 4 for {name}'))
 
 
-def vod_soc_lead_acid_gel(soc):
+def voc_rule_lead_acid_gel(soc):
     from numpy import exp
-    return 50 - 0.08*(100-soc) + 3*exp(-(100-soc)/4) - exp(((100-soc) - 85)/5)
+    return 50 - 0.08 * (100 - soc) + 1.1 * exp(-(100 - soc) / 10) - exp(((100 - soc) - 85) / 10)
 
 
 class NLBattery(DynUnit):
