@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.core.units &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
+  <title>lms2.core.units &mdash; lms2 1.0+13.ge69b513.dirty documentation</title>
   
 
   
@@ -117,8 +117,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.fix_binary.html">lms2.base.utils.fix_binary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.get_doc_2.html">lms2.base.utils.get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.get_duals.html">lms2.base.utils.get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.get_slack.html">lms2.base.utils.get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.unfix_binary.html">lms2.base.utils.unfix_binary</a></li>
 </ul>
 </li>
 </ul>
@@ -157,7 +161,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.voc_rule_lead_acid_gel.html">lms2.electric.batteries.voc_rule_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
@@ -378,6 +382,40 @@
                 <span class="k">if</span> <span class="n">u</span><span class="o">.</span><span class="n">is_binary</span><span class="p">():</span>
                     <span class="n">u</span><span class="o">.</span><span class="n">unfix</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="Unit.get_doc_3"><a class="viewcode-back" href="../../../generated/lms2.core.units.Unit.html#lms2.core.units.Unit.get_doc_3">[docs]</a>    <span class="k">def</span> <span class="nf">get_doc_3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        dev function to print documentation v3</span>
+
+<span class="sd">        :return: documentation string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="n">ContinuousSet</span>
+        <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+        <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">+=</span> <span class="s1">&#39;=============== =============== =====================================================================</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">doc</span> <span class="o">+=</span> <span class="s1">&#39;Name            Type            Documentation                                                        </span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">doc</span> <span class="o">+=</span> <span class="s1">&#39;=============== =============== =====================================================================</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">component_objects</span><span class="p">():</span>
+            <span class="nb">type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">type</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">getname</span><span class="p">(),</span> <span class="nb">type</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">doc</span><span class="p">)])</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))],</span>
+                          <span class="s1">&#39;Type&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))],</span>
+                          <span class="s1">&#39;Documentation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))]})</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">RangeIndex</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">doc</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{:&lt;15}</span><span class="s1"> </span><span class="si">{:&lt;15}</span><span class="s1"> </span><span class="si">{:&lt;50}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">doc</span> <span class="o">+=</span> <span class="s1">&#39;=============== =============== =====================================================================</span><span class="se">\n</span><span class="s1">&#39;</span> \
+               <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="k">return</span> <span class="n">doc</span></div>
+
 <div class="viewcode-block" id="Unit.get_doc_2"><a class="viewcode-back" href="../../../generated/lms2.core.units.Unit.html#lms2.core.units.Unit.get_doc_2">[docs]</a>    <span class="k">def</span> <span class="nf">get_doc_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        dev function to print documentation v2</span>
@@ -517,7 +555,7 @@
             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">component_objects</span><span class="p">(</span><span class="n">ctype</span><span class="o">=</span><span class="n">Var</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">horizon</span><span class="o">.</span><span class="n">_status</span> <span class="o">==</span> <span class="n">_STATUS</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
 
-                    <span class="c1">## initializz using initial_rule or initial value in the variable definition,</span>
+                    <span class="c1"># initialization using initial_rule or initial value in the variable definition,</span>
                     <span class="c1"># if not defined : does nothing and throw a warning</span>
 
                     <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">is_indexed</span><span class="p">():</span>  <span class="c1"># could be nice if could be sure it is indexed by the time !</span>
@@ -556,11 +594,11 @@
                         <span class="n">v</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="n">old_sol</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
                         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{v.name}</span><span class="s1"> has been fixed to value : </span><span class="si">{value}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-
     <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;adding the attribute : </span><span class="si">{key}</span><span class="s1"> = </span><span class="si">{value}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
 
 <span class="n">Unit</span><span class="o">.</span><span class="n">compute_statistics</span> <span class="o">=</span> <span class="n">PyomoModel</span><span class="o">.</span><span class="n">compute_statistics</span>
 

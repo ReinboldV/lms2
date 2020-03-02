@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.electric.batteries.add_phase &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
+  <title>lms2.electric.batteries.add_phase &mdash; lms2 1.0+13.ge69b513.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="lms2.electric.batteries.vod_soc_lead_acid_gel" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html" />
+    <link rel="next" title="lms2.electric.batteries.voc_rule_lead_acid_gel" href="lms2.electric.batteries.voc_rule_lead_acid_gel.html" />
     <link rel="prev" title="batteries" href="lms2.electric.batteries.html" /> 
 </head>
 
@@ -119,8 +119,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.fix_binary.html">lms2.base.utils.fix_binary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.get_doc_2.html">lms2.base.utils.get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.get_duals.html">lms2.base.utils.get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.get_slack.html">lms2.base.utils.get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.utils.unfix_binary.html">lms2.base.utils.unfix_binary</a></li>
 </ul>
 </li>
 </ul>
@@ -159,7 +163,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">lms2.electric.batteries.add_phase</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.voc_rule_lead_acid_gel.html">lms2.electric.batteries.voc_rule_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
@@ -306,7 +310,25 @@
 <dl class="function">
 <dt id="lms2.electric.batteries.add_phase">
 <code class="sig-prename descclassname">lms2.electric.batteries.</code><code class="sig-name descname">add_phase</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">prefix='1'</em>, <em class="sig-param">name='new phase'</em>, <em class="sig-param">start_up=True</em>, <em class="sig-param">shut_down=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/electric/batteries.html#add_phase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lms2.electric.batteries.add_phase" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method to introduce a phase to a block.</p>
+<p>This function declare a binary variable indexed by the time.
+It also declare binary variables for starting up, called <cite>su</cite> and shutting down, called <cite>sd</cite>.
+This is used for battery charging phases and imposing minimal up-time, minimal down-time or number of starting up
+and shtting down.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – Parent block</p></li>
+<li><p><strong>prefix</strong> (<em>str</em>) – Prefix to be added to the created variables (e.g.:  with prefix = ‘1’,</p></li>
+</ul>
+</dd>
+</dl>
+<p>the created variabled will be called u_1)
+:param str name: Name to be display in the documentation
+:param start_up: Not used for now
+:param shut_down: Not used for now
+:return:</p>
+</dd></dl>
 
 </div>
 
@@ -318,7 +340,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="lms2.electric.batteries.vod_soc_lead_acid_gel.html" class="btn btn-neutral float-right" title="lms2.electric.batteries.vod_soc_lead_acid_gel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lms2.electric.batteries.voc_rule_lead_acid_gel.html" class="btn btn-neutral float-right" title="lms2.electric.batteries.voc_rule_lead_acid_gel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="lms2.electric.batteries.html" class="btn btn-neutral float-left" title="batteries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lms2.economic.cost &mdash; lms2 1.0+6.gace03b0.dirty documentation</title>
+  <title>lms2.economic.cost &mdash; lms2 1.0+13.ge69b513.dirty documentation</title>
   
 
   
@@ -117,8 +117,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.utils.html">utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.fix_binary.html">lms2.base.utils.fix_binary</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.get_doc_2.html">lms2.base.utils.get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.get_duals.html">lms2.base.utils.get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.get_slack.html">lms2.base.utils.get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.pplot.html">lms2.base.utils.pplot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.utils.unfix_binary.html">lms2.base.utils.unfix_binary</a></li>
 </ul>
 </li>
 </ul>
@@ -157,7 +161,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.add_phase.html">lms2.electric.batteries.add_phase</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.vod_soc_lead_acid_gel.html">lms2.electric.batteries.vod_soc_lead_acid_gel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.voc_rule_lead_acid_gel.html">lms2.electric.batteries.voc_rule_lead_acid_gel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV0.html">BatteryV0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV1.html">BatteryV1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.BatteryV2.html">BatteryV2</a></li>
@@ -407,9 +411,11 @@
     <span class="k">def</span> <span class="nf">_bound2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">abs_var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span>  <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{var_name}</span><span class="s1">_cost&#39;</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span>
 
-    <span class="nd">@m</span><span class="o">.</span><span class="n">Expression</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous bilinear cost (euros/s), associated with variable </span><span class="si">{var_name}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_instant_cost</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">abs_var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{var_name}</span><span class="s1">_cost&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3600</span></div>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">abs_var_name</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{var_name}</span><span class="s1">_cost&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3600</span>
+
+    <span class="k">return</span> <span class="n">Expression</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_instant_cost</span><span class="p">,</span>
+                      <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;instantaneous bilinear cost (euros/s), associated with variable </span><span class="si">{var_name}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="def_bilinear_cost"><a class="viewcode-back" href="../../../generated/lms2.economic.cost.def_bilinear_cost.html#lms2.economic.cost.def_bilinear_cost">[docs]</a><span class="k">def</span> <span class="nf">def_bilinear_cost</span><span class="p">(</span><span class="n">bl</span><span class="p">,</span> <span class="n">var_in</span><span class="o">=</span><span class="s1">&#39;p_in&#39;</span><span class="p">,</span> <span class="n">var_out</span><span class="o">=</span><span class="s1">&#39;p_out&#39;</span><span class="p">):</span>

@@ -12,7 +12,7 @@ batteries
         :nosignatures:
         
         add_phase
-        vod_soc_lead_acid_gel
+        voc_rule_lead_acid_gel
         
         
 
