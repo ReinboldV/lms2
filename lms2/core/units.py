@@ -84,6 +84,40 @@ class Unit(SimpleBlock):
                 if u.is_binary():
                     u.unfix()
 
+    def get_doc_3(self):
+        """
+        dev function to print documentation v3
+
+        :return: documentation string
+        """
+
+        from pyomo.dae import ContinuousSet
+        import pandas as pd
+
+        doc=""
+        doc += '=============== =============== =====================================================================\n'
+        doc += 'Name            Type            Documentation                                                        \n'
+        doc += '=============== =============== =====================================================================\n'
+
+        c = []
+
+        for k in self.component_objects():
+            type = str(k.type()).split('.')[-1][:-2]
+            c.append([k.getname(), type, str(k.doc)])
+
+        s = pd.DataFrame({'Name': [c[i][0] for i in range(len(c))],
+                          'Type': [c[i][1] for i in range(len(c))],
+                          'Documentation': [c[i][2] for i in range(len(c))]})
+
+        s.sort_values(by=['Type', 'Name'], ascending=[False, True], inplace=True)
+        s.reindex(pd.RangeIndex(len(s)))
+        for i, v in s.iterrows():
+            doc += '{:<15} {:<15} {:<50}'.format(v[0], v[1], v[2]) + '\n'
+        doc += '=============== =============== =====================================================================\n' \
+               '\n'
+
+        return doc
+
     def get_doc_2(self):
         """
         dev function to print documentation v2
@@ -223,7 +257,7 @@ class Unit(SimpleBlock):
             for v in b.component_objects(ctype=Var):
                 if horizon._status == _STATUS[0]:
 
-                    ## initializz using initial_rule or initial value in the variable definition,
+                    # initialization using initial_rule or initial value in the variable definition,
                     # if not defined : does nothing and throw a warning
 
                     if v.is_indexed():  # could be nice if could be sure it is indexed by the time !
@@ -262,11 +296,11 @@ class Unit(SimpleBlock):
                         v.fix(old_sol[v.name])
                         logger.debug(f'{v.name} has been fixed to value : {value}')
 
-
     def __setattr__(self, key, value):
 
         super().__setattr__(key, value)
         logger.debug(f'adding the attribute : {key} = {value}')
+
 
 Unit.compute_statistics = PyomoModel.compute_statistics
 
