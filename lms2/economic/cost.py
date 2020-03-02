@@ -113,9 +113,11 @@ def def_absolute_cost(m, var_name='p'):
     def _bound2(m, t):
         return m.find_component(abs_var_name)[t] >=  m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
 
-    @m.Expression(m.time, doc=f'instantaneous bilinear cost (euros/s), associated with variable {var_name}')
     def _instant_cost(m, t):
         return m.find_component(abs_var_name)[t] * m.find_component(f'{var_name}_cost') / 3600
+
+    return Expression(m.time, rule=_instant_cost,
+                      doc=f'instantaneous bilinear cost (euros/s), associated with variable {var_name}')
 
 
 def def_bilinear_cost(bl, var_in='p_in', var_out='p_out'):
