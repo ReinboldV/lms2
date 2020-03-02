@@ -5,13 +5,13 @@ Batteries' Module.
 Contains electrical batteries linear models.
 """
 
-from pyomo.core.kernel.set_types import NonNegativeReals, Binary, Integers
+from pyomo.core.kernel.set_types import NonNegativeReals, Binary
 from pyomo.dae.diffvar import DerivativeVar
-from pyomo.dae import Integral
-from pyomo.environ import Constraint, Var, Param, Expression, PositiveReals, Set, BuildCheck, ConstraintList, RangeSet
+from pyomo.environ import Constraint, Var, Param, Expression, PositiveReals, Set
 from pyomo.network import Port
 
 from lms2 import DynUnit
+from lms2.logical.sequencial import add_phase
 
 import logging
 
@@ -776,132 +776,6 @@ class BatteryV3(BatteryV2):
             del (m._stop3_2[m.time.last()])
             del (m._start4_2[m.time.last()])
             del (m.cycles[m.time.last()])
-
-
-def add_phase(self, prefix='1', name='new phase', start_up=True, shut_down=True):
-
-    """
-    Method to introduce a phase to a block.
-
-    This function declare a binary variable indexed by the time.
-    It also declare binary variables for starting up, called `su` and shutting down, called `sd`.
-    This is used for battery charging phases and imposing minimal up-time, minimal down-time or number of starting up
-    and shtting down.
-
-    :param self: Parent block
-    :param str prefix: Prefix to be added to the created variables (e.g.:  with prefix = '1',
-    the created variabled will be called u_1)
-    :param str name: Name to be display in the documentation
-    :param start_up: Not used for now
-    :param shut_down: Not used for now
-    :return:
-    """
-
-    self.add_component(f'u{prefix}',   Var(self.time, within=Binary, doc=f'{name} is running'))
-    self.add_component(f'su{prefix}',  Var(self.time, within=Binary, doc=f'starting of {name}'))
-    self.add_component(f'sd{prefix}',  Var(self.time, within=Binary, doc=f'stoping of {name}'))
-    self.add_component(f'mu{prefix}',  Var(self.time, within=Binary, doc=f'intermediary binary variable for the '
-                                                                         f'starting-up of {name}.'))
-    self.add_component(f'md{prefix}',  Var(self.time, within=Binary, doc=f'intermediary binary variable for the'
-                                                                         f' shutting down of {name}.'))
-
-    def _start1(m, t):
-        u  = m.find_component(f'u{prefix}')
-        su = m.find_component(f'su{prefix}')
-
-        for (i, tmp) in enumerate(sorted(m.time)):
-            if t == tmp:
-                idx = i + 1
-                if idx == 1:
-                    return Constraint.Skip
-                else:
-                    return u[m.time[idx]] - u[m.time[idx - 1]] <= su[m.time[idx]]
-        else:
-            return Constraint.Skip
-    self.add_component(f'_start1_{prefix}',
-                       Constraint(self.time, rule=_start1, doc=f'start up constraint 1 for {name}'))
-
-    def _start2(m, t):
-        su = m.find_component(f'su{prefix}')
-        mu = m.find_component(f'mu{prefix}')
-        return su[t] <= mu[t]
-
-    self.add_component(f'_start2_{prefix}',
-                       Constraint(self.time, rule=_start2, doc=f'start up constraint 2 for {name}'))
-
-    def _start3(m, t):
-        mu = m.find_component(f'mu{prefix}')
-        u  = m.find_component(f'u{prefix}')
-        return mu[t] <= u[t]
-
-    self.add_component(f'_start3_{prefix}',
-                       Constraint(self.time, rule=_start3, doc=f'start up constraint 3 for {name}'))
-
-    def _start4(m, t):
-        mu = m.find_component(f'mu{prefix}')
-        u  = m.find_component(f'u{prefix}')
-        for (i, tmp) in enumerate(sorted(m.time)):
-            if t == tmp:
-                idx = i + 1
-                if idx == 1:
-                    return Constraint.Skip
-                else:
-                    return mu[m.time[idx]] <= 1 - u[m.time[idx - 1]]
-
-    self.add_component(f'_start4_{prefix}',
-                       Constraint(self.time, rule=_start4, doc=f'start up constraint 4 for {name}'))
-
-    def _stop1(m, t):
-        u  = m.find_component(f'u{prefix}')
-        sd = m.find_component(f'sd{prefix}')
-        for (i, tmp) in enumerate(sorted(m.time)):
-            if t == tmp:
-                idx = i + 1
-                if idx == 1:
-                    return Constraint.Skip
-                else:
-                    return u[m.time[idx - 1]] - u[m.time[idx]] <= sd[m.time[idx]]
-        else:
-            return Constraint.Skip
-
-    self.add_component(f'_stop1_{prefix}',
-                       Constraint(self.time, rule=_stop1, doc=f'shutting down constraint 1 for  {name}'))
-
-    def _stop2(m, t):
-        md = m.find_component(f'md{prefix}')
-        sd = m.find_component(f'sd{prefix}')
-        return sd[t] <= md[t]
-
-    self.add_component(f'_stop2_{prefix}',
-                       Constraint(self.time, rule=_stop2, doc=f'shutting down constraint 2 for {name}'))
-
-    def _stop3(m, t):
-        md = m.find_component(f'md{prefix}')
-        u  = m.find_component(f'u{prefix}')
-        for (i, tmp) in enumerate(sorted(m.time)):
-            if t == tmp:
-                idx = i + 1
-                if idx == 1:
-                    return Constraint.Skip
-                else:
-                    return md[t] <= u[m.time[idx - 1]]
-
-    self.add_component(f'_stop3_{prefix}',
-                       Constraint(self.time, rule=_stop3, doc=f'shutting down constraint 3 for {name}'))
-
-    def _stop4(m, t):
-        md = m.find_component(f'md{prefix}')
-        u  = m.find_component(f'u{prefix}')
-        for (i, tmp) in enumerate(sorted(m.time)):
-            if t == tmp:
-                idx = i + 1
-                if idx == 1:
-                    return Constraint.Skip
-                else:
-                    return md[m.time[idx]] <= 1 - u[m.time[idx]]
-
-    self.add_component(f'_stop4_{prefix}',
-                       Constraint(self.time, rule=_stop4, doc=f'shutting down constraint 4 for {name}'))
 
 
 def voc_rule_lead_acid_gel(soc):

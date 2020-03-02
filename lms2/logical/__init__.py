@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-__all__ = ['hysteresis']
+__all__ = ['sequencial']

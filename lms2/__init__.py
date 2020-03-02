@@ -10,7 +10,7 @@ __all__ = ['lms2.core.models',
            'lms2.electric.abs_maingrids',
            'lms2.electric.abs_sources',
            'lms2.environment.ghg',
-           'lms2.logical.hysteresis',
+           'lms2.logical.sequencial',
            'lms2.mechanic.gears',
            'lms2.template.drahix.abs_drahix',
            'lms2.thermal.dipoles']
@@ -26,5 +26,5 @@ from lms2.electric.batteries import *
 from lms2.electric.maingrids import *
 from lms2.environment.ghg import *
 from lms2.mechanic.gears import *
-from lms2.logical.hysteresis import *
+from lms2.logical.sequencial import *
 from lms2.thermal.dipoles import *
