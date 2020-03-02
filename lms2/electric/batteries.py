@@ -13,6 +13,10 @@ from pyomo.network import Port
 
 from lms2 import DynUnit
 
+import logging
+
+logger = logging.getLogger('lms2.batteries')
+
 __all__ = ['BatteryV0', 'BatteryV1', 'BatteryV2', 'BatteryV3']
 
 UB = 10e6
@@ -495,6 +499,7 @@ class BatteryV3(BatteryV2):
         =============== =============== =====================================================================
         Name            Type            Documentation
         =============== =============== =====================================================================
+        abs_dp          Var             Absolute value of variable dp
         e               Var             energy in battery
         md2             Var             intermediary binary variable for the shutting down of absorption phase.
         md3             Var             intermediary binary variable for the shutting down of float phase.
@@ -503,16 +508,24 @@ class BatteryV3(BatteryV2):
         p               Var             energy derivative with respect to time
         pc              Var             charging power
         pd              Var             discharging power
+        pw_u            Var             Intermediary binary variable for SOS2 modelling of voc/soc/pcmax
         sd2             Var             stoping of absorption phase
         sd3             Var             stoping of float phase
+        soc_w           Var             Intermediary weight variable for SOS2 modelling of voc/soc/pcmax
         su2             Var             starting of absorption phase
         su3             Var             starting of float phase
         u               Var             binary variable
-        u1              Var             None
+        u1              Var             bulk charging phase
         u2              Var             absorption phase is running
         u3              Var             float phase is running
+        voc             Var             open circuit voltage (V)
+        pw_i            Set             piecewise breakpoint index
+        pw_j            Set             piecewise binary index
+        pw_u_index      Set             None
+        soc_w_index     Set             None
         outlet          Port            output power of the battery (kW), using source convention
         cycle_passed    Param           passed cycles of the battery
+        dp_cost         Param           cost associated to the absolute value of dp (euros/kWh)
         dpcmax          Param           maximal charging power
         dpdmax          Param           maximal discharging power
         emax            Param           maximal energy
@@ -524,17 +537,24 @@ class BatteryV3(BatteryV2):
         mut3            Param           minimal duration of the up time for float phase (h)
         pcmax           Param           maximal charging power
         pdmax           Param           maximal discharging power
+        pfloat          Param           Float Phase, losses (kW)
         pinit           Param           initial output power of the battery (default : None)
+        pw_pcmax        Param           Corresponding Pcmax points for SOS2 modelling
+        pw_soc          Param           SOC points for SOS2 modelling
+        pw_voc          Param           Corresponding VOC points for SOS2 modelling
         soc0            Param           initial state
+        socabs          Param           Absorption phase : soc lower limit
         socf            Param           final state
         socmax          Param           maximal soc
         socmin          Param           minimum soc
-        nbrcycles       Integral        None
-        cycles          Expression      None
+        cycles          Expression      Number of cycles
+        inst_cost       Expression      instantaneous bilinear cost (euros/s), associated with variable dp
         soc             Expression      Expression of the state of charge
         de              DerivativeVar   variation of energy  with respect to time
         dp              DerivativeVar   variation of the battery power with respect to time
         time            ContinuousSet   Time continuous set (s)
+        _bound1         Constraint      absolute value constraint 1
+        _bound2         Constraint      absolute value constraint 2
         _bulk_phase     Constraint      charging phase is during bulk, absorption or floating phases
         _dpcmax         Constraint      Maximal varation of charging power constraint
         _dpdmax         Constraint      Maximal varation of descharging power constraint
@@ -552,6 +572,12 @@ class BatteryV3(BatteryV2):
         _soc_init       Constraint      initial state of charge
         _soc_max        Constraint      maximal soc constraint
         _soc_min        Constraint      minimal soc constraint
+        _sos2_pcm2      Constraint      SOS2 constraint on pcm
+        _sos2_voc1      Constraint      SOS2 constraint on voc
+        _sos2_voc2      Constraint      SOS2 constraint on voc
+        _sos2_voc3      Constraint      SOS2 constraint on voc
+        _sos2_voc4      Constraint      SOS2 constraint on voc
+        _sos2_voc5      Constraint      SOS2 constraint on voc
         _start1_2       Constraint      start up constraint 1 for absorption phase
         _start1_3       Constraint      start up constraint 1 for float phase
         _start2_2       Constraint      start up constraint 2 for absorption phase
@@ -571,6 +597,7 @@ class BatteryV3(BatteryV2):
         _build_action   BuildAction     Hack for the last index of the expression using index and time.
         =============== =============== =====================================================================
 
+
         :type ocv_rule: Method that return the open circuit voltage with respect to the state of charge.
         This function is used to compute power profile during absorption phase and floating phase.
 
@@ -578,16 +605,12 @@ class BatteryV3(BatteryV2):
 
         super().__init__(*args, **kwargs)
 
-        if method not in ['linear', 'piecewise', 'constant']:
+        if method not in ['piecewise', 'constant']:
             raise ValueError(f'method for calculating open circuit voltage should be either '
-                             '`linear, piecewise` or `constant`, but is actually {method}')
+                             '`piecewise` or `constant`, but is actually {method}')
         else:
-            self.method=method
+            self.method = method
 
-        # @self.BuildCheck(doc='Checking the model')
-        # def _build_check(m):
-        #     if (voc_rule is not None) and (not callable(voc_rule)):
-        #         return False
         add_phase(self, prefix='2', name='absorption phase')
         add_phase(self, prefix='3', name='float phase')
 
@@ -599,89 +622,52 @@ class BatteryV3(BatteryV2):
         self.pfloat = Param(initialize=0.250,   doc='Float Phase, losses (kW)')
         self.u1 = Var(self.time, within=Binary, doc='bulk charging phase')
 
-        # self.Ufloat = Param(initialize=54, within=NonNegativeReals,
-        #                     doc='Battery voltage during float phase, imposed by the charger (V)')
-        #
-        # self.Umax = Param(initialize=57, within=NonNegativeReals,
-        #                   doc = 'Battery voltage during the absorption phase, imposed by the charger (V)')
-        #
-        # self.R0 = Param(initialize=0.2, within=NonNegativeReals,
-        #                 doc='Serial resistance R0 of the Thevenin model (Ohm)')
-        #
-        # self.Ifloat = Param(initialize=0, within=NonNegativeReals,
-        #                     doc='Auto discharging current during the floating phase (A). ')
-
-        from pyomo.environ import Piecewise
-
         # #############################
         # OCV modeling
         # #############################
 
-        if self.method in ['piecewise', 'linear']:
-
-            self.voc = Var(self.time, within=NonNegativeReals,
-                           doc='open circuit voltage (V)')
-
-            # del self.soc
-            # self.soc = Var(self.time, within=NonNegativeReals, bounds=(0, 100))
-            #
-            # @self.Constraint(self.time, doc='Calculus of the state of charge.')
-            # def _s(m, t):
-            #     return m.soc[t] == 100 * m.e[t] / m.emax
-
         if self.method == 'piecewise':
+            self.pw_i     = Set(initialize=[1, 2, 3], ordered=True, doc='piecewise breakpoint index')
+            self.pw_j     = Set(initialize=[1, 2], ordered=True, doc='piecewise binary index')
+            self.voc      = Var(self.time, within=NonNegativeReals, doc='open circuit voltage (V)')
+            self.soc_w    = Var(self.pw_i, self.time, bounds=(0, 1),
+                                doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
+            self.pw_u     = Var(self.pw_j, self.time, within=Binary,
+                                doc='Intermediary binary variable for SOS2 modelling of voc/soc/pcmax')
+            self.pw_soc   = Param(self.pw_i, initialize={1: 40, 2: 85, 3: 100}, doc='SOC points for SOS2 modelling')
 
-            self.pw_i     = Set(initialize=[1, 2, 3], ordered=True)
-            self.pw_j     = Set(initialize=[1, 2], ordered=True)
-            self.pw_soc   = Param(self.pw_i, initialize={1: 40, 2: 85, 3: 100})
-            self.pw_voc   = Param(self.pw_i, initialize={1: 49.5, 2: 51, 3: 56})
-            self.pw_pcmax = Param(self.pw_i, initialize={1: 20,   2: 20, 3: 2})
+            pw_voc_default = {1: 49.5, 2: 51, 3: 56}
 
-            self.soc_w      = Var(self.pw_i, self.time, bounds=(0, 1))
-            self.pw_u       = Var(self.pw_j, self.time, within=Binary)
+            def init_pw_voc(m, pw_i):
+                if voc_rule is not None and callable(voc_rule):
+                    return voc_rule(m.pw_soc[pw_i])
+                    logger.info('Using `voc_rule` for open circuit voltage computation. '
+                                   'Initial value of pw_voc are not used. ')
+                else:
+                    return pw_voc_default[pw_i]
 
-            # self.pcM = Var(self.time, within=NonNegativeReals,
-            #                doc='Upper bound of charging power')
-            # self.soc_w0 = Var(self.time, bounds=(0, 1),
-            #                   doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
-            # self.soc_w1 = Var(self.time, bounds=(0, 1),
-            #                   doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
-            # self.soc_w2 = Var(self.time, bounds=(0, 1),
-            #                   doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
+            self.pw_voc = Param(self.pw_i, initialize=init_pw_voc,
+                                doc='Corresponding VOC points for SOS2 modelling')
+            self.pw_pcmax = Param(self.pw_i, initialize={1: 20, 2: 20, 3: 2},
+                                  doc='Corresponding Pcmax points for SOS2 modelling')
 
-            @self.Constraint(self.time)
+            @self.Constraint(self.time, doc='SOS2 constraint on voc')
             def _sos2_voc1(m, t):
-                # return m.soc_w0[t] + m.soc_w1[t] + m.soc_w2[t], 1
                 return sum([m.soc_w[i, t] for i in m.pw_i]), 1
 
-            @self.Constraint(self.time)
+            @self.Constraint(self.time, doc='SOS2 constraint on pcm')
             def _sos2_pcm2(m, t):
-                # return m.soc_w0[t]*m.pcmax + m.soc_w1[t]*m.pcmax + m.soc_w2[t]*m.pcmax/20 >= m.pc[t]# == m.pcM[t]
                 return sum([m.soc_w[i, t]*m.pw_pcmax[i] for i in m.pw_i]) >= m.pc[t]
 
-            @self.Constraint(self.time)
+            @self.Constraint(self.time, doc='SOS2 constraint on voc')
             def _sos2_voc2(m, t):
-                # return m.soc_w0[t]*40 + m.soc_w1[t]*85 + m.soc_w2[t]*100, m.soc[t]
                 return sum([m.soc_w[i, t]*m.pw_soc[i] for i in m.pw_i]), m.soc[t]
 
-            @self.Constraint(self.time)
+            @self.Constraint(self.time, doc='SOS2 constraint on voc')
             def _sos2_voc3(m, t):
-                # return m.soc_w0[t]*49.5 + m.soc_w1[t]*51 + m.soc_w2[t]*56, m.voc[t]
                 return sum([m.soc_w[i, t] * m.pw_voc[i] for i in m.pw_i]), m.voc[t]
 
-            # @self.Constraint(self.time)
-            # def _sos2_voc4(m, t):
-            #     return m.soc_w0[t] <= m.ua[t]
-            #
-            # @self.Constraint(self.time)
-            # def _sos2_voc5(m, t):
-            #     return m.soc_w1[t] <= 1
-            #
-            # @self.Constraint(self.time)
-            # def _sos2_voc6(m, t):
-            #     return m.soc_w2[t] <= 1-m.ua[t]
-
-            @self.Constraint(self.pw_i, self.time)
+            @self.Constraint(self.pw_i, self.time, doc='SOS2 constraint on voc')
             def _sos2_voc4(m, i, t):
                 if i == m.pw_i.first():
                     return m.soc_w[i, t] <= m.pw_u[i, t]
@@ -690,38 +676,9 @@ class BatteryV3(BatteryV2):
                 else:
                     return m.soc_w[i, t] <= m.pw_u[i-1, t] + m.pw_u[i, t]
 
-            @self.Constraint(self.time)
+            @self.Constraint(self.time, doc='SOS2 constraint on voc')
             def _sos2_voc5(m, t):
                 return sum([m.pw_u[j, t] for j in m.pw_j]), 1
-
-            # self._voc_soc = Piecewise(self.time, self.voc, self.soc,
-            #                           pw_pts=self.pw_soc.value_list,
-            #                           pw_repn='SOS2',
-            #                           pw_constr_type='EQ',
-            #                           f_rule=lambda m, t, x: self.voc_rule(x))
-        # if self.method == 'linear':
-        #     self._voc_soc = Piecewise(self.time, self.voc, self.soc,
-        #                               pw_pts=[self.socmin, 100],
-        #                               pw_repn='SOS2',
-        #                               pw_constr_type='EQ',
-        #                               f_rule=lambda m, t, x: self.voc_rule(x))
-
-        # if self.method == 'constant':
-        #     self.socref = Param(initialize=75, doc='Reference soc for calculating ocv')
-
-            # def _init_voc(m, t):
-            #     return m.voc_rule(75)
-            #
-            # self.voc = Param(self.time,
-            #                  initialize= _init_voc,
-            #                  default=51,
-            #                  within= NonNegativeReals,
-            #                  mutable=True,
-            #                  doc='open circuit voltage (V), assumed constant.')
-
-            # @self.Constraint(self.time, doc = 'The open circuit voltage is considered constant at soc = socref')
-            # def _constant_ocv(m, t):
-            #     return m.voc[t] == m.voc_rule(m.socref)
 
         # ################################
         # SOC upper and lower constraint
@@ -750,42 +707,13 @@ class BatteryV3(BatteryV2):
         # #############################
         # Absorption phase modeling
         # #############################
-
-        # self.y2 = Var(self.time, within=NonNegativeReals,
-        #               doc='intermediary variable for power equality constraint during absorption phase')
-        # del self._pcmax
-
-        # @self.Constraint(self.time, doc='Lower power constraint when charging '
-        #                                 '(either 0 or Pabs during absorption phase)')
-        # def _pcmin(m, t):
-        #     return m.pc[t] >= m.u2[t]*5 #(m.Umax*m.Umax/m.R0/1000 - 51*m.Umax/m.R0/1000)
-
-        # def _pcmax(b, t):
-        #     if b.pcmax.value is None:
-        #         return Constraint.Skip
-        #     return b.pc[t] + b.u[t] * b.pcmax <= b.pcmax
-
-        # @self.Constraint(self.time, doc='Upper power constraint when charging, either 0 when discharging,'
-        #                                 ' or pcM when charging')
-        # def _pcmax2(m, t):
-        #     return m.pc[t] <= m.pcM[t]  #m.u1[t]*m.pcmax + m.u2[t]*5 #  (m.Umax*m.Umax/m.R0/1000 - 51*m.Umax/m.R0/1000)
-
-        # @self.Constraint(self.time, doc='Upper power constraint when charging, either 0 when discharging,'
-        #                                 ' or pcM when charging')
-        # def _pcmax3(m, t):
-        #     return m.pc[t] <= m.pcmax*(1-m.u[t])
-
-        # @self.Constraint(self.time, doc='Product u2 times ocv, constraint 1')
-        # def _product_1(m, t):
-        #     return 0, m.voc[t] - m.y2[t], None
-        #
-        # @self.Constraint(self.time, doc='Product u2 times ocv, constraint 2')
-        # def _product_2(m, t):
-        #     return 0, m.y2[t] - m.voc[t] + m.Umax*(1 - m.u2[t]), None
-        #
-        # @self.Constraint(self.time, doc='Product u2 times ocv, constraint 3')
-        # def _product_3(m, t):
-        #     return 0, m.Umax*m.u2[t] - m.y2[t], None
+        #  Absorption phase is modelled  by mean of the maximal charging power.
+        #  During abs phase, Battery voltage is fixed to a over-voltage Umax.
+        #  Thus the battery current is fixed by Umax = VOC - RI <=>  I = (Umax - VOC)/R
+        #  And P = Umax²/R - VOC*Umax/R.
+        #  Thus, one just have to compute the coordinates of the points pw_soc and pw_pcmax,
+        #  so that the behaviour is equivalent to having fixed Umax
+        #  note that we are imposing pc < Umax²/R - VOC*Umax/R
 
         # #############################
         # Floating  phase modeling
@@ -848,36 +776,6 @@ class BatteryV3(BatteryV2):
             del (m._stop3_2[m.time.last()])
             del (m._start4_2[m.time.last()])
             del (m.cycles[m.time.last()])
-
-        # self.nbrcycles = Integral(self.time, wrt=self.time,
-        # rule=lambda m, t: 1/(m.emax)*(m.etac*m.pc[t] + m.pd[t]/m.etad)/3600)
-
-        # @self.Constraint(self.time, doc='Imposes a full recharge at least every 25 cycles')
-        # def _nbr_charge_complete2(m, t):
-        #     if t == m.time.last():
-        #         return Constraint.Skip
-        #     return m.cycles[t] + m.cycle_passed <= m.max_cycles*(1 + sum([m.sd3[i] for i in m.time if i
-        #     <= t if i > m.time.first)]))
-
-        # @self.Constraint(self.time, doc='minimal time for the full recharging sequence (h)')
-        # def _min_t_up2(m, t):
-        #     for (i, tmp) in enumerate(sorted(m.time)):
-        #         if t == tmp:
-        #             idx = i + 1
-        #             if idx <= 1 or tmp == m.time.last():
-        #                 return Constraint.Skip
-        #             else:
-        #                 return sum([m.su2[m.time[idx - i]] for i in arange(len(m.time) + 1)
-        #                             if idx - i >= 1 if m.time[idx - i] >= m.time[idx] - m.mut2 * 3600])
-        #                             <= m.u2[m.time[idx]]
-        #
-        # @self.Constraint(self.time, doc='Energy balance constraint')
-        # def _e_balance(m, t):
-        #     if m.U0.value is not None and m.I_float is not None:
-        #         return m.de[t] == 1 / 3600 * (m.pc[t] * m.etac - m.pd[t] / m.etad) \
-        #                - 1 / 3600 * m.u3[t] * m.U0 * m.I_float
-        #     else:
-        #         return m.de[t] == 1 / 3600 * (m.pc[t] * m.etac - m.pd[t] / m.etad)
 
 
 def add_phase(self, prefix='1', name='new phase', start_up=True, shut_down=True):
@@ -1027,22 +925,3 @@ class NLBattery(DynUnit):
         self.e = Var(self.time, doc='energy in battery', initialize=0)
 
         # TODO : model and tests
-        # self.emin   = Param(default=0,       doc='minimum energy (kWh)',       mutable=True, within=NonNegativeReals)
-        # self.emax   = Param(default=UB,      doc='maximal energy',             mutable=True)
-        # self.e0     = Param(default=None,    doc='initial state',              mutable=True)
-        # self.ef     = Param(default=None,    doc='final state',                mutable=True)
-        # self.etac   = Param(default=1.0,     doc='charging efficiency',        mutable=True)
-        # self.etad   = Param(default=1.0,     doc='discharging efficiency',     mutable=True)
-        # self.dpdmax = Param(default=UB,      doc='maximal discharging power',  mutable=True)
-        # self.dpcmax = Param(default=UB,      doc='maximal charging power',     mutable=True)
-        #
-        # self.pcmax  = Param(default=UB,      doc='maximal charging power',     mutable=True, within=PositiveReals)
-        # self.pdmax  = Param(default=UB,      doc='maximal discharging power',  mutable=True, within=PositiveReals)
-        #
-        # self.de     = DerivativeVar(self.e, wrt=self.time, initialize=0,
-        #                             doc='variation of energy  with respect to time')
-        # self.dp     = DerivativeVar(self.p, wrt=self.time, initialize=0,
-        #                             doc='variation of the battery power with respect to time',
-        #                             bounds=lambda m, t: (-m.dpcmax, m.dpdmax))
-        #
-        # self.outlet = Port(initialize={'f': (self.p, Port.Conservative)})
