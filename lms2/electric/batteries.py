@@ -494,7 +494,7 @@ class BatteryV3(BatteryV2):
     It exposes one power port using source convention.
     """
 
-    def __init__(self, *args, voc_rule=None, method='linear', **kwargs):
+    def __init__(self, *args, voc_rule=None, method='constant', **kwargs):
         """
         =============== =============== =====================================================================
         Name            Type            Documentation
@@ -607,7 +607,7 @@ class BatteryV3(BatteryV2):
 
         if method not in ['piecewise', 'constant']:
             raise ValueError(f'method for calculating open circuit voltage should be either '
-                             '`piecewise` or `constant`, but is actually {method}')
+                             f'`piecewise` or `constant`, but is actually {method}')
         else:
             self.method = method
 

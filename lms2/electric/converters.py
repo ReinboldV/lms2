@@ -43,8 +43,8 @@ class SimpleConverter(DynUnit):
         def efficiency(m, t):
             return m.p_out[t] == m.eta * m.p_in[t]
 
-        self.inlet = Port(initialize={'f': (self.p_in, Port.Conservative)})
-        self.outlet = Port(initialize={'f': (self.p_out, Port.Conservative)})
+        self.inlet = Port(initialize={'f': (self.p_in, Port.Extensive, {'include_splitfrac': False})})
+        self.outlet = Port(initialize={'f': (self.p_out, Port.Extensive, {'include_splitfrac': False})})
 
 
 if __name__ == "__main__":

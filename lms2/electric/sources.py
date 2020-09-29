@@ -10,7 +10,7 @@ from lms2 import FlowSource, FixedFlowSource, FlowLoad, FixedFlowLoad
 
 __all__ = ['PowerSource', 'FixedPowerSource', 'ScalablePowerSource',
            'PowerLoad', 'FixedPowerLoad', 'ScalablePowerLoad',
-           'ProgrammableLoad', 'DebugSource', 'PVPanels']
+           'ProgrammableLoad', 'DebugSource', 'PVPanels', 'CurtailableLoad']
 
 
 # TODO unittest
@@ -294,8 +294,24 @@ class ScalablePowerLoad(FixedPowerLoad):
         self.scaled_inlet = Port(initialize={'f': (self.component(scaled_flow_name), Port.Extensive, {'include_splitfrac': False})})
 
 
+class CurtailableLoad(PowerLoad):
+
+    def __init__(self, *args, flow_name='p', **kwds):
+        from lms2.base.base_units import fix_profile
+        from pyomo.environ import Binary, Var
+
+        super().__init__(*args, flow_name=flow_name, **kwds)
+
+        fix_profile(self, flow_name='pp', profile_name='profile_value', index_name='profile_index')
+        self.u = Var(self.time, within=Binary, doc='binary, equals to 1 when the load is ON, 0 otherwise.')
+
+        @self.Constraint(self.time, doc='curtailement constraint')
+        def _curtailing(m, t):
+            return m.p[t], m.u[t]*m.pp[t]
+
+
 # TODO unittest
-class ProgrammableLoad(PowerSource):
+class ProgrammableLoad(PowerLoad):
     """
     Programmable Load with fixed input profile.
 
@@ -326,18 +342,16 @@ class ProgrammableLoad(PowerSource):
         self.u = Var(self.time, bounds=_bound_u, within=Binary,
                      doc='binary, equals to 1 when the load is turned ON, 0 otherwise.')
 
+        @self.Constraint(doc='the load is turned on only once')
         def _turned_on(m):
             return sum([m.u[t] for t in m.time]) == 1
 
+        @self.Constraint(self.time, doc='the load is contraint to be off outside the time range')
         def _bound_p(m, t):
             if m.window.bounds()[0] <= t <= m.window.bounds()[-1]:
                 return Constraint.Skip
             else:
                 return 0, m.p[t], 0
-
-        self._turned_on = Constraint(rule=_turned_on, doc='the load is turned on only once')
-        self._bounds_p = Constraint(self.time, rule=_bound_p, doc='the load is contraint to be off '
-                                                                  'outside the time range')
 
     def compile(self):
         def _delay(m, t):
@@ -353,46 +367,20 @@ class DebugSource(PowerSource):
     """
     Debug Power source.
 
-    Consist of an unbounded power source to force convergence.
-    It is associated to an expensive (positive) cost function.
+    Consist of an unbounded power source associated a (height and positive) cost function.
 
-    =============== ===================================================================
-    ContinuousSets  Documentation
-    =============== ===================================================================
-    time            Time continuous set (s)
-    =============== ===================================================================
-
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    p               Power output flow (kW)
-    abs_p           Absolute value of variable p
-    =============== ===================================================================
-
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    p_cost          cost associated to the absolute value of p (euros/kWh)
-    =============== ===================================================================
-
-    =============== ===================================================================
-    Constraints     Documentation
-    =============== ===================================================================
-    _bound1         absolute value constraint 2
-    _bound2         absolute value constraint 1
-    =============== ===================================================================
-
-    =============== ===================================================================
-    Ports           Documentation
-    =============== ===================================================================
-    outlet          Power output port, using source convention (kW)
-    =============== ===================================================================
-
-    =============== ===================================================================
-    Expressions     Documentation
-    =============== ===================================================================
-    _instant_cost   instantaneous bilinear cost (euros/s), associated with variable p
-    =============== ===================================================================
+    =============== =============== =====================================================================
+    Name            Type            Documentation
+    =============== =============== =====================================================================
+    abs_p           Var             Absolute value of variable p
+    p               Var             Power output flow (kW)
+    outlet          Port            Power output port, using source convention (kW)
+    p_cost          Param           cost associated to the absolute value of p (euros/kWh)
+    inst_cost       Expression      instantaneous bilinear cost (euros/s), associated with variable p
+    time            ContinuousSet   Time continuous set (s)
+    _bound1         Constraint      absolute value constraint 1
+    _bound2         Constraint      absolute value constraint 2
+    =============== =============== =====================================================================
 
 
     """
@@ -409,14 +397,3 @@ class DebugSource(PowerSource):
         from lms2 import def_absolute_cost
 
         self.inst_cost = def_absolute_cost(self, var_name='p')
-
-
-if __name__ == '__main__':
-    from pyomo.environ import AbstractModel, Param, Var
-    from pyomo.dae import ContinuousSet
-    from pyomo.network import Port
-
-    m = AbstractModel()
-    m.time = ContinuousSet(bounds=(0, 1))
-    m.prog = ProgrammableLoad()
-    m.b = DebugSource()

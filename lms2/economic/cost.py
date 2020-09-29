@@ -90,19 +90,21 @@ def def_linear_dyn_cost(m, var_name='p'):
                       doc=f'instantaneous linear cost (euros/s), associated with variable {var_name}')
 
 
-def def_absolute_cost(m, var_name='p'):
+def def_absolute_cost(m, var_name='p', default_cost=1):
     """
     Method for adding absolute cost, i.e. a bilinear cost of coefficient -1 and +1 associated with variable 'p'.
     Final instantaneous cost expression is called "inst_cost"
 
+
     :param m: Block
     :param var_name: Names of the expensive variable
+    :param default_cost: cost initialization value (default = 1 euro/kWh)
     :return: pyomo Expression
     """
 
     abs_var_name = f'abs_{var_name}'
     m.add_component(abs_var_name, Var(m.time, within=NonNegativeReals, initialize=0, doc=f'Absolute value of variable {var_name}'))
-    m.add_component(f'{var_name}_cost', Param(default=1, mutable=True, within=PositiveReals,
+    m.add_component(f'{var_name}_cost', Param(default=default_cost, mutable=True, within=PositiveReals,
                     doc=f'cost associated to the absolute value of {var_name} (euros/kWh)'))
 
     @m.Constraint(m.time, doc='absolute value constraint 1')
@@ -111,7 +113,7 @@ def def_absolute_cost(m, var_name='p'):
 
     @m.Constraint(m.time, doc='absolute value constraint 2')
     def _bound2(m, t):
-        return m.find_component(abs_var_name)[t] >=  m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
+        return m.find_component(abs_var_name)[t] >= m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
 
     def _instant_cost(m, t):
         return m.find_component(abs_var_name)[t] * m.find_component(f'{var_name}_cost') / 3600

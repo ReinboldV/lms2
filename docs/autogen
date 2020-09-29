@@ -1,4 +1,0 @@
-rm ./_build -r
-rm ./generated -r
-sphinx-autogen -t _templates  ./lms2.*.rst
-make html
