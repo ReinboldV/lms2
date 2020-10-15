@@ -6,6 +6,7 @@ del get_versions
 __all__ = ['lms2.core.models',
            'lms2.core.time',
            'lms2.core.units',
+           'lms2.economic.cost',
            'lms2.electric.abs_batteries',
            'lms2.electric.abs_maingrids',
            'lms2.electric.abs_sources',

@@ -6,9 +6,9 @@ This module contains Economic units and methods to define parameter, variables a
 from pyomo.environ import Param, Var, Expression, NonNegativeReals, PositiveReals, Constraint
 from pyomo.network import Port
 
-from lms2 import DynUnit
+from lms2.base.base_units import DynUnit
 
-__all__ = ['def_linear_cost', 'def_bilinear_cost','def_linear_dyn_cost',
+__all__ = ['def_linear_cost', 'def_bilinear_cost', 'def_linear_dyn_cost',
            'def_bilinear_dynamic_cost', '_OnePortEconomicUnit', 'def_absolute_cost']
 
 
@@ -103,20 +103,25 @@ def def_absolute_cost(m, var_name='p', default_cost=1):
     """
 
     abs_var_name = f'abs_{var_name}'
-    m.add_component(abs_var_name, Var(m.time, within=NonNegativeReals, initialize=0, doc=f'Absolute value of variable {var_name}'))
-    m.add_component(f'{var_name}_cost', Param(default=default_cost, mutable=True, within=PositiveReals,
+    bound1 = f'_bound_1_{var_name}'
+    bound2 = f'_bound_2_{var_name}'
+    m.add_component(abs_var_name, Var(m.time, within=NonNegativeReals, initialize=0,
+                                      doc=f'Absolute value of variable {var_name}'))
+    m.add_component(f'{var_name}_cost', Param(default=default_cost, mutable=True, within=NonNegativeReals,
                     doc=f'cost associated to the absolute value of {var_name} (euros/kWh)'))
 
-    @m.Constraint(m.time, doc='absolute value constraint 1')
     def _bound1(m, t):
         return m.find_component(abs_var_name)[t] >= -m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
+    m.add_component(bound1, Constraint(m.time, rule = _bound1,
+                                       doc=f'absolute value constraint 1 on variable {abs_var_name}'))
 
-    @m.Constraint(m.time, doc='absolute value constraint 2')
     def _bound2(m, t):
         return m.find_component(abs_var_name)[t] >= m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
+    m.add_component(bound2, Constraint(m.time, rule = _bound2,
+                                       doc=f'absolute value constraint 2 on variable {abs_var_name}'))
 
     def _instant_cost(m, t):
-        return m.find_component(abs_var_name)[t] * m.find_component(f'{var_name}_cost') / 3600
+        return m.find_component(abs_var_name)[t] / 3600
 
     return Expression(m.time, rule=_instant_cost,
                       doc=f'instantaneous bilinear cost (euros/s), associated with variable {var_name}')
@@ -151,16 +156,13 @@ def def_bilinear_dynamic_cost(bl, var_in='p_in', var_out='p_out'):
     Names of costs are 'cost_in' 'cost_out' and are not tunable for the moment.
     Final instantaneous cost expression is called "inst_cost"
 
+    .. warning :: should only be used for convex cost ! i.e.  cost_out > -cost_in
+
     :param bl: Block
     :param str var_in: Name of the input variable
     :param str var_out: Name of the input variable
     :return: Expression
     """
-
-    # bl.cost_in  = Param(bl.time, default=0, mutable=True,
-    #                     doc=f'buying cost of variable {var_in} with respect to time')
-    # bl.cost_out = Param(bl.time, default=0, mutable=True,
-    #                     doc=f'selling cost of variable {var_out} with respect to time')
 
     from lms2.base.base_units import fix_profile
 

@@ -5,14 +5,13 @@ Distribution Grid Units
 Electrical connection to the distribution grid.
 
 """
-from pandas import Series
 from pyomo.environ import Constraint, Var, Param, Block, Expression
 from pyomo.environ import NonNegativeReals, Binary
-from pyomo.network import Port
 
-from lms2 import DynUnit, PowerSource, def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost, def_linear_dyn_cost
+from lms2.electric.sources import PowerSource
+from lms2.economic.cost import def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
 
-__all__ = ['MainGridV0', 'MainGridV1', 'MainGridV2', 'MainGridV3']
+__all__ = ['MainGridV0', 'MainGridV1', 'MainGridV2']
 
 UB = 10e6
 
@@ -58,7 +57,7 @@ def def_pin_pout(m):
 
 class MainGridV0(PowerSource):
     """
-    Simple MainGrid Unit.
+    Represent an ideal distribution grid.
 
     One Power port (named 'p' by default) associated with a simple cost (named 'cost').
     (Source convention)
@@ -94,12 +93,12 @@ class MainGridV0(PowerSource):
     def __init__(self, *args, flow_name='p', **kwgs):
         super().__init__(*args, flow_name=flow_name, **kwgs)
         self.instant_cost = def_linear_cost(self, var_name=flow_name)
-        self.component(flow_name).doc = 'Supplied power from the maingrid (source convention)'
+        self.component(flow_name).doc = 'Supplied power from the distribution grid (source convention)'
 
 
 class MainGridV1(PowerSource):
     """
-    Main Grid Unit.
+    Represent an ideal bidirectional distribution grid
 
     Consists of a power source with limits (pmin, pmax),
     associated with a bilinear cost (selling and buying cost, i.e. c_in and c_out).
@@ -157,7 +156,7 @@ class MainGridV1(PowerSource):
 
 class MainGridV2(PowerSource):
     """
-    Main Grid Unit v2.
+    Represent an ideal bidirectional distribution grid with selling and buying dynamic costs
 
     Consists of a power source with limits (pmin, pmax),
     associated with a bilinear cost with respect to time (selling and buying cost, i.e. c_in and c_out).
@@ -220,55 +219,3 @@ class MainGridV2(PowerSource):
         def_pin_pout(self)
 
         self.inst_cost = def_bilinear_dynamic_cost(self, var_in='pin', var_out='pout')
-
-
-class MainGridV3(PowerSource):
-    """
-    Main Grid Unit v3.
-
-    Consists of a power source with limits (pmin, pmax),
-    associated with a dynamic cost with respect to time (buying cost and no selling possible).
-    A binary variable 'u' is declared to tackle the price discontinuity at p=0.
-    (Source convention)
-
-    =============== ===================================================================
-    Sets            Documentation
-    =============== ===================================================================
-    cost_index      profile index
-    =============== ===================================================================
-    =============== ===================================================================
-    ContinuousSets  Documentation
-    =============== ===================================================================
-    time            Time continuous set (s)
-    =============== ===================================================================
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    p               Power output flow (kW)
-    =============== ===================================================================
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    pmax            maximal power out (kW)
-    cost_value      profile value
-    cost            new profile, indexed by time
-    =============== ===================================================================
-    =============== ===================================================================
-    Ports           Documentation
-    =============== ===================================================================
-    outlet          Power output port, using source convention (kW)
-    =============== ===================================================================
-    =============== ===================================================================
-    Expressions     Documentation
-    =============== ===================================================================
-    inst_cost       instantaneous linear cost (euros/s), associated with variable p
-    =============== ===================================================================
-
-    """
-
-    def __init__(self, *args, flow_name='p', **kwgs):
-        super().__init__(*args, flow_name=flow_name, **kwgs)
-
-        self.pmax = Param(initialize=UB, mutable=True, doc='maximal power out (kW)')
-
-        self.inst_cost = def_linear_dyn_cost(self, var_name=flow_name)

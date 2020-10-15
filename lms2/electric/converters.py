@@ -45,23 +45,3 @@ class SimpleConverter(DynUnit):
 
         self.inlet = Port(initialize={'f': (self.p_in, Port.Extensive, {'include_splitfrac': False})})
         self.outlet = Port(initialize={'f': (self.p_out, Port.Extensive, {'include_splitfrac': False})})
-
-
-if __name__ == "__main__":
-    from lms2 import AbsLModel
-    from pyomo.dae import ContinuousSet
-
-    m = AbsLModel(name='test')
-    m.time = ContinuousSet
-    m.b = SimpleConverter()
-
-    data_conv = {
-        'time': {None: (0, 1)},
-        'pmax': {None: -10},
-        'eta': {None: 1}}
-
-    data = {None: dict(time={None: [0, 1]},
-                       b=data_conv)}
-
-    inst = m.create_instance(data)
-    inst.pprint()
