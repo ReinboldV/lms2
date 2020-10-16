@@ -3,6 +3,7 @@
 Basic Units, multi-physical base model
 """
 
+from pyomo.core import Reals
 from pyomo.environ import *
 from pyomo.network import Port
 
@@ -141,7 +142,7 @@ def _init_input(m, t,
         raise TypeError(f'{profile_name} is not a instance of Param,'
                         f' but is actually : f{type(m.component(profile_name))}. Cannot proceed.')
 
-    interp_x = list(m.component(index_name).value_list)
+    interp_x = list(m.component(index_name).ordered_data())
     interp_y = list(m.component(profile_name).extract_values().values())
     funct = interp1d(interp_x, interp_y, kind='linear', fill_value='extrapolate')
     b = float(funct(t))

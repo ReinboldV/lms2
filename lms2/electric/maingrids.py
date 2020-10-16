@@ -6,7 +6,7 @@ Electrical connection to the distribution grid.
 
 """
 from pyomo.environ import Constraint, Var, Param, Block, Expression
-from pyomo.environ import NonNegativeReals, Binary
+from pyomo.core import NonNegativeReals, Binary, Reals
 
 from lms2.electric.sources import PowerSource
 from lms2.economic.cost import def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
@@ -30,8 +30,8 @@ def def_pin_pout(m):
     assert isinstance(m, Block), f"argument 'm', must be an instance of Block, but is actually {type(m)}."
     assert hasattr(m, 'p'), f"model m does not have attribute named 'p'. This is needed. "
 
-    m.pmax = Param(initialize=UB, mutable=True, doc='maximal power out (kW)')
-    m.pmin = Param(initialize=UB, mutable=True, doc='maximal power in (kW)')
+    m.pmax = Param(initialize=UB, mutable=True, doc='maximal power out (kW)', within=Reals)
+    m.pmin = Param(initialize=UB, mutable=True, doc='maximal power in (kW)', within=Reals)
 
     m.pout = Var(m.time, doc='power to the main grid', within=NonNegativeReals, initialize=0)
     m.pin = Var(m.time, doc='power from the main grid', within=NonNegativeReals, initialize=0)

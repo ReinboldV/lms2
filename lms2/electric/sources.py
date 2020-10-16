@@ -3,7 +3,8 @@
 Electrical sources and loads
 """
 from networkx.algorithms import flow
-from pyomo.environ import PositiveReals, Constraint, Var, Param, NonNegativeReals
+from pyomo.core import PositiveReals, NonNegativeReals, Binary, Reals, Any
+from pyomo.environ import Constraint, Var, Param
 from pyomo.network import Port
 
 from lms2 import FlowSource, FixedFlowSource, FlowLoad, FixedFlowLoad
@@ -133,8 +134,8 @@ class ScalablePowerSource(FixedPowerSource):
         super().__init__(*args, flow_name=flow_name, **kwds)
 
         scaled_flow_name = flow_name + '_scaled'
-        self.fact_min = Param(default=None, mutable=True, doc='factor lower bound')
-        self.fact_max = Param(default=None, mutable=True, doc='factor upper bound')
+        self.fact_min = Param(default=None, mutable=True, doc='factor lower bound', within=Any)
+        self.fact_max = Param(default=None, mutable=True, doc='factor upper bound', within=Any)
 
         self.add_component(scaled_flow_name, Var(self.time, doc='Scaled output flow (kW)', initialize=0))
 
@@ -298,7 +299,7 @@ class CurtailableLoad(PowerLoad):
 
     def __init__(self, *args, flow_name='p', **kwds):
         from lms2.base.base_units import fix_profile
-        from pyomo.environ import Binary, Var
+        from pyomo.environ import Var
 
         super().__init__(*args, flow_name=flow_name, **kwds)
 
@@ -322,8 +323,8 @@ class ProgrammableLoad(PowerLoad):
     def __init__(self, *args, flow_name='p', **kwds):
 
         from lms2 import fix_profile
-        from pyomo.core.base.sets import SimpleSet
-        from pyomo.environ import Binary, Param, Var
+        from pyomo.core import Binary
+        from pyomo.environ import Param, Var, Set
 
         super().__init__(*args, flow_name=flow_name, **kwds)
 
@@ -337,7 +338,7 @@ class ProgrammableLoad(PowerLoad):
 
         self.w1 = Param()
         self.w2 = Param()
-        self.window = SimpleSet(doc='time window where load can be turned ON.')
+        self.window = Set(doc='time window where load can be turned ON.')
 
         self.u = Var(self.time, bounds=_bound_u, within=Binary,
                      doc='binary, equals to 1 when the load is turned ON, 0 otherwise.')

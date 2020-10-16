@@ -3,7 +3,8 @@
 Electrical converters
 """
 
-from pyomo.environ import Var, Param, NonNegativeReals, Constraint
+from pyomo.environ import Var, Param, Constraint
+from pyomo.core import NonNegativeReals
 from pyomo.network import Port
 
 from lms2 import DynUnit

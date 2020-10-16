@@ -5,9 +5,9 @@ Batteries' Module.
 Contains electrical batteries linear models.
 """
 
-from pyomo.core.kernel.set_types import NonNegativeReals, Binary
+from pyomo.core import NonNegativeReals, Binary, PositiveReals, Reals, Any
 from pyomo.dae.diffvar import DerivativeVar
-from pyomo.environ import Constraint, Var, Param, Expression, PositiveReals, Set
+from pyomo.environ import Constraint, Var, Param, Expression, Set
 from pyomo.network import Port
 
 from lms2 import DynUnit
@@ -111,13 +111,13 @@ class BatteryV0(DynUnit):
         self.e = Var(self.time, doc='Energy in battery (kWh)', initialize=0)
 
         self.emin = Param(default=0, doc='minimum energy (kWh)', mutable=True, within=NonNegativeReals)
-        self.emax = Param(default=UB, doc='maximal energy', mutable=True)
-        self.e0 = Param(default=None, doc='initial state', mutable=True)
-        self.ef = Param(default=None, doc='final state', mutable=True)
-        self.etac = Param(default=1.0, doc='charging efficiency', mutable=True)
-        self.etad = Param(default=1.0, doc='discharging efficiency', mutable=True)
-        self.dpdmax = Param(default=UB, doc='maximal discharging power', mutable=True)
-        self.dpcmax = Param(default=UB, doc='maximal charging power', mutable=True)
+        self.emax = Param(default=UB, doc='maximal energy', mutable=True, within=Reals)
+        self.e0 = Param(default=None, doc='initial state', mutable=True, within=Any)
+        self.ef = Param(default=None, doc='final state', mutable=True, within=Any)
+        self.etac = Param(default=1.0, doc='charging efficiency', mutable=True, within=Reals)
+        self.etad = Param(default=1.0, doc='discharging efficiency', mutable=True, within=Reals)
+        self.dpdmax = Param(default=UB, doc='maximal discharging power', mutable=True, within=Reals)
+        self.dpcmax = Param(default=UB, doc='maximal charging power', mutable=True, within=Reals)
 
         self.pcmax = Param(default=UB, doc='maximal charging power', mutable=True, within=PositiveReals)
         self.pdmax = Param(default=UB, doc='maximal discharging power', mutable=True, within=PositiveReals)
@@ -262,14 +262,15 @@ class BatteryV1(DynUnit):
         super().__init__(*args, **kwds)
 
         self.emin = Param(default=0, doc='minimum energy (kWh)', mutable=True, within=NonNegativeReals)
-        self.emax = Param(default=UB, doc='maximal energy', mutable=True)
-        self.socmin = Param(default=0, doc='minimum soc', mutable=True)
-        self.pinit  = Param(default=None, doc='initial output power of the battery (default : None)', mutable=True)
-        self.socmax = Param(default=100, doc='maximal soc', mutable=True)
-        self.soc0 = Param(default=50, doc='initial state', mutable=True)
-        self.socf = Param(default=50, doc='final state', mutable=True)
-        self.dpdmax = Param(default=UB, doc='maximal discharging power', mutable=True)
-        self.dpcmax = Param(default=UB, doc='maximal charging power', mutable=True)
+        self.emax = Param(default=UB, doc='maximal energy', mutable=True, within=Reals)
+        self.socmin = Param(default=0, doc='minimum soc', mutable=True, within=Reals)
+        self.pinit  = Param(default=None,
+                            doc='initial output power of the battery (default : None)', mutable=True, within=Any)
+        self.socmax = Param(default=100, doc='maximal soc', mutable=True, within=Any)
+        self.soc0 = Param(default=50, doc='initial state', mutable=True, within=Any)
+        self.socf = Param(default=50, doc='final state', mutable=True, within=Any)
+        self.dpdmax = Param(default=UB, doc='maximal discharging power', mutable=True, within=Reals)
+        self.dpcmax = Param(default=UB, doc='maximal charging power', mutable=True, within=Reals)
         self.pcmax = Param(default=UB, doc='maximal charging power', mutable=True, within=NonNegativeReals)
         self.pdmax = Param(default=UB, doc='maximal discharging power', mutable=True, within=NonNegativeReals)
 
@@ -456,8 +457,8 @@ class BatteryV2(BatteryV1):
         self.pc = Var(self.time, doc='charging power', within=NonNegativeReals, initialize=0)
         self.u = Var(self.time, doc='binary variable', within=Binary, initialize=0)
 
-        self.etac = Param(default=1.0, doc='charging efficiency', mutable=True)
-        self.etad = Param(default=1.0, doc='discharging efficiency', mutable=True)
+        self.etac = Param(default=1.0, doc='charging efficiency', mutable=True, within=Reals)
+        self.etad = Param(default=1.0, doc='discharging efficiency', mutable=True, within=Reals)
 
         self.del_component('_e_balance')
         self.del_component('_pmax')
@@ -616,10 +617,14 @@ class BatteryV3(BatteryV2):
 
         self.voc_rule = voc_rule
 
-        self.mut3   = Param(initialize=4,       doc=f'minimal duration of the up time for float phase (h)')
-        self.mdt3   = Param(initialize=2,       doc=f'minimal duration of the down time for float phase (h)')
-        self.socabs = Param(initialize=85,      doc='Absorption phase : soc lower limit')
-        self.pfloat = Param(initialize=0.250,   doc='Float Phase, losses (kW)')
+        self.mut3   = Param(initialize=4, within=Reals,
+                            doc=f'minimal duration of the up time for float phase (h)')
+        self.mdt3   = Param(initialize=2, within=Reals,
+                            doc=f'minimal duration of the down time for float phase (h)')
+        self.socabs = Param(initialize=85,within=Reals,
+                            doc='Absorption phase : soc lower limit')
+        self.pfloat = Param(initialize=0.250, within=Reals,
+                            doc='Float Phase, losses (kW)')
         self.u1 = Var(self.time, within=Binary, doc='bulk charging phase')
 
         # #############################
@@ -634,7 +639,8 @@ class BatteryV3(BatteryV2):
                                 doc='Intermediary weight variable for SOS2 modelling of voc/soc/pcmax')
             self.pw_u     = Var(self.pw_j, self.time, within=Binary,
                                 doc='Intermediary binary variable for SOS2 modelling of voc/soc/pcmax')
-            self.pw_soc   = Param(self.pw_i, initialize={1: 40, 2: 85, 3: 100}, doc='SOC points for SOS2 modelling')
+            self.pw_soc   = Param(self.pw_i, initialize={1: 40, 2: 85, 3: 100}, within=Reals,
+                                  doc='SOC points for SOS2 modelling')
 
             pw_voc_default = {1: 49.5, 2: 51, 3: 56}
 

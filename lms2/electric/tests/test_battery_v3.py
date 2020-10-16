@@ -114,7 +114,7 @@ class TestBatteryV3(unittest.TestCase):
 
         self.assertTrue(results.solver.status == SolverStatus.ok)
         self.assertTrue(results.solver.termination_condition == TerminationCondition.optimal)
-        self.assertAlmostEqual(7.856647557037822, inst.obj())
+        self.assertAlmostEqual(7.8386091, inst.obj(), places=5)
 
 
 if __name__ == '__main__':

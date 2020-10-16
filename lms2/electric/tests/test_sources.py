@@ -100,7 +100,7 @@ class TestAbsPrommableLoad(TestCase):
         import pandas as pd
 
         m = AbstractModel()
-        m.time = ContinuousSet(bounds=(0, 1))
+        m.time = ContinuousSet(bounds=(0, 10))
         m.prog = ProgrammableLoad()
 
         UB = 1e6

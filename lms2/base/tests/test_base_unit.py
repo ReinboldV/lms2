@@ -25,8 +25,8 @@ class TestAbsDynUnit(TestCase):
 
         inst = m.create_instance(data)
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=1)
-        self.assertEqual(inst.u.time.data(), {0, 15})
-        self.assertEqual(inst.time.data(), {0, 15})
+        self.assertEqual(inst.u.time.data(), (0, 15))
+        self.assertEqual(inst.time.data(), (0, 15))
 
 
 class TestAbsFlowSource(TestCase):
@@ -59,8 +59,8 @@ class TestAbsFlowSource(TestCase):
         self.assertTrue(hasattr(m.u, 'outlet'))
         self.assertIsInstance(m.u.outlet, Port)
 
-        self.assertEqual(inst.u.time.data(), {0, 15})
-        self.assertEqual(inst.time.data(), {0, 15})
+        self.assertEqual(inst.u.time.data(), (0, 15))
+        self.assertEqual(inst.time.data(), (0, 15))
 
 
 class TestFixVariable(TestCase):
@@ -102,8 +102,8 @@ class TestFixVariable(TestCase):
         self.assertIsInstance(m.u.pro, Param)
         self.assertIsInstance(m.u.ind, Set)
 
-        self.assertEqual(inst.u.time.data(), {0, 15, 7.5})
-        self.assertEqual(inst.time.data(), {0, 15, 7.5})
+        self.assertEqual(inst.u.time.data(), (0, 7.5, 15))
+        self.assertEqual(inst.time.data(), (0, 7.5, 15))
 
 
 class TestAbsFlowLoad(TestCase):
@@ -136,8 +136,8 @@ class TestAbsFlowLoad(TestCase):
         self.assertTrue(hasattr(m.u, 'inlet'))
         self.assertIsInstance(m.u.inlet, Port)
 
-        self.assertEqual(inst.u.time.data(), {0, 15})
-        self.assertEqual(inst.time.data(), {0, 15})
+        self.assertEqual(inst.u.time.data(), (0, 15))
+        self.assertEqual(inst.time.data(), (0, 15))
 
 
 class TestAbsEffortSource(TestCase):
@@ -170,8 +170,8 @@ class TestAbsEffortSource(TestCase):
         self.assertTrue(hasattr(m.u, 'outlet'))
         self.assertIsInstance(m.u.outlet, Port)
 
-        self.assertEqual(inst.u.time.data(), {0, 15})
-        self.assertEqual(inst.time.data(), {0, 15})
+        self.assertEqual(inst.u.time.data(), (0, 15))
+        self.assertEqual(inst.time.data(), (0, 15))
 
 
 class TestAbsFixedFlowSource(TestCase):
@@ -212,8 +212,8 @@ class TestAbsFixedFlowSource(TestCase):
         inst = m.create_instance(data)
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=2)
 
-        self.assertEqual(inst.u.time.data(), {0, 7.5, 15})
-        self.assertEqual(inst.time.data(), {0, 7.5, 15})
+        self.assertEqual(inst.u.time.data(), (0, 7.5, 15))
+        self.assertEqual(inst.time.data(), (0, 7.5, 15))
         self.assertEqual(inst.u.p.extract_values(), {0: 10.0, 7.5: 10.75, 15: 12.0})
 
 
@@ -254,8 +254,8 @@ class TestAbsFixedFlowLoad(TestCase):
         inst = m.create_instance(data)
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=2)
 
-        self.assertEqual(inst.u.time.data(), {0, 7.5, 15})
-        self.assertEqual(inst.time.data(), {0, 7.5, 15})
+        self.assertEqual(inst.u.time.data(), (0, 7.5, 15))
+        self.assertEqual(inst.time.data(), (0, 7.5, 15))
         self.assertEqual(inst.u.p.extract_values(), {0: 10.0, 7.5: 10.75, 15: 12.0})
 
 

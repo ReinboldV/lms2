@@ -10,7 +10,7 @@ class TestBattery(unittest.TestCase):
         from pyomo.network import Port
 
         m = AbstractModel()
-        m.time = ContinuousSet(bounds=(0, 1))
+        m.time = ContinuousSet(bounds=(0, 10))
         m.b = BatteryV0()
 
         UB = 1e6

@@ -11,7 +11,7 @@ class TestAbsMainGridV0(TestCase):
         from pyomo.network import Port
 
         m = AbstractModel()
-        m.time = ContinuousSet(bounds=(0, 1))
+        m.time = ContinuousSet(bounds=(0, 10))
         m.mg = MainGridV0()
 
         data_main_grid_v0 = {
@@ -44,7 +44,7 @@ class TestAbsMainGridV1(TestCase):
         from pyomo.network import Port
 
         m = AbstractModel()
-        m.time = ContinuousSet(bounds=(0, 1))
+        m.time = ContinuousSet(bounds=(0, 10))
         m.mg = MainGridV1()
 
         data_main_grid_v1 = {
@@ -75,7 +75,7 @@ class TestAbsMainGridV2(TestCase):
         from pyomo.network import Port
 
         m = AbstractModel()
-        m.time = ContinuousSet(bounds=(0, 1))
+        m.time = ContinuousSet(bounds=(0, 10))
         m.mg = MainGridV2()
 
         data_main_grid_v2 = {
@@ -103,8 +103,8 @@ class TestAbsMainGridV2(TestCase):
         self.assertIsInstance(m.mg.outlet, Port)
         self.assertEqual(inst.mg.cost_out.extract_values(), {0: 0.15, 1.0: 0.13, 2: 0.13})
         self.assertEqual(inst.mg.cost_in.extract_values(), {0: 0.1, 1.0: 0.12, 2: 0.12})
-        self.assertEqual(inst.mg.cost_in_index.data(), {0, 1, 2})
-        self.assertEqual(inst.mg.cost_out_index.data(), {0, 1, 2})
+        self.assertEqual(inst.mg.cost_in_index.data(), (0, 1, 2))
+        self.assertEqual(inst.mg.cost_out_index.data(), (0, 1, 2))
 
 
 if __name__ == '__main__':

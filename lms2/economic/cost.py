@@ -3,7 +3,8 @@ Economic Units and methods
 
 This module contains Economic units and methods to define parameter, variables and objectives to an exiting block
 """
-from pyomo.environ import Param, Var, Expression, NonNegativeReals, PositiveReals, Constraint
+from pyomo.core import NonNegativeReals, PositiveReals
+from pyomo.environ import Param, Var, Expression, Constraint
 from pyomo.network import Port
 
 from lms2.base.base_units import DynUnit
