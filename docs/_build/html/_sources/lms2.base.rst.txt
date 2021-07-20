@@ -7,5 +7,4 @@ Base
     :template: module.rst
     :toctree: generated
 
-    base_units
-    utils
+    blocks
