@@ -9,19 +9,6 @@ dipoles
 
     
     
-    .. rubric:: Classes
-
-    .. autosummary::
-        :template: class.rst
-        :toctree:
-        
-        TCond
-        TCondRes
-        TConvRes
-        TDipole
-        TResNL
-        TStorage
-        
         
 	
     

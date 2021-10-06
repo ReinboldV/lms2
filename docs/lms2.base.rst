@@ -7,4 +7,4 @@ Base
     :template: module.rst
     :toctree: generated
 
-    blocks
+    block

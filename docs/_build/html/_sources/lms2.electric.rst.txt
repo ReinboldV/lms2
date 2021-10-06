@@ -9,5 +9,5 @@ Electric
     :toctree: generated
 
     batteries
-    maingrids
+    converters
     sources

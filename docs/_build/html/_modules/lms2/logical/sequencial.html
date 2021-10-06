@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lms2.logical.sequencial &mdash; lms2 1.1+2.g10d0b63.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> lms2
+          
+
+          
+            
+            <img src="../../../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-pyomo">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-model-by-aggregating-blocks-of-the-library">2) Example of model by aggregating blocks of the library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.block.html">block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.effort_source.html">effort_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.fix_profile.html">fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.flow_load.html">flow_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.flow_source.html">flow_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.maintenance_cost.html">maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.recycling_cost.html">recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.replacement_cost.html">replacement_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.converters.html">converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.converters.converter_simple.html">converter_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_load.html">power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_source.html">power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.html">sequencial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.add_phase.html">add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.social.html">Social</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.social.occupancy.html">occupancy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.social.occupancy.occupancy.html">occupancy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.thermal.html">Thermal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.html">dipoles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.tools.html">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.html">data_processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.html">model_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.post_processing.html">post_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.post_processing.pplot.html">pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lms2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lms2.logical.sequencial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lms2.logical.sequencial</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Contains hysteresis model.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pyomo.core</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Binary</span><span class="p">,</span> <span class="n">Constraint</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;add_phase&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Hysteresis"><a class="viewcode-back" href="../../../generated/lms2.logical.sequencial.Hysteresis.html#lms2.logical.sequencial.Hysteresis">[docs]</a><span class="k">class</span> <span class="nc">Hysteresis</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Linear hysteresis model</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    </span>
+<span class="sd">        - u : logical output</span>
+<span class="sd">        - x : continuous input</span>
+<span class="sd">        - xref : reference input value</span>
+<span class="sd">        - dx : windows size</span>
+<span class="sd">        - a : logical intermediate variable</span>
+<span class="sd">        - b : logical intermediate variable</span>
+<span class="sd">        - c : logical intermediate variable</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+    <span class="c1"># def __init__(b, time_horizon, name=&#39;hys0&#39;, description=&#39;logical hysteresis&#39;, xr=None, dxm=1, dxM=1, xM=100, xm=100, init_x=0):</span>
+    <span class="c1">#</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     :param time_horizon: time</span>
+    <span class="c1">#     :param name: unit name</span>
+    <span class="c1">#     :param description: short description</span>
+    <span class="c1">#     :param xr: reference input value</span>
+    <span class="c1">#     :param dxm:</span>
+    <span class="c1">#     :param dxM:</span>
+    <span class="c1">#     :param xM: upper bound of x</span>
+    <span class="c1">#     :param xm: lower bound of x</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     import numpy as np</span>
+    <span class="c1">#</span>
+    <span class="c1">#     if xr is None:</span>
+    <span class="c1">#         xr = np.zeros(time_horizon.len)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     TUnit.__init__(b, time_horizon, name=name, description=description)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     b.addquantity(name=&#39;u&#39;, pl={-1: init_x}, opt=True, vtype=&#39;B&#39;, vlen=time_horizon.len)</span>
+    <span class="c1">#     b.addquantity(name=&#39;a&#39;, opt=True, vtype=&#39;B&#39;, vlen=time_horizon.len)</span>
+    <span class="c1">#     b.addquantity(name=&#39;b&#39;, opt=True, vtype=&#39;B&#39;, vlen=time_horizon.len)</span>
+    <span class="c1">#     b.addquantity(name=&#39;x&#39;, opt=True, vlen=time_horizon.len)</span>
+    <span class="c1">#     b.addquantity(name=&#39;dxm&#39;, value=dxm, opt=False)</span>
+    <span class="c1">#     b.addquantity(name=&#39;dxM&#39;, value=dxM, opt=False)</span>
+    <span class="c1">#     b.addquantity(name=&#39;xr&#39;, value=xr, opt=False)</span>
+    <span class="c1">#     b.addquantity(name=&#39;xM&#39;, value=xM, opt=False)</span>
+    <span class="c1">#     b.addquantity(name=&#39;xm&#39;, value=xm, opt=False)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     exp = &quot;&quot;&quot;</span>
+    <span class="c1">#     (xr[t]-dxm) + (xM - xr[t] + dxm)*a[t]   &gt;= x[t]  for t in T</span>
+    <span class="c1">#     xm + (xr[t] - dxm - xm)*a[t]            &lt;= x[t]  for t in T</span>
+    <span class="c1">#     (xr[t] + dxM) + (xM - xr[t] - dxM)*b[t] &gt;= x[t]  for t in T</span>
+    <span class="c1">#     xm + (xr[t] + dxM - xm)*b[t]            &lt;= x[t]  for t in T</span>
+    <span class="c1">#     u[t] + a[t]                             &gt;= 1 for t in T</span>
+    <span class="c1">#     1 - u[t]                                &gt;=  b[t] for t in T</span>
+    <span class="c1">#     u[t]                                    &gt;= a[t] - b[t] + u[t-1] - 1  for t in T</span>
+    <span class="c1">#     1 - u[t]                                &gt;= a[t] - b[t] - u[t-1] for t in T &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     b.addconst(name=&#39;cst&#39;, exp=exp)</span>
+
+
+<div class="viewcode-block" id="add_phase"><a class="viewcode-back" href="../../../generated/lms2.logical.sequencial.add_phase.html#lms2.logical.sequencial.add_phase">[docs]</a><span class="k">def</span> <span class="nf">add_phase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;new phase&#39;</span><span class="p">,</span> <span class="n">start_up</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shut_down</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method to introduce a phase to a block.</span>
+
+<span class="sd">    This function declare a binary variable indexed by the time.</span>
+<span class="sd">    It also declare binary variables for starting up, called `su` and shutting down, called `sd`.</span>
+<span class="sd">    This is used for example in battery charging phases and imposing minimal up-time,</span>
+<span class="sd">    minimal down-time or number of starting up and shutting down.</span>
+
+<span class="sd">    :param self: Parent block</span>
+<span class="sd">    :param str prefix: Prefix to be added to the created variables (e.g.:  with prefix = &#39;1&#39;,</span>
+<span class="sd">    the created variabled will be called u_1)</span>
+<span class="sd">    :param str name: Name to be display in the documentation</span>
+<span class="sd">    :param start_up: Not used for now</span>
+<span class="sd">    :param shut_down: Not used for now</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>   <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{name}</span><span class="s1"> is running&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;su</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;starting of </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;sd</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;stoping of </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;intermediary binary variable for the &#39;</span>
+                                                                         <span class="n">f</span><span class="s1">&#39;starting-up of </span><span class="si">{name}</span><span class="s1">.&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="n">Var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;intermediary binary variable for the&#39;</span>
+                                                                         <span class="n">f</span><span class="s1">&#39; shutting down of </span><span class="si">{name}</span><span class="s1">.&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;su</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="n">su</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start1_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start1</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 1 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">su</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;su</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">su</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mu</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start2_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 2 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mu</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start3_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start3</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 3 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_start4</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;mu</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">mu</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_start4_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_start4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;start up constraint 4 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">sd</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;sd</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="n">sd</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop1_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop1</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 1 for  </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">sd</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;sd</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sd</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">md</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop2_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 2 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">md</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop3_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop3</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 3 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_stop4</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;md</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">u</span>  <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">find_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;u</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tmp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">md</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_stop4_</span><span class="si">{prefix}</span><span class="s1">&#39;</span><span class="p">,</span>
+                       <span class="n">Constraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_stop4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;shutting down constraint 4 for </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2021, lms2 Developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -5,26 +5,27 @@ sources
 
     
     
-        
-
-    
-    
-    .. rubric:: Classes
-
+    .. rubric:: Functions
+	
     .. autosummary::
-        :template: class.rst
+        :template: base.rst
         :toctree:
+        :nosignatures:
         
-        DebugSource
-        FixedPowerLoad
-        FixedPowerSource
-        PVPanels
-        PowerLoad
-        PowerSource
-        ProgrammableLoad
-        ScalablePowerLoad
-        ScalablePowerSource
+        curtailable_load
+        debug_source
+        fixed_power_load
+        fixed_power_source
+        power_load
+        power_source
+        pv_panel
+        scalable_power_load
+        scalable_power_source
         
+        
+
+    
+    
         
 	
     

@@ -5,10 +5,11 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Library &mdash; lms2 1.1+1.g5010630.dirty documentation</title>
+  <title>Library &mdash; lms2 1.1+2.g10d0b63.dirty documentation</title>
   
 
   
@@ -21,10 +22,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -33,6 +35,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Base" href="lms2.base.html" />
@@ -80,7 +84,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation steps</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
@@ -90,22 +94,32 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Tutorial Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#working-with-pyomo">Working with Pyomo</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples.html#working-with-abstract-model">2) working with abstract model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples.html#example-of-a-block">2) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples.html#example-of-model-by-aggregating-blocks-of-the-library">2) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples.html#full-example-for-a-microgrid">Full example for a microgrid</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="builddoc.html">How to build the documentation ?</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Library</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lms2.base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.base.block.html">block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.effort_source.html">effort_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.fix_profile.html">fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.flow_load.html">flow_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.flow_source.html">flow_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.core.html">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.core.models.html">models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
@@ -116,21 +130,47 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.economic.html">Economic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.economic.cost.html">cost</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.maintenance_cost.html">maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.recycling_cost.html">recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.replacement_cost.html">replacement_cost</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.electric.html">Electric</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.batteries.html">batteries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.sources.html">sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.converters.html">converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.converters.converter_simple.html">converter_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.power_load.html">power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.power_source.html">power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.environment.html">Environment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.environment.ghg.html">ghg</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.environment.ghg.def_linear_ghg_cost.html">lms2.environment.ghg.def_linear_ghg_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
 </ul>
@@ -143,13 +183,49 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="lms2.logical.html">Logical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.logical.sequencial.html">sequencial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.logical.sequencial.add_phase.html">add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.mechanic.html">Mechanic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.mechanic.gears.html">gears</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.social.html">Social</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.social.occupancy.html">occupancy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.social.occupancy.occupancy.html">occupancy</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.thermal.html">Thermal</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.thermal.dipoles.html">dipoles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.tools.html">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.tools.data_processing.html">data_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.data_processing.interpolation.html">interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.data_processing.load_data.html">load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.data_processing.read_data.html">read_data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.tools.model_processing.html">model_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.tools.post_processing.html">post_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.post_processing.pplot.html">pplot</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -220,7 +296,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="library">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="library">
 <h1>Library<a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
@@ -232,10 +332,12 @@
 <li class="toctree-l1"><a class="reference internal" href="lms2.fluids.html">Fluids</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lms2.logical.html">Logical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lms2.mechanic.html">Mechanic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lms2.social.html">Social</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lms2.thermal.html">Thermal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lms2.tools.html">Tools</a></li>
 </ul>
 </div>
-</div>
+</section>
 
 
            </div>

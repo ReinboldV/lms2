@@ -7,6 +7,7 @@
     .. rubric:: Functions
 	
     .. autosummary::
+        :template: base.rst
         :toctree:
         :nosignatures:
         {% for item in functions %}

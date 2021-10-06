@@ -1,5 +1,6 @@
 Library
 =======
+
 .. currentmodule:: lms2
 
 .. toctree::
@@ -13,4 +14,6 @@ Library
     lms2.fluids
     lms2.logical
     lms2.mechanic
+    lms2.social
     lms2.thermal
+    lms2.tools

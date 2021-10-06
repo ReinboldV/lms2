@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; lms2 1.1+1.g5010630.dirty documentation</title>
+  <title>Index &mdash; lms2 1.1+2.g10d0b63.dirty documentation</title>
   
 
   
@@ -22,10 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -34,6 +34,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -79,32 +81,57 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation steps</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Tutorial Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#working-with-pyomo">Working with Pyomo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples.html#working-with-abstract-model">2) working with abstract model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Tutorial and Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples_pyomo.html">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples_pyomo.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="examples.html#example-of-model-by-aggregating-blocks-of-the-library">1) Example of model by aggregating blocks of the library</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples.html#example-of-a-block">2) Example of a block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples_lms2.html">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples_lms2.html#example-of-model-by-aggregating-blocks-of-the-library">2) Example of model by aggregating blocks of the library</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:">Cet exemple d’optimisation illustre les étapes suivantes :</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Chargement-des-données">Chargement des données</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="builddoc.html">How to build the documentation ?</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lms2.html">Library</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lms2.base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.base.block.html">block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.effort_source.html">effort_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.fix_profile.html">fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.flow_load.html">flow_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.base.block.flow_source.html">flow_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.core.html">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.core.models.html">models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
@@ -115,21 +142,47 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.economic.html">Economic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.economic.cost.html">cost</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.maintenance_cost.html">lms2.economic.cost.maintenance_cost</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.recycling_cost.html">lms2.economic.cost.recycling_cost</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.replacement_cost.html">lms2.economic.cost.replacement_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.maintenance_cost.html">maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.recycling_cost.html">recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.economic.cost.replacement_cost.html">replacement_cost</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.electric.html">Electric</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.batteries.html">batteries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.sources.html">sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.converters.html">converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.converters.converter_simple.html">converter_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.power_load.html">power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.power_source.html">power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.environment.html">Environment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.environment.ghg.html">ghg</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.environment.ghg.def_linear_ghg_cost.html">lms2.environment.ghg.def_linear_ghg_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
 </ul>
@@ -142,13 +195,49 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="lms2.logical.html">Logical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.logical.sequencial.html">sequencial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.logical.sequencial.add_phase.html">add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.mechanic.html">Mechanic</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.mechanic.gears.html">gears</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.social.html">Social</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.social.occupancy.html">occupancy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.social.occupancy.occupancy.html">occupancy</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="lms2.thermal.html">Thermal</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.thermal.dipoles.html">dipoles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lms2.tools.html">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.tools.data_processing.html">data_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.data_processing.interpolation.html">interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.data_processing.load_data.html">load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.data_processing.read_data.html">read_data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.tools.model_processing.html">model_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/lms2.tools.post_processing.html">post_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.post_processing.pplot.html">pplot</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -222,13 +311,20 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  | <a href="#U"><strong>U</strong></a>
  
 </div>
@@ -238,11 +334,37 @@
       <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel">AbsLModel (class in lms2.core.models)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.economic.cost.absolute_cost.html#lms2.economic.cost.absolute_cost">absolute_cost() (in module lms2.economic.cost)</a>
+</li>
+      <li><a href="generated/lms2.logical.sequencial.add_phase.html#lms2.logical.sequencial.add_phase">add_phase() (in module lms2.logical.sequencial)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.batteries.battery_V0.html#lms2.electric.batteries.battery_V0">battery_V0() (in module lms2.electric.batteries)</a>
+</li>
+      <li><a href="generated/lms2.electric.batteries.battery_v1.html#lms2.electric.batteries.battery_v1">battery_v1() (in module lms2.electric.batteries)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.batteries.battery_v2.html#lms2.electric.batteries.battery_v2">battery_v2() (in module lms2.electric.batteries)</a>
+</li>
+      <li><a href="generated/lms2.economic.cost.bilinear_cost.html#lms2.economic.cost.bilinear_cost">bilinear_cost() (in module lms2.economic.cost)</a>
+</li>
+      <li><a href="generated/lms2.economic.cost.bilinear_dynamic_cost.html#lms2.economic.cost.bilinear_dynamic_cost">bilinear_dynamic_cost() (in module lms2.economic.cost)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.tools.model_processing.construct_objective.html#lms2.tools.model_processing.construct_objective">construct_objective() (in module lms2.tools.model_processing)</a>
+</li>
       <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.construct_objective_from_expression_list">construct_objective_from_expression_list() (lms2.core.models.AbsLModel method)</a>
 
       <ul>
@@ -250,12 +372,30 @@
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.converters.converter_simple.html#lms2.electric.converters.converter_simple">converter_simple() (in module lms2.electric.converters)</a>
+</li>
+      <li><a href="generated/lms2.electric.sources.curtailable_load.html#lms2.electric.sources.curtailable_load">curtailable_load() (in module lms2.electric.sources)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.sources.debug_source.html#lms2.electric.sources.debug_source">debug_source() (in module lms2.electric.sources)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/lms2.environment.ghg.def_linear_ghg_cost.html#lms2.environment.ghg.def_linear_ghg_cost">def_linear_ghg_cost() (in module lms2.environment.ghg)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.base.block.effort_source.html#lms2.base.block.effort_source">effort_source() (in module lms2.base.block)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -263,33 +403,53 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.fix_binary">fix_binary() (lms2.core.models.AbsLModel method)</a>
+      <li><a href="generated/lms2.tools.model_processing.fix_binary.html#lms2.tools.model_processing.fix_binary">fix_binary() (in module lms2.tools.model_processing)</a>
 
       <ul>
+        <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.fix_binary">(lms2.core.models.AbsLModel method)</a>
+</li>
         <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel.fix_binary">(lms2.core.models.LModel method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/lms2.base.block.fix_profile.html#lms2.base.block.fix_profile">fix_profile() (in module lms2.base.block)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.sources.fixed_power_load.html#lms2.electric.sources.fixed_power_load">fixed_power_load() (in module lms2.electric.sources)</a>
+</li>
+      <li><a href="generated/lms2.electric.sources.fixed_power_source.html#lms2.electric.sources.fixed_power_source">fixed_power_source() (in module lms2.electric.sources)</a>
+</li>
+      <li><a href="generated/lms2.base.block.flow_load.html#lms2.base.block.flow_load">flow_load() (in module lms2.base.block)</a>
+</li>
+      <li><a href="generated/lms2.base.block.flow_source.html#lms2.base.block.flow_source">flow_source() (in module lms2.base.block)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.get_duals">get_duals() (lms2.core.models.AbsLModel method)</a>
-
-      <ul>
-        <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel.get_duals">(lms2.core.models.LModel method)</a>
+      <li><a href="generated/lms2.tools.model_processing.get_doc_2.html#lms2.tools.model_processing.get_doc_2">get_doc_2() (in module lms2.tools.model_processing)</a>
 </li>
-      </ul></li>
-      <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.get_slack">get_slack() (lms2.core.models.AbsLModel method)</a>
+      <li><a href="generated/lms2.tools.model_processing.get_duals.html#lms2.tools.model_processing.get_duals">get_duals() (in module lms2.tools.model_processing)</a>
 
       <ul>
-        <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel.get_slack">(lms2.core.models.LModel method)</a>
+        <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.get_duals">(lms2.core.models.AbsLModel method)</a>
+</li>
+        <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel.get_duals">(lms2.core.models.LModel method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.graph">graph() (lms2.core.models.AbsLModel property)</a>
+      <li><a href="generated/lms2.tools.model_processing.get_slack.html#lms2.tools.model_processing.get_slack">get_slack() (in module lms2.tools.model_processing)</a>
+
+      <ul>
+        <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.get_slack">(lms2.core.models.AbsLModel method)</a>
+</li>
+        <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel.get_slack">(lms2.core.models.LModel method)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.graph">graph (lms2.core.models.AbsLModel property)</a>
 
       <ul>
         <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel.graph">(lms2.core.models.LModel property)</a>
@@ -298,28 +458,141 @@
   </ul></td>
 </tr></table>
 
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.logical.sequencial.Hysteresis.html#lms2.logical.sequencial.Hysteresis">Hysteresis (class in lms2.logical.sequencial)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.tools.data_processing.interpolation.html#lms2.tools.data_processing.interpolation">interpolation() (in module lms2.tools.data_processing)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.economic.cost.lifecycle_cost.html#lms2.economic.cost.lifecycle_cost">lifecycle_cost() (in module lms2.economic.cost)</a>
+</li>
+      <li><a href="generated/lms2.economic.cost.linear_cost.html#lms2.economic.cost.linear_cost">linear_cost() (in module lms2.economic.cost)</a>
+</li>
+      <li><a href="generated/lms2.economic.cost.linear_dyn_cost.html#lms2.economic.cost.linear_dyn_cost">linear_dyn_cost() (in module lms2.economic.cost)</a>
+</li>
       <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel">LModel (class in lms2.core.models)</a>
 </li>
-      <li><a href="generated/lms2.core.models.html#module-lms2.core.models">lms2.core.models (module)</a>
+      <li>
+    lms2.base.block
+
+      <ul>
+        <li><a href="generated/lms2.base.block.html#module-lms2.base.block">module</a>
 </li>
-      <li><a href="generated/lms2.economic.cost.html#module-lms2.economic.cost">lms2.economic.cost (module)</a>
+      </ul></li>
+      <li>
+    lms2.core.models
+
+      <ul>
+        <li><a href="generated/lms2.core.models.html#module-lms2.core.models">module</a>
 </li>
-      <li><a href="generated/lms2.electric.batteries.html#module-lms2.electric.batteries">lms2.electric.batteries (module)</a>
+      </ul></li>
+      <li>
+    lms2.economic.cost
+
+      <ul>
+        <li><a href="generated/lms2.economic.cost.html#module-lms2.economic.cost">module</a>
 </li>
+      </ul></li>
+      <li>
+    lms2.electric.batteries
+
+      <ul>
+        <li><a href="generated/lms2.electric.batteries.html#module-lms2.electric.batteries">module</a>
+</li>
+      </ul></li>
+      <li>
+    lms2.electric.converters
+
+      <ul>
+        <li><a href="generated/lms2.electric.converters.html#module-lms2.electric.converters">module</a>
+</li>
+      </ul></li>
+      <li>
+    lms2.electric.sources
+
+      <ul>
+        <li><a href="generated/lms2.electric.sources.html#module-lms2.electric.sources">module</a>
+</li>
+      </ul></li>
+      <li>
+    lms2.environment.ghg
+
+      <ul>
+        <li><a href="generated/lms2.environment.ghg.html#module-lms2.environment.ghg">module</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.electric.sources.html#module-lms2.electric.sources">lms2.electric.sources (module)</a>
+      <li>
+    lms2.fluids.modelCO2
+
+      <ul>
+        <li><a href="generated/lms2.fluids.modelCO2.html#module-lms2.fluids.modelCO2">module</a>
 </li>
-      <li><a href="generated/lms2.environment.ghg.html#module-lms2.environment.ghg">lms2.environment.ghg (module)</a>
+      </ul></li>
+      <li>
+    lms2.logical.sequencial
+
+      <ul>
+        <li><a href="generated/lms2.logical.sequencial.html#module-lms2.logical.sequencial">module</a>
 </li>
-      <li><a href="generated/lms2.fluids.modelCO2.html#module-lms2.fluids.modelCO2">lms2.fluids.modelCO2 (module)</a>
+      </ul></li>
+      <li>
+    lms2.mechanic.gears
+
+      <ul>
+        <li><a href="generated/lms2.mechanic.gears.html#module-lms2.mechanic.gears">module</a>
 </li>
-      <li><a href="generated/lms2.mechanic.gears.html#module-lms2.mechanic.gears">lms2.mechanic.gears (module)</a>
+      </ul></li>
+      <li>
+    lms2.social.occupancy
+
+      <ul>
+        <li><a href="generated/lms2.social.occupancy.html#module-lms2.social.occupancy">module</a>
 </li>
-      <li><a href="generated/lms2.thermal.dipoles.html#module-lms2.thermal.dipoles">lms2.thermal.dipoles (module)</a>
+      </ul></li>
+      <li>
+    lms2.thermal.dipoles
+
+      <ul>
+        <li><a href="generated/lms2.thermal.dipoles.html#module-lms2.thermal.dipoles">module</a>
+</li>
+      </ul></li>
+      <li>
+    lms2.tools.data_processing
+
+      <ul>
+        <li><a href="generated/lms2.tools.data_processing.html#module-lms2.tools.data_processing">module</a>
+</li>
+      </ul></li>
+      <li>
+    lms2.tools.model_processing
+
+      <ul>
+        <li><a href="generated/lms2.tools.model_processing.html#module-lms2.tools.model_processing">module</a>
+</li>
+      </ul></li>
+      <li>
+    lms2.tools.post_processing
+
+      <ul>
+        <li><a href="generated/lms2.tools.post_processing.html#module-lms2.tools.post_processing">module</a>
+</li>
+      </ul></li>
+      <li><a href="generated/lms2.tools.data_processing.load_data.html#lms2.tools.data_processing.load_data">load_data() (in module lms2.tools.data_processing)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -329,11 +602,68 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/lms2.economic.cost.maintenance_cost.html#lms2.economic.cost.maintenance_cost">maintenance_cost() (in module lms2.economic.cost)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/lms2.fluids.modelCO2.ModelCO2.html#lms2.fluids.modelCO2.ModelCO2">ModelCO2 (class in lms2.fluids.modelCO2)</a>
 </li>
       <li><a href="generated/lms2.fluids.modelCO2.ModelCO2_bis.html#lms2.fluids.modelCO2.ModelCO2_bis">ModelCO2_bis (class in lms2.fluids.modelCO2)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="generated/lms2.base.block.html#module-lms2.base.block">lms2.base.block</a>
+</li>
+        <li><a href="generated/lms2.core.models.html#module-lms2.core.models">lms2.core.models</a>
+</li>
+        <li><a href="generated/lms2.economic.cost.html#module-lms2.economic.cost">lms2.economic.cost</a>
+</li>
+        <li><a href="generated/lms2.electric.batteries.html#module-lms2.electric.batteries">lms2.electric.batteries</a>
+</li>
+        <li><a href="generated/lms2.electric.converters.html#module-lms2.electric.converters">lms2.electric.converters</a>
+</li>
+        <li><a href="generated/lms2.electric.sources.html#module-lms2.electric.sources">lms2.electric.sources</a>
+</li>
+        <li><a href="generated/lms2.environment.ghg.html#module-lms2.environment.ghg">lms2.environment.ghg</a>
+</li>
+        <li><a href="generated/lms2.fluids.modelCO2.html#module-lms2.fluids.modelCO2">lms2.fluids.modelCO2</a>
+</li>
+        <li><a href="generated/lms2.logical.sequencial.html#module-lms2.logical.sequencial">lms2.logical.sequencial</a>
+</li>
+        <li><a href="generated/lms2.mechanic.gears.html#module-lms2.mechanic.gears">lms2.mechanic.gears</a>
+</li>
+        <li><a href="generated/lms2.social.occupancy.html#module-lms2.social.occupancy">lms2.social.occupancy</a>
+</li>
+        <li><a href="generated/lms2.thermal.dipoles.html#module-lms2.thermal.dipoles">lms2.thermal.dipoles</a>
+</li>
+        <li><a href="generated/lms2.tools.data_processing.html#module-lms2.tools.data_processing">lms2.tools.data_processing</a>
+</li>
+        <li><a href="generated/lms2.tools.model_processing.html#module-lms2.tools.model_processing">lms2.tools.model_processing</a>
+</li>
+        <li><a href="generated/lms2.tools.post_processing.html#module-lms2.tools.post_processing">lms2.tools.post_processing</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.social.occupancy.occupancy.html#lms2.social.occupancy.occupancy">occupancy() (in module lms2.social.occupancy)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.sources.power_load.html#lms2.electric.sources.power_load">power_load() (in module lms2.electric.sources)</a>
+</li>
+      <li><a href="generated/lms2.electric.sources.power_source.html#lms2.electric.sources.power_source">power_source() (in module lms2.electric.sources)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.tools.post_processing.pplot.html#lms2.tools.post_processing.pplot">pplot() (in module lms2.tools.post_processing)</a>
+</li>
+      <li><a href="generated/lms2.electric.sources.pv_panel.html#lms2.electric.sources.pv_panel">pv_panel() (in module lms2.electric.sources)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -341,11 +671,25 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.economic.cost.recycling_cost.html#lms2.economic.cost.recycling_cost">recycling_cost() (in module lms2.economic.cost)</a>
+      <li><a href="generated/lms2.tools.data_processing.read_data.html#lms2.tools.data_processing.read_data">read_data() (in module lms2.tools.data_processing)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.economic.cost.recycling_cost.html#lms2.economic.cost.recycling_cost">recycling_cost() (in module lms2.economic.cost)</a>
+</li>
       <li><a href="generated/lms2.economic.cost.replacement_cost.html#lms2.economic.cost.replacement_cost">replacement_cost() (in module lms2.economic.cost)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.sources.scalable_power_load.html#lms2.electric.sources.scalable_power_load">scalable_power_load() (in module lms2.electric.sources)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/lms2.electric.sources.scalable_power_source.html#lms2.electric.sources.scalable_power_source">scalable_power_source() (in module lms2.electric.sources)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -353,9 +697,11 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.unfix_binary">unfix_binary() (lms2.core.models.AbsLModel method)</a>
+      <li><a href="generated/lms2.tools.model_processing.unfix_binary.html#lms2.tools.model_processing.unfix_binary">unfix_binary() (in module lms2.tools.model_processing)</a>
 
       <ul>
+        <li><a href="generated/lms2.core.models.AbsLModel.html#lms2.core.models.AbsLModel.unfix_binary">(lms2.core.models.AbsLModel method)</a>
+</li>
         <li><a href="generated/lms2.core.models.LModel.html#lms2.core.models.LModel.unfix_binary">(lms2.core.models.LModel method)</a>
 </li>
       </ul></li>

@@ -8,6 +8,4 @@ Core
     :toctree: generated
 
     models
-    time
-    units
 

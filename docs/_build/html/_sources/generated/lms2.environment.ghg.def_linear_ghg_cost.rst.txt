@@ -1,5 +1,5 @@
-lms2.environment.ghg.def\_linear\_ghg\_cost
-===========================================
+def\_linear\_ghg\_cost
+======================
 
 .. currentmodule:: lms2.environment.ghg
 

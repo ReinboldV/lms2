@@ -7,4 +7,4 @@ Logical
     :template: module.rst
     :toctree: generated
 
-    hysteresis
+    sequencial

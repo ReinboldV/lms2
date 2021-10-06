@@ -8,6 +8,7 @@ ghg
     .. rubric:: Functions
 	
     .. autosummary::
+        :template: base.rst
         :toctree:
         :nosignatures:
         

@@ -8,28 +8,18 @@ batteries
     .. rubric:: Functions
 	
     .. autosummary::
+        :template: base.rst
         :toctree:
         :nosignatures:
         
-        add_phase
-        voc_rule_lead_acid_gel
+        battery_V0
+        battery_v1
+        battery_v2
         
         
 
     
     
-    .. rubric:: Classes
-
-    .. autosummary::
-        :template: class.rst
-        :toctree:
-        
-        BatteryV0
-        BatteryV1
-        BatteryV2
-        BatteryV3
-        NLBattery
-        
         
 	
     

@@ -1,5 +1,5 @@
-lms2.economic.cost.maintenance\_cost
-====================================
+maintenance\_cost
+=================
 
 .. currentmodule:: lms2.economic.cost
 
