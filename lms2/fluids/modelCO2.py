@@ -7,19 +7,14 @@ CO2 concentration in a room
 class ModelCO2():
     """  Model of a CO2 concentration in a given volume.
 
-
-    CO2(t)  = CO2(t-1) + (n_occ(t).Qp.CO2p - Qv(t).(CO2(t) - CO2a)).dt/V
-            = CO2(t-1) + n_occ(t).Qp.CO2p.dt/V - Qv(t).CO2(t).dt/V - Qv(t).CO2a.dt/V
-
-    notations : CO2(t)  : co2[t]
-                Qv(t)   : y[t]
-
-
+    .. math::
+        a+b &= c \\\\
+        A-B &= C
     """
     pass
     # TODO create ModelCO2
 
-    # def __init__(self, time_horizon, name='CO2', description='CO2 concentration model', n_occ=None, co2min=0., co2max=1000., ymin=120., ymax=500., n=4):
+    # def __init__(b, time_horizon, name='CO2', description='CO2 concentration model', n_occ=None, co2min=0., co2max=1000., ymin=120., ymax=500., n=4):
     #
     #     """
     #
@@ -33,7 +28,7 @@ class ModelCO2():
     #     :param ymax:
     #     :param n:
     #     """
-    #     super(ModelCO2, self).__init__(time_horizon, name, description)
+    #     super(ModelCO2, b).__init__(time_horizon, name, description)
     #
     #     import numpy as np
     #
@@ -55,28 +50,28 @@ class ModelCO2():
     #     wa = np.zeros((time_horizon.len, n))
     #     wb = np.zeros((time_horizon.len, n))
     #
-    #     self.addquantity(name='iAB', value=iAB, opt=False)
-    #     self.addquantity(name='n', value=n, opt=False)
-    #     self.addquantity(name='A', value=A, opt=False)
-    #     self.addquantity(name='B', value=B, opt=False)
-    #     self.addquantity(name='A2', value=A2, opt=False)
-    #     self.addquantity(name='B2', value=B2, opt=False)
-    #     self.addquantity(name='co2max', value=co2max, opt=False)
-    #     self.addquantity(name='ymax', value=ymax, opt=False)
-    #     self.addquantity(name='y', unit='', index=time_horizon.index, opt=True, lb=ymin, ub=ymax)
-    #     self.addquantity(name='co2', pl={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
-    #     self.addquantity(name='pv', description='ventillation pression', unit='bar', opt=False, index=time_horizon.index,
+    #     b.addquantity(name='iAB', value=iAB, opt=False)
+    #     b.addquantity(name='n', value=n, opt=False)
+    #     b.addquantity(name='A', value=A, opt=False)
+    #     b.addquantity(name='B', value=B, opt=False)
+    #     b.addquantity(name='A2', value=A2, opt=False)
+    #     b.addquantity(name='B2', value=B2, opt=False)
+    #     b.addquantity(name='co2max', value=co2max, opt=False)
+    #     b.addquantity(name='ymax', value=ymax, opt=False)
+    #     b.addquantity(name='y', unit='', index=time_horizon.index, opt=True, lb=ymin, ub=ymax)
+    #     b.addquantity(name='co2', pl={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
+    #     b.addquantity(name='pv', description='ventillation pression', unit='bar', opt=False, index=time_horizon.index,
     #                     value=np.ones(time_horizon.len))
-    #     self.addquantity(name='yp', index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)
-    #     self.addquantity(name='co2p', pl={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.,  parent=self)
-    #     self.addquantity(name='a', index=time_horizon.index, opt=True, lb=amin, ub=amax)
-    #     self.addquantity(name='b', index=time_horizon.index, opt=True, lb=bmin, ub=bmax)
-    #     self.addquantity(name='zp', index=time_horizon.index, lb=-GRB.INFINITY, opt=True)
-    #     self.addquantity(name='ua', vtype=GRB.BINARY, opt=True, value=ua)
-    #     self.addquantity(name='ub', vtype=GRB.BINARY, opt=True, value=ub)
-    #     self.addquantity(name='wa', opt=True, value=wa,lb=0, ub=1)
-    #     self.addquantity(name='wb', opt=True, value=wb, lb=0, ub=1)
-    #     self.addquantity(name='n_occ', opt=False, index=time_horizon.index, value=n_occ)
+    #     b.addquantity(name='yp', index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)
+    #     b.addquantity(name='co2p', pl={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.,  parent=b)
+    #     b.addquantity(name='a', index=time_horizon.index, opt=True, lb=amin, ub=amax)
+    #     b.addquantity(name='b', index=time_horizon.index, opt=True, lb=bmin, ub=bmax)
+    #     b.addquantity(name='zp', index=time_horizon.index, lb=-GRB.INFINITY, opt=True)
+    #     b.addquantity(name='ua', vtype=GRB.BINARY, opt=True, value=ua)
+    #     b.addquantity(name='ub', vtype=GRB.BINARY, opt=True, value=ub)
+    #     b.addquantity(name='wa', opt=True, value=wa,lb=0, ub=1)
+    #     b.addquantity(name='wb', opt=True, value=wb, lb=0, ub=1)
+    #     b.addquantity(name='n_occ', opt=False, index=time_horizon.index, value=n_occ)
     #
     #     exp = """
     #     wa[t,i] + wa[t,i+1] >= ua[t,i] for i in iAB[:-1] for t in T
@@ -94,9 +89,9 @@ class ModelCO2():
     #     co2p[t]*co2max == co2[t]   for t in T'
     #     yp[t]*ymax == y[t]  for t in T"""
     #
-    #     self.addconst(name='cst1', exp=exp)
+    #     b.addconst(name='cst1', exp=exp)
     #
-    #     self.poles = {'1': Vpole('1', self.quantities['pv'], self.quantities['y'], 'out')}
+    #     b.poles = {'1': Vpole('1', b.quantities['pv'], b.quantities['y'], 'out')}
 
 
 class ModelCO2_bis():
@@ -112,7 +107,7 @@ class ModelCO2_bis():
     pass
     # TODO create ModelCO2_bis
 
-    # def __init__(self, time_horizon, name='CO2', description='CO2 concentration model', n_occ=None, co2min=0., co2max=1000., ymin=120., ymax=500., n=4):
+    # def __init__(b, time_horizon, name='CO2', description='CO2 concentration model', n_occ=None, co2min=0., co2max=1000., ymin=120., ymax=500., n=4):
     #
     #     """
     #
@@ -126,7 +121,7 @@ class ModelCO2_bis():
     #     :param ymax:
     #     :param n:
     #     """
-    #     super(ModelCO2_bis, self).__init__(time_horizon, name, description)
+    #     super(ModelCO2_bis, b).__init__(time_horizon, name, description)
     #     import numpy as np
     #
     #     amin = (co2min / co2max + ymin / ymax) / 2.
@@ -147,32 +142,32 @@ class ModelCO2_bis():
     #     wa = np.zeros((time_horizon.len, n))
     #     wb = np.zeros((time_horizon.len, n))
     #
-    #     self.addquantity(name='iAB', value=iAB, opt=False)
+    #     b.addquantity(name='iAB', value=iAB, opt=False)
     #
-    #     self.addquantity(name='n', value=n, opt=False)
-    #     self.addquantity(name='A', value=A, opt=False)
-    #     self.addquantity(name='B', value=B, opt=False)
-    #     self.addquantity(name='A2', value=A2, opt=False)
-    #     self.addquantity(name='B2', value=B2, opt=False)
+    #     b.addquantity(name='n', value=n, opt=False)
+    #     b.addquantity(name='A', value=A, opt=False)
+    #     b.addquantity(name='B', value=B, opt=False)
+    #     b.addquantity(name='A2', value=A2, opt=False)
+    #     b.addquantity(name='B2', value=B2, opt=False)
     #
-    #     self.addquantity(name='co2max', value=co2max, opt=False)
-    #     self.addquantity(name='ymax', value=ymax, opt=False)
+    #     b.addquantity(name='co2max', value=co2max, opt=False)
+    #     b.addquantity(name='ymax', value=ymax, opt=False)
     #
-    #     self.addquantity(name='y', unit='', index=time_horizon.index, opt=True, lb=ymin, ub=ymax)
-    #     self.addquantity(name='co2', pl={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
+    #     b.addquantity(name='y', unit='', index=time_horizon.index, opt=True, lb=ymin, ub=ymax)
+    #     b.addquantity(name='co2', pl={-1: 999}, index=time_horizon.index, opt=True, lb=co2min, ub=co2max)
     #
-    #     self.addquantity(name='pv', description='ventillation pression', unit='bar', opt=False, index=time_horizon.index)
-    #     self.addquantity(name='yp', index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)
-    #     self.addquantity(name='co2p', pl={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.)
+    #     b.addquantity(name='pv', description='ventillation pression', unit='bar', opt=False, index=time_horizon.index)
+    #     b.addquantity(name='yp', index=time_horizon.index, opt=True, lb=ymin / ymax, ub=1.)
+    #     b.addquantity(name='co2p', pl={-1: 999. / co2max}, index=time_horizon.index, opt=True, lb=co2min / co2max, ub=1.)
     #
-    #     self.addquantity(name='a', index=time_horizon.index, opt=True,lb=amin, ub=amax)
-    #     self.addquantity(name='b', index=time_horizon.index, opt=True,lb=bmin, ub=bmax)
-    #     self.addquantity(name='zp', index=time_horizon.index, lb=-GRB.INFINITY, opt=True)
-    #     self.addquantity(name='ua', vtype=GRB.BINARY, opt=True, value=ua)
-    #     self.addquantity(name='ub', vtype=GRB.BINARY, opt=True, value=ub)
-    #     self.addquantity(name='wa', opt=True, value=wa, lb=0, ub=1)
-    #     self.addquantity(name='wb', opt=True, value=wb, lb=0, ub=1)
-    #     self.addquantity(name='n_occ', opt=False, index=time_horizon.index, value=n_occ)
+    #     b.addquantity(name='a', index=time_horizon.index, opt=True,lb=amin, ub=amax)
+    #     b.addquantity(name='b', index=time_horizon.index, opt=True,lb=bmin, ub=bmax)
+    #     b.addquantity(name='zp', index=time_horizon.index, lb=-GRB.INFINITY, opt=True)
+    #     b.addquantity(name='ua', vtype=GRB.BINARY, opt=True, value=ua)
+    #     b.addquantity(name='ub', vtype=GRB.BINARY, opt=True, value=ub)
+    #     b.addquantity(name='wa', opt=True, value=wa, lb=0, ub=1)
+    #     b.addquantity(name='wb', opt=True, value=wb, lb=0, ub=1)
+    #     b.addquantity(name='n_occ', opt=False, index=time_horizon.index, value=n_occ)
     #
     #     exp = '''wa[t,i] + wa[t,i+1] >= ua[t,i] for i in iAB[:-1] for t in T
     #     wb[t,j] + wb[t,j+1] >= ub[t,j] for j in iAB[:-1] for t in T
@@ -189,5 +184,5 @@ class ModelCO2_bis():
     #     co2p[t]*co2max == co2[t]   for t in T
     #     yp[t]*ymax == y[t]  for t in T'''
     #
-    #     self.addconst(exp, name='cst')
-    #     self.poles = {'1': Vpole('1', self.quantities['pv'], self.quantities['y'], 'out')}
+    #     b.addconst(exp, name='cst')
+    #     b.poles = {'1': Vpole('1', b.quantities['pv'], b.quantities['y'], 'out')}

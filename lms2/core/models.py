@@ -12,7 +12,10 @@ logger = logging.getLogger('lms2.models')
 
 
 class LModel(ConcreteModel):
-    """ Redefinition of ConcreteModel for the lms2 package"""
+    """
+    Redefinition of ConcreteModel for the lms2 package
+
+    """
 
     def __init__(self, name='model', *args):
         """

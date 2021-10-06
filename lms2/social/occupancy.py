@@ -27,7 +27,7 @@ def occupancy(occ, **kwargs):
     =============== ===================================================================
 
     :param occ: occupancy block
-    :param kwargs: options for the block construction (time set)
+    :param kwargs: kwargs for the block construction (time set)
     :return:
     """
     time  = kwargs.pop('time', ContinuousSet(bounds=(0, 1), doc='Time set'))

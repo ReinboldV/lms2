@@ -53,7 +53,7 @@ def build_dummy_1zone_graph(**kwargs):
 
 def build_2zone_graph(bp):
     """
-    Creates a directed graphe of a RC 2 zone model using the building parameters stored in `bui_param`
+    Creates a directed graph of a RC 2 zone model using the building parameters stored in `bui_param`
 
     :param bp: building parameters
 

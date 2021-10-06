@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
 """
-Distribution Grid Units
+Distribution Grid Blocks
 
 Electrical connection to the distribution grid.
-
 """
+
 from pyomo.environ import Constraint, Var, Param, Block, Expression
 from pyomo.core import NonNegativeReals, Binary, Reals
 
-from lms2.electric.sources import PowerSource
-from lms2.economic.cost import def_bilinear_cost, def_linear_cost, def_bilinear_dynamic_cost
+from lms2.economic.cost import bilinear_cost, linear_cost, bilinear_dynamic_cost
 
 __all__ = ['MainGridV0', 'MainGridV1', 'MainGridV2']
 
@@ -92,7 +90,7 @@ class MainGridV0(PowerSource):
 
     def __init__(self, *args, flow_name='p', **kwgs):
         super().__init__(*args, flow_name=flow_name, **kwgs)
-        self.instant_cost = def_linear_cost(self, var_name=flow_name)
+        self.instant_cost = linear_cost(self, var_name=flow_name)
         self.component(flow_name).doc = 'Supplied power from the distribution grid (source convention)'
 
 
@@ -151,7 +149,7 @@ class MainGridV1(PowerSource):
 
         def_pin_pout(self)
 
-        self.instant_cost = def_bilinear_cost(self, var_in='pin', var_out='pout')
+        self.instant_cost = bilinear_cost(self, var_in='pin', var_out='pout')
 
 
 class MainGridV2(PowerSource):
@@ -218,4 +216,4 @@ class MainGridV2(PowerSource):
 
         def_pin_pout(self)
 
-        self.inst_cost = def_bilinear_dynamic_cost(self, var_in='pin', var_out='pout')
+        self.inst_cost = bilinear_dynamic_cost(self, var_in='pin', var_out='pout')

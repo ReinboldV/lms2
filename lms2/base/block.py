@@ -8,7 +8,7 @@ from pyomo.environ import *
 from pyomo.network import Port
 from pyomo.dae import ContinuousSet
 
-from lms2.core.units import Unit
+from pyomo.core.base.units_container import units as u
 
 __all__ = ['flow_source', 'flow_load', 'effort_source', 'fix_profile']
 

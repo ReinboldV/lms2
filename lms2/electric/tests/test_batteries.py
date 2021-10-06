@@ -127,11 +127,11 @@ class TestBattery(unittest.TestCase):
 
         inst = m.create_instance(data)
 
-        from lms2.economic.cost import def_absolute_cost
+        from lms2.economic.cost import absolute_cost
         from pyomo.environ import Objective
         from pyomo.dae import Integral
 
-        inst.ps.instant_cost = def_absolute_cost(inst.ps, var_name='p')
+        inst.ps.instant_cost = absolute_cost(inst.ps, var_name='p')
         inst.new_int = Integral(inst.time, wrt=inst.time, rule=lambda b, t: b.ps.instant_cost[t])
 
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=5)
@@ -200,11 +200,11 @@ class TestBattery(unittest.TestCase):
 
         inst = m.create_instance(data)
 
-        from lms2.economic.cost import def_absolute_cost
+        from lms2.economic.cost import absolute_cost
         from pyomo.environ import Objective
         from pyomo.dae import Integral
 
-        inst.ps.instant_cost = def_absolute_cost(inst.ps, var_name='p')
+        inst.ps.instant_cost = absolute_cost(inst.ps, var_name='p')
         inst.new_int = Integral(inst.time, wrt=inst.time, rule=lambda b, t: b.ps.instant_cost[t])
 
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=5)
@@ -273,11 +273,11 @@ class TestBattery(unittest.TestCase):
 
         inst = m.create_instance(data)
 
-        from lms2.economic.cost import def_absolute_cost
+        from lms2.economic.cost import absolute_cost
         from pyomo.environ import Objective
         from pyomo.dae import Integral
 
-        inst.ps.instant_cost = def_absolute_cost(inst.ps, var_name='p')
+        inst.ps.instant_cost = absolute_cost(inst.ps, var_name='p')
         inst.new_int = Integral(inst.time, wrt=inst.time, rule=lambda b, t: b.ps.instant_cost[t])
 
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=5)

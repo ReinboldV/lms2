@@ -5,7 +5,7 @@ class TestBatteryV3(unittest.TestCase):
 
     def test_battery_v3(self):
         from lms2 import BatteryV3, FixedPowerLoad, AbsLModel, PVPanels, DebugSource, MainGridV1
-        from lms2.economic.cost import def_absolute_cost
+        from lms2.economic.cost import absolute_cost
 
         from pyomo.environ import TransformationFactory, SolverFactory
         from pyomo.dae import ContinuousSet
@@ -26,7 +26,7 @@ class TestBatteryV3(unittest.TestCase):
         m.arc3 = Arc(source=m.debug.outlet, dest=m.pl.inlet)
         m.arc4 = Arc(source=m.mg.outlet, dest=m.pl.inlet)
 
-        m.b.inst_cost = def_absolute_cost(m.b, var_name='dp')
+        m.b.inst_cost = absolute_cost(m.b, var_name='dp')
 
         t = pd.timedelta_range(start=0, end='2 days', freq='30Min').total_seconds()
         ps = [(-np.cos(2 * np.pi * i / (86400)) + 1) ** 6 / 2 ** 6 * (0.2 * np.sin(2 * np.pi * i / (86400 * 7)) + 0.4) * 10 for
@@ -93,7 +93,7 @@ class TestBatteryV3(unittest.TestCase):
         inst = m.create_instance(data)
         inst.ps.surf.fix(4)
 
-        from lms2.economic.cost import def_absolute_cost
+        from lms2.economic.cost import absolute_cost
         from pyomo.environ import Objective
         from pyomo.dae import Integral
         from pyomo.opt import SolverStatus, TerminationCondition
@@ -101,7 +101,7 @@ class TestBatteryV3(unittest.TestCase):
         TransformationFactory('dae.finite_difference').apply_to(inst, nfe=nfe)
         TransformationFactory("network.expand_arcs").apply_to(inst)
 
-        inst.ps.instant_cost = def_absolute_cost(inst.ps, var_name='p')
+        inst.ps.instant_cost = absolute_cost(inst.ps, var_name='p')
         inst.new_int = Integral(inst.time, wrt=inst.time,
                                 rule=lambda b, t: b.debug.inst_cost[t] + b.b.inst_cost[t] + b.mg.instant_cost[t])
 

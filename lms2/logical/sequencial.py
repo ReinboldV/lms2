@@ -23,7 +23,7 @@ class Hysteresis(object):
 
     pass
 
-    # def __init__(self, time_horizon, name='hys0', description='logical hysteresis', xr=None, dxm=1, dxM=1, xM=100, xm=100, init_x=0):
+    # def __init__(b, time_horizon, name='hys0', description='logical hysteresis', xr=None, dxm=1, dxM=1, xM=100, xm=100, init_x=0):
     #
     #     """
     #
@@ -41,17 +41,17 @@ class Hysteresis(object):
     #     if xr is None:
     #         xr = np.zeros(time_horizon.len)
     #
-    #     TUnit.__init__(self, time_horizon, name=name, description=description)
+    #     TUnit.__init__(b, time_horizon, name=name, description=description)
     #
-    #     self.addquantity(name='u', pl={-1: init_x}, opt=True, vtype='B', vlen=time_horizon.len)
-    #     self.addquantity(name='a', opt=True, vtype='B', vlen=time_horizon.len)
-    #     self.addquantity(name='b', opt=True, vtype='B', vlen=time_horizon.len)
-    #     self.addquantity(name='x', opt=True, vlen=time_horizon.len)
-    #     self.addquantity(name='dxm', value=dxm, opt=False)
-    #     self.addquantity(name='dxM', value=dxM, opt=False)
-    #     self.addquantity(name='xr', value=xr, opt=False)
-    #     self.addquantity(name='xM', value=xM, opt=False)
-    #     self.addquantity(name='xm', value=xm, opt=False)
+    #     b.addquantity(name='u', pl={-1: init_x}, opt=True, vtype='B', vlen=time_horizon.len)
+    #     b.addquantity(name='a', opt=True, vtype='B', vlen=time_horizon.len)
+    #     b.addquantity(name='b', opt=True, vtype='B', vlen=time_horizon.len)
+    #     b.addquantity(name='x', opt=True, vlen=time_horizon.len)
+    #     b.addquantity(name='dxm', value=dxm, opt=False)
+    #     b.addquantity(name='dxM', value=dxM, opt=False)
+    #     b.addquantity(name='xr', value=xr, opt=False)
+    #     b.addquantity(name='xM', value=xM, opt=False)
+    #     b.addquantity(name='xm', value=xm, opt=False)
     #
     #     exp = """
     #     (xr[t]-dxm) + (xM - xr[t] + dxm)*a[t]   >= x[t]  for t in T
@@ -63,7 +63,7 @@ class Hysteresis(object):
     #     u[t]                                    >= a[t] - b[t] + u[t-1] - 1  for t in T
     #     1 - u[t]                                >= a[t] - b[t] - u[t-1] for t in T """
     #
-    #     self.addconst(name='cst', exp=exp)
+    #     b.addconst(name='cst', exp=exp)
 
 
 def add_phase(self, prefix='1', name='new phase', start_up=True, shut_down=True):

@@ -3,17 +3,15 @@ Economic Units and methods
 
 This module contains Economic units and methods to define parameter, variables and objectives to an exiting block
 """
+import pandas as pd
 from pyomo.core import NonNegativeReals, PositiveReals
 from pyomo.environ import Param, Var, Expression, Constraint
-from pyomo.network import Port
 
-from lms2.base.base_units import DynUnit
-
-__all__ = ['def_linear_cost', 'def_bilinear_cost', 'def_linear_dyn_cost',
-           'def_bilinear_dynamic_cost', '_OnePortEconomicUnit', 'def_absolute_cost']
+__all__ = ['linear_cost', 'bilinear_cost', 'linear_dyn_cost',
+           'bilinear_dynamic_cost', 'absolute_cost']
 
 
-def def_linear_cost(m, var_name='p'):
+def linear_cost(m, time, var_name='p'):
     """
     Method for adding a linear constant cost associated to variable 'p', to a block
     Final instantaneous cost expression is called "inst_cost"
@@ -27,19 +25,19 @@ def def_linear_cost(m, var_name='p'):
     .. math::
         m.instantcost(t) = m.var(t) \\times m.cost, \ \\forall t \\in m.time
 
-    - Example of simple model using def_linear_cost():
+    - Example of simple model using linear_cost():
 
     .. code-block:: python
         :caption: Creation of the Abstract model "m" (i.e. no data, no discretization)
 
-        from lms2 import AbsLModel, def_linear_cost
+        from lms2 import AbsLModel, linear_cost
         from pyomo.environ import Var, Objective
         from pyomo.dae import ContinuousSet, Integral
 
         m = AbsLModel(name='example')
         m.time = ContinuousSet()
         m.v = Var(m.time, doc='an expensive variable, associated to cost "c_v"')
-        m.inst_cost  = def_linear_cost(m, var_name='v')
+        m.inst_cost  = linear_cost(m, var_name='v')
         m.integral_cost = Integral(m.time, wrt=m.time, rule=lambda m, i: m.inst_cost[i])
         m.obj = Objective(expr=m.integral_cost)
 
@@ -64,11 +62,11 @@ def def_linear_cost(m, var_name='p'):
     def _instant_cost(m, t):
         return m.find_component(var_name)[t] * m.cost / 3600
 
-    return Expression(m.time, rule=_instant_cost,
+    return Expression(time, rule=_instant_cost,
                       doc=f'instantaneous linear cost (euros/s), associated with variable {var_name}')
 
 
-def def_linear_dyn_cost(m, var_name='p'):
+def linear_dyn_cost(m, var_name='p'):
     """
     Method for adding a linear dynamic cost associated to variable 'p', to a block
     Final instantaneous cost expression is called "inst_cost"
@@ -80,7 +78,7 @@ def def_linear_dyn_cost(m, var_name='p'):
     :param str var_name: Names of the expensive variable
     :return: pyomo Expression
     """
-    from lms2.base.base_units import fix_profile
+    from lms2.base.block import fix_profile
 
     fix_profile(m, flow_name='cost', index_name='cost_index', profile_name='cost_value')
 
@@ -91,44 +89,46 @@ def def_linear_dyn_cost(m, var_name='p'):
                       doc=f'instantaneous linear cost (euros/s), associated with variable {var_name}')
 
 
-def def_absolute_cost(m, var_name='p', default_cost=1):
+def absolute_cost(m, time, var_name='p', cost=1):
     """
-    Method for adding absolute cost, i.e. a bilinear cost of coefficient -1 and +1 associated with variable 'p'.
-    Final instantaneous cost expression is called "inst_cost"
+    Method for adding absolute cost related to an existing variable.
+
+    Define a bilinear cost of coefficient -1 and +1 associated with variable 'p'. Define a new variable `abs_p`,
+    a cost parameter, and two inequality constraints. The returned instantaneous cost expression is called "inst_cost"
 
 
     :param m: Block
-    :param var_name: Names of the expensive variable
-    :param default_cost: cost initialization value (default = 1 euro/kWh)
-    :return: pyomo Expression
+    :param var_name: Name of the expensive variable, should already exist in he model
+    :param cost: cost initialization value (default = 1 euro/kWh)
+    :return: pyomo Expression (euro/s)
     """
 
     abs_var_name = f'abs_{var_name}'
     bound1 = f'_bound_1_{var_name}'
     bound2 = f'_bound_2_{var_name}'
-    m.add_component(abs_var_name, Var(m.time, within=NonNegativeReals, initialize=0,
+    m.add_component(abs_var_name, Var(time, within=NonNegativeReals, initialize=0,
                                       doc=f'Absolute value of variable {var_name}'))
-    m.add_component(f'{var_name}_cost', Param(default=default_cost, mutable=True, within=NonNegativeReals,
-                    doc=f'cost associated to the absolute value of {var_name} (euros/kWh)'))
+    m.add_component(f'{var_name}_cost', Param(default=cost, mutable=True, within=NonNegativeReals,
+                                              doc=f'cost associated to the absolute value of {var_name} (euros/kWh)'))
 
     def _bound1(m, t):
         return m.find_component(abs_var_name)[t] >= -m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
-    m.add_component(bound1, Constraint(m.time, rule = _bound1,
+    m.add_component(bound1, Constraint(time, rule = _bound1,
                                        doc=f'absolute value constraint 1 on variable {abs_var_name}'))
 
     def _bound2(m, t):
         return m.find_component(abs_var_name)[t] >= m.find_component(f'{var_name}_cost')*m.find_component(var_name)[t]
-    m.add_component(bound2, Constraint(m.time, rule = _bound2,
+    m.add_component(bound2, Constraint(time, rule = _bound2,
                                        doc=f'absolute value constraint 2 on variable {abs_var_name}'))
 
     def _instant_cost(m, t):
         return m.find_component(abs_var_name)[t] / 3600
 
-    return Expression(m.time, rule=_instant_cost,
+    return Expression(time, rule=_instant_cost,
                       doc=f'instantaneous bilinear cost (euros/s), associated with variable {var_name}')
 
 
-def def_bilinear_cost(bl, var_in='p_in', var_out='p_out'):
+def bilinear_cost(bl, time, var_in='p_in', var_out='p_out'):
     """
     Method for adding bilinear cost to a block associated to variables 'var_in', 'var_out'.
 
@@ -146,11 +146,11 @@ def def_bilinear_cost(bl, var_in='p_in', var_out='p_out'):
     def _instant_cost(m, t):
         return (m.find_component(var_out)[t] * m.cost_out - m.find_component(var_in)[t] * m.cost_in)/3600
 
-    return Expression(bl.time, rule=_instant_cost,
+    return Expression(time, rule=_instant_cost,
                       doc=f'instantaneous bilinear cost (euros/s), associated with variable {var_in} and {var_out}')
 
 
-def def_bilinear_dynamic_cost(bl, var_in='p_in', var_out='p_out'):
+def bilinear_dynamic_cost(bl, time, var_in='p_in', var_out='p_out'):
     """
     Method for adding bilinear dynamic cost to a block associated to variables 'var_in', 'var_out'.
 
@@ -165,7 +165,7 @@ def def_bilinear_dynamic_cost(bl, var_in='p_in', var_out='p_out'):
     :return: Expression
     """
 
-    from lms2.base.base_units import fix_profile
+    from lms2.base.block import fix_profile
 
     fix_profile(bl, flow_name='cost_in',  index_name='cost_in_index',  profile_name='cost_in_value',
                 doc_index=f'index for the dynamic cost related to variable {var_in}',
@@ -177,7 +177,7 @@ def def_bilinear_dynamic_cost(bl, var_in='p_in', var_out='p_out'):
     def _instant_cost(m, t):
         return (m.find_component(var_out)[t] * m.cost_out[t] - m.find_component(var_in)[t] * m.cost_in[t])/3600
 
-    return Expression(bl.time, rule=_instant_cost,
+    return Expression(time, rule=_instant_cost,
                       doc=f'instantaneous bilinear and dynamic cost, associated with variable {var_in} and {var_out}')
 
 
@@ -192,21 +192,22 @@ def recycling_cost(m):
 
 
 # TODO : create buying cost, computation for long and short term horizon
-def buying_cost(m):
+def lifecycle_cost(m, time, lifetime = '10 years'):
     """
     Method for defining an expression of the buying cost.
 
     This can be expressed for the time set defined by m.time. this will introduce a parameter called lifetime and return
-    the following expression $$ cost = \Delta T \times buying_cost / lifetime $$
+    the following expression $$ cost = \Delta T \times lifecycle_cost / lifetime $$
 
     :param m:
     :return:
     """
-    m.buying_cost = Param(default=0, within=NonNegativeReals, doc='buying cost associated with the device.')
-    m.lifetime    = Param(default=31536000, doc='lifetime of the device.')
-    use_time = m.time.last() - m.time.first()
+    m.lifecycle_cost = Param(default=0, within=NonNegativeReals, doc='buying cost associated with the device.')
+    lifetime = pd.Timedelta(lifetime).total_seconds()
+    m.lifetime    = Param(default=lifetime, doc='lifetime of the device.')
+    use_time = time.last() - time.first()
 
-    return (m.time.last() - m.time.first())*m.buying_cost/m.lifetime
+    return use_time * m.lifecycle_cost / m.lifetime
 
 
 # TODO : create replacement cost, computation for long and short term horizon
@@ -214,13 +215,4 @@ def replacement_cost(m):
     pass
 
 
-class _OnePortEconomicUnit(DynUnit):
-    """
-    Dynamic Economical Unit that is exposing one Economic Port
-    """
-
-    def __init__(self, *args, **kwds):
-
-        super(_OnePortEconomicUnit, self).__init__(*args, **kwds)
-        self.v_in   = Var(self.time)
-        self.inlet  = Port(initialize={'c': (self.v_in, Port.Conservative)})
+# todo : add opex, capex, LCA...
