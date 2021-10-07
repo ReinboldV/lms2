@@ -1,27 +1,16 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; lms2 1.1+4.g396374b.dirty documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; lms2 1.1+2.g10d0b63.dirty documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
@@ -29,45 +18,21 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="How to build the documentation ?" href="../builddoc.html" />
     <link rel="prev" title="Working with lms2 library components" href="../examples_lms2.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> lms2
-          
-
-          
-            
             <img src="../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,17 +40,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a><ul>
@@ -251,70 +206,31 @@
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">lms2</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../examples.html">Tutorial and Examples</a> &raquo;</li>
-        
       <li>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/examples/microgrid_1.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   
 <style>
 /* CSS for nbsphinx extension */
@@ -586,14 +502,14 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <section id="Exemple-de-gestion-d’énergie-et-de-dimensionnement-d’un-micro-réseau">
-<h1>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau<a class="headerlink" href="#Exemple-de-gestion-d’énergie-et-de-dimensionnement-d’un-micro-réseau" title="Permalink to this headline">¶</a></h1>
+<h1>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau<a class="headerlink" href="#Exemple-de-gestion-d’énergie-et-de-dimensionnement-d’un-micro-réseau" title="Permalink to this headline"></a></h1>
 <p>L’exemple est basé sur la gestion d’énergie et le dimensionneùent d’un micro-réseau contenant, des sources d’énergie renouvelables, des charges, et un système de stockage électrochimique. Le profile d’irradiation et la consomation de la charge sont supposées connues sur l’horizon considéré et les degrés de libertés sont :</p>
 <ul class="simple">
 <li><p>le dimensionnement du stockage (i.e. c_bat),</p></li>
 <li><p>le dimensionnement des panneaux photovoltaïques (i.e. la surface),</p></li>
 <li><p>les flux de puissances provenant du réseau et du stockage.</p></li>
 </ul>
-<p><img alt="987aa14e8f2b411ca5458c56587c18ad" src="../_images/microgrids_bat.png" /></p>
+<p><img alt="ea0cf3688506443b9a7d5ac6837ac238" src="../_images/microgrids_bat.png" /></p>
 <p>La première étape consiste à charger les bibliothèques utiles: - Pyomo : le package de modélisation des problèmes d’optimisation (voir <a class="reference external" href="https://pyomo.readthedocs.io/en/latest/">https://pyomo.readthedocs.io/en/latest/</a>) - lms2 : la librairie maison de modèles pour la gestion d’énerge et l’optimisation en génie électrique (documentation dans <code class="docutils literal notranslate"><span class="pre">lms2/docs/_build/html/index.html</span></code>). Dans ce package on ira chercher les modèles que l’on souhaite utiliser, dans le cas qui nous intéresse battery_v2 (avec efficacité en charge et décharge),
 pv_panel, etc.</p>
 <div class="nbinput nblast docutils container">
@@ -601,16 +517,16 @@ pv_panel, etc.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="n">ContinuousSet</span><span class="p">,</span> <span class="n">Integral</span>
-<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">lms2.core.horizon</span> <span class="k">import</span> <span class="n">SimpleHorizon</span>
-<span class="kn">from</span> <span class="nn">lms2.electric.batteries</span> <span class="k">import</span> <span class="n">battery_v2</span>
-<span class="kn">from</span> <span class="nn">lms2.electric.sources</span> <span class="k">import</span> <span class="n">pv_panel</span><span class="p">,</span> <span class="n">fixed_power_load</span><span class="p">,</span> <span class="n">power_source</span>
+<span></span><span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="kn">import</span> <span class="n">ContinuousSet</span><span class="p">,</span> <span class="n">Integral</span>
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lms2.core.horizon</span> <span class="kn">import</span> <span class="n">SimpleHorizon</span>
+<span class="kn">from</span> <span class="nn">lms2.electric.batteries</span> <span class="kn">import</span> <span class="n">battery_v2</span>
+<span class="kn">from</span> <span class="nn">lms2.electric.sources</span> <span class="kn">import</span> <span class="n">pv_panel</span><span class="p">,</span> <span class="n">fixed_power_load</span><span class="p">,</span> <span class="n">power_source</span>
 </pre></div>
 </div>
 </div>
 <section id="Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:">
-<h2>Cet exemple d’optimisation illustre les étapes suivantes :<a class="headerlink" href="#Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:" title="Permalink to this headline">¶</a></h2>
+<h2>Cet exemple d’optimisation illustre les étapes suivantes :<a class="headerlink" href="#Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
 <li><p>Instanciation du problème d’optimisation et de l’horizon temporel</p></li>
 <li><p>Discrétisation temporelle</p></li>
@@ -618,7 +534,7 @@ pv_panel, etc.</p>
 <li><p>Résolution</p></li>
 </ol>
 <section id="Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">
-<h3>Instanciation du problème d’optimisation et de l’horizon temporel<a class="headerlink" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel" title="Permalink to this headline">¶</a></h3>
+<h3>Instanciation du problème d’optimisation et de l’horizon temporel<a class="headerlink" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel" title="Permalink to this headline"></a></h3>
 <p>L’instanciation du problème comporte plusieurs étapes : 1. création d’un problème vide nommé <code class="docutils literal notranslate"><span class="pre">m</span></code>. 2. création de l’horizon temporel, celui-ci fait le lien entre les indexes des vecteurs (en s) et les dates (sous forme str). Cet objet n’est pas toujours obligatoire, mais il est particulièrement utile pour le chargement de certaines données, la discrétiqation temporel et le post-processing (affichage etc.). 3. Instanciation des variables, des paramètres et des équations du modèle : - par
 chargement de sous-modèles (blocks) déjà existants dans la librairie, - par modélisation avec le langague pyomo.</p>
 <div class="nbinput docutils container">
@@ -967,7 +883,7 @@ bat : Size=1, Index=None, Active=True
 </section>
 </section>
 <section id="Exemple-de-contrainte-sur-le-bilan-de-puissance">
-<h2>Exemple de contrainte sur le bilan de puissance<a class="headerlink" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance" title="Permalink to this headline">¶</a></h2>
+<h2>Exemple de contrainte sur le bilan de puissance<a class="headerlink" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">La connexion électrique des blocks entre eux peut être vue comme une contrainte d’égalité,</div>
 <div class="line">appelée bilan de puissance. Elle doit être défini en dehors des blocks, (i.e. au niveau du model m).</div>
@@ -988,7 +904,7 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-d’une-expression">
-<h2>Exemple d’une expression<a class="headerlink" href="#Exemple-d’une-expression" title="Permalink to this headline">¶</a></h2>
+<h2>Exemple d’une expression<a class="headerlink" href="#Exemple-d’une-expression" title="Permalink to this headline"></a></h2>
 <p>Il est possible de définir des expressions, qui interviendront potentiellement dans les calculs des coûts, des contraintes ou pour le post-processing. Pour l’exemple, définissons les couts instantannés économques <code class="docutils literal notranslate"><span class="pre">cout_inst_edf</span></code> et écologiques <code class="docutils literal notranslate"><span class="pre">cout_inst_env</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -1008,7 +924,7 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-d’intégration-temporelle">
-<h2>Exemple d’intégration temporelle<a class="headerlink" href="#Exemple-d’intégration-temporelle" title="Permalink to this headline">¶</a></h2>
+<h2>Exemple d’intégration temporelle<a class="headerlink" href="#Exemple-d’intégration-temporelle" title="Permalink to this headline"></a></h2>
 <p>Lorsqu’une expression doit être intégrée sur le temps continu, on utilise l’objet <code class="docutils literal notranslate"><span class="pre">Integral</span></code>. L’intégration des couts sur le temps devient :</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -1022,7 +938,7 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-de-définition-de-l’objectif">
-<h2>Exemple de définition de l’objectif<a class="headerlink" href="#Exemple-de-définition-de-l’objectif" title="Permalink to this headline">¶</a></h2>
+<h2>Exemple de définition de l’objectif<a class="headerlink" href="#Exemple-de-définition-de-l’objectif" title="Permalink to this headline"></a></h2>
 <p>L’objectif d’optimisation doit être défini au niveau du model <code class="docutils literal notranslate"><span class="pre">m</span></code> et peut faire intervenir les variables des sous-blocks. Dans le langague Pyomo, on utilise l’objet <code class="docutils literal notranslate"><span class="pre">Objective</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -1063,7 +979,7 @@ int_edf : Size=1, Index=None
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">TransformationFactory</span>
+<span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="n">TransformationFactory</span>
 <span class="n">TransformationFactory</span><span class="p">(</span><span class="s1">&#39;dae.finite_difference&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nfe</span><span class="o">=</span><span class="n">horizon</span><span class="o">.</span><span class="n">nfe</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1089,24 +1005,24 @@ int_edf : Size=1, Index=None
 </pre></div></div>
 </div>
 <section id="Chargement-des-données">
-<h3>Chargement des données<a class="headerlink" href="#Chargement-des-données" title="Permalink to this headline">¶</a></h3>
+<h3>Chargement des données<a class="headerlink" href="#Chargement-des-données" title="Permalink to this headline"></a></h3>
 <p>En optimisation, il est d’usage de séparer la formulation des données, pour une meilleur lecture et pour réutiliser simplement les modèles.</p>
 <p>La lecture et le chargement des données peuvent-être réalisées par différentes méthodes selon le formats des données. Dans lms2, nous proposons une forme générique de lire, intérpoler et charger les données en utilisant les fonctions <code class="docutils literal notranslate"><span class="pre">lms2.tools.read_data</span></code> et <code class="docutils literal notranslate"><span class="pre">lms2.load_data</span></code>. Se référer aux documentations pour plus d’information.</p>
 <section id="Lecture-des-données-à-partir-d’un-fichier-csv">
-<h4>Lecture des données à partir d’un fichier csv<a class="headerlink" href="#Lecture-des-données-à-partir-d’un-fichier-csv" title="Permalink to this headline">¶</a></h4>
+<h4>Lecture des données à partir d’un fichier csv<a class="headerlink" href="#Lecture-des-données-à-partir-d’un-fichier-csv" title="Permalink to this headline"></a></h4>
 <p>La fonction <code class="docutils literal notranslate"><span class="pre">read_data</span></code> gère plusieurs formats de données, ou plutôt, pluseurs formats d’index.</p>
 </section>
 </section>
 </section>
 <section id="Index-entier">
-<h2>Index entier<a class="headerlink" href="#Index-entier" title="Permalink to this headline">¶</a></h2>
+<h2>Index entier<a class="headerlink" href="#Index-entier" title="Permalink to this headline"></a></h2>
 <p>Si les données sont indexées par une colonne en seconde. L’unité utilisé peut-être renseignée (par défaut ‘s’), la zone peut-être renseignée (défaut : Europe/Paris), et la date de début des données doit être renseignée. Cet index est ensuite automatiquement transformée en date.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">lms2.tools.data_processing</span> <span class="k">import</span> <span class="n">read_data</span><span class="p">,</span> <span class="n">load_data</span>
+<span></span><span class="kn">from</span> <span class="nn">lms2.tools.data_processing</span> <span class="kn">import</span> <span class="n">read_data</span><span class="p">,</span> <span class="n">load_data</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="n">data_charge</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;base_loads.csv&#39;</span><span class="p">),</span>
@@ -1210,7 +1126,7 @@ int_edf : Size=1, Index=None
 </div>
 </section>
 <section id="Index-en-chaîne-de-caractères">
-<h2>Index en chaîne de caractères<a class="headerlink" href="#Index-en-chaîne-de-caractères" title="Permalink to this headline">¶</a></h2>
+<h2>Index en chaîne de caractères<a class="headerlink" href="#Index-en-chaîne-de-caractères" title="Permalink to this headline"></a></h2>
 <p>Si les données sont indexées par une chaine de caractère dont le format est celui d’une date. Dans ce cas, la date de début et l’unité ne sont pas utiles. La colonne d’index est parsée, utilisant le format définit dans date_parser.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
@@ -1331,7 +1247,7 @@ data index and variable index does not have the same name. This could be a sourc
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># post-processing</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">lms2.tools.post_processing</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lms2.tools.post_processing</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">pplot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bat</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">pv</span><span class="o">.</span><span class="n">p_scaled</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">charge</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="p">,</span>
@@ -1370,51 +1286,33 @@ WARNING: DEPRECATED: The iteritems method is deprecated. Use dict.items().
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../builddoc.html" class="btn btn-neutral float-right" title="How to build the documentation ?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../examples_lms2.html" class="btn btn-neutral float-left" title="Working with lms2 library components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../examples_lms2.html" class="btn btn-neutral float-left" title="Working with lms2 library components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../builddoc.html" class="btn btn-neutral float-right" title="How to build the documentation ?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015-2021, lms2 Developers
-
-    </p>
+    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
