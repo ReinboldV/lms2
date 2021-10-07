@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; lms2 1.1+4.g396374b.dirty documentation</title>
+  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; lms2 1.1+5.g1388341.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -60,19 +60,19 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:">Cet exemple d’optimisation illustre les étapes suivantes :</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Exemple-d’une-expression">Exemple d’une expression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Chargement-des-données">Chargement des données</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Discrétisation-temporelle">Discrétisation temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#Index-entier">Index entier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
 </ul>
@@ -509,9 +509,12 @@ div.rendered_html tbody tr:hover {
 <li><p>le dimensionnement des panneaux photovoltaïques (i.e. la surface),</p></li>
 <li><p>les flux de puissances provenant du réseau et du stockage.</p></li>
 </ul>
-<p><img alt="ea0cf3688506443b9a7d5ac6837ac238" src="../_images/microgrids_bat.png" /></p>
-<p>La première étape consiste à charger les bibliothèques utiles: - Pyomo : le package de modélisation des problèmes d’optimisation (voir <a class="reference external" href="https://pyomo.readthedocs.io/en/latest/">https://pyomo.readthedocs.io/en/latest/</a>) - lms2 : la librairie maison de modèles pour la gestion d’énerge et l’optimisation en génie électrique (documentation dans <code class="docutils literal notranslate"><span class="pre">lms2/docs/_build/html/index.html</span></code>). Dans ce package on ira chercher les modèles que l’on souhaite utiliser, dans le cas qui nous intéresse battery_v2 (avec efficacité en charge et décharge),
-pv_panel, etc.</p>
+<p><img alt="046e724851814e2cab381991a0a2ff2b" src="../_images/microgrids_bat.png" /></p>
+<p>La première étape consiste à charger les bibliothèques utiles:</p>
+<ul class="simple">
+<li><p>Pyomo : le package de modélisation des problèmes d’optimisation (voir <a class="reference external" href="https://pyomo.readthedocs.io/en/latest/">https://pyomo.readthedocs.io/en/latest/</a>)</p></li>
+<li><p>lms2 : la librairie maison de modèles pour la gestion d’énerge et l’optimisation en génie électrique (documentation dans <code class="docutils literal notranslate"><span class="pre">lms2/docs/_build/html/index.html</span></code>). Dans ce package on ira chercher les modèles que l’on souhaite utiliser, dans le cas qui nous intéresse battery_v2 (avec efficacité en charge et décharge), pv_panel, etc.</p></li>
+</ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -525,8 +528,7 @@ pv_panel, etc.</p>
 </pre></div>
 </div>
 </div>
-<section id="Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:">
-<h2>Cet exemple d’optimisation illustre les étapes suivantes :<a class="headerlink" href="#Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:" title="Permalink to this headline"></a></h2>
+<p>Cet exemple d’optimisation illustre les étapes suivantes :</p>
 <ol class="arabic simple">
 <li><p>Instanciation du problème d’optimisation et de l’horizon temporel</p></li>
 <li><p>Discrétisation temporelle</p></li>
@@ -534,9 +536,18 @@ pv_panel, etc.</p>
 <li><p>Résolution</p></li>
 </ol>
 <section id="Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">
-<h3>Instanciation du problème d’optimisation et de l’horizon temporel<a class="headerlink" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel" title="Permalink to this headline"></a></h3>
-<p>L’instanciation du problème comporte plusieurs étapes : 1. création d’un problème vide nommé <code class="docutils literal notranslate"><span class="pre">m</span></code>. 2. création de l’horizon temporel, celui-ci fait le lien entre les indexes des vecteurs (en s) et les dates (sous forme str). Cet objet n’est pas toujours obligatoire, mais il est particulièrement utile pour le chargement de certaines données, la discrétiqation temporel et le post-processing (affichage etc.). 3. Instanciation des variables, des paramètres et des équations du modèle : - par
-chargement de sous-modèles (blocks) déjà existants dans la librairie, - par modélisation avec le langague pyomo.</p>
+<h2>Instanciation du problème d’optimisation et de l’horizon temporel<a class="headerlink" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel" title="Permalink to this headline"></a></h2>
+<p>L’instanciation du problème comporte plusieurs étapes :</p>
+<ol class="arabic simple">
+<li><p>Instanciation d’un problème nommé <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p></li>
+<li><p>Instanciation de l’horizon temporel, celui-ci fait le lien entre les indexes des vecteurs (en s) et les dates (sous forme <code class="docutils literal notranslate"><span class="pre">str</span></code>). Cet objet n’est pas toujours obligatoire, mais il est particulièrement utile pour le chargement de certaines données, la discrétisation temporelle et le post-processing (affichage, etc.).</p></li>
+<li><p>Instanciation des variables, des paramètres et des équations du modèle :</p>
+<ul class="simple">
+<li><p>par chargement de sous-modèles (blocks) déjà existants dans la librairie,</p></li>
+<li><p>par modélisation avec le langage pyomo.</p></li>
+</ul>
+</li>
+</ol>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -565,7 +576,7 @@ les 5 premiers indexes (équivalents au temps en s) :
  [   0.  600. 1200. 1800. 2400.]
 </pre></div></div>
 </div>
-<p>Les blocks sont des sous-problèmes qui permettent de définir pour chaque composants, des variables, des paramètres, des contraintes et des expressions.</p>
+<p>Les blocks sont des sous-problèmes qui permettent de définir, pour chaque composant, des variables, des paramètres, des contraintes et des expressions.</p>
 <p>Il est possible de rentrer des options en argument. Les grandeurs dynamiques seront chargés plus tard, l’utilisation de dictionnaire n’est pas pratique dans ce cas, et le temps n’a pas encore été discrétisé…</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -694,7 +705,7 @@ battery_v2(bat, **options)
 </pre></div>
 </div>
 </div>
-<p>A ce stade, les blocks sont instancié dans le problème <code class="docutils literal notranslate"><span class="pre">m</span></code>. Il est possible de vérifier la structure du modèle avec la commande <code class="docutils literal notranslate"><span class="pre">pprint()</span></code>. Notez que certaines grandeurs ne sont pas initialisées à la valeur que l’on souhaiterai, pour le moment.</p>
+<p>A ce stade, les blocks sont instancié dans le problème <code class="docutils literal notranslate"><span class="pre">m</span></code>. Il est possible de vérifier la structure du modèle avec la commande <code class="docutils literal notranslate"><span class="pre">pprint()</span></code>. Notez que certaines grandeurs ne sont pas initialisées à la valeur que l’on souhaiterait, pour le moment.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -880,17 +891,9 @@ bat : Size=1, Index=None, Active=True
     35 Declarations: emax emin socmin pinit socmax soc0 socf dpdmax dpcmax pcmax pdmax p e de dp outlet _soc_init _p_init _e_min _e_max _soc_final _soc_min _soc_max _dpdmax _dpcmax soc pd pc u etac etad _e_balance _pdmax _pcmax _p_balance
 </pre></div></div>
 </div>
-</section>
-</section>
 <section id="Exemple-de-contrainte-sur-le-bilan-de-puissance">
-<h2>Exemple de contrainte sur le bilan de puissance<a class="headerlink" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance" title="Permalink to this headline"></a></h2>
-<div class="line-block">
-<div class="line">La connexion électrique des blocks entre eux peut être vue comme une contrainte d’égalité,</div>
-<div class="line">appelée bilan de puissance. Elle doit être défini en dehors des blocks, (i.e. au niveau du model m).</div>
-<div class="line">Pour se faire il y a deux possibilités :</div>
-<div class="line">- définir une contrainte classique avec le langague de pyomo,</div>
-<div class="line">- utiliser la notion de ports (extensifs ou intensifs) (usage un peu plus avancé).</div>
-</div>
+<h3>Exemple de contrainte sur le bilan de puissance<a class="headerlink" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance" title="Permalink to this headline"></a></h3>
+<p>La connexion électrique des blocks entre eux peut être vue comme une contrainte d’égalité, appelée bilan de puissance. Elle doit être définie en dehors des blocks, (i.e. au niveau du model m). Pour se faire il y a deux possibilités : - définir une contrainte classique avec le langague de pyomo, - utiliser la notion de ports (extensifs ou intensifs) (usage un peu plus avancé).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -904,8 +907,8 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-d’une-expression">
-<h2>Exemple d’une expression<a class="headerlink" href="#Exemple-d’une-expression" title="Permalink to this headline"></a></h2>
-<p>Il est possible de définir des expressions, qui interviendront potentiellement dans les calculs des coûts, des contraintes ou pour le post-processing. Pour l’exemple, définissons les couts instantannés économques <code class="docutils literal notranslate"><span class="pre">cout_inst_edf</span></code> et écologiques <code class="docutils literal notranslate"><span class="pre">cout_inst_env</span></code>.</p>
+<h3>Exemple d’une expression<a class="headerlink" href="#Exemple-d’une-expression" title="Permalink to this headline"></a></h3>
+<p>Il est possible de définir des expressions, qui interviendront potentiellement dans les calculs des coûts, des contraintes ou pour le post-processing. Pour l’exemple, définissons les couts instantanés économiques <code class="docutils literal notranslate"><span class="pre">cout_inst_edf</span></code> et écologiques <code class="docutils literal notranslate"><span class="pre">cout_inst_env</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -924,7 +927,7 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-d’intégration-temporelle">
-<h2>Exemple d’intégration temporelle<a class="headerlink" href="#Exemple-d’intégration-temporelle" title="Permalink to this headline"></a></h2>
+<h3>Exemple d’intégration temporelle<a class="headerlink" href="#Exemple-d’intégration-temporelle" title="Permalink to this headline"></a></h3>
 <p>Lorsqu’une expression doit être intégrée sur le temps continu, on utilise l’objet <code class="docutils literal notranslate"><span class="pre">Integral</span></code>. L’intégration des couts sur le temps devient :</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -938,8 +941,8 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-de-définition-de-l’objectif">
-<h2>Exemple de définition de l’objectif<a class="headerlink" href="#Exemple-de-définition-de-l’objectif" title="Permalink to this headline"></a></h2>
-<p>L’objectif d’optimisation doit être défini au niveau du model <code class="docutils literal notranslate"><span class="pre">m</span></code> et peut faire intervenir les variables des sous-blocks. Dans le langague Pyomo, on utilise l’objet <code class="docutils literal notranslate"><span class="pre">Objective</span></code>.</p>
+<h3>Exemple de définition de l’objectif<a class="headerlink" href="#Exemple-de-définition-de-l’objectif" title="Permalink to this headline"></a></h3>
+<p>L’objectif d’optimisation doit être défini au niveau du model <code class="docutils literal notranslate"><span class="pre">m</span></code> et peut faire intervenir les variables des sous-blocks. Dans le language Pyomo, on utilise l’objet <code class="docutils literal notranslate"><span class="pre">Objective</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
@@ -951,8 +954,12 @@ bat : Size=1, Index=None, Active=True
 </pre></div>
 </div>
 </div>
-<p>La discrétiqation temprelle est souvent source d’erreur, suivant le schéma d’intégration et sur des modèles de grande taille, cette étape devient difficilement réalisable à la main. Pour cela, l’extention Pyomo.dae offre la possibilité de discrétiser automatiquement les modèles dans lesquels apprait un index continu (généralement le temps). Ce qui rend les choses plus simples. Dans cet exemple on choisira un schéma d’intégration de différence finie (i.e. celui d’Euler).</p>
-<p>Avant discrétisation, les grandeurs indexée par le temps ne font intervenir que le début et la fin de l’horizon.</p>
+</section>
+</section>
+<section id="Discrétisation-temporelle">
+<h2>Discrétisation temporelle<a class="headerlink" href="#Discrétisation-temporelle" title="Permalink to this headline"></a></h2>
+<p>La discrétisation temporelle est souvent source d’erreur, suivant le schéma d’intégration et sur des modèles de grande taille, cette étape devient difficilement réalisable à la main. Pour cela, l’extention Pyomo.dae offre la possibilité de discrétiser automatiquement les modèles dans lesquels apparait un index continu (généralement le temps). Ce qui rend les choses plus simples. Dans cet exemple on choisira un schéma d’intégration de différence finie (i.e. celui d’Euler).</p>
+<p>Avant discrétisation, les grandeurs indexées par le temps ne font intervenir que le début et la fin de l’horizon.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -973,7 +980,7 @@ int_edf : Size=1, Index=None
     None : 43200.0*(0.15*res.p[86400.0] + 0.15*res.p[0])
 </pre></div></div>
 </div>
-<p>Noter que la discrétisation se fait sur le modèle complet, en renseignant le nombre d’éléments finis. Dans notre cas, cette infrmation est stockée dans l’objet <code class="docutils literal notranslate"><span class="pre">horizon</span></code>.</p>
+<p>Noter que la discrétisation se fait sur le modèle complet, en renseignant le nombre d’éléments finis. Dans notre cas, cette information est stockée dans l’objet <code class="docutils literal notranslate"><span class="pre">horizon</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -1004,19 +1011,15 @@ int_edf : Size=1, Index=None
     None : 300.0*(0.15*res.p[600.0] + 0.15*res.p[0]) + 300.0*(0.15*res.p[1200.0] + 0.15*res.p[600.0]) + 300.0*(0.15*res.p[1800.0] + 0.15*res.p[1200.0]) + 300.0*(0.15*res.p[2400.0] + 0.15*res.p[1800.0]) + 300.0*(0.15*res.p[3000.0] + 0.15*res.p[2400.0]) + 300.0*(0.15*res.p[3600.0] + 0.15*res.p[3000.0]) + 300.0*(0.15*res.p[4200.0] + 0.15*res.p[3600.0]) + 300.0*(0.15*res.p[4800.0] + 0.15*res.p[4200.0]) + 300.0*(0.15*res.p[5400.0] + 0.15*res.p[4800.0]) + 300.0*(0.15*res.p[6000.0] + 0.15*res.p[5400.0]) + 300.0*(0.15*res.p[6600.0] + 0.15*res.p[6000.0]) + 300.0*(0.15*res.p[7200.0] + 0.15*res.p[6600.0]) + 300.0*(0.15*res.p[7800.0] + 0.15*res.p[7200.0]) + 300.0*(0.15*res.p[8400.0] + 0.15*res.p[7800.0]) + 300.0*(0.15*res.p[9000.0] + 0.15*res.p[8400.0]) + 300.0*(0.15*res.p[9600.0] + 0.15*res.p[9000.0]) + 300.0*(0.15*res.p[10200.0] + 0.15*res.p[9600.0]) + 300.0*(0.15*res.p[10800.0] + 0.15*res.p[10200.0]) + 300.0*(0.15*res.p[11400.0] + 0.15*res.p[10800.0]) + 300.0*(0.15*res.p[12000.0] + 0.15*res.p[11400.0]) + 300.0*(0.15*res.p[12600.0] + 0.15*res.p[12000.0]) + 300.0*(0.15*res.p[13200.0] + 0.15*res.p[12600.0]) + 300.0*(0.15*res.p[13800.0] + 0.15*res.p[13200.0]) + 300.0*(0.15*res.p[14400.0] + 0.15*res.p[13800.0]) + 300.0*(0.15*res.p[15000.0] + 0.15*res.p[14400.0]) + 300.0*(0.15*res.p[15600.0] + 0.15*res.p[15000.0]) + 300.0*(0.15*res.p[16200.0] + 0.15*res.p[15600.0]) + 300.0*(0.15*res.p[16800.0] + 0.15*res.p[16200.0]) + 300.0*(0.15*res.p[17400.0] + 0.15*res.p[16800.0]) + 300.0*(0.15*res.p[18000.0] + 0.15*res.p[17400.0]) + 300.0*(0.15*res.p[18600.0] + 0.15*res.p[18000.0]) + 300.0*(0.15*res.p[19200.0] + 0.15*res.p[18600.0]) + 300.0*(0.15*res.p[19800.0] + 0.15*res.p[19200.0]) + 300.0*(0.15*res.p[20400.0] + 0.15*res.p[19800.0]) + 300.0*(0.15*res.p[21000.0] + 0.15*res.p[20400.0]) + 300.0*(0.15*res.p[21600.0] + 0.15*res.p[21000.0]) + 300.0*(0.15*res.p[22200.0] + 0.15*res.p[21600.0]) + 300.0*(0.15*res.p[22800.0] + 0.15*res.p[22200.0]) + 300.0*(0.15*res.p[23400.0] + 0.15*res.p[22800.0]) + 300.0*(0.15*res.p[24000.0] + 0.15*res.p[23400.0]) + 300.0*(0.15*res.p[24600.0] + 0.15*res.p[24000.0]) + 300.0*(0.15*res.p[25200.0] + 0.15*res.p[24600.0]) + 300.0*(0.15*res.p[25800.0] + 0.15*res.p[25200.0]) + 300.0*(0.15*res.p[26400.0] + 0.15*res.p[25800.0]) + 300.0*(0.15*res.p[27000.0] + 0.15*res.p[26400.0]) + 300.0*(0.15*res.p[27600.0] + 0.15*res.p[27000.0]) + 300.0*(0.15*res.p[28200.0] + 0.15*res.p[27600.0]) + 300.0*(0.15*res.p[28800.0] + 0.15*res.p[28200.0]) + 300.0*(0.15*res.p[29400.0] + 0.15*res.p[28800.0]) + 300.0*(0.15*res.p[30000.0] + 0.15*res.p[29400.0]) + 300.0*(0.15*res.p[30600.0] + 0.15*res.p[30000.0]) + 300.0*(0.15*res.p[31200.0] + 0.15*res.p[30600.0]) + 300.0*(0.15*res.p[31800.0] + 0.15*res.p[31200.0]) + 300.0*(0.15*res.p[32400.0] + 0.15*res.p[31800.0]) + 300.0*(0.15*res.p[33000.0] + 0.15*res.p[32400.0]) + 300.0*(0.15*res.p[33600.0] + 0.15*res.p[33000.0]) + 300.0*(0.15*res.p[34200.0] + 0.15*res.p[33600.0]) + 300.0*(0.15*res.p[34800.0] + 0.15*res.p[34200.0]) + 300.0*(0.15*res.p[35400.0] + 0.15*res.p[34800.0]) + 300.0*(0.15*res.p[36000.0] + 0.15*res.p[35400.0]) + 300.0*(0.15*res.p[36600.0] + 0.15*res.p[36000.0]) + 300.0*(0.15*res.p[37200.0] + 0.15*res.p[36600.0]) + 300.0*(0.15*res.p[37800.0] + 0.15*res.p[37200.0]) + 300.0*(0.15*res.p[38400.0] + 0.15*res.p[37800.0]) + 300.0*(0.15*res.p[39000.0] + 0.15*res.p[38400.0]) + 300.0*(0.15*res.p[39600.0] + 0.15*res.p[39000.0]) + 300.0*(0.15*res.p[40200.0] + 0.15*res.p[39600.0]) + 300.0*(0.15*res.p[40800.0] + 0.15*res.p[40200.0]) + 300.0*(0.15*res.p[41400.0] + 0.15*res.p[40800.0]) + 300.0*(0.15*res.p[42000.0] + 0.15*res.p[41400.0]) + 300.0*(0.15*res.p[42600.0] + 0.15*res.p[42000.0]) + 300.0*(0.15*res.p[43200.0] + 0.15*res.p[42600.0]) + 300.0*(0.15*res.p[43800.0] + 0.15*res.p[43200.0]) + 300.0*(0.15*res.p[44400.0] + 0.15*res.p[43800.0]) + 300.0*(0.15*res.p[45000.0] + 0.15*res.p[44400.0]) + 300.0*(0.15*res.p[45600.0] + 0.15*res.p[45000.0]) + 300.0*(0.15*res.p[46200.0] + 0.15*res.p[45600.0]) + 300.0*(0.15*res.p[46800.0] + 0.15*res.p[46200.0]) + 300.0*(0.15*res.p[47400.0] + 0.15*res.p[46800.0]) + 300.0*(0.15*res.p[48000.0] + 0.15*res.p[47400.0]) + 300.0*(0.15*res.p[48600.0] + 0.15*res.p[48000.0]) + 300.0*(0.15*res.p[49200.0] + 0.15*res.p[48600.0]) + 300.0*(0.15*res.p[49800.0] + 0.15*res.p[49200.0]) + 300.0*(0.15*res.p[50400.0] + 0.15*res.p[49800.0]) + 300.0*(0.15*res.p[51000.0] + 0.15*res.p[50400.0]) + 300.0*(0.15*res.p[51600.0] + 0.15*res.p[51000.0]) + 300.0*(0.15*res.p[52200.0] + 0.15*res.p[51600.0]) + 300.0*(0.15*res.p[52800.0] + 0.15*res.p[52200.0]) + 300.0*(0.15*res.p[53400.0] + 0.15*res.p[52800.0]) + 300.0*(0.15*res.p[54000.0] + 0.15*res.p[53400.0]) + 300.0*(0.15*res.p[54600.0] + 0.15*res.p[54000.0]) + 300.0*(0.15*res.p[55200.0] + 0.15*res.p[54600.0]) + 300.0*(0.15*res.p[55800.0] + 0.15*res.p[55200.0]) + 300.0*(0.15*res.p[56400.0] + 0.15*res.p[55800.0]) + 300.0*(0.15*res.p[57000.0] + 0.15*res.p[56400.0]) + 300.0*(0.15*res.p[57600.0] + 0.15*res.p[57000.0]) + 300.0*(0.15*res.p[58200.0] + 0.15*res.p[57600.0]) + 300.0*(0.15*res.p[58800.0] + 0.15*res.p[58200.0]) + 300.0*(0.15*res.p[59400.0] + 0.15*res.p[58800.0]) + 300.0*(0.15*res.p[60000.0] + 0.15*res.p[59400.0]) + 300.0*(0.15*res.p[60600.0] + 0.15*res.p[60000.0]) + 300.0*(0.15*res.p[61200.0] + 0.15*res.p[60600.0]) + 300.0*(0.15*res.p[61800.0] + 0.15*res.p[61200.0]) + 300.0*(0.15*res.p[62400.0] + 0.15*res.p[61800.0]) + 300.0*(0.15*res.p[63000.0] + 0.15*res.p[62400.0]) + 300.0*(0.15*res.p[63600.0] + 0.15*res.p[63000.0]) + 300.0*(0.15*res.p[64200.0] + 0.15*res.p[63600.0]) + 300.0*(0.15*res.p[64800.0] + 0.15*res.p[64200.0]) + 300.0*(0.15*res.p[65400.0] + 0.15*res.p[64800.0]) + 300.0*(0.15*res.p[66000.0] + 0.15*res.p[65400.0]) + 300.0*(0.15*res.p[66600.0] + 0.15*res.p[66000.0]) + 300.0*(0.15*res.p[67200.0] + 0.15*res.p[66600.0]) + 300.0*(0.15*res.p[67800.0] + 0.15*res.p[67200.0]) + 300.0*(0.15*res.p[68400.0] + 0.15*res.p[67800.0]) + 300.0*(0.15*res.p[69000.0] + 0.15*res.p[68400.0]) + 300.0*(0.15*res.p[69600.0] + 0.15*res.p[69000.0]) + 300.0*(0.15*res.p[70200.0] + 0.15*res.p[69600.0]) + 300.0*(0.15*res.p[70800.0] + 0.15*res.p[70200.0]) + 300.0*(0.15*res.p[71400.0] + 0.15*res.p[70800.0]) + 300.0*(0.15*res.p[72000.0] + 0.15*res.p[71400.0]) + 300.0*(0.15*res.p[72600.0] + 0.15*res.p[72000.0]) + 300.0*(0.15*res.p[73200.0] + 0.15*res.p[72600.0]) + 300.0*(0.15*res.p[73800.0] + 0.15*res.p[73200.0]) + 300.0*(0.15*res.p[74400.0] + 0.15*res.p[73800.0]) + 300.0*(0.15*res.p[75000.0] + 0.15*res.p[74400.0]) + 300.0*(0.15*res.p[75600.0] + 0.15*res.p[75000.0]) + 300.0*(0.15*res.p[76200.0] + 0.15*res.p[75600.0]) + 300.0*(0.15*res.p[76800.0] + 0.15*res.p[76200.0]) + 300.0*(0.15*res.p[77400.0] + 0.15*res.p[76800.0]) + 300.0*(0.15*res.p[78000.0] + 0.15*res.p[77400.0]) + 300.0*(0.15*res.p[78600.0] + 0.15*res.p[78000.0]) + 300.0*(0.15*res.p[79200.0] + 0.15*res.p[78600.0]) + 300.0*(0.15*res.p[79800.0] + 0.15*res.p[79200.0]) + 300.0*(0.15*res.p[80400.0] + 0.15*res.p[79800.0]) + 300.0*(0.15*res.p[81000.0] + 0.15*res.p[80400.0]) + 300.0*(0.15*res.p[81600.0] + 0.15*res.p[81000.0]) + 300.0*(0.15*res.p[82200.0] + 0.15*res.p[81600.0]) + 300.0*(0.15*res.p[82800.0] + 0.15*res.p[82200.0]) + 300.0*(0.15*res.p[83400.0] + 0.15*res.p[82800.0]) + 300.0*(0.15*res.p[84000.0] + 0.15*res.p[83400.0]) + 300.0*(0.15*res.p[84600.0] + 0.15*res.p[84000.0]) + 300.0*(0.15*res.p[85200.0] + 0.15*res.p[84600.0]) + 300.0*(0.15*res.p[85800.0] + 0.15*res.p[85200.0]) + 300.0*(0.15*res.p[86400.0] + 0.15*res.p[85800.0])
 </pre></div></div>
 </div>
+</section>
 <section id="Chargement-des-données">
-<h3>Chargement des données<a class="headerlink" href="#Chargement-des-données" title="Permalink to this headline"></a></h3>
-<p>En optimisation, il est d’usage de séparer la formulation des données, pour une meilleur lecture et pour réutiliser simplement les modèles.</p>
-<p>La lecture et le chargement des données peuvent-être réalisées par différentes méthodes selon le formats des données. Dans lms2, nous proposons une forme générique de lire, intérpoler et charger les données en utilisant les fonctions <code class="docutils literal notranslate"><span class="pre">lms2.tools.read_data</span></code> et <code class="docutils literal notranslate"><span class="pre">lms2.load_data</span></code>. Se référer aux documentations pour plus d’information.</p>
-<section id="Lecture-des-données-à-partir-d’un-fichier-csv">
-<h4>Lecture des données à partir d’un fichier csv<a class="headerlink" href="#Lecture-des-données-à-partir-d’un-fichier-csv" title="Permalink to this headline"></a></h4>
+<h2>Chargement des données<a class="headerlink" href="#Chargement-des-données" title="Permalink to this headline"></a></h2>
+<p>En optimisation, il est d’usage de séparer la formulation des données, pour une meilleure lecture et pour réutiliser simplement les modèles.</p>
+<p>La lecture et le chargement des données peuvent-être réalisées par différentes méthodes selon les formats des données. Dans lms2, nous proposons une forme générique de lire, interpoler et charger les données en utilisant les fonctions <code class="docutils literal notranslate"><span class="pre">lms2.tools.read_data</span></code> et <code class="docutils literal notranslate"><span class="pre">lms2.load_data</span></code>. Se référer aux documentations pour plus d’information.</p>
 <p>La fonction <code class="docutils literal notranslate"><span class="pre">read_data</span></code> gère plusieurs formats de données, ou plutôt, pluseurs formats d’index.</p>
-</section>
-</section>
-</section>
 <section id="Index-entier">
-<h2>Index entier<a class="headerlink" href="#Index-entier" title="Permalink to this headline"></a></h2>
-<p>Si les données sont indexées par une colonne en seconde. L’unité utilisé peut-être renseignée (par défaut ‘s’), la zone peut-être renseignée (défaut : Europe/Paris), et la date de début des données doit être renseignée. Cet index est ensuite automatiquement transformée en date.</p>
+<h3>Index entier<a class="headerlink" href="#Index-entier" title="Permalink to this headline"></a></h3>
+<p>Si les données sont indexées par une colonne en seconde. L’unité utilisée peut-être renseignée (par défaut ‘s’), la zone peut-être renseignée (défaut : Europe/Paris), et la date de début des données doit être renseignée. Cet index est ensuite automatiquement transformé en date.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -1126,7 +1129,7 @@ int_edf : Size=1, Index=None
 </div>
 </section>
 <section id="Index-en-chaîne-de-caractères">
-<h2>Index en chaîne de caractères<a class="headerlink" href="#Index-en-chaîne-de-caractères" title="Permalink to this headline"></a></h2>
+<h3>Index en chaîne de caractères<a class="headerlink" href="#Index-en-chaîne-de-caractères" title="Permalink to this headline"></a></h3>
 <p>Si les données sont indexées par une chaine de caractère dont le format est celui d’une date. Dans ce cas, la date de début et l’unité ne sont pas utiles. La colonne d’index est parsée, utilisant le format définit dans date_parser.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
@@ -1262,6 +1265,7 @@ data index and variable index does not have the same name. This could be a sourc
 <span class="n">pplot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">cout_inst_edf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Cout EDF instantané&#39;</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">horizon</span><span class="o">.</span><span class="n">current</span><span class="p">,</span> <span class="n">bbox_to_anchor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
 </pre></div>
 </div>
 </div>
@@ -1281,6 +1285,7 @@ WARNING: DEPRECATED: The iteritems method is deprecated. Use dict.items().
 <img alt="../_images/examples_microgrid_1_34_1.png" src="../_images/examples_microgrid_1_34_1.png" />
 </div>
 </div>
+</section>
 </section>
 </section>
 

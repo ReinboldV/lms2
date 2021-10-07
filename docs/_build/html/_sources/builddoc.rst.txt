@@ -17,5 +17,3 @@ or, for a pdf documentation,
 		make latex
 		cd build\latex
 		pdflatex lms2.tex Documentation.pdf
-
-For Bash users, check the ``autogen.bat`` file for automatic build.

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation steps &mdash; lms2 1.1+4.g396374b.dirty documentation</title>
+  <title>Installation steps &mdash; lms2 1.1+5.g1388341.dirty documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -58,19 +58,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="examples/microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:">Cet exemple d’optimisation illustre les étapes suivantes :</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Chargement-des-données">Chargement des données</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Index-entier">Index entier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
 </ul>
@@ -261,29 +260,43 @@ It is distributed with scientific libraries such as pandas, scipy, numpy, matplo
 IDE such as jupiter or spyder. One can find more information about anaconda distribution on : <a class="reference external" href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></p>
 <p>lms2 is a library based on the pyomo package (<a class="reference external" href="https://github.com/Pyomo/pyomo">https://github.com/Pyomo/pyomo</a>). Pyomo is a Python-based open-source software package that supports a diverse set of optimization capabilities for formulating and analyzing optimization models. Pyomo can be used to define symbolic problems, create concrete problem instances, and solve these instances with standard solvers.</p>
 <blockquote>
-<div><ul class="simple">
-<li><p>Step one: Download and install Anaconda</p></li>
-<li><p>Step two: Install Pyomo and other related packages you may need (solvers). In this example, we are installing gurobi and glpk.</p></li>
-</ul>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge pyomo
+<div><blockquote>
+<div><ol class="arabic">
+<li><p>Download and install Anaconda</p></li>
+<li><dl>
+<dt>Create a new conda environment from environment.yml</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>conda env create -f environment.yml
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p>(optional) Example for installing other packages you may need (solvers, data-processing, etc.).</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge pyomo
 conda config --add channels http://conda.anaconda.org/gurobi
 conda install gurobi
 conda install -c conda-forge glpk
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Step three (optional) : install a Gurobi Licence on <a class="reference external" href="http://www.gurobi.com/downloads/licenses/license-center">http://www.gurobi.com/downloads/licenses/license-center</a></p></li>
-</ul>
-<p>This step requires you to login and ask for a licence depending on your status (free for universities and for evaluation).
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>(optional) Install a Gurobi Licence on <a class="reference external" href="http://www.gurobi.com/downloads/licenses/license-center">http://www.gurobi.com/downloads/licenses/license-center</a></p></li>
+</ol>
+<blockquote>
+<div><p>This step requires you to login and ask for a licence depending on your status (free for universities and for evaluation).
 Store this licence in <code class="docutils literal notranslate"><span class="pre">C:/gurobiXXX/</span></code> for instance and create an environment variable named <code class="docutils literal notranslate"><span class="pre">GUROBI_LICENCE</span></code> pointing to <code class="docutils literal notranslate"><span class="pre">C:/gurobiXXX/gurobi.lic</span></code>.</p>
+</div></blockquote>
 </div></blockquote>
 </section>
 <section id="install-lms2-from-source">
 <h2>Install LMS2 from source<a class="headerlink" href="#install-lms2-from-source" title="Permalink to this headline"></a></h2>
 <p>Clone the repository and install the package using the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file.</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ReinboldV/lms2.git &lt;PATH&gt;
-python setup.py install
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ReinboldV/lms2.git lms2
+pip install -e ./lms2
 </pre></div>
 </div>
 <div class="admonition note">
