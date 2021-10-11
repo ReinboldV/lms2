@@ -325,7 +325,7 @@ def pv_panel(b, curtailable=False, **kwargs):
     portion of the generated power, named `p_curt`, can be curtailed.
 
     .. math::
-        p_{pv}(t) + p_{curt}(t) = p_0(t)
+        p_{pv}(t) + p_{curt}(t) = s_{pv}*p_0(t)
 
     :param b: block
     :param curtailable: panel production can be partially curtailed
