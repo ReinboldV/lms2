@@ -1,68 +1,33 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lms2.tools.post_processing &mdash; lms2 1.1+7.ge8b9e89.dirty documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>lms2.tools.post_processing &mdash; lms2 1.1+2.g10d0b63.dirty documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> lms2
-          
-
-          
-            
             <img src="../../../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -70,17 +35,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
@@ -88,16 +43,32 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-pyomo">Working with Pyomo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial and Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_pyomo.html">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#working-with-lms2-library-components">Working with lms2 library components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-a-block">1) Example of a block</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#example-of-model-by-aggregating-blocks-of-the-library">2) Example of model by aggregating blocks of the library</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../examples.html#full-example-for-a-microgrid">Full example for a microgrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_lms2.html">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Discrétisation-temporelle">Discrétisation temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -153,6 +124,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
@@ -231,70 +203,35 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">lms2</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>lms2.tools.post_processing</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for lms2.tools.post_processing</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;plotting and saving of optimisation results&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span>
+
 
 <span class="k">def</span> <span class="nf">_pplot</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -317,7 +254,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-    <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">Constraint</span>
+    <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">Constraint</span>
 
     <span class="n">up</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">low</span> <span class="o">=</span> <span class="kc">None</span>
@@ -392,8 +329,8 @@
             <span class="n">ld</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">),</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Argument &quot;variable&quot; must be of type Param or Var, but is actually&#39;</span>
-                                   <span class="n">f</span><span class="s1">&#39;{variable, type(variable)}&#39;</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Argument &quot;variable&quot; must be of type Param or Var, but is actually&#39;</span>
+                                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">variable</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">ld</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span>
 
@@ -409,29 +346,37 @@
 <span class="sd">        :param kwarg: any Series.plot keyword argument</span>
 <span class="sd">        :return:  line handle, axe handle, figure handle</span>
 
+<span class="sd">        other options :</span>
+<span class="sd">            - ncol</span>
+<span class="sd">            - loc</span>
+<span class="sd">            - bbox_to_anchor</span>
+<span class="sd">            - mode</span>
+
 <span class="sd">    **Returns**</span>
 <span class="sd">        - arg1 the matplotlib.pyplot.Figure handle object</span>
 <span class="sd">        - arg2 the matplotlib.pyplot.Axes handle object</span>
 <span class="sd">        - arg3 the matplotlib.pyplot.Line2D handle object</span>
 
 <span class="sd">    Example::</span>
-<span class="sd">        &gt;&gt;&gt; from lms2.core.models import LModel</span>
-<span class="sd">        &gt;&gt;&gt; from lms2.core.time import Time</span>
+<span class="sd">        &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
+<span class="sd">        &gt;&gt;&gt; from pyomo.dae import ContinuousSet</span>
+<span class="sd">        &gt;&gt;&gt; from lms2.core.horizon import SimpleHorizon</span>
 <span class="sd">        &gt;&gt;&gt; from pyomo.environ import Var</span>
 
-<span class="sd">        &gt;&gt;&gt; time = Time(start=&#39;00:00:00&#39;, end=&#39;01:00:00&#39;, freq=&#39;5Min&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; m = LModel(&#39;test_utils&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; m.v = Var(time.datetime, initialize=10)</span>
-<span class="sd">        &gt;&gt;&gt; m.w = Var(time.datetime, initialize=5)</span>
-<span class="sd">        &gt;&gt;&gt; m.z = Var(time.datetime, initialize=3)</span>
+<span class="sd">        &gt;&gt;&gt; m = ConcreteModel(&#39;test_utils&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; horizon = SimpleHorizon(tstart=&#39;00:00:00&#39;, tend=&#39;01:00:00&#39;, time_step=&#39;5 Min&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; m.time = ContinuousSet(initialize=[0, horizon.horizon.total_seconds()])</span>
+<span class="sd">        &gt;&gt;&gt; m.v = Var(m.time, initialize=lambda b, x: x%60)</span>
+<span class="sd">        &gt;&gt;&gt; m.w = Var(m.time, initialize=lambda b, x: x//60)</span>
+<span class="sd">        &gt;&gt;&gt; m.z = Var(m.time, initialize=lambda b, x: x//(60*60))</span>
 
 <span class="sd">        &gt;&gt;&gt; lines = pplot(m.v, m.z, m.w, title=&#39;test&#39;, Marker=&#39;x&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">ncol</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ncol&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-    <span class="n">loc</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;loc&#39;</span><span class="p">,</span> <span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
-    <span class="n">bbox_to_anchor</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;bbox_to_anchor&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
-    <span class="n">mode</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="s2">&quot;expand&quot;</span><span class="p">)</span>
+    <span class="n">ncol</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ncol&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;loc&#39;</span><span class="p">,</span> <span class="s1">&#39;lower center&#39;</span><span class="p">)</span>
+    <span class="n">bbox_to_anchor</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;bbox_to_anchor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">ld</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">_pplot</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">)</span>
@@ -452,7 +397,7 @@
 
     <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="n">bbox_to_anchor</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span>
-                  <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">)</span>
+                  <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">grid</span><span class="p">:</span>
@@ -462,42 +407,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2015-2021, lms2 Developers
-
-    </p>
+    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

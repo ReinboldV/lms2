@@ -1,4 +1,4 @@
-sources
+﻿sources
 =======
 
 .. automodule:: lms2.electric.sources
@@ -13,6 +13,7 @@ sources
         :nosignatures:
         
         curtailable_load
+        curtailable_load_2
         debug_source
         fixed_power_load
         fixed_power_source

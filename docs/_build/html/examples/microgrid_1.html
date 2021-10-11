@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; lms2 1.1+5.g1388341.dirty documentation</title>
+  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; lms2 1.1+8.ge46f22c.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -56,7 +56,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../examples_lms2.html">Working with lms2 library components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-model-by-aggregating-blocks-of-the-library">2) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
@@ -105,6 +106,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
@@ -128,6 +130,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/lms2.electric.sources.html">sources</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
@@ -509,7 +512,7 @@ div.rendered_html tbody tr:hover {
 <li><p>le dimensionnement des panneaux photovoltaïques (i.e. la surface),</p></li>
 <li><p>les flux de puissances provenant du réseau et du stockage.</p></li>
 </ul>
-<p><img alt="046e724851814e2cab381991a0a2ff2b" src="../_images/microgrids_bat.png" /></p>
+<p><img alt="af5572a0724f409499ffe760d28b989f" src="../_images/microgrids_bat.png" /></p>
 <p>La première étape consiste à charger les bibliothèques utiles:</p>
 <ul class="simple">
 <li><p>Pyomo : le package de modélisation des problèmes d’optimisation (voir <a class="reference external" href="https://pyomo.readthedocs.io/en/latest/">https://pyomo.readthedocs.io/en/latest/</a>)</p></li>

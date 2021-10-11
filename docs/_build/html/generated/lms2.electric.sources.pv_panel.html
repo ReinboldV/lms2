@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pv_panel &mdash; lms2 1.1+5.g1388341.dirty documentation</title>
+  <title>pv_panel &mdash; lms2 1.1+8.ge46f22c.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,6 +16,8 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -54,23 +56,24 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../examples_lms2.html">Working with lms2 library components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-model-by-aggregating-blocks-of-the-library">2) Example of model by aggregating blocks of the library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Cet-exemple-d’optimisation-illustre-les-étapes-suivantes-:">Cet exemple d’optimisation illustre les étapes suivantes :</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Chargement-des-données">Chargement des données</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Discrétisation-temporelle">Discrétisation temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Index-entier">Index entier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
 </ul>
@@ -103,6 +106,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.linear_cost.html">linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
@@ -126,6 +130,7 @@
 </li>
 <li class="toctree-l3 current"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.debug_source.html">debug_source</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
@@ -261,14 +266,23 @@
 <dt class="sig sig-object py" id="lms2.electric.sources.pv_panel">
 <span class="sig-prename descclassname"><span class="pre">lms2.electric.sources.</span></span><span class="sig-name descname"><span class="pre">pv_panel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">curtailable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/electric/sources.html#pv_panel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.electric.sources.pv_panel" title="Permalink to this definition"></a></dt>
 <dd><p>Scalable PV panel module.</p>
-<p>Derives from a scalable power source.</p>
+<p>Derives from a scalable power source. One can fix the scaling factor <cite>s</cite> using key-word argument <cite>s_pv</cite>. Otherwise,
+one should set lower and upper bounds <cite>s_min</cite> and <cite>s_max</cite> in the options.
+The source can also be curtailed, setting the key-word parameter <cite>curtailable`=True. In this case, a positive
+portion of the generated power, named `p_curt</cite>, can be curtailed.</p>
+<div class="math notranslate nohighlight">
+\[p_{pv}(t) + p_{curt}(t) = p_0(t)\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>b</strong> – block</p></li>
 <li><p><strong>curtailable</strong> – panel production can be partially curtailed</p></li>
-<li><p><strong>kwargs</strong> – <p>optional key-word arguments</p>
-<ul>
+<li><p><strong>kwargs</strong> – optional key-word arguments</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Additionnal key-word arguments :</dt><dd><ul class="simple">
 <li><p><cite>default</cite> : set the default value of the parameter (default : 0)</p></li>
 <li><p><cite>doc</cite> : setting documentation</p></li>
 <li><p><cite>s_max</cite> : maximal surface</p></li>
@@ -278,11 +292,86 @@
 <li><p><cite>unit</cite> : unit of the variable (default : kW)</p></li>
 <li><p><cite>within</cite> : Pyomo Set for parameter definition (default : Reals)</p></li>
 </ul>
-</p></li>
-</ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pyomo.Block</p>
+</dl>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variables</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p_pv</p></td>
+<td><p>power source profile after scaling (kW)</p></td>
+</tr>
+<tr class="row-odd"><td><p>s_pv</p></td>
+<td><p>scaling factor within positive reals (default=1)</p></td>
+</tr>
+<tr class="row-even"><td><p>p_curt</p></td>
+<td><p>curtailed flow (kW)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameters</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p0</p></td>
+<td><p>fixed power source (kW)</p></td>
+</tr>
+<tr class="row-odd"><td><p>fact_min</p></td>
+<td><p>factor lower bound</p></td>
+</tr>
+<tr class="row-even"><td><p>fact_max</p></td>
+<td><p>factor upper bound</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Ports</p></th>
+<th class="head"><p>Documentation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p_scaled_outlet</p></td>
+<td><p>output power using source convention</p></td>
+</tr>
+</tbody>
+</table>
+<p>Example :</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lms2.electric.sources</span> <span class="kn">import</span> <span class="n">pv_panel</span><span class="p">,</span> <span class="n">fixed_power_load</span><span class="p">,</span> <span class="n">power_source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">option_pv</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;s_max&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;s_min&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">pv</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pv_panel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">option_pv</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">pv</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
+<span class="go">p : fixed power source (kW)</span>
+<span class="go">    Size=2, Index=time, Domain=NonNegativeReals, Default=0, Mutable=True</span>
+<span class="go">    Key : Value</span>
+<span class="go">      0 :     0</span>
+<span class="go">     10 :     0</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pyomo.Block</p>
 </dd>
 </dl>
 </dd></dl>

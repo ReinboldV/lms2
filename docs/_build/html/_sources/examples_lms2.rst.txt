@@ -35,8 +35,8 @@ Example of a dummy block. It consists of two variables, one constraint and one e
             return sum([b.exp[t] for t in time]) >= 100
 
 
-2) Example of model by aggregating blocks of the library
-----------------------------------------------------------
+2) Example of model by aggregation of library's blocks
+------------------------------------------------------
 
 Constructing a model based on this block is quite simple :
 
@@ -53,3 +53,19 @@ Constructing a model based on this block is quite simple :
     m.b = Block(rule=dummy_block, options={'env': m.env, 'time': m.time})
 
 .. warning:: When using sum over continuous set, one should make the descretisation before instantiation o the blocks. Otherwise, the expression will only take into account the first and the last index of the continuous set. To overcome this, one could also use `pyomo.dae.Integral`: https://pyomo.readthedocs.io/en/stable/modeling_extensions/dae.html?highlight=Integral#declaring-integrals.
+
+3) Example of creating blocks indexed by a set
+----------------------------------------------
+
+One may instantiate a set of similar blocks. Following the pyomo language, this can be done by giving a set in the Block
+initialization method:
+
+.. code-block:: python
+
+    from pyomo.environ import *
+    from lms2.electric.sources import pv_panel, fixed_power_load, power_source
+    m = ConcreteModel()
+    m.time = ContinuousSet(initialize=[0, 10])
+    m.s = Set(initialize=['north', 'south', 'east'])
+    option_pv = {'time': m.time, 's_max': 10, 's_min': 0.1}
+    m.pv = Block(m.s, rule=lambda x: pv_panel(x, **option_pv))

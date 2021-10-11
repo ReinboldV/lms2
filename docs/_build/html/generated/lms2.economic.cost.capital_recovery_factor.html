@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hysteresis &mdash; lms2 1.1+8.ge46f22c.dirty documentation</title>
+  <title>capital_recovery_factor &mdash; lms2 1.1+8.ge46f22c.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Mechanic" href="../lms2.mechanic.html" />
-    <link rel="prev" title="add_phase" href="lms2.logical.sequencial.add_phase.html" /> 
+    <link rel="next" title="lifecycle_cost" href="lms2.economic.cost.lifecycle_cost.html" />
+    <link rel="prev" title="bilinear_dynamic_cost" href="lms2.economic.cost.bilinear_dynamic_cost.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -99,12 +99,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lms2.economic.html">Economic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../lms2.economic.html">Economic</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="lms2.economic.cost.html">cost</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">capital_recovery_factor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.linear_cost.html">linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
@@ -156,10 +156,10 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="../lms2.logical.html">Logical</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="lms2.logical.sequencial.html">sequencial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.logical.sequencial.html">sequencial</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.logical.sequencial.add_phase.html">add_phase</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Hysteresis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
 </ul>
 </li>
 </ul>
@@ -222,11 +222,11 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../lms2.html">Library</a> &raquo;</li>
-          <li><a href="../lms2.logical.html">Logical</a> &raquo;</li>
-          <li><a href="lms2.logical.sequencial.html">sequencial</a> &raquo;</li>
-      <li>Hysteresis</li>
+          <li><a href="../lms2.economic.html">Economic</a> &raquo;</li>
+          <li><a href="lms2.economic.cost.html">cost</a> &raquo;</li>
+      <li>capital_recovery_factor</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/generated/lms2.logical.sequencial.Hysteresis.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/generated/lms2.economic.cost.capital_recovery_factor.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -258,24 +258,28 @@
     text-align: unset;
 }
 </style>
-<section id="hysteresis">
-<h1>Hysteresis<a class="headerlink" href="#hysteresis" title="Permalink to this headline"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="lms2.logical.sequencial.Hysteresis">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lms2.logical.sequencial.</span></span><span class="sig-name descname"><span class="pre">Hysteresis</span></span><a class="reference internal" href="../_modules/lms2/logical/sequencial.html#Hysteresis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.logical.sequencial.Hysteresis" title="Permalink to this definition"></a></dt>
-<dd><p>Linear hysteresis model</p>
-<p>Attributes</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>u : logical output</p></li>
-<li><p>x : continuous input</p></li>
-<li><p>xref : reference input value</p></li>
-<li><p>dx : windows size</p></li>
-<li><p>a : logical intermediate variable</p></li>
-<li><p>b : logical intermediate variable</p></li>
-<li><p>c : logical intermediate variable</p></li>
+<section id="capital-recovery-factor">
+<h1>capital_recovery_factor<a class="headerlink" href="#capital-recovery-factor" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="lms2.economic.cost.capital_recovery_factor">
+<span class="sig-prename descclassname"><span class="pre">lms2.economic.cost.</span></span><span class="sig-name descname"><span class="pre">capital_recovery_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/economic/cost.html#capital_recovery_factor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.economic.cost.capital_recovery_factor" title="Permalink to this definition"></a></dt>
+<dd><p>Capital Recovery Factor (CRF)</p>
+<p>Add a capital recovery factor to a block. A capital recovery factor is the ratio of a constant annuity
+to the present value of receiving that annuity for a given length of time.
+The CRF is normally calculated for one year, in this case, we use
+the duration of the horizon to calculate it on the whole horizon.</p>
+<p>One can use this function with r=0, to consider yearly costs to the objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> – interest rate</p></li>
+<li><p><strong>n</strong> – number of annuities</p></li>
 </ul>
-</div></blockquote>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -284,8 +288,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="lms2.logical.sequencial.add_phase.html" class="btn btn-neutral float-left" title="add_phase" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../lms2.mechanic.html" class="btn btn-neutral float-right" title="Mechanic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lms2.economic.cost.bilinear_dynamic_cost.html" class="btn btn-neutral float-left" title="bilinear_dynamic_cost" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lms2.economic.cost.lifecycle_cost.html" class="btn btn-neutral float-right" title="lifecycle_cost" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

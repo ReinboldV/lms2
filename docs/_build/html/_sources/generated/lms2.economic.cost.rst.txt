@@ -1,4 +1,4 @@
-cost
+﻿cost
 ====
 
 .. automodule:: lms2.economic.cost
@@ -15,6 +15,7 @@ cost
         absolute_cost
         bilinear_cost
         bilinear_dynamic_cost
+        capital_recovery_factor
         lifecycle_cost
         linear_cost
         linear_dyn_cost
