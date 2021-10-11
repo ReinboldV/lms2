@@ -2,6 +2,7 @@
 
 from pandas import Series
 
+
 def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
     """
     Function that plots pyomo Variable, Parameter, Expression and Constraint
@@ -115,29 +116,37 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs)
         :param kwarg: any Series.plot keyword argument
         :return:  line handle, axe handle, figure handle
 
+        other options :
+            - ncol
+            - loc
+            - bbox_to_anchor
+            - mode
+
     **Returns**
         - arg1 the matplotlib.pyplot.Figure handle object
         - arg2 the matplotlib.pyplot.Axes handle object
         - arg3 the matplotlib.pyplot.Line2D handle object
 
     Example::
-        >>> from lms2.core.models import LModel
-        >>> from lms2.core.time import Time
+        >>> from pyomo.environ import ConcreteModel
+        >>> from pyomo.dae import ContinuousSet
+        >>> from lms2.core.horizon import SimpleHorizon
         >>> from pyomo.environ import Var
 
-        >>> time = Time(start='00:00:00', end='01:00:00', freq='5Min')
-        >>> m = LModel('test_utils')
-        >>> m.v = Var(time.datetime, initialize=10)
-        >>> m.w = Var(time.datetime, initialize=5)
-        >>> m.z = Var(time.datetime, initialize=3)
+        >>> m = ConcreteModel('test_utils')
+        >>> horizon = SimpleHorizon(tstart='00:00:00', tend='01:00:00', time_step='5 Min')
+        >>> m.time = ContinuousSet(initialize=[0, horizon.horizon.total_seconds()])
+        >>> m.v = Var(m.time, initialize=lambda b, x: x%60)
+        >>> m.w = Var(m.time, initialize=lambda b, x: x//60)
+        >>> m.z = Var(m.time, initialize=lambda b, x: x//(60*60))
 
         >>> lines = pplot(m.v, m.z, m.w, title='test', Marker='x')
     """
 
-    ncol = kargs.pop('ncol', 4)
-    loc = kargs.pop('loc', 'lower left')
-    bbox_to_anchor = kargs.pop('bbox_to_anchor', (0, 1.02, 1, 0.2))
-    mode = kargs.pop('mode', "expand")
+    ncol = kargs.pop('ncol', 1)
+    loc = kargs.pop('loc', 'lower center')
+    bbox_to_anchor = kargs.pop('bbox_to_anchor', None)
+    mode = kargs.pop('mode', None)
 
     lines = []
     ld, up, low, ax, fig = _pplot(args[0], ax=ax, fig=fig, **kargs)
@@ -158,7 +167,7 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs)
 
     if legend:
         ax.legend(bbox_to_anchor=bbox_to_anchor, loc=loc,
-                  mode=mode, borderaxespad=0, ncol=ncol)
+                  mode=mode, borderaxespad=0.4, ncol=ncol)
     if title is not None:
         ax.set_title(title)
     if grid:

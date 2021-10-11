@@ -8,7 +8,31 @@ from pyomo.core import NonNegativeReals, PositiveReals
 from pyomo.environ import Param, Var, Expression, Constraint
 
 __all__ = ['linear_cost', 'bilinear_cost', 'linear_dyn_cost',
-           'bilinear_dynamic_cost', 'absolute_cost']
+           'bilinear_dynamic_cost', 'absolute_cost', 'capital_recovery_factor']
+
+
+def capital_recovery_factor(horizon, r=0.05, n=20):
+    """
+    Capital Recovery Factor (CRF)
+
+    Add a capital recovery factor to a block. A capital recovery factor is the ratio of a constant annuity
+    to the present value of receiving that annuity for a given length of time.
+    The CRF is normally calculated for one year, in this case, we use
+    the duration of the horizon to calculate it on the whole horizon.
+
+    One can use this function with r=0, to consider yearly costs to the objective.
+
+    :param r: interest rate
+    :param n: number of annuities
+    :return:
+    """
+    years = horizon.index[-1]/(60*60*24*365)
+
+    if r == 0:
+        crf = years
+    else:
+        crf = r*(1+r)**n/((1+r)**n - 1)*years
+    return Param(default=crf, units='1', doc='capital recovery factor for the time horizon.')
 
 
 def linear_cost(m, time, var_name='p'):

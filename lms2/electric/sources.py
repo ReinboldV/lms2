@@ -1,9 +1,9 @@
 """
 Electrical sources and loads
 """
-
+from pyomo.core import Var, Param
 from pyomo.environ import *
-from pyomo.core.base.set import Reals, PositiveReals, NonNegativeReals, Any
+from pyomo.core.base.set import Reals, PositiveReals, NonNegativeReals, Any, Binary
 from pyomo.network import Port
 from pyomo.dae import ContinuousSet
 from pyomo.environ import units as u
@@ -119,7 +119,7 @@ def fixed_power_source(b, **kwargs):
     =============== ===================================================================
     Parameters      Documentation
     =============== ===================================================================
-    p               new profile, indexed by time
+    p0              new profile, indexed by time
     =============== ===================================================================
 
     =============== ===================================================================
@@ -130,15 +130,15 @@ def fixed_power_source(b, **kwargs):
 
     """
     unit = kwargs.pop('unit', 'kW')
-    var_name = kwargs.pop('var_name', 'p')
+    param_name = kwargs.pop('param_name', 'p0')
     time = kwargs.pop('time', ContinuousSet(bounds=(0, 1)))
     doc = kwargs.pop('doc', f'fixed power source ({unit})')
     default = kwargs.pop('default', 0)
     within = kwargs.pop('within', Reals)
 
-    b.add_component(var_name, Param(time, default=default, within=within, mutable=True, doc=doc, units=unit))
-    outlet_name = var_name + '_outlet'
-    b.add_component(outlet_name, Port(initialize={'f': (b.find_component(var_name),
+    b.add_component(param_name, Param(time, default=default, within=within, mutable=True, doc=doc, units=unit))
+    outlet_name = param_name + '_outlet'
+    b.add_component(outlet_name, Port(initialize={'f': (b.find_component(param_name),
                                                         Port.Extensive, {'include_splitfrac': False})},
                                       doc='Power output port, using source convention (kW)'))
     return b
@@ -201,12 +201,17 @@ def scalable_power_source(b, curtailable=False, **kwargs):
     :param curtailable: source production can be partially curtailed
     :param kwargs:  optional key-word arguments
 
-        - `default` : set the default value of the parameter (default : 0)
         - `doc` : setting documentation
         - `param_name` : string for setting parameter name (default : `p`)
         - `time` : for dynamic index
         - `unit` : unit of the variable (default : kW)
         - `within` : Pyomo Set for parameter definition (default : Reals)
+        - `scale_fact` : Set the scaling factor name (default : scale_fact)
+        - `var_name` : Set the name of the power variable (default : p)
+        - `fact` : Set the scaling factor value (default : None)
+        - `fact_max` : Set the upper bound of fact (only if fact=None)
+        - `fact_min` : Set the lower bound of fact (only if fact=None)
+
 
     :return: pyomo.Block
 
@@ -214,7 +219,7 @@ def scalable_power_source(b, curtailable=False, **kwargs):
     Variables       Documentation
     =============== ===================================================================
     p_scaled        Scaled output flow (kW)
-    scale_fact      scaling factor within Positve reals (1)
+    scale_fact      scaling factor within Positive reals (1)
     =============== ===================================================================
 
     =============== ===================================================================
@@ -242,15 +247,16 @@ def scalable_power_source(b, curtailable=False, **kwargs):
 
     unit = kwargs.get('unit', u.kW)
     scale_fact = kwargs.get('scale_fact', 'scale_fact')
-    var_name = kwargs.get('var_name', 'p')
     fact = kwargs.get('fact', None)
     fact_max = kwargs.get('fact_max', None)
     fact_min = kwargs.get('fact_min', 0)
     time = kwargs.get('time', ContinuousSet(bounds=(0, 1)))
     doc = kwargs.get('doc', f'power source profile before scaling ({unit})')
-    b = fixed_power_source(b, **kwargs)
 
-    scaled_var_name = var_name + '_scaled'
+    param_name = kwargs.pop('param_name', 'p0')
+    var_name = kwargs.pop('var_name', 'p_pv')
+
+    b = fixed_power_source(b, **dict(kwargs, param_name=param_name))
 
     # case where s is fixed:
     if fact is not None:
@@ -265,7 +271,7 @@ def scalable_power_source(b, curtailable=False, **kwargs):
             b.fact_max = Param(default=fact_max, mutable=True, doc='factor upper bound', within=Any)
 
         scaled_doc = f'power source profile after scaling ({unit})'
-        b.add_component(scaled_var_name, Var(time, doc=scaled_doc, initialize=0, units=unit))
+        b.add_component(var_name, Var(time, doc=scaled_doc, initialize=0, units=unit))
 
         b.add_component(scale_fact, Var(initialize=1, within=PositiveReals,
                                         doc='scaling factor within positive reals (default=1)'))
@@ -283,28 +289,28 @@ def scalable_power_source(b, curtailable=False, **kwargs):
 
         @b.Constraint(time, doc='Constraint equality for flow scaling')
         def _flow_scaling(m, t):
-            return m.find_component(scaled_var_name)[t] + m.p_curt[t] == \
-                   m.find_component(scale_fact) * m.find_component(var_name)[t]
+            return m.find_component(var_name)[t] + m.p_curt[t] == \
+                   m.find_component(scale_fact) * m.find_component(param_name)[t]
 
         @b.Constraint(time, doc='Curtailment must be smaller than production')
         def _curt_up_bound(m, t):
-            return 0, m.find_component(scaled_var_name)[t], None
+            return 0, m.find_component(var_name)[t], None
 
     else:
         @b.Constraint(time, doc='Constraint equality for flow scaling')
         def _flow_scaling(m, t):
-            return m.find_component(scaled_var_name)[t] == \
-                   m.find_component(scale_fact) * m.find_component(var_name)[t]
+            return m.find_component(var_name)[t] == \
+                   m.find_component(scale_fact) * m.find_component(param_name)[t]
 
         @b.Constraint(time, doc='Debug constraint equality for flow scaling')
         def _debug_flow_scaling(m, t):
-            return -0.0001, m.find_component(scaled_var_name)[t] - \
-                   m.find_component(scale_fact) * m.find_component(var_name)[t], 0.0001
+            return -0.0001, m.find_component(var_name)[t] - \
+                   m.find_component(scale_fact) * m.find_component(param_name)[t], 0.0001
 
-    b.del_component(var_name+'_outlet')
-    outlet_name = scaled_var_name+'_outlet'
+    b.del_component(param_name+'_outlet')
+    outlet_name = var_name+'_outlet'
     b.add_component(outlet_name,
-                    Port(initialize={'f': (b.component(scaled_var_name), Port.Extensive, {'include_splitfrac': False})},
+                    Port(initialize={'f': (b.component(var_name), Port.Extensive, {'include_splitfrac': False})},
                          doc='output power using source convention'))
     return b
 
@@ -313,12 +319,19 @@ def pv_panel(b, curtailable=False, **kwargs):
     """
     Scalable PV panel module.
 
-    Derives from a scalable power source.
+    Derives from a scalable power source. One can fix the scaling factor `s` using key-word argument `s_pv`. Otherwise,
+    one should set lower and upper bounds `s_min` and `s_max` in the options.
+    The source can also be curtailed, setting the key-word parameter `curtailable`=True. In this case, a positive
+    portion of the generated power, named `p_curt`, can be curtailed.
+
+    .. math::
+        p_{pv}(t) + p_{curt}(t) = p_0(t)
 
     :param b: block
     :param curtailable: panel production can be partially curtailed
     :param kwargs:  optional key-word arguments
 
+    Additionnal key-word arguments :
         - `default` : set the default value of the parameter (default : 0)
         - `doc` : setting documentation
         - `s_max` : maximal surface
@@ -327,6 +340,49 @@ def pv_panel(b, curtailable=False, **kwargs):
         - `time` : for dynamic index
         - `unit` : unit of the variable (default : kW)
         - `within` : Pyomo Set for parameter definition (default : Reals)
+
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p_pv            power source profile after scaling (kW)
+    s_pv            scaling factor within positive reals (default=1)
+    p_curt          curtailed flow (kW)
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    p0              fixed power source (kW)
+    fact_min        factor lower bound
+    fact_max        factor upper bound
+    =============== ===================================================================
+    =============== ===================================================================
+    Constraints     Documentation
+    =============== ===================================================================
+    _scale_fact_bounds optional bound constraint for the scaling factor.
+    _flow_scaling   Constraint equality for flow scaling
+    _curt_up_bound  Curtailment must be smaller than production
+    =============== ===================================================================
+    =============== ===================================================================
+    Ports           Documentation
+    =============== ===================================================================
+    p_scaled_outlet output power using source convention
+    =============== ===================================================================
+
+
+    Example :
+
+    >>> from pyomo.environ import *
+    >>> from lms2.electric.sources import pv_panel, fixed_power_load, power_source
+    >>> m = ConcreteModel()
+    >>> m.time = ContinuousSet(initialize=[0, 10])
+    >>> option_pv = {'time': m.time, 's_max': 10, 's_min': 0.1}
+    >>> m.pv = Block(rule=lambda x: pv_panel(x, **option_pv))
+    >>> m.pv.p.pprint()
+    p : fixed power source (kW)
+        Size=2, Index=time, Domain=NonNegativeReals, Default=0, Mutable=True
+        Key : Value
+          0 :     0
+         10 :     0
 
     :return: pyomo.Block
     """
@@ -344,8 +400,9 @@ def pv_panel(b, curtailable=False, **kwargs):
 
     b = scalable_power_source(b,
                               curtailable=curtailable,
-                              flow_name='p',
-                              scale_fact='s',
+                              var_name='p',
+                              param_name='p0',
+                              scale_fact='s_pv',
                               fact = s_pv,
                               fact_max = fact_max,
                               fact_min = fact_min,
@@ -436,108 +493,54 @@ def scalable_power_load(b, curtailable=False, **kwargs):
 
 
 def curtailable_load(b, **kwargs):
-        """
-        Curtailable load
+    """
+    Curtailable load
 
-        Rule for defining a curtailable load, A binary variable is defined to represent ON and OFF phases.
-        The input port represent the curtailed input power.
+    Rule for defining a curtailable load, A binary variable is defined to represent ON and OFF phases.
+    The input port represent the curtailed input power.
 
-        :param b: Block
-        :param kwargs:
+    :param b: Block
+    :param kwargs:
 
-            - `default` : set the default value of the parameter (default : 0)
-            - `doc` : setting documentation
-            - `param_name` : string for setting parameter name (default : `p`)
-            - `time` : for dynamic index
-            - `unit` : unit of the variable (default : kW)
-            - `within` : Pyomo Set for parameter definition (default : Reals)
+        - `default` : set the default value of the parameter (default : 0)
+        - `doc` : setting documentation
+        - `param_name` : string for setting parameter name (default : `p`)
+        - `time` : for dynamic index
+        - `unit` : unit of the variable (default : kW)
+        - `within` : Pyomo Set for parameter definition (default : Reals)
 
-        :return: pyomo.Block
+    :return: pyomo.Block
 
-        **Model description**
+    **Model description**
 
-        .. math::
-            u(t) &\\in \\{0, 1\\} \\forall t \\in time \\\\
-            curt\_p(t) &= u(t).p(t)
+    .. math::
+        u(t) &\\in \\{0, 1\\} \\forall t \\in time \\\\
+        curt\_p(t) &= u(t).p(t)
 
-        """
-        var_name = kwargs.pop('var_name', 'p')
-        time = kwargs.pop('time', ContinuousSet(bounds=(0, 1)))
-        doc = kwargs.pop('doc', 'power load profile (kW)')
-        doc_curt = kwargs.pop('doc', 'power load profile after curtailment (kW)')
-        default = kwargs.pop('default', 0)
-        within = kwargs.pop('within', Reals)
+    """
+    var_name = kwargs.pop('var_name', 'p')
+    time = kwargs.pop('time', ContinuousSet(bounds=(0, 1)))
+    doc = kwargs.pop('doc', 'power load profile (kW)')
+    doc_curt = kwargs.pop('doc', 'power load profile after curtailment (kW)')
+    default = kwargs.pop('default', 0)
+    within = kwargs.pop('within', Reals)
 
-        b.u = Var(time, within=Binary, doc='binary, equals to 1 when the load is ON, 0 otherwise.')
-        b.add_component(var_name, Param(time, default=default, within=within, doc=doc))
+    b.u = Var(time, within=Binary, doc='binary, equals to 1 when the load is ON, 0 otherwise.')
+    b.add_component(var_name, Param(time, default=default, within=within, doc=doc))
 
-        curt_var_name = var_name + '_curt'
-        b.add_component(curt_var_name, Var(time, default=default, within=within, doc=doc_curt))
+    curt_var_name = var_name + '_curt'
+    b.add_component(curt_var_name, Var(time, default=default, within=within, doc=doc_curt))
 
-        inlet_name = var_name + '_inlet'
-        b.add_component(inlet_name, Port(initialize={'f': (b.find_component(curt_var_name),
-                                                           Port.Extensive, {'include_splitfrac': False})},
-                                         doc='Power output port, using load convention (kW)'))
+    inlet_name = var_name + '_inlet'
+    b.add_component(inlet_name, Port(initialize={'f': (b.find_component(curt_var_name),
+                                                       Port.Extensive, {'include_splitfrac': False})},
+                                     doc='Power output port, using load convention (kW)'))
 
-        @b.Constraint(time, doc='curtailment constraint')
-        def _curtailing(m, t):
-            return m.find_component(curt_var_name)[t], m.u[t]*m.find_component(var_name)[t]
+    @b.Constraint(time, doc='curtailment constraint')
+    def _curtailing(m, t):
+        return m.find_component(curt_var_name)[t], m.u[t]*m.find_component(var_name)[t]
 
-        return b
-
-
-# TODO unittest
-# todo : the following is depreciated. reformulate
-# class ProgrammableLoad(PowerLoad):
-#     """
-#     Programmable Load with fixed input profile.
-#
-#     This load can be programmed to be on at a free moment within t_1 andd t_2, when turning 'on', the load is consuming
-#     the profile power. Ex : Washing machine.
-#     """
-#
-#     def __init__(self, *args, flow_name='p', **kwds):
-#
-#         from lms2 import fix_profile
-#         from pyomo.core import Binary
-#         from pyomo.environ import Param, Var, Set
-#
-#         super().__init__(*args, flow_name=flow_name, **kwds)
-#
-#         def _bound_u(m, t):
-#             if m.window.bounds()[0] <= t <= m.window.bounds()[-1]:
-#                 return 0, 1
-#             else:
-#                 return 0, 0
-#
-#         fix_profile(self, flow_name='pp', profile_name='profile_value', index_name='profile_index')
-#
-#         self.w1 = Param()
-#         self.w2 = Param()
-#         self.window = Set(doc='time window where load can be turned ON.')
-#
-#         self.u = Var(self.time, bounds=_bound_u, within=Binary,
-#                      doc='binary, equals to 1 when the load is turned ON, 0 otherwise.')
-#
-#         @self.Constraint(doc='the load is turned on only once')
-#         def _turned_on(m):
-#             return sum([m.u[t] for t in m.time]) == 1
-#
-#         @self.Constraint(self.time, doc='the load is contraint to be off outside the time range')
-#         def _bound_p(m, t):
-#             if m.window.bounds()[0] <= t <= m.window.bounds()[-1]:
-#                 return Constraint.Skip
-#             else:
-#                 return 0, m.p[t], 0
-#
-#     def compile(self):
-#         def _delay(m, t):
-#             if t >= max(m.profile_index):
-#                 return m.p[t] == sum([m.u[t - i] * m.profile_value[i] for i in m.profile_index])
-#             else:
-#                 return Constraint.Skip
-#
-#         self._delay = Constraint(self.time, rule=_delay, doc='the load follow the profile')
+    return b
 
 
 def debug_source(b, **kwargs):
@@ -570,3 +573,78 @@ def debug_source(b, **kwargs):
 
     b.inst_cost = absolute_cost(b, var_name=var_name, cost=cost)
     return b
+
+
+def curtailable_load_2(b, **kwargs):
+    """
+    Modèle de charge écrêtable à partir d'un certain seuil PM.
+
+    formulation 1, continue si dObj/dp > 0
+    formulation 2, continue si dObj/dp < 0
+    formulation 3, binaire sinon
+
+    .. math::
+        0 &\\leq p_0(t) \\left(1-u(t) \\right) \\leq p_M  \\\\
+        0 &\\leq p_M.u(t) \\leq p_0(t)  \\\\
+        p(t) &= u(t) + p_0(t).(1-u(t))
+
+
+    =============== ===================================================================
+    Variables       Documentation
+    =============== ===================================================================
+    p               power of the boat after curtailment
+    u               1: load is curtailed, 0: load is not curtailed
+    =============== ===================================================================
+    =============== ===================================================================
+    Parameters      Documentation
+    =============== ===================================================================
+    p0              power load before curtailment (mutable)
+    pM              power limit, power load p0 is curtailed if greater than pM
+    =============== ===================================================================
+    =============== ===================================================================
+    Constraints     Documentation
+    =============== ===================================================================
+    _binary1        impose u=1 if po > pM
+    _binary2        impose u=0 if po < pM
+    _curtailment    impose p=pM if u=1 et p=p0 if u=0
+    =============== ===================================================================
+
+    Example:
+
+        1. Initialisation
+            >>> from pyomo.environ import *
+            >>> from pyomo.dae import ContinuousSet
+            >>> from lms2.electric.sources import curtailable_load_2
+            >>> from lms2.core.horizon import SimpleHorizon
+            >>> horizon = SimpleHorizon(tstart='2020-01-01 00:00:00', tend='2020-01-08 00:00:00', time_step='10 min')
+
+        2. Création du problème d'optimisation:
+            >>> m = ConcreteModel()
+            >>> m.time = ContinuousSet(initialize=[0, horizon.horizon.total_seconds()])
+            >>> option_charge = {'time': m.time, 'pM': 200}
+            >>> m.charge = Block(rule=lambda x: curtailable_load_2(x, **option_charge))
+
+    """
+    from numpy import Inf
+
+    unit = kwargs.pop('unit', 'kW')
+    pM = kwargs.pop('pM', Inf)
+    time = kwargs.pop('time')
+
+    b.p = Var(time, initialize=0, within=NonNegativeReals, doc='power of the boat after curtailment', units=unit)
+    b.u = Var(time, initialize=0, within=Binary, doc='1: load is curtailed, 0: load is not curtailed', units='1')
+    b.p0 = Param(time, default=0, within=NonNegativeReals, mutable=True,
+                 units=unit, doc='power load before curtailment')
+    b.pM = Param(default=pM, mutable=True, units=unit, doc='Curtailment level')
+
+    @b.Constraint(time, doc='impose u=1 if po > pM')
+    def _binary1(b, t):
+        return 0, b.p0[t]*(1-b.u[t]), b.pM
+
+    @b.Constraint(time, doc='impose u=0 if po < pM')
+    def _binary2(b, t):
+        return 0, b.pM*b.u[t], b.p0[t]
+
+    @b.Constraint(time, doc='impose p=pM if u=1 et p=p0 if u=0')
+    def _curtailment(b, t):
+        return b.p[t], b.pM*b.u[t] + b.p0[t]*(1-b.u[t])

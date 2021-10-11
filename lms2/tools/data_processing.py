@@ -56,6 +56,9 @@ def load_data(horizon, param, data):
     if data.index.name != param.index_set().name:
         logger.warning('data index and variable index does not have the same name. This could be a source of error...')
 
+    assert isinstance(param,  pyomo.core.base.param.IndexedParam), f'trying to load data on a non-Parameter object...' \
+                                                                   f'{param} is of type {type(Param)}.'
+
     for i, v in param.items():
         try:
             # we set the value of the parameter v to the value of the dataframe at the index i
