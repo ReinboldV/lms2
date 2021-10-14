@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>read_data &mdash; lms2 1.1+9.g0c98272.dirty documentation</title>
+  <title>read_data &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -264,19 +264,13 @@
 <dt class="sig sig-object py" id="lms2.tools.data_processing.read_data">
 <span class="sig-prename descclassname"><span class="pre">lms2.tools.data_processing.</span></span><span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usecols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tz_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Europe/Paris'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillnan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filldict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'time'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_parser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/tools/data_processing.html#read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.tools.data_processing.read_data" title="Permalink to this definition"></a></dt>
 <dd><p>Reading and interpolating data from csv source.</p>
-<dl>
+<dl class="simple">
 <dt>This function accepts two types of indexed data :</dt><dd><ul class="simple">
-<li><p>data indexed by a date string ex: ‘2020/01/01 00:00:00’. In this case,</p></li>
+<li><p>data indexed by a date string ex: ‘2020/01/01 00:00:00’. In this case,
+a date-parser might be compulsory for pandas to parse the date.</p></li>
+<li><p>data indexed by an integer. In this case, parsing is easier, but the user as no information about
+the start timestamp, units and time-zone.</p></li>
 </ul>
-<blockquote>
-<div><p>a date-parser might be compulsory for pandas to parse the date.</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>data indexed by an integer. In this case, parsing is easier, but the user as no information about</p></li>
-</ul>
-<blockquote>
-<div><p>the start timestamp, units and time-zone.</p>
-</div></blockquote>
 </dd>
 </dl>
 <dl class="field-list simple">
@@ -297,6 +291,8 @@
 <dd class="field-even"><p>pd.DataFrame</p>
 </dd>
 </dl>
+<p>See examples in <a class="reference internal" href="../examples.html#tutorials-label"><span class="std std-ref">Tutorial and Examples</span></a>.</p>
+<p>See this <a class="reference external" href="../examples/microgrid_1.html#Chargement-des-données">example</a> :</p>
 </dd></dl>
 
 </section>

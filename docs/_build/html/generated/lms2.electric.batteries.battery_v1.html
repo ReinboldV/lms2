@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>battery_v1 &mdash; lms2 1.1+9.g0c98272.dirty documentation</title>
+  <title>battery_v1 &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -265,8 +265,7 @@
 <span class="sig-prename descclassname"><span class="pre">lms2.electric.batteries.</span></span><span class="sig-name descname"><span class="pre">battery_v1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bat</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/electric/batteries.html#battery_v1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.electric.batteries.battery_v1" title="Permalink to this definition"></a></dt>
 <dd><p>Battery with ideal efficiency.</p>
 <p>This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final
-state of charge. For fixing initial and final energy, consider using <cite>AbsBatteryV0</cite>.
-It exposes one power port using source convention.</p>
+state of charge. It exposes one power port using source convention.</p>
 <dl class="simple">
 <dt>Instanciation options:</dt><dd><ul class="simple">
 <li><p>c_bat :       battery capacity (kWh)</p></li>
@@ -297,6 +296,10 @@ It exposes one power port using source convention.</p>
 </tr>
 <tr class="row-odd"><td><p>e</p></td>
 <td><p>energy in battery</p></td>
+</tr>
+<tr class="row-even"><td><p>emax</p></td>
+<td><p>maximal energy (kWh), i.e. battery capacity.
+Variable only if c_bat is not fixed in the options</p></td>
 </tr>
 </tbody>
 </table>
@@ -334,7 +337,8 @@ It exposes one power port using source convention.</p>
 <td><p>minimum energy (kWh)</p></td>
 </tr>
 <tr class="row-odd"><td><p>emax</p></td>
-<td><p>maximal energy</p></td>
+<td><p>maximal energy (kWh), it is a Parameter only if c_bat is
+given in the <a href="#id1"><span class="problematic" id="id2">**</span></a>options</p></td>
 </tr>
 <tr class="row-even"><td><p>socmin</p></td>
 <td><p>minimum soc</p></td>
@@ -374,7 +378,7 @@ It exposes one power port using source convention.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>_soc_init</p></td>
-<td><p>None</p></td>
+<td><p>Initial State Of Charge</p></td>
 </tr>
 <tr class="row-odd"><td><p>_e_balance</p></td>
 <td><p>Energy balance constraint</p></td>

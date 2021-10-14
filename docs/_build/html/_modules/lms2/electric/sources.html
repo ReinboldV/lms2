@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.electric.sources &mdash; lms2 1.1+9.g0c98272.dirty documentation</title>
+  <title>lms2.electric.sources &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -608,8 +608,8 @@
 <span class="sd">    &gt;&gt;&gt; m.time = ContinuousSet(initialize=[0, 10])</span>
 <span class="sd">    &gt;&gt;&gt; option_pv = {&#39;time&#39;: m.time, &#39;s_max&#39;: 10, &#39;s_min&#39;: 0.1}</span>
 <span class="sd">    &gt;&gt;&gt; m.pv = Block(rule=lambda x: pv_panel(x, **option_pv))</span>
-<span class="sd">    &gt;&gt;&gt; m.pv.p.pprint()</span>
-<span class="sd">    p : fixed power source (kW)</span>
+<span class="sd">    &gt;&gt;&gt; m.pv.p0.pprint()</span>
+<span class="sd">    p0 : fixed power source (kW)</span>
 <span class="sd">        Size=2, Index=time, Domain=NonNegativeReals, Default=0, Mutable=True</span>
 <span class="sd">        Key : Value</span>
 <span class="sd">          0 :     0</span>

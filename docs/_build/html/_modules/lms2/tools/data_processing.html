@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.tools.data_processing &mdash; lms2 1.1+7.ge8b9e89.dirty documentation</title>
+  <title>lms2.tools.data_processing &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -101,6 +101,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
@@ -241,32 +242,6 @@
 <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
 
 
-<div class="viewcode-block" id="interpolation"><a class="viewcode-back" href="../../../generated/lms2.tools.data_processing.interpolation.html#lms2.tools.data_processing.interpolation">[docs]</a><span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    :param input_data:</span>
-<span class="sd">    :param param:</span>
-<span class="sd">    :param time:</span>
-<span class="sd">    :param dt:</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># todo : mettre en commun avec lms2.tools</span>
-    <span class="c1"># todo : lire la colonne temps dans le fichier directement</span>
-    <span class="c1">#  (si les données ne sont pas à pas de temps fixe, ça marche quand même)</span>
-
-    <span class="c1"># dt : pas de temps de l&#39;input data</span>
-    <span class="c1"># time provient du modèle (m.time)</span>
-    <span class="n">columns_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">param</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_list</span><span class="p">)</span>
-    <span class="n">time_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param</span><span class="p">:</span>
-        <span class="n">input_data_time</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">p</span><span class="p">])</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">))</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">input_data_time</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">time_temp</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">data</span></div>
-
-
 <div class="viewcode-block" id="load_data"><a class="viewcode-back" href="../../../generated/lms2.tools.data_processing.load_data.html#lms2.tools.data_processing.load_data">[docs]</a><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loading of data into the problem.</span>
@@ -304,9 +279,9 @@
 
 <span class="sd">    This function accepts two types of indexed data :</span>
 <span class="sd">        - data indexed by a date string ex: &#39;2020/01/01 00:00:00&#39;. In this case,</span>
-<span class="sd">         a date-parser might be compulsory for pandas to parse the date.</span>
+<span class="sd">          a date-parser might be compulsory for pandas to parse the date.</span>
 <span class="sd">        - data indexed by an integer. In this case, parsing is easier, but the user as no information about</span>
-<span class="sd">         the start timestamp, units and time-zone.</span>
+<span class="sd">          the start timestamp, units and time-zone.</span>
 
 <span class="sd">    :param method: interpolation method (&#39;time&#39; for date format index or &#39;linear&#39; for integer index)</span>
 <span class="sd">    :param str date_parser: date format parser, ex: &quot;%Y-%m-%d %H:%M:%S&quot;</span>
@@ -318,6 +293,13 @@
 <span class="sd">    :param start_date: starting date (for integer index) ex: &#39;2021-01-01 00:00:00&#39;</span>
 <span class="sd">    :param tz_data: time zone information (&#39;UTC&#39; or &#39;Europe/Paris&#39;)</span>
 <span class="sd">    :return: pd.DataFrame</span>
+
+<span class="sd">    See examples in :ref:`tutorials-label`.</span>
+
+<span class="sd">    See this example_ :</span>
+
+<span class="sd">    .. _example: ../examples/microgrid_1.html#Chargement-des-données</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">os</span>
 
@@ -409,6 +391,33 @@
         <span class="n">data_horizon</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">data_horizon</span></div>
+
+
+<div class="viewcode-block" id="interpolation"><a class="viewcode-back" href="../../../generated/lms2.tools.data_processing.interpolation.html#lms2.tools.data_processing.interpolation">[docs]</a><span class="k">def</span> <span class="nf">interpolation</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    depreciated, use read_data()</span>
+
+<span class="sd">    :param input_data:</span>
+<span class="sd">    :param param:</span>
+<span class="sd">    :param time:</span>
+<span class="sd">    :param dt:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># todo : lire la colonne temps dans le fichier directement</span>
+    <span class="c1">#  (si les données ne sont pas à pas de temps fixe, ça marche quand même)</span>
+
+    <span class="c1"># dt : pas de temps de l&#39;input data</span>
+    <span class="c1"># time provient du modèle (m.time)</span>
+    <span class="n">columns_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">param</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_list</span><span class="p">)</span>
+    <span class="n">time_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param</span><span class="p">:</span>
+        <span class="n">input_data_time</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">p</span><span class="p">])</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span><span class="p">))</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">input_data_time</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_data</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">time_temp</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
