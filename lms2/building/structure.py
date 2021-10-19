@@ -1,6 +1,7 @@
 from pyomo.core import Set, Var, Param, Constraint, Reals, NonNegativeReals
 from pyomo.core.base.units_container import units as u
 from pyomo.dae import ContinuousSet, DerivativeVar
+from pyomo.core.base.set import Any
 
 def thermal_structure_block(struct, **kwargs):
     """

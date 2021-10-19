@@ -1,6 +1,7 @@
 from pyomo.core import Param
 from pyomo.core.base.units_container import units as u
 from pyomo.dae import ContinuousSet
+from pyomo.core.base import Reals, NonNegativeReals
 
 
 def occupancy(occ, **kwargs):

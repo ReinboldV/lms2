@@ -1,7 +1,7 @@
 from pyomo.core import Param, Var
 from pyomo.core.base.units_container import units as u
 from pyomo.dae import ContinuousSet, DerivativeVar
-
+from pyomo.core.base.set import Reals, NonNegativeReals
 
 def hot_water_tank(hwt, **kwargs):
     """
@@ -109,9 +109,9 @@ def heat_pump(hp, **kwargs):
     hp.Q_heat_N_max = Param(default=10000, doc='Maximal heat production in the night-zone')
     hp.Q_HW_max     = Param(default=2000,  doc='Maximal heat production in the HW storage tank')
 
-    hp.Q_heat_N  = Var(time, initialize=0, doc='Heat pump flow Night zone', units=u.watt, bounds=(0, hp.Q_heat_N_max))
-    hp.Q_heat_D  = Var(time, initialize=0, doc='Heat pump flow Day zone', units=u.watt, bounds=(0, hp.Q_heat_D_max))
-    hp.Q_heat_HW = Var(time, initialize=0, doc='Heat pump flow HW tank', units=u.watt, bounds=(0, hp.Q_HW_max))
+    hp.Q_heat_N  = Var(time, initialize=0, doc='Heat pump flow Night zone', units=u.watt, bounds=(0, hp.Q_heat_N_max.value))
+    hp.Q_heat_D  = Var(time, initialize=0, doc='Heat pump flow Day zone', units=u.watt, bounds=(0, hp.Q_heat_D_max.value))
+    hp.Q_heat_HW = Var(time, initialize=0, doc='Heat pump flow HW tank', units=u.watt, bounds=(0, hp.Q_HW_max.value))
 
     hp.COP = Param(default=3, domain=NonNegativeReals, doc='Coefficient of performance')
 

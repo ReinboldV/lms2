@@ -119,13 +119,34 @@ def dwelling_v2(b, **kwargs):
 
     graph = kwargs.pop('graph', None)
     time = kwargs.pop('time', ContinuousSet(bounds=(0, 1), doc='Time set'))
-    env = kwargs.pop('env', Block(rule=environment, options={'time': time}))
+    dict_env = {'time': time}
+    env_temp = Block()
+    env = kwargs.pop('env', environment(env_temp, **dict_env))
 
-    b.sol = Block(rule=solar_inputs, options={'time': time})
-    b.hwt = Block(rule=hot_water_tank, options={'time': time})
-    b.occ = Block(rule=occupancy, options={'time': time})
-    b.hp = Block(rule=heat_pump, options={'time': time, 'occ': b.occ})
-    b.struct = Block(rule=thermal_structure_block, options={'time': time, 'graph': graph, 'env': env, 'occ': b.occ})
+    # solar inputs block:
+    dict_sol = {'time': time}
+    b.sol = Block()
+    solar_inputs(b.sol, **dict_sol)
+
+    # hot water tank block:
+    dict_hwt = {'time': time}
+    b.hwt = Block()
+    hot_water_tank(b.hwt, **dict_hwt)
+
+    # occupancy block:
+    dict_occ = {'time': time}
+    b.occ = Block()
+    occupancy(b.occ, **dict_occ)
+
+    # heat pump block:
+    dict_hp = {'time': time, 'occ': b.occ}
+    b.hp = Block()
+    heat_pump(b.hp, **dict_hp)
+
+    # thermal structure block:
+    dict_struct = {'time': time, 'graph': graph, 'env': env, 'occ': b.occ}
+    b.struct = Block()
+    thermal_structure_block(b.struct, **dict_struct)
 
     b.p_elec_max = Var(initialize=0, doc='Maximal electrical power ', units=u.watt, bounds=(0, 1e6))
 
