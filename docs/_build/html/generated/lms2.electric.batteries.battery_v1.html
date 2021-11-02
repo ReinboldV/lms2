@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>battery_v1 &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
+  <title>battery_v1 &mdash; lms2 1.1+14.g93454ea.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -74,6 +74,15 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../builddoc.html">How to build the documentation ?</a></li>
@@ -120,6 +129,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">battery_v1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.converters.html">converters</a><ul>
@@ -137,6 +147,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.pv_panel.html">pv_panel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.square.html">square</a></li>
 </ul>
 </li>
 </ul>
@@ -189,7 +200,7 @@
 <li class="toctree-l3"><a class="reference internal" href="lms2.tools.model_processing.html">model_processing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_doc.html">get_doc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_duals.html">get_duals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_slack.html">get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
@@ -337,8 +348,7 @@ Variable only if c_bat is not fixed in the options</p></td>
 <td><p>minimum energy (kWh)</p></td>
 </tr>
 <tr class="row-odd"><td><p>emax</p></td>
-<td><p>maximal energy (kWh), it is a Parameter only if c_bat is
-given in the <a href="#id1"><span class="problematic" id="id2">**</span></a>options</p></td>
+<td><p>maximal energy (kWh), it is a Parameter only if c_bat is given</p></td>
 </tr>
 <tr class="row-even"><td><p>socmin</p></td>
 <td><p>minimum soc</p></td>

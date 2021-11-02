@@ -22,6 +22,7 @@
         pv_panel
         scalable_power_load
         scalable_power_source
+        square
         
         
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>battery_v2 &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
+  <title>battery_v2 &mdash; lms2 1.1+14.g93454ea.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="converters" href="lms2.electric.converters.html" />
+    <link rel="next" title="battery_v3" href="lms2.electric.batteries.battery_v3.html" />
     <link rel="prev" title="battery_v1" href="lms2.electric.batteries.battery_v1.html" /> 
 </head>
 
@@ -74,6 +74,15 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../builddoc.html">How to build the documentation ?</a></li>
@@ -120,6 +129,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lms2.electric.converters.html">converters</a><ul>
@@ -137,6 +147,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.pv_panel.html">pv_panel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.square.html">square</a></li>
 </ul>
 </li>
 </ul>
@@ -189,7 +200,7 @@
 <li class="toctree-l3"><a class="reference internal" href="lms2.tools.model_processing.html">model_processing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_doc.html">get_doc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_duals.html">get_duals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_slack.html">get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
@@ -270,15 +281,17 @@ Efficiency for charge and discharge are considered.
 It exposes one power port using source convention.</p>
 <dl class="simple">
 <dt>Instanciation options:</dt><dd><ul class="simple">
-<li><p>c_bat : battery capacity (kWh)</p></li>
-<li><p>c_bat_max : battery maximal capacity, default : +inf (only if c_bat is None)</p></li>
-<li><p>c_bat_min : battery minimal capacity, default : 0 (only if c_bat is None)</p></li>
-<li><p>p_max : maximal charging power, default : +inf (&gt;0)</p></li>
-<li><p>p_min : maximal descharging power, default : +inf (&gt;0)</p></li>
-<li><p>soc_min : minimal soc, default : 0 (&gt;0)</p></li>
-<li><p>soc_max : maximal soc, default : 100 (&gt;0)</p></li>
-<li><p>eta_c : charging efficiency, default : 1 (&lt;1 and &gt;0)</p></li>
-<li><p>eta_d : descharging efficiency, default : 1 (&lt;1 and &gt;0)</p></li>
+<li><p>c_bat :       battery capacity (kWh)</p></li>
+<li><p>c_bat_max :   battery maximal capacity, default : +inf (only if c_bat is None)</p></li>
+<li><p>c_bat_min :   battery minimal capacity, default : 0 (only if c_bat is None)</p></li>
+<li><p>p_max :       maximal charging power, default : +inf (&gt;0)</p></li>
+<li><p>p_min :       maximal descharging power, default : +inf (&gt;0)</p></li>
+<li><p>soc_min :     minimal soc, default : 0 (&gt;0)</p></li>
+<li><p>soc_max :     maximal soc, default : 100 (&gt;0)</p></li>
+<li><p>soc0 :        initial SOC, default: 50 (0&lt;soc0&lt;100)</p></li>
+<li><p>socf :        final SOC, defalut: 50 (0&lt;socf&lt;100)</p></li>
+<li><p>eta_c :       charging efficiency, default : 1 (&lt;1 and &gt;0)</p></li>
+<li><p>eta_d :       descharging efficiency, default : 1 (&lt;1 and &gt;0)</p></li>
 </ul>
 </dd>
 </dl>
@@ -390,7 +403,7 @@ It exposes one power port using source convention.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>_soc_init</p></td>
-<td><p>None</p></td>
+<td><p>Initial state of charge</p></td>
 </tr>
 <tr class="row-odd"><td><p>_p_init</p></td>
 <td><p>Initialize power</p></td>
@@ -471,7 +484,7 @@ It exposes one power port using source convention.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="lms2.electric.batteries.battery_v1.html" class="btn btn-neutral float-left" title="battery_v1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="lms2.electric.converters.html" class="btn btn-neutral float-right" title="converters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lms2.electric.batteries.battery_v3.html" class="btn btn-neutral float-right" title="battery_v3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

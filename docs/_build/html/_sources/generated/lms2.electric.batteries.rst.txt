@@ -1,4 +1,4 @@
-batteries
+﻿batteries
 =========
 
 .. automodule:: lms2.electric.batteries
@@ -15,6 +15,7 @@ batteries
         battery_V0
         battery_v1
         battery_v2
+        battery_v3
         
         
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.electric.batteries &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
+  <title>lms2.electric.batteries &mdash; lms2 1.1+14.g93454ea.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -71,6 +71,15 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
@@ -117,6 +126,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.converters.html">converters</a><ul>
@@ -134,6 +144,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.square.html">square</a></li>
 </ul>
 </li>
 </ul>
@@ -186,7 +197,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.html">model_processing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_doc.html">get_doc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
@@ -452,8 +463,7 @@
 <span class="sd">    Parameters      Documentation</span>
 <span class="sd">    =============== ===================================================================</span>
 <span class="sd">    emin            minimum energy (kWh)</span>
-<span class="sd">    emax            maximal energy (kWh), it is a Parameter only if c_bat is</span>
-<span class="sd">                    given in the **options</span>
+<span class="sd">    emax            maximal energy (kWh), it is a Parameter only if c_bat is given</span>
 <span class="sd">    socmin          minimum soc</span>
 <span class="sd">    socmax          maximal soc</span>
 <span class="sd">    soc0            initial state</span>
@@ -493,13 +503,13 @@
 <span class="sd">    =============== ===================================================================</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">time</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
 
     <span class="n">c_bat</span>       <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;c_bat&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">c_bat_max</span>   <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;c_bat_max&#39;</span><span class="p">,</span> <span class="n">UB</span><span class="p">)</span>
     <span class="n">c_bat_min</span>   <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;c_bat_min&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">p_max</span>       <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;p_max&#39;</span><span class="p">,</span> <span class="n">UB</span><span class="p">)</span>
-    <span class="n">p_min</span>       <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;p_min&#39;</span><span class="p">,</span> <span class="n">UB</span><span class="p">)</span>
+    <span class="n">p_max</span>       <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;p_max&#39;</span><span class="p">,</span> <span class="n">UB</span><span class="p">)</span>
+    <span class="n">p_min</span>       <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;p_min&#39;</span><span class="p">,</span> <span class="n">UB</span><span class="p">)</span>
     <span class="n">soc_min</span>     <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;soc_min&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">soc_max</span>     <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;soc_max&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
     <span class="n">soc0</span>        <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;soc0&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
@@ -512,6 +522,8 @@
         <span class="n">bat</span><span class="o">.</span><span class="n">emax</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">c_bat_min</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal energy&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">c_bat_min</span><span class="p">,</span> <span class="n">c_bat_max</span><span class="p">))</span>
         <span class="n">bat</span><span class="o">.</span><span class="n">emin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;minimum energy (kWh)&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
+        <span class="n">c_bat_max</span> <span class="o">=</span> <span class="n">c_bat</span>
+        <span class="n">c_bat_min</span> <span class="o">=</span> <span class="n">c_bat</span>
         <span class="k">assert</span> <span class="n">c_bat</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Battery capacity should not be negative&#39;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;options c_bat_min and c_bat_max have no effect since c_bat is fixed.&#39;</span><span class="p">)</span>
         <span class="n">bat</span><span class="o">.</span><span class="n">emax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">c_bat</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal energy&#39;</span><span class="p">,</span> <span class="n">mutable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">)</span>
@@ -535,7 +547,7 @@
             <span class="k">return</span> <span class="mi">50</span>
 
     <span class="n">bat</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy derivative with respect to time&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">bat</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_e</span><span class="p">)</span>
+    <span class="n">bat</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;energy in battery&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_init_e</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c_bat_max</span><span class="p">))</span>
 
     <span class="n">bat</span><span class="o">.</span><span class="n">de</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">bat</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of energy  with respect to time&#39;</span><span class="p">)</span>
     <span class="n">bat</span><span class="o">.</span><span class="n">dp</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">bat</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;variation of the battery power with respect to time&#39;</span><span class="p">,</span>
@@ -637,15 +649,17 @@
 <span class="sd">    It exposes one power port using source convention.</span>
 
 <span class="sd">    Instanciation options:</span>
-<span class="sd">        - c_bat : battery capacity (kWh)</span>
-<span class="sd">        - c_bat_max : battery maximal capacity, default : +inf (only if c_bat is None)</span>
-<span class="sd">        - c_bat_min : battery minimal capacity, default : 0 (only if c_bat is None)</span>
-<span class="sd">        - p_max : maximal charging power, default : +inf (&gt;0)</span>
-<span class="sd">        - p_min : maximal descharging power, default : +inf (&gt;0)</span>
-<span class="sd">        - soc_min : minimal soc, default : 0 (&gt;0)</span>
-<span class="sd">        - soc_max : maximal soc, default : 100 (&gt;0)</span>
-<span class="sd">        - eta_c : charging efficiency, default : 1 (&lt;1 and &gt;0)</span>
-<span class="sd">        - eta_d : descharging efficiency, default : 1 (&lt;1 and &gt;0)</span>
+<span class="sd">        - c_bat :       battery capacity (kWh)</span>
+<span class="sd">        - c_bat_max :   battery maximal capacity, default : +inf (only if c_bat is None)</span>
+<span class="sd">        - c_bat_min :   battery minimal capacity, default : 0 (only if c_bat is None)</span>
+<span class="sd">        - p_max :       maximal charging power, default : +inf (&gt;0)</span>
+<span class="sd">        - p_min :       maximal descharging power, default : +inf (&gt;0)</span>
+<span class="sd">        - soc_min :     minimal soc, default : 0 (&gt;0)</span>
+<span class="sd">        - soc_max :     maximal soc, default : 100 (&gt;0)</span>
+<span class="sd">        - soc0 :        initial SOC, default: 50 (0&lt;soc0&lt;100)</span>
+<span class="sd">        - socf :        final SOC, defalut: 50 (0&lt;socf&lt;100)</span>
+<span class="sd">        - eta_c :       charging efficiency, default : 1 (&lt;1 and &gt;0)</span>
+<span class="sd">        - eta_d :       descharging efficiency, default : 1 (&lt;1 and &gt;0)</span>
 
 <span class="sd">    =============== ===================================================================</span>
 <span class="sd">    Variables       Documentation</span>
@@ -684,7 +698,7 @@
 <span class="sd">    =============== ===================================================================</span>
 <span class="sd">    Constraints     Documentation</span>
 <span class="sd">    =============== ===================================================================</span>
-<span class="sd">    _soc_init       None</span>
+<span class="sd">    _soc_init       Initial state of charge</span>
 <span class="sd">    _p_init         Initialize power</span>
 <span class="sd">    _e_min          Minimal energy constraint</span>
 <span class="sd">    _e_max          Maximal energy constraint</span>
@@ -714,7 +728,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">bat</span> <span class="o">=</span> <span class="n">battery_v1</span><span class="p">(</span><span class="n">bat</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-    <span class="n">time</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
 
     <span class="n">eta_c</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;eta_c&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">eta_d</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;eta_d&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -751,7 +765,193 @@
 
     <span class="n">bat</span><span class="o">.</span><span class="n">_pdmax</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_pdmax</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Discharging power bound&#39;</span><span class="p">)</span>
     <span class="n">bat</span><span class="o">.</span><span class="n">_pcmax</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_pcmax</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Charging power bound&#39;</span><span class="p">)</span>
-    <span class="n">bat</span><span class="o">.</span><span class="n">_p_balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_p_balance</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Power balance constraint&#39;</span><span class="p">)</span></div>
+    <span class="n">bat</span><span class="o">.</span><span class="n">_p_balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_p_balance</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Power balance constraint&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">bat</span></div>
+
+
+<div class="viewcode-block" id="battery_v3"><a class="viewcode-back" href="../../../generated/lms2.electric.batteries.battery_v3.html#lms2.electric.batteries.battery_v3">[docs]</a><span class="k">def</span> <span class="nf">battery_v3</span><span class="p">(</span><span class="n">bat</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Non-linear battery model for limiting charging power with resect to the state of charge.</span>
+
+<span class="sd">    In this formulation, pcmax is a piecewise function of SOC. The user can define break points using pw_x and pw_y</span>
+<span class="sd">    key-words arguments, default being pw_x : [0, 70, 100] and pw_y : [1, 0.9, 0.1] (means that pcmax will be</span>
+<span class="sd">    10% of pmin when soc=100 %, 90% when soc is 70%, etc.</span>
+
+<span class="sd">    .. warning:: adding numerous break points introduce a binary variable, i.e. more complexity.</span>
+<span class="sd">        This version only implemets 3 break points.</span>
+
+<span class="sd">    The rest of the model is the same than :meth:`lms2.electric.batteries.battery_v2`.</span>
+
+<span class="sd">        Instanciation options:</span>
+<span class="sd">            - c_bat :       battery capacity (kWh)</span>
+<span class="sd">            - c_bat_max :   battery maximal capacity, default : +inf (only if c_bat is None)</span>
+<span class="sd">            - c_bat_min :   battery minimal capacity, default : 0 (only if c_bat is None)</span>
+<span class="sd">            - p_max :       maximal charging power, default : +inf (&gt;0)</span>
+<span class="sd">            - p_min :       maximal descharging power, default : +inf (&gt;0)</span>
+<span class="sd">            - soc_min :     minimal soc, default : 0 (&gt;0)</span>
+<span class="sd">            - soc_max :     maximal soc, default : 100 (&gt;0)</span>
+<span class="sd">            - soc0 :        initial SOC, default: 50 (0&lt;soc0&lt;100)</span>
+<span class="sd">            - socf :        final SOC, defalut: 50 (0&lt;socf&lt;100)</span>
+<span class="sd">            - eta_c :       charging efficiency, default : 1 (&lt;1 and &gt;0)</span>
+<span class="sd">            - eta_d :       descharging efficiency, default : 1 (&lt;1 and &gt;0)</span>
+<span class="sd">            - pw_x :        State of charge of the break points, default : [0, 70, 100]</span>
+<span class="sd">            - pw_y :        Relative charging power limits of th break break points, default :[1, 0.9, 0.1]</span>
+
+<span class="sd">    :param bat: Battery block</span>
+<span class="sd">    :param options: apacity, efficiencies, State of charge, limits, boundary conditions, pw_x, pw_y, etc.</span>
+<span class="sd">    :return:</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Sets            Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        bp              None</span>
+<span class="sd">        sos_w_index     None</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Variables       Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        p               energy derivative with respect to time</span>
+<span class="sd">        e               energy in battery</span>
+<span class="sd">        de              variation of energy  with respect to time</span>
+<span class="sd">        dp              variation of the battery power with respect to time</span>
+<span class="sd">        pd              discharging power</span>
+<span class="sd">        pc              charging power</span>
+<span class="sd">        u               binary variable</span>
+<span class="sd">        sos_u           binary variable for SOS2 constraint on pcmax</span>
+<span class="sd">        sos_pcmax       pcmax relative value for sos2 constraint</span>
+<span class="sd">        sos_w           weights for SOS2 constraint</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Parameters      Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        emax            maximal energy</span>
+<span class="sd">        emin            minimum energy (kWh)</span>
+<span class="sd">        socmin          minimum soc</span>
+<span class="sd">        pinit           initial output power of the battery (default : None)</span>
+<span class="sd">        socmax          maximal soc</span>
+<span class="sd">        soc0            initial state</span>
+<span class="sd">        socf            final state</span>
+<span class="sd">        dpdmax          maximal discharging power</span>
+<span class="sd">        dpcmax          maximal charging power</span>
+<span class="sd">        pcmax           maximal charging power</span>
+<span class="sd">        pdmax           maximal discharging power</span>
+<span class="sd">        etac            charging efficiency</span>
+<span class="sd">        etad            discharging efficiency</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Constraints     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        _soc_init       initial state of charge</span>
+<span class="sd">        _p_init         Initialize power</span>
+<span class="sd">        _e_min          Minimal energy constraint</span>
+<span class="sd">        _e_max          Maximal energy constraint</span>
+<span class="sd">        _soc_final      Final soc constraint</span>
+<span class="sd">        _soc_min        Minimal state of charge constraint</span>
+<span class="sd">        _soc_max        Maximal state of charge constraint</span>
+<span class="sd">        _dpdmax         Maximal variation of descharging power constraint</span>
+<span class="sd">        _dpcmax         Maximal variation of charging power constraint</span>
+<span class="sd">        _e_balance      Energy balance constraint</span>
+<span class="sd">        _pdmax          Discharging power bound</span>
+<span class="sd">        _pcmax          Charging power bound</span>
+<span class="sd">        _p_balance      Power balance constraint</span>
+<span class="sd">        _sos2_pmax      SOS2 Convexity constraint</span>
+<span class="sd">        _sos2_soc       SOS2 soc reconstitution</span>
+<span class="sd">        _sos2_u1        SOS2 binary constraint for pb 1</span>
+<span class="sd">        _sos2_u2        SOS2 binary constraint for pb 2</span>
+<span class="sd">        _sos2_u3        SOS2 binary constraint for pb 3</span>
+<span class="sd">        _sos2_u4        SOS2 constraint on the sum of weights</span>
+<span class="sd">        _pcmax2         pc &lt;= pmin(soc)</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Ports           Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        outlet          output power of the battery (kW), using source convention</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Expressions     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        soc             Expression of the state of charge</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">pyomo.core</span> <span class="kn">import</span> <span class="n">Piecewise</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">bat</span> <span class="o">=</span> <span class="n">battery_v2</span><span class="p">(</span><span class="n">bat</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="n">p_min</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;p_min&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">p_min</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;pmin should be a positive parameter.&#39;</span>
+
+    <span class="n">pw_soc</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pw_x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+    <span class="n">pw_pcmax</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pw_y&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pw_soc</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Option pw_x should be an instance of list, but is actually a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">pw_soc</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pw_soc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Option pw_x should be a list of length = 3, but his length is actually </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pw_soc</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pw_pcmax</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Option pw_y should be an instance of list, but is actually a </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">pw_pcmax</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pw_pcmax</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Option pw_y should be a list of length = 3, but his length is actually </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pw_pcmax</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+    <span class="c1"># home maid version :</span>
+    <span class="n">bat</span><span class="o">.</span><span class="n">bp</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+    <span class="n">bat</span><span class="o">.</span><span class="n">sos_u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">within</span> <span class="o">=</span> <span class="n">Binary</span><span class="p">,</span> <span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;binary variable for SOS2 constraint on pcmax&#39;</span><span class="p">)</span>
+    <span class="n">bat</span><span class="o">.</span><span class="n">sos_pcmax</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;pcmax relative value for sos2 constraint&#39;</span><span class="p">)</span>
+    <span class="n">bat</span><span class="o">.</span><span class="n">sos_w</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">bat</span><span class="o">.</span><span class="n">bp</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;weights for SOS2 constraint&#39;</span><span class="p">)</span>
+
+    <span class="nd">@bat</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;SOS2 Convexity constraint&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_sos2_pmax</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_pcmax</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="n">pw_pcmax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="n">pw_pcmax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="n">pw_pcmax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@bat</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;SOS2 soc reconstitution&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_sos2_soc</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">soc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="n">pw_soc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="n">pw_soc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="n">pw_soc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@bat</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;SOS2 binary constraint for pb 1&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_sos2_u1</span><span class="p">(</span><span class="n">bat</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bat</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">bat</span><span class="o">.</span><span class="n">sos_u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="nd">@bat</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;SOS2 binary constraint for pb 2&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_sos2_u2</span><span class="p">(</span><span class="n">bat</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bat</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+
+    <span class="nd">@bat</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;SOS2 binary constraint for pb 3&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_sos2_u3</span><span class="p">(</span><span class="n">bat</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bat</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">bat</span><span class="o">.</span><span class="n">sos_u</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="nd">@bat</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;SOS2 constraint on the sum of weights&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_sos2_u4</span><span class="p">(</span><span class="n">bat</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">bat</span><span class="o">.</span><span class="n">sos_w</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bat</span><span class="o">.</span><span class="n">bp</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
+
+    <span class="nd">@bat</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;pc &lt;= pmin(soc)&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_pcmax2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">pc</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">sos_pcmax</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">*</span><span class="n">p_min</span></div>
 </pre></div>
 
            </div>

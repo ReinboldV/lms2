@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.tools.post_processing &mdash; lms2 1.1+7.ge8b9e89.dirty documentation</title>
+  <title>lms2.tools.post_processing &mdash; lms2 1.1+12.gb02074c.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -101,6 +101,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
@@ -116,6 +117,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.converters.html">converters</a><ul>
@@ -133,6 +135,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.square.html">square</a></li>
 </ul>
 </li>
 </ul>
@@ -185,7 +188,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.html">model_processing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_doc.html">get_doc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
@@ -291,23 +294,23 @@
 
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">Expression</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">ld</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">ld</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                 <span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">),</span>
                 <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
             <span class="n">s</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
             <span class="n">ld</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">),</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">ld</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">ld</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                 <span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">),</span>
                 <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
                 <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
 
-            <span class="n">up</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">uslack</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">up</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">uslack</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                 <span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_uslack&#39;</span><span class="p">,</span>
                 <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
                 <span class="n">color</span> <span class="o">=</span> <span class="n">ld</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">(),</span>
@@ -315,7 +318,7 @@
                 <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
 
-            <span class="n">low</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">lslack</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">low</span> <span class="o">=</span> <span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">lslack</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variable</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
                 <span class="n">label</span><span class="o">=</span><span class="n">variable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;\_&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_lslack&#39;</span><span class="p">,</span>
                 <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
                 <span class="n">color</span><span class="o">=</span><span class="n">ld</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">(),</span>
@@ -335,29 +338,28 @@
     <span class="k">return</span> <span class="n">ld</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span>
 
 
-<div class="viewcode-block" id="pplot"><a class="viewcode-back" href="../../../generated/lms2.tools.post_processing.pplot.html#lms2.tools.post_processing.pplot">[docs]</a><span class="k">def</span> <span class="nf">pplot</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
+<div class="viewcode-block" id="pplot"><a class="viewcode-back" href="../../../generated/lms2.tools.post_processing.pplot.html#lms2.tools.post_processing.pplot">[docs]</a><span class="k">def</span> <span class="nf">pplot</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function that plots pyomo Variable or Parameter</span>
 
-<span class="sd">        :param var: Var or Param to be plotted</span>
-<span class="sd">        :param index: New index for plotting purpose (optional)</span>
-<span class="sd">        :param fig: figure handle (optional)</span>
-<span class="sd">        :param ax: axes handle (optional)</span>
-<span class="sd">        :param kwarg: any Series.plot keyword argument</span>
-<span class="sd">        :return:  line handle, axe handle, figure handle</span>
-
-<span class="sd">        other options :</span>
-<span class="sd">            - ncol</span>
-<span class="sd">            - loc</span>
-<span class="sd">            - bbox_to_anchor</span>
-<span class="sd">            - mode</span>
-
-<span class="sd">    **Returns**</span>
+<span class="sd">    :param var: Var or Param to be plotted</span>
+<span class="sd">    :param index: New index for plotting purpose (optional)</span>
+<span class="sd">    :param fig: figure handle (optional)</span>
+<span class="sd">    :param ax: axes handle (optional)</span>
+<span class="sd">    :param kwarg: any Series.plot keyword argument</span>
+<span class="sd">    :return:</span>
 <span class="sd">        - arg1 the matplotlib.pyplot.Figure handle object</span>
 <span class="sd">        - arg2 the matplotlib.pyplot.Axes handle object</span>
 <span class="sd">        - arg3 the matplotlib.pyplot.Line2D handle object</span>
 
-<span class="sd">    Example::</span>
+<span class="sd">    Key word arguments :</span>
+<span class="sd">        - ncol : number of columns for legend</span>
+<span class="sd">        - loc : location of legend (see matplotlib.pyplot)</span>
+<span class="sd">        - bbox_to_anchor</span>
+<span class="sd">        - mode :</span>
+
+
+<span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
 <span class="sd">        &gt;&gt;&gt; from pyomo.dae import ContinuousSet</span>
 <span class="sd">        &gt;&gt;&gt; from lms2.core.horizon import SimpleHorizon</span>
@@ -373,13 +375,13 @@
 <span class="sd">        &gt;&gt;&gt; lines = pplot(m.v, m.z, m.w, title=&#39;test&#39;, Marker=&#39;x&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">ncol</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ncol&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">loc</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;loc&#39;</span><span class="p">,</span> <span class="s1">&#39;lower center&#39;</span><span class="p">)</span>
-    <span class="n">bbox_to_anchor</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;bbox_to_anchor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">mode</span> <span class="o">=</span> <span class="n">kargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">ncol</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ncol&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;loc&#39;</span><span class="p">,</span> <span class="s1">&#39;lower center&#39;</span><span class="p">)</span>
+    <span class="n">bbox_to_anchor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;bbox_to_anchor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;mode&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">ld</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">_pplot</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">)</span>
+    <span class="n">ld</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">_pplot</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">up</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">up</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">low</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -388,7 +390,7 @@
     <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ld</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-        <span class="n">ld</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">_pplot</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">)</span>
+        <span class="n">ld</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">_pplot</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ld</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">up</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">up</span><span class="p">)</span>

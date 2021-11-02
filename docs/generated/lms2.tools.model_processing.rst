@@ -1,4 +1,4 @@
-model\_processing
+﻿model\_processing
 =================
 
 .. automodule:: lms2.tools.model_processing
@@ -14,7 +14,7 @@ model\_processing
         
         construct_objective
         fix_binary
-        get_doc_2
+        get_doc
         get_duals
         get_slack
         unfix_binary

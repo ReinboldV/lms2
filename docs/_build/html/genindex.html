@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; lms2 1.1+11.g549901c.dirty documentation</title>
+  <title>Index &mdash; lms2 1.1+14.g93454ea.dirty documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -71,6 +71,15 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="builddoc.html">How to build the documentation ?</a></li>
@@ -117,6 +126,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.electric.converters.html">converters</a><ul>
@@ -134,6 +144,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.electric.sources.square.html">square</a></li>
 </ul>
 </li>
 </ul>
@@ -186,7 +197,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/lms2.tools.model_processing.html">model_processing</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_doc_2.html">get_doc_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_doc.html">get_doc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
@@ -270,9 +281,11 @@
 </li>
       <li><a href="generated/lms2.electric.batteries.battery_v1.html#lms2.electric.batteries.battery_v1">battery_v1() (in module lms2.electric.batteries)</a>
 </li>
+      <li><a href="generated/lms2.electric.batteries.battery_v2.html#lms2.electric.batteries.battery_v2">battery_v2() (in module lms2.electric.batteries)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.electric.batteries.battery_v2.html#lms2.electric.batteries.battery_v2">battery_v2() (in module lms2.electric.batteries)</a>
+      <li><a href="generated/lms2.electric.batteries.battery_v3.html#lms2.electric.batteries.battery_v3">battery_v3() (in module lms2.electric.batteries)</a>
 </li>
       <li><a href="generated/lms2.economic.cost.bilinear_cost.html#lms2.economic.cost.bilinear_cost">bilinear_cost() (in module lms2.economic.cost)</a>
 </li>
@@ -354,7 +367,7 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="generated/lms2.tools.model_processing.get_doc_2.html#lms2.tools.model_processing.get_doc_2">get_doc_2() (in module lms2.tools.model_processing)</a>
+      <li><a href="generated/lms2.tools.model_processing.get_doc.html#lms2.tools.model_processing.get_doc">get_doc() (in module lms2.tools.model_processing)</a>
 </li>
       <li><a href="generated/lms2.tools.model_processing.get_duals.html#lms2.tools.model_processing.get_duals">get_duals() (in module lms2.tools.model_processing)</a>
 
@@ -615,6 +628,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/lms2.electric.sources.scalable_power_source.html#lms2.electric.sources.scalable_power_source">scalable_power_source() (in module lms2.electric.sources)</a>
+</li>
+      <li><a href="generated/lms2.electric.sources.square.html#lms2.electric.sources.square">square() (in module lms2.electric.sources)</a>
 </li>
   </ul></td>
 </tr></table>

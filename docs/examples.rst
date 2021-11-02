@@ -9,3 +9,4 @@ Tutorial and Examples
     examples_pyomo
     examples_lms2
     examples/microgrid_1.ipynb
+    examples/battery_piecewise_charging_limits.ipynb
