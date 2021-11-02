@@ -14,7 +14,6 @@ logger = logging.getLogger('lms2.models')
 class LModel(ConcreteModel):
     """
     Redefinition of ConcreteModel for the lms2 package
-
     """
 
     def __init__(self, name='model', *args):
@@ -34,6 +33,7 @@ class LModel(ConcreteModel):
         """
         getter for the graph argument
         """
+
         self.update_graph()
         return self._graph
 
@@ -44,6 +44,7 @@ class LModel(ConcreteModel):
 
         :param Graph g: Graph of the Unit
         :return: None
+
         """
         from networkx import Graph
         assert isinstance(g, Graph), f'graph attribute must be an instance of networkx.Graph, ' \
@@ -57,9 +58,6 @@ class LModel(ConcreteModel):
     def fix_binary(self):
         """
         Fix binary variables to their values
-
-        :return:
-
         """
         from pyomo.environ import RealSet
 
@@ -77,8 +75,6 @@ class LModel(ConcreteModel):
     def unfix_binary(self):
         """
         Unfix binary variables
-
-        :return:
         """
 
         for u in self.component_objects(Var):
@@ -91,11 +87,11 @@ class LModel(ConcreteModel):
                     u.unfix()
 
     def get_duals(self, dual_name='dual'):
-        """
-        Return dual coefficient of LP model.
+        """ Return dual coefficient of LP model.
 
-        :param str dual_name: name of the Suffix
-        :return : Dual coefficient (DataFrame)
+        :param dual_name: name of the Suffix
+        :return: Dual coefficient (DataFrame)
+
         """
 
         from pandas import DataFrame, concat
@@ -217,8 +213,6 @@ class AbsLModel(AbstractModel):
     def unfix_binary(self):
         """
         Unfix binary variables
-
-        :return:
         """
         for u in self.component_objects(Var):
             if u.is_indexed():
@@ -234,7 +228,8 @@ class AbsLModel(AbstractModel):
         Return dual coefficient of LP abstract model.
 
         :param str dual_name: name of the Suffix
-        :return : Dual coefficient (DataFrame)
+        :return: Dual coefficient (DataFrame)
+
         """
         from pandas import DataFrame, concat
         from pyomo.environ import Constraint

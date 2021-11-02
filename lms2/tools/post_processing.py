@@ -61,23 +61,23 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
 
     elif isinstance(variable, Expression):
         if index is None:
-            ld = Series({i: v() for i, v in variable.iteritems()}).sort_index().plot(
+            ld = Series({i: v() for i, v in variable.items()}).sort_index().plot(
                 label=variable.name.replace('_', '\_'),
                 fig=fig, ax=ax, **kwarg)
         else:
-            s = Series({i: v() for i, v in variable.iteritems()}).sort_index()
+            s = Series({i: v() for i, v in variable.items()}).sort_index()
             s.index = index
             ld = s.plot(label=variable.name.replace('_', '\_'), fig=fig, ax=ax, **kwarg)
 
     elif isinstance(variable, Constraint):
         if index is None:
-            ld = Series({i: v() for i, v in variable.iteritems()}).sort_index().plot(
+            ld = Series({i: v() for i, v in variable.items()}).sort_index().plot(
                 label=variable.name.replace('_', '\_'),
                 fig=fig,
                 ax=ax,
                 **kwarg)
 
-            up = Series({i: v.uslack() for i, v in variable.iteritems()}).sort_index().plot(
+            up = Series({i: v.uslack() for i, v in variable.items()}).sort_index().plot(
                 label=variable.name.replace('_', '\_')+'_uslack',
                 fig=fig,
                 color = ld.lines[-1].get_color(),
@@ -85,7 +85,7 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
                 ax=ax,
                 **kwarg)
 
-            low = Series({i: v.lslack() for i, v in variable.iteritems()}).sort_index().plot(
+            low = Series({i: v.lslack() for i, v in variable.items()}).sort_index().plot(
                 label=variable.name.replace('_', '\_') + '_lslack',
                 fig=fig,
                 color=ld.lines[-1].get_color(),
@@ -105,29 +105,28 @@ def _pplot(variable, index=None, fig=None, ax=None, **kwarg):
     return ld, up, low, ax, fig
 
 
-def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs):
+def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kwargs):
     """
     Function that plots pyomo Variable or Parameter
 
-        :param var: Var or Param to be plotted
-        :param index: New index for plotting purpose (optional)
-        :param fig: figure handle (optional)
-        :param ax: axes handle (optional)
-        :param kwarg: any Series.plot keyword argument
-        :return:  line handle, axe handle, figure handle
-
-        other options :
-            - ncol
-            - loc
-            - bbox_to_anchor
-            - mode
-
-    **Returns**
+    :param var: Var or Param to be plotted
+    :param index: New index for plotting purpose (optional)
+    :param fig: figure handle (optional)
+    :param ax: axes handle (optional)
+    :param kwarg: any Series.plot keyword argument
+    :return:
         - arg1 the matplotlib.pyplot.Figure handle object
         - arg2 the matplotlib.pyplot.Axes handle object
         - arg3 the matplotlib.pyplot.Line2D handle object
 
-    Example::
+    Key word arguments :
+        - ncol : number of columns for legend
+        - loc : location of legend (see matplotlib.pyplot)
+        - bbox_to_anchor
+        - mode :
+
+
+    Example:
         >>> from pyomo.environ import ConcreteModel
         >>> from pyomo.dae import ContinuousSet
         >>> from lms2.core.horizon import SimpleHorizon
@@ -143,13 +142,13 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs)
         >>> lines = pplot(m.v, m.z, m.w, title='test', Marker='x')
     """
 
-    ncol = kargs.pop('ncol', 1)
-    loc = kargs.pop('loc', 'lower center')
-    bbox_to_anchor = kargs.pop('bbox_to_anchor', None)
-    mode = kargs.pop('mode', None)
+    ncol = kwargs.pop('ncol', 1)
+    loc = kwargs.pop('loc', 'lower center')
+    bbox_to_anchor = kwargs.pop('bbox_to_anchor', None)
+    mode = kwargs.pop('mode', None)
 
     lines = []
-    ld, up, low, ax, fig = _pplot(args[0], ax=ax, fig=fig, **kargs)
+    ld, up, low, ax, fig = _pplot(args[0], ax=ax, fig=fig, **kwargs)
     if up is not None:
         lines.append(up)
     if low is not None:
@@ -158,7 +157,7 @@ def pplot(*args, ax=None, fig=None, legend=True, title=None, grid=True, **kargs)
     lines.append(ld)
 
     for var in args[1:]:
-        ld, up, low, ax, fig = _pplot(var, ax=ax, fig=fig, **kargs)
+        ld, up, low, ax, fig = _pplot(var, ax=ax, fig=fig, **kwargs)
         lines.append(ld)
         if up is not None:
             lines.append(up)

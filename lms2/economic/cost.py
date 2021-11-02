@@ -6,6 +6,7 @@ This module contains Economic units and methods to define parameter, variables a
 import pandas as pd
 from pyomo.core import NonNegativeReals, PositiveReals
 from pyomo.environ import Param, Var, Expression, Constraint
+from pyomo.environ import units as u
 
 __all__ = ['linear_cost', 'bilinear_cost', 'linear_dyn_cost',
            'bilinear_dynamic_cost', 'absolute_cost', 'capital_recovery_factor']
@@ -37,17 +38,16 @@ def capital_recovery_factor(horizon, r=0.05, n=20):
 
 def linear_cost(m, time, var_name='p'):
     """
-    Method for adding a linear constant cost associated to variable 'p', to a block
-    Final instantaneous cost expression is called "inst_cost"
+    Method for adding a linear constant cost associated to variable 'p'
+
+    The function returns automatically creates a Parameter named `cost` and returns a pyomo expression.
 
     :param m: Block
-    :param str var_name: Names of the expensive variable
+    :param str var_name: Names of the expensive variable (default :`p`)
     :return: A pyomo expression of the instantaneous cost
 
-    - Partial model:
-
-    .. math::
-        m.instantcost(t) = m.var(t) \\times m.cost, \ \\forall t \\in m.time
+        .. math::
+             p(t) \\times cost, \ \\forall t \\in time
 
     - Example of simple model using linear_cost():
 
@@ -117,21 +117,41 @@ def absolute_cost(m, time, var_name='p', cost=1):
     """
     Method for adding absolute cost related to an existing variable.
 
-    Define a bilinear cost of coefficient -1 and +1 associated with variable 'p'. Define a new variable `abs_p`,
-    a cost parameter, and two inequality constraints. The returned instantaneous cost expression is called "inst_cost"
-
+    Define a bilinear cost of coefficient -1 and +1 associated with variable var_name (default: 'p').
+    Define a new variable `abs_p`, a cost parameter (default = 0), and two inequality constraints.
 
     :param m: Block
     :param var_name: Name of the expensive variable, should already exist in he model
     :param cost: cost initialization value (default = 1 euro/kWh)
     :return: pyomo Expression (euro/s)
+
+        .. math::
+            \\frac{p_{abs}(t)}{3600}   (euros/s)
+
+    Formulation :
+
+        .. math::
+            p_{abs}(t) &>= -cost*p(t) \\\\
+            p_{abs}(t) &>= cost*p(t) \\\\
+
+    .. warning::
+        This formultaion is a relaxation of the absolute value function.
+
+        .. math::
+            p_{abs}(t) = cost \\times \\left|p(t)\\right|
+
+        It only works if the returned expression is used in the objective function to be minimized
+        (weighted with a positive coefficient).
+
+    Example:
+
     """
 
     abs_var_name = f'abs_{var_name}'
     bound1 = f'_bound_1_{var_name}'
     bound2 = f'_bound_2_{var_name}'
     m.add_component(abs_var_name, Var(time, within=NonNegativeReals, initialize=0,
-                                      doc=f'Absolute value of variable {var_name}'))
+                                      doc=f'Absolute value of variable {var_name}', units=u.kW))
     m.add_component(f'{var_name}_cost', Param(default=cost, mutable=True, within=NonNegativeReals,
                                               doc=f'cost associated to the absolute value of {var_name} (euros/kWh)'))
 

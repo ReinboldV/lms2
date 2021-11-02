@@ -11,32 +11,6 @@ logger = logging.getLogger('lms2.tools.data_processing')
 from pyomo.environ import *
 
 
-def interpolation(input_data, param, time, dt):
-    """
-    :param input_data:
-    :param param:
-    :param time:
-    :param dt:
-    :return:
-    """
-    # todo : mettre en commun avec lms2.tools
-    # todo : lire la colonne temps dans le fichier directement
-    #  (si les données ne sont pas à pas de temps fixe, ça marche quand même)
-
-    # dt : pas de temps de l'input data
-    # time provient du modèle (m.time)
-    columns_list = ['Time'] + param
-    data = pd.DataFrame(columns=columns_list)
-    time_temp = np.array(time)
-    data['Time'] = list(time)
-    for p in param:
-        input_data_time = list(range(0, len(input_data[p]) * dt, dt))
-        f = interp1d(input_data_time, list(input_data[p].values()))
-        data[p] = list(f(time_temp))
-
-    return data
-
-
 def load_data(horizon, param, data):
     """
     Loading of data into the problem.
@@ -46,6 +20,11 @@ def load_data(horizon, param, data):
     :param param: name of the parameter in the model
     :param index: name of the index in the model
     :return:
+
+    See this example_.
+
+    .. _example: ../examples/microgrid_1.html#Chargement-des-données
+
     """
     import warnings
 
@@ -73,10 +52,11 @@ def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
     Reading and interpolating data from csv source.
 
     This function accepts two types of indexed data :
+
         - data indexed by a date string ex: '2020/01/01 00:00:00'. In this case,
-         a date-parser might be compulsory for pandas to parse the date.
+          a date-parser might be compulsory for pandas to parse the date.
         - data indexed by an integer. In this case, parsing is easier, but the user as no information about
-         the start timestamp, units and time-zone.
+          the start timestamp, units and time-zone.
 
     :param method: interpolation method ('time' for date format index or 'linear' for integer index)
     :param str date_parser: date format parser, ex: "%Y-%m-%d %H:%M:%S"
@@ -88,6 +68,11 @@ def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
     :param start_date: starting date (for integer index) ex: '2021-01-01 00:00:00'
     :param tz_data: time zone information ('UTC' or 'Europe/Paris')
     :return: pd.DataFrame
+
+    See this example_.
+
+    .. _example: ../examples/microgrid_1.html#Chargement-des-données
+
     """
     import os
 
@@ -179,6 +164,33 @@ def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
         data_horizon = a.loc[horizon.index]
 
     return data_horizon
+
+
+def interpolation(input_data, param, time, dt):
+    """
+    depreciated, use read_data()
+
+    :param input_data:
+    :param param:
+    :param time:
+    :param dt:
+    :return:
+    """
+    # todo : lire la colonne temps dans le fichier directement
+    #  (si les données ne sont pas à pas de temps fixe, ça marche quand même)
+
+    # dt : pas de temps de l'input data
+    # time provient du modèle (m.time)
+    columns_list = ['Time'] + param
+    data = pd.DataFrame(columns=columns_list)
+    time_temp = np.array(time)
+    data['Time'] = list(time)
+    for p in param:
+        input_data_time = list(range(0, len(input_data[p]) * dt, dt))
+        f = interp1d(input_data_time, list(input_data[p].values()))
+        data[p] = list(f(time_temp))
+
+    return data
 
 
 if __name__ == "__main__":

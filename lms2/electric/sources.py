@@ -1,6 +1,7 @@
 """
 Electrical sources and loads
 """
+import pandas as pd
 from pyomo.core import Var, Param
 from pyomo.environ import *
 from pyomo.core.base.set import Reals, PositiveReals, NonNegativeReals, Any, Binary
@@ -341,32 +342,47 @@ def pv_panel(b, curtailable=False, **kwargs):
         - `unit` : unit of the variable (default : kW)
         - `within` : Pyomo Set for parameter definition (default : Reals)
 
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    p_pv            power source profile after scaling (kW)
-    s_pv            scaling factor within positive reals (default=1)
-    p_curt          curtailed flow (kW)
-    =============== ===================================================================
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    p0              fixed power source (kW)
-    fact_min        factor lower bound
-    fact_max        factor upper bound
-    =============== ===================================================================
-    =============== ===================================================================
-    Constraints     Documentation
-    =============== ===================================================================
-    _scale_fact_bounds optional bound constraint for the scaling factor.
-    _flow_scaling   Constraint equality for flow scaling
-    _curt_up_bound  Curtailment must be smaller than production
-    =============== ===================================================================
-    =============== ===================================================================
-    Ports           Documentation
-    =============== ===================================================================
-    p_scaled_outlet output power using source convention
-    =============== ===================================================================
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        p_pv            power source profile after scaling (kW)
+        s_pv            scaling factor within positive reals (default=1)
+        p_curt          curtailed flow (kW)
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        p0              fixed power source (kW)
+        fact_min        factor lower bound
+        fact_max        factor upper bound
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        _scale_fact_bounds optional bound constraint for the scaling factor.
+        _flow_scaling   Constraint equality for flow scaling
+        _curt_up_bound  Curtailment must be smaller than production
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Ports           Documentation
+        =============== ===================================================================
+        p_scaled_outlet output power using source convention
+        =============== ===================================================================
 
 
     Example :
@@ -377,8 +393,8 @@ def pv_panel(b, curtailable=False, **kwargs):
     >>> m.time = ContinuousSet(initialize=[0, 10])
     >>> option_pv = {'time': m.time, 's_max': 10, 's_min': 0.1}
     >>> m.pv = Block(rule=lambda x: pv_panel(x, **option_pv))
-    >>> m.pv.p.pprint()
-    p : fixed power source (kW)
+    >>> m.pv.p0.pprint()
+    p0 : fixed power source (kW)
         Size=2, Index=time, Domain=NonNegativeReals, Default=0, Mutable=True
         Key : Value
           0 :     0
@@ -570,8 +586,9 @@ def debug_source(b, **kwargs):
     b = power_source(b, **kwargs)
     var_name = kwargs.pop('var_name', 'p')
     cost = kwargs.pop('cost', 1e4)
+    time = kwargs.pop('time')
 
-    b.inst_cost = absolute_cost(b, var_name=var_name, cost=cost)
+    b.inst_cost = absolute_cost(b, time, var_name=var_name, cost=cost)
     return b
 
 
@@ -586,7 +603,7 @@ def curtailable_load_2(b, **kwargs):
     .. math::
         0 &\\leq p_0(t) \\left(1-u(t) \\right) \\leq p_M  \\\\
         0 &\\leq p_M.u(t) \\leq p_0(t)  \\\\
-        p(t) &= u(t) + p_0(t).(1-u(t))
+        p(t) &= pM.u(t) + p_0(t).(1-u(t))
 
 
     =============== ===================================================================
@@ -648,3 +665,23 @@ def curtailable_load_2(b, **kwargs):
     @b.Constraint(time, doc='impose p=pM if u=1 et p=p0 if u=0')
     def _curtailment(b, t):
         return b.p[t], b.pM*b.u[t] + b.p0[t]*(1-b.u[t])
+
+
+def square(b, **kwargs):
+
+    pM = kwargs.pop('pM', 1)
+    time = kwargs.pop('time')
+    period = kwargs.pop('period', 4)
+    dt = time.at(2) - time.at(1)
+
+    # rule for initializing parameter value
+    def initial(b, t):
+        if (t//dt)%period < period/2:
+            return -pM
+        else:
+            return pM
+
+    b.p = Param(time, default=initial)
+
+
+

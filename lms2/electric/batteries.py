@@ -188,8 +188,7 @@ def battery_v1(bat, **options):
     Battery with ideal efficiency.
 
     This battery is limited in power, variation of power, state of charge and energy. One can fix initial and final
-    state of charge. For fixing initial and final energy, consider using `AbsBatteryV0`.
-    It exposes one power port using source convention.
+    state of charge. It exposes one power port using source convention.
 
     Instanciation options:
         - c_bat :       battery capacity (kWh)
@@ -207,6 +206,8 @@ def battery_v1(bat, **options):
     =============== ===================================================================
     p               energy derivative with respect to time
     e               energy in battery
+    emax            maximal energy (kWh), i.e. battery capacity.
+                    Variable only if c_bat is not fixed in the options
     =============== ===================================================================
 
     =============== ===================================================================
@@ -220,7 +221,9 @@ def battery_v1(bat, **options):
     Parameters      Documentation
     =============== ===================================================================
     emin            minimum energy (kWh)
-    emax            maximal energy
+    emax            maximal energy (kWh), it is a Parameter only if c_bat is
+                    given in the **options
+
     socmin          minimum soc
     socmax          maximal soc
     soc0            initial state
@@ -234,7 +237,7 @@ def battery_v1(bat, **options):
     =============== ===================================================================
     Constraints     Documentation
     =============== ===================================================================
-    _soc_init       None
+    _soc_init       Initial State Of Charge
     _e_balance      Energy balance constraint
     _p_init         Initialize power
     _e_min          Minimal energy constraint
@@ -260,13 +263,13 @@ def battery_v1(bat, **options):
     =============== ===================================================================
 
     """
-    time = options.pop('time', ContinuousSet(bounds=(0, 1)))
+    time = options.get('time', ContinuousSet(bounds=(0, 1)))
 
     c_bat       = options.pop('c_bat', None)
     c_bat_max   = options.pop('c_bat_max', UB)
     c_bat_min   = options.pop('c_bat_min', 0)
-    p_max       = options.pop('p_max', UB)
-    p_min       = options.pop('p_min', UB)
+    p_max       = options.get('p_max', UB)
+    p_min       = options.get('p_min', UB)
     soc_min     = options.pop('soc_min', 0)
     soc_max     = options.pop('soc_max', 100)
     soc0        = options.pop('soc0', 50)
@@ -279,6 +282,8 @@ def battery_v1(bat, **options):
         bat.emax = Var(initialize=c_bat_min, doc='maximal energy', bounds=(c_bat_min, c_bat_max))
         bat.emin = Param(default=0, doc='minimum energy (kWh)', mutable=True, within=NonNegativeReals)
     else:
+        c_bat_max = c_bat
+        c_bat_min = c_bat
         assert c_bat >= 0, 'Battery capacity should not be negative'
         logger.info('options c_bat_min and c_bat_max have no effect since c_bat is fixed.')
         bat.emax = Param(default=c_bat, doc='maximal energy', mutable=True, within=Reals)
@@ -302,7 +307,7 @@ def battery_v1(bat, **options):
             return 50
 
     bat.p = Var(time, doc='energy derivative with respect to time', initialize=0)
-    bat.e = Var(time, doc='energy in battery', initialize=_init_e)
+    bat.e = Var(time, doc='energy in battery', initialize=_init_e, bounds=(0, c_bat_max))
 
     bat.de = DerivativeVar(bat.e, wrt=time, initialize=0, doc='variation of energy  with respect to time')
     bat.dp = DerivativeVar(bat.p, wrt=time, initialize=0, doc='variation of the battery power with respect to time',
@@ -404,15 +409,17 @@ def battery_v2(bat, **options):
     It exposes one power port using source convention.
 
     Instanciation options:
-        - c_bat : battery capacity (kWh)
-        - c_bat_max : battery maximal capacity, default : +inf (only if c_bat is None)
-        - c_bat_min : battery minimal capacity, default : 0 (only if c_bat is None)
-        - p_max : maximal charging power, default : +inf (>0)
-        - p_min : maximal descharging power, default : +inf (>0)
-        - soc_min : minimal soc, default : 0 (>0)
-        - soc_max : maximal soc, default : 100 (>0)
-        - eta_c : charging efficiency, default : 1 (<1 and >0)
-        - eta_d : descharging efficiency, default : 1 (<1 and >0)
+        - c_bat :       battery capacity (kWh)
+        - c_bat_max :   battery maximal capacity, default : +inf (only if c_bat is None)
+        - c_bat_min :   battery minimal capacity, default : 0 (only if c_bat is None)
+        - p_max :       maximal charging power, default : +inf (>0)
+        - p_min :       maximal descharging power, default : +inf (>0)
+        - soc_min :     minimal soc, default : 0 (>0)
+        - soc_max :     maximal soc, default : 100 (>0)
+        - soc0 :        initial SOC, default: 50 (0<soc0<100)
+        - socf :        final SOC, defalut: 50 (0<socf<100)
+        - eta_c :       charging efficiency, default : 1 (<1 and >0)
+        - eta_d :       descharging efficiency, default : 1 (<1 and >0)
 
     =============== ===================================================================
     Variables       Documentation
@@ -451,7 +458,7 @@ def battery_v2(bat, **options):
     =============== ===================================================================
     Constraints     Documentation
     =============== ===================================================================
-    _soc_init       None
+    _soc_init       Initial state of charge
     _p_init         Initialize power
     _e_min          Minimal energy constraint
     _e_max          Maximal energy constraint
@@ -481,7 +488,7 @@ def battery_v2(bat, **options):
     """
 
     bat = battery_v1(bat, **options)
-    time = options.pop('time', ContinuousSet(bounds=(0, 1)))
+    time = options.get('time', ContinuousSet(bounds=(0, 1)))
 
     eta_c = options.pop('eta_c', 1)
     eta_d = options.pop('eta_d', 1)
@@ -519,3 +526,189 @@ def battery_v2(bat, **options):
     bat._pdmax = Constraint(time, rule=_pdmax, doc='Discharging power bound')
     bat._pcmax = Constraint(time, rule=_pcmax, doc='Charging power bound')
     bat._p_balance = Constraint(time, rule=_p_balance, doc='Power balance constraint')
+
+    return bat
+
+
+def battery_v3(bat, **options):
+    """
+    Non-linear battery model for limiting charging power with resect to the state of charge.
+
+    In this formulation, pcmax is a piecewise function of SOC. The user can define break points using pw_x and pw_y
+    key-words arguments, default being pw_x : [0, 70, 100] and pw_y : [1, 0.9, 0.1] (means that pcmax will be
+    10% of pmin when soc=100 %, 90% when soc is 70%, etc.
+
+    .. warning:: adding numerous break points introduce a binary variable, i.e. more complexity.
+    This version only implemets 3 break points.
+
+    The rest of the model is the same than :meth:`lms2.electric.batteries.battery_v2`.
+
+        Instanciation options:
+            - c_bat :       battery capacity (kWh)
+            - c_bat_max :   battery maximal capacity, default : +inf (only if c_bat is None)
+            - c_bat_min :   battery minimal capacity, default : 0 (only if c_bat is None)
+            - p_max :       maximal charging power, default : +inf (>0)
+            - p_min :       maximal descharging power, default : +inf (>0)
+            - soc_min :     minimal soc, default : 0 (>0)
+            - soc_max :     maximal soc, default : 100 (>0)
+            - soc0 :        initial SOC, default: 50 (0<soc0<100)
+            - socf :        final SOC, defalut: 50 (0<socf<100)
+            - eta_c :       charging efficiency, default : 1 (<1 and >0)
+            - eta_d :       descharging efficiency, default : 1 (<1 and >0)
+            - pw_x :        State of charge of the break points, default : [0, 70, 100]
+            - pw_y :        Relative charging power limits of th break break points, default :[1, 0.9, 0.1]
+
+    :param bat: Battery block
+    :param options: apacity, efficiencies, State of charge, limits, boundary conditions, pw_x, pw_y, etc.
+    :return:
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Sets            Documentation
+        =============== ===================================================================
+        bp              None
+        sos_w_index     None
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        p               energy derivative with respect to time
+        e               energy in battery
+        de              variation of energy  with respect to time
+        dp              variation of the battery power with respect to time
+        pd              discharging power
+        pc              charging power
+        u               binary variable
+        sos_u           binary variable for SOS2 constraint on pcmax
+        sos_pcmax       pcmax relative value for sos2 constraint
+        sos_w           weights for SOS2 constraint
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        emax            maximal energy
+        emin            minimum energy (kWh)
+        socmin          minimum soc
+        pinit           initial output power of the battery (default : None)
+        socmax          maximal soc
+        soc0            initial state
+        socf            final state
+        dpdmax          maximal discharging power
+        dpcmax          maximal charging power
+        pcmax           maximal charging power
+        pdmax           maximal discharging power
+        etac            charging efficiency
+        etad            discharging efficiency
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        _soc_init       initial state of charge
+        _p_init         Initialize power
+        _e_min          Minimal energy constraint
+        _e_max          Maximal energy constraint
+        _soc_final      Final soc constraint
+        _soc_min        Minimal state of charge constraint
+        _soc_max        Maximal state of charge constraint
+        _dpdmax         Maximal variation of descharging power constraint
+        _dpcmax         Maximal variation of charging power constraint
+        _e_balance      Energy balance constraint
+        _pdmax          Discharging power bound
+        _pcmax          Charging power bound
+        _p_balance      Power balance constraint
+        _sos2_pmax      SOS2 Convexity constraint
+        _sos2_soc       SOS2 soc reconstitution
+        _sos2_u1        SOS2 binary constraint for pb 1
+        _sos2_u2        SOS2 binary constraint for pb 2
+        _sos2_u3        SOS2 binary constraint for pb 3
+        _sos2_u4        SOS2 constraint on the sum of weights
+        _pcmax2         pc <= pmin(soc)
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Ports           Documentation
+        =============== ===================================================================
+        outlet          output power of the battery (kW), using source convention
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Expressions     Documentation
+        =============== ===================================================================
+        soc             Expression of the state of charge
+        =============== ===================================================================
+    """
+
+    from pyomo.core import Piecewise
+    import numpy as np
+
+    bat = battery_v2(bat, **options)
+
+    time = options.pop('time', ContinuousSet(bounds=(0, 1)))
+
+    p_min = options.get('p_min')
+    assert p_min >= 0, 'pmin should be a positive parameter.'
+
+    pw_soc = options.pop('pw_x', [0.0, 80, 100])
+    pw_pcmax = options.pop('pw_y', [1, 0.9, 0.1])
+
+    assert isinstance(pw_soc, list), f"Option pw_x should be an instance of list, but is actually a {type(pw_soc)}."
+    assert len(pw_soc) == 3, f"Option pw_x should be a list of length = 3, but his length is actually {len(pw_soc)}."
+    assert isinstance(pw_pcmax, list), f"Option pw_y should be an instance of list, but is actually a {type(pw_pcmax)}."
+    assert len(pw_pcmax) == 3, f"Option pw_y should be a list of length = 3, but his length is actually {len(pw_pcmax)}."
+
+    # home maid version :
+    bat.bp = Set(initialize=[0, 1, 2])
+
+    bat.sos_u = Var(time, within = Binary, doc = 'binary variable for SOS2 constraint on pcmax')
+    bat.sos_pcmax = Var(time, initialize=0, within=Reals, bounds = (0, 1),
+                        doc = 'pcmax relative value for sos2 constraint')
+    bat.sos_w = Var(bat.bp, time, initialize=0, within=Reals, bounds=(0, 1),
+                    doc = 'weights for SOS2 constraint')
+
+    @bat.Constraint(time, doc='SOS2 Convexity constraint')
+    def _sos2_pmax(m, t):
+        return m.sos_pcmax[t] == m.sos_w[0, t]*pw_pcmax[0] + m.sos_w[1, t]*pw_pcmax[1]  + m.sos_w[2, t]*pw_pcmax[2]
+
+    @bat.Constraint(time, doc='SOS2 soc reconstitution')
+    def _sos2_soc(m, t):
+        return m.soc[t] == m.sos_w[0, t]*pw_soc[0] + m.sos_w[1, t]*pw_soc[1]  + m.sos_w[2, t]*pw_soc[2]
+
+    @bat.Constraint(time, doc='SOS2 binary constraint for pb 1')
+    def _sos2_u1(bat, t):
+        return bat.sos_w[0, t] <= bat.sos_u[t]
+
+    @bat.Constraint(time, doc='SOS2 binary constraint for pb 2')
+    def _sos2_u2(bat, t):
+        return bat.sos_w[1, t] <= 1
+
+    @bat.Constraint(time, doc='SOS2 binary constraint for pb 3')
+    def _sos2_u3(bat, t):
+        return bat.sos_w[2, t] <= 1 - bat.sos_u[t]
+
+    @bat.Constraint(time, doc='SOS2 constraint on the sum of weights')
+    def _sos2_u4(bat, t):
+        return sum([bat.sos_w[i, t] for i in bat.bp]) == 1
+
+    @bat.Constraint(time, doc='pc <= pmin(soc)')
+    def _pcmax2(m, t):
+        return m.pc[t] <= m.sos_pcmax[t]*p_min
