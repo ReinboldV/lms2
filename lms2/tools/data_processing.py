@@ -1,10 +1,10 @@
 """interpolation, decomposition and processing of input data"""
-from turtledemo.forest import start
+
+import logging
 
 import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
-import logging
 
 logger = logging.getLogger('lms2.tools.data_processing')
 
@@ -26,7 +26,6 @@ def load_data(horizon, param, data):
     .. _example: ../examples/microgrid_1.html#Chargement-des-données
 
     """
-    import warnings
 
     b = param.parent_block()
 
@@ -35,19 +34,19 @@ def load_data(horizon, param, data):
     if data.index.name != param.index_set().name:
         logger.warning('data index and variable index does not have the same name. This could be a source of error...')
 
-    assert isinstance(param,  pyomo.core.base.param.IndexedParam), f'trying to load data on a non-Parameter object...' \
-                                                                   f'{param} is of type {type(Param)}.'
+    assert isinstance(param, pyomo.core.base.param.IndexedParam), f'trying to load data on a non-Parameter object...' \
+                                                                  f'{param} is of type {type(Param)}.'
 
     for i, v in param.items():
         try:
             # we set the value of the parameter v to the value of the dataframe at the index i
             v.set_value(data[horizon.map[i]])
-        except :
+        except:
             print('error')
 
 
 def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
-              fillnan=False, filldict = {}, unit='s', method='time', date_parser=None, start_date=None):
+              fillnan=False, filldict={}, unit='s', method='time', date_parser=None, start_date=None):
     """
     Reading and interpolating data from csv source.
 
@@ -82,7 +81,6 @@ def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
     mydateparser = None
     if date_parser is not None:
         mydateparser = lambda x: datetime.datetime.strptime(x, date_parser)  # "%Y %m %d %H:%M:%S"
-
 
     # reading data file (all of it)
     # if usecols is not None:
@@ -121,7 +119,8 @@ def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
     # convert date time index to the correct time zone
     if type(d1.index) == pd.DatetimeIndex:
         if d1.index.tzinfo is None:
-            d1.index = d1.index.tz_localize(tz_data).tz_convert(horizon.tz_info)
+            d1.index = d1.index.tz_localize(tz_data, ambiguous=True, nonexistent='shift_forward').tz_convert(
+                horizon.tz_info)
         else:
             d1.index = d1.index.tz_convert(horizon.tz_info)
         # be sure that the current horizon is in the data index set
@@ -144,18 +143,17 @@ def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
         dh1 = pd.DataFrame([np.NaN] * len(horizon.current), index=horizon.index, columns=['tmp'])
 
     with warnings.catch_warnings():
-    # Pandas 0.24.1 emits useless warning when sorting tz-aware index
+        # Pandas 0.24.1 emits useless warning when sorting tz-aware index
         warnings.simplefilter("ignore")
 
     if type(d1.index) == pd.DatetimeIndex and method == 'time':
         a = d1.join(dh1, how='outer').interpolate(method=method)
     if method == 'pad':
         a = d1.join(dh1, how='outer').sort_index().fillna(method='pad')
-    elif method == 'time' and index_type == np.int64:
+    elif method == 'linear' and index_type == np.int64:
         a = d1.join(dh1, how='outer').interpolate(method='linear')
 
     del a['tmp']
-
     # selecting only horizon period
     if type(d1.index) == pd.DatetimeIndex:
         data_horizon = a.loc[horizon.current]
@@ -202,4 +200,3 @@ if __name__ == "__main__":
     d = read_data(horizon, path, usecols=[0, 1, 2, 3], method='time')
 
     print(d.head(10))
-
