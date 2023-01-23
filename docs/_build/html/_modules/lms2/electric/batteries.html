@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.electric.batteries &mdash; lms2 1.1+14.g93454ea.dirty documentation</title>
+  <title>lms2.electric.batteries &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -154,6 +154,34 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
@@ -288,54 +316,69 @@
 <span class="sd">    It exposes one power port using source convention.</span>
 
 
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    Variables       Documentation</span>
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    p               energy derivative with respect to time</span>
-<span class="sd">    e               energy in battery</span>
-<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
 
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    Derivative Var  Documentation</span>
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    de              variation of energy  with respect to time</span>
-<span class="sd">    dp              variation of the battery power with respect to time</span>
-<span class="sd">    =============== ===================================================================</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Variables       Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        p               energy derivative with respect to time</span>
+<span class="sd">        e               energy in battery</span>
+<span class="sd">        =============== ===================================================================</span>
 
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    Parameters      Documentation</span>
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    emin            minimum energy (kWh)</span>
-<span class="sd">    emax            maximal energy</span>
-<span class="sd">    e0              initial state</span>
-<span class="sd">    ef              final state</span>
-<span class="sd">    etac            charging efficiency</span>
-<span class="sd">    etad            discharging efficiency</span>
-<span class="sd">    dpdmax          maximal discharging power</span>
-<span class="sd">    dpcmax          maximal charging power</span>
-<span class="sd">    pcmax           maximal charging power</span>
-<span class="sd">    pdmax           maximal discharging power</span>
-<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
 
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    Constraints     Documentation</span>
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    _e_balance      Energy balance constraint</span>
-<span class="sd">    _p_init         Initialize power</span>
-<span class="sd">    _e_initial      Initial energy constraint</span>
-<span class="sd">    _e_final        Final stored energy constraint</span>
-<span class="sd">    _e_min          Minimal energy constraint</span>
-<span class="sd">    _e_max          Maximal energy constraint</span>
-<span class="sd">    _pmax           Power bounds constraint</span>
-<span class="sd">    _dpdmax         Maximal varation of descharging power constraint</span>
-<span class="sd">    _dpcmax         Maximal varation of charging power constraint</span>
-<span class="sd">    =============== ===================================================================</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Derivative Var  Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        de              variation of energy  with respect to time</span>
+<span class="sd">        dp              variation of the battery power with respect to time</span>
+<span class="sd">        =============== ===================================================================</span>
 
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    Ports           Documentation</span>
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    outlet          None</span>
-<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Parameters      Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        emin            minimum energy (kWh)</span>
+<span class="sd">        emax            maximal energy</span>
+<span class="sd">        e0              initial state</span>
+<span class="sd">        ef              final state</span>
+<span class="sd">        etac            charging efficiency</span>
+<span class="sd">        etad            discharging efficiency</span>
+<span class="sd">        dpdmax          maximal discharging power</span>
+<span class="sd">        dpcmax          maximal charging power</span>
+<span class="sd">        pcmax           maximal charging power</span>
+<span class="sd">        pdmax           maximal discharging power</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Constraints     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        _e_balance      Energy balance constraint</span>
+<span class="sd">        _p_init         Initialize power</span>
+<span class="sd">        _e_initial      Initial energy constraint</span>
+<span class="sd">        _e_final        Final stored energy constraint</span>
+<span class="sd">        _e_min          Minimal energy constraint</span>
+<span class="sd">        _e_max          Maximal energy constraint</span>
+<span class="sd">        _pmax           Power bounds constraint</span>
+<span class="sd">        _dpdmax         Maximal varation of descharging power constraint</span>
+<span class="sd">        _dpcmax         Maximal varation of charging power constraint</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Ports           Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        outlet          None</span>
+<span class="sd">        =============== ===================================================================</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">time</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>

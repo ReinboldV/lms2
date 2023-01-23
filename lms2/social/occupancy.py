@@ -10,22 +10,28 @@ def occupancy(occ, **kwargs):
 
     The occupancy block gathers all the dynamic paramters related to occupancy, such as hot water flow, internal
     heat gains, temperature set point and comfort coefficient  for night and day zone.
+    This block defines the inputs received from the occupants. For the time being, the solar inputs from
+    the weather data are also included in this block. This will change in the future,
+    with a separate ‘solar inputs’ block. see :py:meth:`lms2.environment.environment.solar_inputs`.
 
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    Q_sol_N         Northern component solar radiation
-    Q_sol_S         Southern component solar radiation
-    Q_sol_E         Eastern component solar radiation
-    Q_sol_W         Western component solar radiation
-    Q_int_D         Day zone Internal heat gains
-    Q_int_N         Night zone Internal heat gains
-    Tset_d          Day zone set temperature
-    Tset_n          Night zone Set temperature
-    Flow_HW         HW demand of the occupants
-    u_N             comfort coefficient for night zone
-    u_D             comfort coefficient for day zone
-    =============== ===================================================================
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        Q_sol_N         Northern component solar radiation
+        Q_sol_S         Southern component solar radiation
+        Q_sol_E         Eastern component solar radiation
+        Q_sol_W         Western component solar radiation
+        Q_int_D         Day zone Internal heat gains
+        Q_int_N         Night zone Internal heat gains
+        Tset_d          Day zone set temperature
+        Tset_n          Night zone Set temperature
+        Flow_HW         HW demand of the occupants
+        u_N             comfort coefficient for night zone
+        u_D             comfort coefficient for day zone
+        =============== ===================================================================
 
     :param occ: occupancy block
     :param kwargs: kwargs for the block construction (time set)

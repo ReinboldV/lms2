@@ -8,3 +8,4 @@ Environment
     :toctree: generated
 
     ghg
+    environment

@@ -1,0 +1,13 @@
+Building
+=========
+
+.. currentmodule:: lms2.building
+
+.. autosummary::
+    :template: module.rst
+    :toctree: generated
+
+    dwellings
+    graph
+    structure
+    systems

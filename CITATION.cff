@@ -1,0 +1,15 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Pyomo Library for Linear Modelling of Energetic
+  Systems 
+message: 'If you use this software, please cite it as below'
+type: software
+authors:
+  - given-names: Vincent
+    family-names: Reinbold
+    email: vincent.reinbold@centralesupelec.fr
+    affiliation: Paris Saclay University
+    orcid: 'https://orcid.org/0000-0002-9857-0540'

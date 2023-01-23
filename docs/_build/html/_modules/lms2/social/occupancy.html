@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.social.occupancy &mdash; lms2 1.1+14.g93454ea.dirty documentation</title>
+  <title>lms2.social.occupancy &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -154,6 +154,34 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
@@ -252,22 +280,28 @@
 
 <span class="sd">    The occupancy block gathers all the dynamic paramters related to occupancy, such as hot water flow, internal</span>
 <span class="sd">    heat gains, temperature set point and comfort coefficient  for night and day zone.</span>
+<span class="sd">    This block defines the inputs received from the occupants. For the time being, the solar inputs from</span>
+<span class="sd">    the weather data are also included in this block. This will change in the future,</span>
+<span class="sd">    with a separate ‘solar inputs’ block. see :py:meth:`lms2.environment.environment.solar_inputs`.</span>
 
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    Parameters      Documentation</span>
-<span class="sd">    =============== ===================================================================</span>
-<span class="sd">    Q_sol_N         Northern component solar radiation</span>
-<span class="sd">    Q_sol_S         Southern component solar radiation</span>
-<span class="sd">    Q_sol_E         Eastern component solar radiation</span>
-<span class="sd">    Q_sol_W         Western component solar radiation</span>
-<span class="sd">    Q_int_D         Day zone Internal heat gains</span>
-<span class="sd">    Q_int_N         Night zone Internal heat gains</span>
-<span class="sd">    Tset_d          Day zone set temperature</span>
-<span class="sd">    Tset_n          Night zone Set temperature</span>
-<span class="sd">    Flow_HW         HW demand of the occupants</span>
-<span class="sd">    u_N             comfort coefficient for night zone</span>
-<span class="sd">    u_D             comfort coefficient for day zone</span>
-<span class="sd">    =============== ===================================================================</span>
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Parameters      Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Q_sol_N         Northern component solar radiation</span>
+<span class="sd">        Q_sol_S         Southern component solar radiation</span>
+<span class="sd">        Q_sol_E         Eastern component solar radiation</span>
+<span class="sd">        Q_sol_W         Western component solar radiation</span>
+<span class="sd">        Q_int_D         Day zone Internal heat gains</span>
+<span class="sd">        Q_int_N         Night zone Internal heat gains</span>
+<span class="sd">        Tset_d          Day zone set temperature</span>
+<span class="sd">        Tset_n          Night zone Set temperature</span>
+<span class="sd">        Flow_HW         HW demand of the occupants</span>
+<span class="sd">        u_N             comfort coefficient for night zone</span>
+<span class="sd">        u_D             comfort coefficient for day zone</span>
+<span class="sd">        =============== ===================================================================</span>
 
 <span class="sd">    :param occ: occupancy block</span>
 <span class="sd">    :param kwargs: kwargs for the block construction (time set)</span>

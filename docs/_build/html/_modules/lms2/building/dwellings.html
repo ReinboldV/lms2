@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lms2.building.dwellings &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> lms2
+            <img src="../../../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial and Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_pyomo.html">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_lms2.html">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Discrétisation-temporelle">Discrétisation temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.block.html">block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.effort_source.html">effort_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.fix_profile.html">fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.flow_load.html">flow_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.flow_source.html">flow_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.maintenance_cost.html">maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.recycling_cost.html">recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.replacement_cost.html">replacement_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.converters.html">converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.converters.converter_simple.html">converter_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_load.html">power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_source.html">power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.square.html">square</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.html">sequencial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.add_phase.html">add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.social.html">Social</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.social.occupancy.html">occupancy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.social.occupancy.occupancy.html">occupancy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.thermal.html">Thermal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.html">dipoles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.tools.html">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.html">data_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.interpolation.html">interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.load_data.html">load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.read_data.html">read_data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.html">model_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_doc.html">get_doc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.post_processing.html">post_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.post_processing.pplot.html">pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lms2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>lms2.building.dwellings</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lms2.building.dwellings</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Dwelling models</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="kn">import</span> <span class="n">Integral</span><span class="p">,</span> <span class="n">ContinuousSet</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dwelling_v2&#39;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">lms2.building.structure</span> <span class="kn">import</span> <span class="n">thermal_structure_block</span>
+<span class="kn">from</span> <span class="nn">lms2.building.systems</span> <span class="kn">import</span> <span class="n">hot_water_tank</span><span class="p">,</span> <span class="n">heat_pump</span>
+<span class="kn">from</span> <span class="nn">lms2.social.occupancy</span> <span class="kn">import</span> <span class="n">occupancy</span>
+<span class="kn">from</span> <span class="nn">lms2.environment.environment</span> <span class="kn">import</span> <span class="n">solar_inputs</span><span class="p">,</span> <span class="n">environment</span>
+
+
+<div class="viewcode-block" id="dwelling_v1"><a class="viewcode-back" href="../../../generated/lms2.building.dwellings.dwelling_v1.html#lms2.building.dwellings.dwelling_v1">[docs]</a><span class="k">def</span> <span class="nf">dwelling_v1</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; Depreciated</span>
+
+<span class="sd">    Dwelling model</span>
+
+<span class="sd">    The dwelling model is constructed by combining different blocks :</span>
+
+<span class="sd">        - thermal structure,</span>
+<span class="sd">        - environment,</span>
+<span class="sd">        - occupancy,</span>
+<span class="sd">        - hot water tank</span>
+<span class="sd">        - heat pump</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">horizon</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;horizon&#39;</span><span class="p">,</span> <span class="mi">7200</span><span class="p">)</span>
+
+    <span class="n">b</span><span class="o">.</span><span class="n">time</span>   <span class="o">=</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">horizon</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;set of time&#39;</span><span class="p">)</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">env</span>    <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span> <span class="o">=</span><span class="n">environment</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">})</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">sol</span>    <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span> <span class="o">=</span><span class="n">solar_inputs</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">})</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">hwt</span>    <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span> <span class="o">=</span><span class="n">hot_water_tank</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">})</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">occ</span>    <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span> <span class="o">=</span><span class="n">occupancy</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">})</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">hp</span>     <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span> <span class="o">=</span><span class="n">heat_pump</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;occ&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="p">})</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">struct</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">thermal_structure_block</span><span class="p">,</span>
+                     <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;graph&#39;</span><span class="p">:</span> <span class="n">graph</span><span class="p">,</span> <span class="s1">&#39;env&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="s1">&#39;occ&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="p">})</span>
+
+    <span class="n">b</span><span class="o">.</span><span class="n">p_elec_max</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal electrical power &#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">watt</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">))</span>
+
+    <span class="c1"># the following hw_balance, thermal balance and electrical balance could be declared in respective blocks</span>
+    <span class="c1"># (hp, struct, elec), but since this blocks are exchanging parameters and variable,</span>
+    <span class="c1"># it is simpler to declare these constraints on dwelling level.</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;HW power balance&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">hw_balance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="c1"># TODO : the factor 900 comes from the hot water flow unit, which is liter per 15 min</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">V</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">dT_HW</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_HW</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_HW_d</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_CW</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">Flow_HW</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="mi">900</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">id_nodes</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;thermal power balance&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">thermal_balance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">]()</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;T_fix&#39;</span><span class="p">)[</span><span class="n">n</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q_fix_dict</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;Q_fix&#39;</span><span class="p">)[</span><span class="n">n</span><span class="p">]</span>
+            <span class="n">q_control_dict</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;Q_control&#39;</span><span class="p">)[</span><span class="n">n</span><span class="p">]</span>
+            <span class="n">exp</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Discharge of thermal capacity (First law of thermodynamics)</span>
+            <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">]()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">exp</span> <span class="o">-=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">dT</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+            <span class="c1"># summing all the heat flow inputs (Q_fix in the graph description)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">q_fix_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">q_fix_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+                <span class="n">exp</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">q</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">fact</span> <span class="ow">in</span> <span class="n">q_fix_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+
+            <span class="c1"># summing all the heat flow control variable (Q_control in the graph description)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">q_control_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">q_control_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+                <span class="n">exp</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">q</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">fact</span> <span class="ow">in</span> <span class="n">q_control_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+
+            <span class="c1"># summing all the heat transfer from the neighbours (arithmetic sum)</span>
+            <span class="n">exp</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">qe</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qe</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">qe</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_edges</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+            <span class="n">exp</span> <span class="o">-=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">qe</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qe</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">qe</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_edges</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+            <span class="k">return</span> <span class="n">exp</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Expression</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;total electric power&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">p_elec</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="c1"># TODO : handling sum of all electric power by hand, one might find a way to some automatically</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_HW</span><span class="p">[</span><span class="n">t</span><span class="p">])</span><span class="o">/</span><span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">COP</span>
+        <span class="c1"># return b.hp.p_elec_N[t] + b.hp.p_elec_D[t] + b.hp.p_elec_HW[t]</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal electric power&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_p_elec_max</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">p_elec_max</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">p_elec</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="kc">None</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Expression</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;total comfort of night and day zone (linear expression)&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">comfort</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">u_D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">comfort_D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">u_N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">comfort_N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;absolute value constraint, upper bound&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">thermal_comfort</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">comfort</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">delta_T</span>
+
+    <span class="n">b</span><span class="o">.</span><span class="n">kpi_comfort</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">wrt</span><span class="o">=</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">comfort</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Integral of the comfort over the time horizon&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dwelling_v2"><a class="viewcode-back" href="../../../generated/lms2.building.dwellings.dwelling_v2.html#lms2.building.dwellings.dwelling_v2">[docs]</a><span class="k">def</span> <span class="nf">dwelling_v2</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dwelling model</span>
+
+<span class="sd">    The dwelling model is constructed by combining different blocks :</span>
+
+<span class="sd">        - thermal structure :py:mod:`lms2.building.structure`</span>
+<span class="sd">        - environment :py:mod:`lms2.building.environment.environment`</span>
+<span class="sd">        - solar inputs :py:mod:`lms2.environment.environment`</span>
+<span class="sd">        - occupancy :py:mod:`lms2.social.occupancy`</span>
+<span class="sd">        - hot water tank :py:mod:`lms2.building.systems`</span>
+<span class="sd">        - heat pump :py:mod:`lms2.building.systems`</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Blocks          Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        sol             solar inputs</span>
+<span class="sd">        hwt             hot water tank</span>
+<span class="sd">        occ             occupancy block</span>
+<span class="sd">        hp              heat pump</span>
+<span class="sd">        struct          thermal structure</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Variables       Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        p_elec_max      Maximal electrical power</span>
+<span class="sd">        =============== ===================================================================</span>
+
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Constraints     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        hw_balance      HW power balance</span>
+<span class="sd">        thermal_balance thermal power balance</span>
+<span class="sd">        _p_elec_max     maximal electric power</span>
+<span class="sd">        thermal_comfort absolute value constraint, upper bound</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Expressions     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        p_elec          total electric power</span>
+<span class="sd">        comfort         total comfort of night and day zone (linear expression)</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    :param b: Dwelling Block</span>
+<span class="sd">    :param kwargs:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Time set&#39;</span><span class="p">))</span>
+    <span class="n">dict_env</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">}</span>
+    <span class="n">env_temp</span> <span class="o">=</span> <span class="n">Block</span><span class="p">()</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">,</span> <span class="n">environment</span><span class="p">(</span><span class="n">env_temp</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_env</span><span class="p">))</span>
+
+    <span class="c1"># solar inputs block:</span>
+    <span class="n">dict_sol</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">}</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">sol</span> <span class="o">=</span> <span class="n">Block</span><span class="p">()</span>
+    <span class="n">solar_inputs</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">sol</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_sol</span><span class="p">)</span>
+
+    <span class="c1"># hot water tank block:</span>
+    <span class="n">dict_hwt</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">}</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">hwt</span> <span class="o">=</span> <span class="n">Block</span><span class="p">()</span>
+    <span class="n">hot_water_tank</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_hwt</span><span class="p">)</span>
+
+    <span class="c1"># occupancy block:</span>
+    <span class="n">dict_occ</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">}</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">occ</span> <span class="o">=</span> <span class="n">Block</span><span class="p">()</span>
+    <span class="n">occupancy</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_occ</span><span class="p">)</span>
+
+    <span class="c1"># heat pump block:</span>
+    <span class="n">dict_hp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s1">&#39;occ&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="p">}</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">Block</span><span class="p">()</span>
+    <span class="n">heat_pump</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_hp</span><span class="p">)</span>
+
+    <span class="c1"># thermal structure block:</span>
+    <span class="n">dict_struct</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s1">&#39;graph&#39;</span><span class="p">:</span> <span class="n">graph</span><span class="p">,</span> <span class="s1">&#39;env&#39;</span><span class="p">:</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;occ&#39;</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="p">}</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">struct</span> <span class="o">=</span> <span class="n">Block</span><span class="p">()</span>
+    <span class="n">thermal_structure_block</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_struct</span><span class="p">)</span>
+
+    <span class="n">b</span><span class="o">.</span><span class="n">p_elec_max</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Maximal electrical power &#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">watt</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">))</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;HW power balance&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">hw_balance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="c1"># ..note :: the factor 900 comes from the hot water flow unit, which is liter per 15 min</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">V</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">dT_HW</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_HW</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_HW_d</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_CW</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">Flow_HW</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="mi">900</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">id_nodes</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;thermal power balance&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">thermal_balance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">]()</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;T_fix&#39;</span><span class="p">)[</span><span class="n">n</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q_fix_dict</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;Q_fix&#39;</span><span class="p">)[</span><span class="n">n</span><span class="p">]</span>
+            <span class="n">q_control_dict</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;Q_control&#39;</span><span class="p">)[</span><span class="n">n</span><span class="p">]</span>
+            <span class="n">exp</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Discharge of thermal capacity (First law of thermodynamics)</span>
+            <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">]()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">exp</span> <span class="o">-=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">dT</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+            <span class="c1"># summing all the heat flow inputs (Q_fix in the graph description)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">q_fix_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">q_fix_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+                <span class="n">exp</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">q</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">fact</span> <span class="ow">in</span> <span class="n">q_fix_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+
+            <span class="c1"># summing all the heat flow control variable (Q_control in the graph description)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">q_control_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">q_control_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+                <span class="n">exp</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="n">q</span><span class="p">)[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">fact</span> <span class="ow">in</span> <span class="n">q_control_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+
+            <span class="c1"># summing all the heat transfer from the neighbours (arithmetic sum)</span>
+            <span class="n">exp</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">qe</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qe</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">qe</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_edges</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+            <span class="n">exp</span> <span class="o">-=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">qe</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qe</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">qe</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_edges</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
+            <span class="k">return</span> <span class="n">exp</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Expression</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;total electric power&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">p_elec</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="c1"># TODO : handling sum of all electric power by hand, one might find a way to do it automatically</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_HW</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">/</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">COP</span>
+        <span class="c1"># return b.hp.p_elec_N[t] + b.hp.p_elec_D[t] + b.hp.p_elec_HW[t]</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;maximal electric power&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_p_elec_max</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">p_elec_max</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">p_elec</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="kc">None</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Expression</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;total comfort of night and day zone (linear expression)&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">comfort</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">u_D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">comfort_D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">u_N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">comfort_N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;absolute value constraint, upper bound&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">thermal_comfort</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">comfort</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">delta_T</span>
+
+    <span class="c1"># integral are not working well for blocks and sub-blocks, defining confort on the upper level (feeder)</span>
+    <span class="c1">#b.kpi_comfort = Integral(time, wrt=time, rule=comfort, doc=&#39;Integral of the comfort over the time horizon&#39;)</span>
+
+    <span class="k">return</span> <span class="n">b</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -35,7 +35,7 @@ data = dict(
 )
 
 
-#   TODO  : add different model of ageing.
+#   TODO  : model of ageing.
 
 def battery_V0(bat, **options):
     """
@@ -46,54 +46,69 @@ def battery_V0(bat, **options):
     It exposes one power port using source convention.
 
 
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    p               energy derivative with respect to time
-    e               energy in battery
-    =============== ===================================================================
+    .. table::
+        :width: 100%
 
-    =============== ===================================================================
-    Derivative Var  Documentation
-    =============== ===================================================================
-    de              variation of energy  with respect to time
-    dp              variation of the battery power with respect to time
-    =============== ===================================================================
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        p               energy derivative with respect to time
+        e               energy in battery
+        =============== ===================================================================
 
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    emin            minimum energy (kWh)
-    emax            maximal energy
-    e0              initial state
-    ef              final state
-    etac            charging efficiency
-    etad            discharging efficiency
-    dpdmax          maximal discharging power
-    dpcmax          maximal charging power
-    pcmax           maximal charging power
-    pdmax           maximal discharging power
-    =============== ===================================================================
+    .. table::
+        :width: 100%
 
-    =============== ===================================================================
-    Constraints     Documentation
-    =============== ===================================================================
-    _e_balance      Energy balance constraint
-    _p_init         Initialize power
-    _e_initial      Initial energy constraint
-    _e_final        Final stored energy constraint
-    _e_min          Minimal energy constraint
-    _e_max          Maximal energy constraint
-    _pmax           Power bounds constraint
-    _dpdmax         Maximal varation of descharging power constraint
-    _dpcmax         Maximal varation of charging power constraint
-    =============== ===================================================================
+        =============== ===================================================================
+        Derivative Var  Documentation
+        =============== ===================================================================
+        de              variation of energy  with respect to time
+        dp              variation of the battery power with respect to time
+        =============== ===================================================================
 
-    =============== ===================================================================
-    Ports           Documentation
-    =============== ===================================================================
-    outlet          None
-    =============== ===================================================================
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        emin            minimum energy (kWh)
+        emax            maximal energy
+        e0              initial state
+        ef              final state
+        etac            charging efficiency
+        etad            discharging efficiency
+        dpdmax          maximal discharging power
+        dpcmax          maximal charging power
+        pcmax           maximal charging power
+        pdmax           maximal discharging power
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        _e_balance      Energy balance constraint
+        _p_init         Initialize power
+        _e_initial      Initial energy constraint
+        _e_final        Final stored energy constraint
+        _e_min          Minimal energy constraint
+        _e_max          Maximal energy constraint
+        _pmax           Power bounds constraint
+        _dpdmax         Maximal varation of descharging power constraint
+        _dpcmax         Maximal varation of charging power constraint
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Ports           Documentation
+        =============== ===================================================================
+        outlet          None
+        =============== ===================================================================
 
     """
     time = options.pop('time', ContinuousSet(bounds=(0, 1)))
@@ -221,9 +236,7 @@ def battery_v1(bat, **options):
     Parameters      Documentation
     =============== ===================================================================
     emin            minimum energy (kWh)
-    emax            maximal energy (kWh), it is a Parameter only if c_bat is
-                    given in the **options
-
+    emax            maximal energy (kWh), it is a Parameter only if c_bat is given
     socmin          minimum soc
     socmax          maximal soc
     soc0            initial state
@@ -539,7 +552,7 @@ def battery_v3(bat, **options):
     10% of pmin when soc=100 %, 90% when soc is 70%, etc.
 
     .. warning:: adding numerous break points introduce a binary variable, i.e. more complexity.
-    This version only implemets 3 break points.
+        This version only implemets 3 break points.
 
     The rest of the model is the same than :meth:`lms2.electric.batteries.battery_v2`.
 

@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+"""
+Dwelling models
+"""
 from pyomo.environ import *
 from pyomo.environ import units as u
 from pyomo.dae import Integral, ContinuousSet
@@ -11,6 +15,21 @@ from lms2.environment.environment import solar_inputs, environment
 
 
 def dwelling_v1(b, **kwargs):
+
+    """ Depreciated
+
+    Dwelling model
+
+    The dwelling model is constructed by combining different blocks :
+
+        - thermal structure,
+        - environment,
+        - occupancy,
+        - hot water tank
+        - heat pump
+"""
+
+
     graph = kwargs.pop('graph', None)
     horizon = kwargs.pop('horizon', 7200)
 
@@ -83,34 +102,61 @@ def dwelling_v1(b, **kwargs):
 
 def dwelling_v2(b, **kwargs):
     """
-    =============== ===================================================================
-    Blocks          Documentation
-    =============== ===================================================================
-    sol             None
-    hwt             None
-    occ             None
-    hp              None
-    struct          None
-    =============== ===================================================================
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    p_elec_max      Maximal electrical power
-    =============== ===================================================================
-    =============== ===================================================================
-    Constraints     Documentation
-    =============== ===================================================================
-    hw_balance      HW power balance
-    thermal_balance thermal power balance
-    _p_elec_max     maximal electric power
-    thermal_comfort absolute value constraint, upper bound
-    =============== ===================================================================
-    =============== ===================================================================
-    Expressions     Documentation
-    =============== ===================================================================
-    p_elec          total electric power
-    comfort         total comfort of night and day zone (linear expression)
-    =============== ===================================================================
+    Dwelling model
+
+    The dwelling model is constructed by combining different blocks :
+
+        - thermal structure :py:mod:`lms2.building.structure`
+        - environment :py:mod:`lms2.building.environment.environment`
+        - solar inputs :py:mod:`lms2.environment.environment`
+        - occupancy :py:mod:`lms2.social.occupancy`
+        - hot water tank :py:mod:`lms2.building.systems`
+        - heat pump :py:mod:`lms2.building.systems`
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Blocks          Documentation
+        =============== ===================================================================
+        sol             solar inputs
+        hwt             hot water tank
+        occ             occupancy block
+        hp              heat pump
+        struct          thermal structure
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        p_elec_max      Maximal electrical power
+        =============== ===================================================================
+
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        hw_balance      HW power balance
+        thermal_balance thermal power balance
+        _p_elec_max     maximal electric power
+        thermal_comfort absolute value constraint, upper bound
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Expressions     Documentation
+        =============== ===================================================================
+        p_elec          total electric power
+        comfort         total comfort of night and day zone (linear expression)
+        =============== ===================================================================
 
     :param b: Dwelling Block
     :param kwargs:

@@ -19,14 +19,19 @@ def environment(env, **options):
     """
     Environment Block
 
-    Gather environment parameter such as temperatures, (irradiation, humidity, weather could be loaded here)
+    The environment block consists out of the definition of the temperature nodes for the Dirichlet
+    boundary conditions. It gather environment parameter such as temperatures,
+    humidity, weather conditions could be included here.
 
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    Te              External temperature
-    Tg              Ground temperature
-    =============== ===================================================================
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        Te              External temperature
+        Tg              Ground temperature
+        =============== ===================================================================
 
     :param env:
     :param kwargs:

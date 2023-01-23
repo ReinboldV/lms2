@@ -1,7 +1,12 @@
+"""
+Electric and thermal systems for dwellings (heat pumps, heating systems, hot water tank, etc.)
+"""
+
 from pyomo.core import Param, Var
 from pyomo.core.base.units_container import units as u
 from pyomo.dae import ContinuousSet, DerivativeVar
 from pyomo.core.base.set import Reals, NonNegativeReals
+
 
 def hot_water_tank(hwt, **kwargs):
     """
@@ -9,33 +14,48 @@ def hot_water_tank(hwt, **kwargs):
 
     The HW block model the tank as an adiabatic thermal storage.
 
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    T_HW            HW storage temperature
-    =============== ===================================================================
-    =============== ===================================================================
-    Derivative Var  Documentation
-    =============== ===================================================================
-    dT_HW           HW temperature derivative
-    =============== ===================================================================
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    T_HW_0          Initial temperature
-    T_CW            Temperature of cold water
-    T_HW_d          Temperature of demanded hot water
-    V               HW storage tank Volume
-    c_w             Specific heat capacity of water
-    T_HW_LB         HW storage temperature LB
-    T_HW_UB         HW storage temperature UB
-    =============== ===================================================================
-    =============== ===================================================================
-    Constraints     Documentation
-    =============== ===================================================================
-    bounds          HW temperature bounds
-    init            HW initial temperature
-    =============== ===================================================================
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        T_HW            HW storage temperature
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Derivative Var  Documentation
+        =============== ===================================================================
+        dT_HW           HW temperature derivative
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        T_HW_0          Initial temperature
+        T_CW            Temperature of cold water
+        T_HW_d          Temperature of demanded hot water
+        V               HW storage tank Volume
+        c_w             Specific heat capacity of water
+        T_HW_LB         HW storage temperature LB
+        T_HW_UB         HW storage temperature UB
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        bounds          HW temperature bounds
+        init            HW initial temperature
+        =============== ===================================================================
 
     :param hwt:
     :param kwargs:
@@ -70,33 +90,48 @@ def heat_pump(hp, **kwargs):
     The HP is modelled by tree heat control variable (day_zone, night_zone and HW tank). The total electrical power is
     calculated is the COP parameter.
 
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    Q_heat_N        Heat pump flow Night zone
-    Q_heat_D        Heat pump flow Day zone
-    Q_heat_HW       Heat pump flow HW tank
-    =============== ===================================================================
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    Q_heat_D_max    Maximal heat production in the day-zone
-    Q_heat_N_max    Maximal heat production in the night-zone
-    Q_HW_max        Maximal heat production in the HW storage tank
-    COP             Coefficient of performance
-    =============== ===================================================================
-    =============== ===================================================================
-    Constraints     Documentation
-    =============== ===================================================================
-    limits          heat_pumps heating bounds
-    =============== ===================================================================
-    =============== ===================================================================
-    Expressions     Documentation
-    =============== ===================================================================
-    p_elec_D        Electrical power in the day zone
-    p_elec_N        Electrical power in the night zone
-    p_elec_HW       Electrical power for DHW
-    =============== ===================================================================
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        Q_heat_N        Heat pump flow Night zone
+        Q_heat_D        Heat pump flow Day zone
+        Q_heat_HW       Heat pump flow HW tank
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        Q_heat_D_max    Maximal heat production in the day-zone
+        Q_heat_N_max    Maximal heat production in the night-zone
+        Q_HW_max        Maximal heat production in the HW storage tank
+        COP             Coefficient of performance
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Constraints     Documentation
+        =============== ===================================================================
+        limits          heat_pumps heating bounds
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Expressions     Documentation
+        =============== ===================================================================
+        p_elec_D        Electrical power in the day zone
+        p_elec_N        Electrical power in the night zone
+        p_elec_HW       Electrical power for DHW
+        =============== ===================================================================
 
     :param hp: Heat pump block
     :param kwargs: kwargs for the block construction (time set and occupancy block)

@@ -1,3 +1,8 @@
+"""
+Graph for thermal structure modelling
+
+
+"""
 import networkx as nx
 
 __all__ = ['build_dummy_1zone_graph', 'build_2zone_graph']

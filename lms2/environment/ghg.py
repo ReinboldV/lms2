@@ -5,7 +5,7 @@ Contains units and models for emissions
 """
 
 from pyomo.environ import Expression, Param
-
+from pyomo.network import Port
 
 def def_linear_ghg_cost(m, time, var_name='p_out', init_cost=0):
     """

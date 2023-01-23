@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>solar_inputs &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building" href="../lms2.building.html" />
+    <link rel="prev" title="environment" href="lms2.environment.environment.environment.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> lms2
+            <img src="../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Tutorial and Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples_pyomo.html">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples_pyomo.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples_lms2.html">Working with lms2 library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Discrétisation-temporelle">Discrétisation temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/microgrid_1.html#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../lms2.html">Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.base.block.html">block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.block.effort_source.html">effort_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.block.fix_profile.html">fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.block.flow_load.html">flow_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.base.block.flow_source.html">flow_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.economic.html">Economic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.linear_cost.html">linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.maintenance_cost.html">maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.recycling_cost.html">recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.economic.cost.replacement_cost.html">replacement_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.converters.html">converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.converters.converter_simple.html">converter_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.power_load.html">power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.power_source.html">power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.pv_panel.html">pv_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.electric.sources.square.html">square</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../lms2.environment.html">Environment</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="lms2.environment.environment.html">environment</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lms2.building.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.logical.sequencial.html">sequencial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.logical.sequencial.add_phase.html">add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.mechanic.html">Mechanic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.social.html">Social</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.social.occupancy.html">occupancy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.social.occupancy.occupancy.html">occupancy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.thermal.html">Thermal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.thermal.dipoles.html">dipoles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.tools.html">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.tools.data_processing.html">data_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.data_processing.interpolation.html">interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.data_processing.load_data.html">load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.data_processing.read_data.html">read_data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.tools.model_processing.html">model_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_doc.html">get_doc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_duals.html">get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.get_slack.html">get_slack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.tools.post_processing.html">post_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.tools.post_processing.pplot.html">pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lms2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../lms2.html">Library</a> &raquo;</li>
+          <li><a href="../lms2.environment.html">Environment</a> &raquo;</li>
+          <li><a href="lms2.environment.environment.html">environment</a> &raquo;</li>
+      <li>solar_inputs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/lms2.environment.environment.solar_inputs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="solar-inputs">
+<h1>solar_inputs<a class="headerlink" href="#solar-inputs" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="lms2.environment.environment.solar_inputs">
+<span class="sig-prename descclassname"><span class="pre">lms2.environment.environment.</span></span><span class="sig-name descname"><span class="pre">solar_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sol</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/environment/environment.html#solar_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.environment.environment.solar_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>todo : Not implemented yet !
+Block responsible for the calculation of heat gain, with respect to the environment (lat, long, time),
+and building geometry windows surface etc.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lms2.environment.environment.environment.html" class="btn btn-neutral float-left" title="environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../lms2.building.html" class="btn btn-neutral float-right" title="Building" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

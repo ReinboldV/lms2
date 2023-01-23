@@ -1,62 +1,85 @@
+"""
+Thermal structure of buildings
+"""
 from pyomo.core import Set, Var, Param, Constraint, Reals, NonNegativeReals
 from pyomo.core.base.units_container import units as u
 from pyomo.dae import ContinuousSet, DerivativeVar
 from pyomo.core.base.set import Any
 
+
 def thermal_structure_block(struct, **kwargs):
     """
-    Thermal structure block.
+    Two-zone thermal structure
 
     The thermal structure is defined by a set of nodes and edges. Temperature `T`, thermal capacity `C`, heat gain,
     heat control might be defined at each node. Heat flow `q` and thermal resistivity `U` is defied at each edges.
     Heat flow constraint and boundaries conditions are declared in the block, whereas Kirchhoff law (power balance)
     at the node level is declared in the dwelling.
 
-    =============== ===================================================================
-    Sets            Documentation
-    =============== ===================================================================
-    id_nodes        set of thermal nodes
-    id_edges        set of thermal edges
-    q_index         None
-    T_index         None
-    heat_flow_index None
-    boundary_conditions_index None
-    =============== ===================================================================
-    =============== ===================================================================
-    Variables       Documentation
-    =============== ===================================================================
-    q               heat flow (W)
-    T               nodes temp.
-    comfort_N       comfort in the night zone
-    comfort_D       comfort in the day zone
-    dT              node temperature derivative
-    =============== ===================================================================
-    =============== ===================================================================
-    Parameters      Documentation
-    =============== ===================================================================
-    U               thermal resistance of edges
-    C               Thermal capacities of nodes
-    alpha           weight coefficient between negative and positive deviation
-    delta_T         acceptable temperature deviation for normal comfort
-    =============== ===================================================================
-    =============== ===================================================================
-    Constraints     Documentation
-    =============== ===================================================================
-    heat_flow       Edge heat transfer
-    t_init          Initial condition on node temperature
-    boundary_conditions Dirichlet condition for thermal nodes
-    _bound_N1       absolute value constraint, lower bound N
-    _bound_N2       absolute value constraint, upper bound N
-    _bound_D1       absolute value constraint, lower bound D
-    _bound_D2       absolute value constraint, upper bound D
-    dT_disc_eq      None
-    =============== ===================================================================
-    =============== ===================================================================
-    Expressions     Documentation
-    =============== ===================================================================
-    Top_N           Operational temperature Night zone
-    Top_D           Operational temperature Day zone
-    =============== ===================================================================
+    .. table::
+        :width: 100%
+
+        ========================= ===================================================================
+        Sets                      Documentation
+        ========================= ===================================================================
+        id_nodes                  set of thermal nodes
+        id_edges                  set of thermal edges
+        q_index                   edges index
+        T_index                   node index
+        heat_flow_index           None
+        boundary_conditions_index None
+        ========================= ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Variables       Documentation
+        =============== ===================================================================
+        q               heat flow (W)
+        T               nodes temperature (°C)
+        comfort_N       comfort in the night zone
+        comfort_D       comfort in the day zone
+        dT              node temperature derivative
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Parameters      Documentation
+        =============== ===================================================================
+        U               thermal resistance of edges
+        C               Thermal capacities of nodes
+        alpha           weight coefficient between negative and positive deviation
+        delta_T         acceptable temperature deviation for normal comfort
+        =============== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =================== ===================================================================
+        Constraints         Documentation
+        =================== ===================================================================
+        heat_flow           Edge heat transfer
+        t_init              Initial condition on node temperature
+        boundary_conditions Dirichlet condition for thermal nodes
+        _bound_N1           absolute value constraint, lower bound N
+        _bound_N2           absolute value constraint, upper bound N
+        _bound_D1           absolute value constraint, lower bound D
+        _bound_D2           absolute value constraint, upper bound D
+        dT_disc_eq          None
+        =================== ===================================================================
+
+    .. table::
+        :width: 100%
+
+        =============== ===================================================================
+        Expressions     Documentation
+        =============== ===================================================================
+        Top_N           Operational temperature Night zone
+        Top_D           Operational temperature Day zone
+        =============== ===================================================================
 
     :param struct: thermal structure block
     :param kwargs: kwargs needed for the block construction

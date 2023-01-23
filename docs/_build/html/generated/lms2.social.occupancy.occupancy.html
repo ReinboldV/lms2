@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>occupancy &mdash; lms2 1.1+14.g93454ea.dirty documentation</title>
+  <title>occupancy &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -157,6 +157,34 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids</a><ul>
@@ -276,8 +304,11 @@
 <span class="sig-prename descclassname"><span class="pre">lms2.social.occupancy.</span></span><span class="sig-name descname"><span class="pre">occupancy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">occ</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/social/occupancy.html#occupancy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.social.occupancy.occupancy" title="Permalink to this definition"></a></dt>
 <dd><p>Occupancy block</p>
 <p>The occupancy block gathers all the dynamic paramters related to occupancy, such as hot water flow, internal
-heat gains, temperature set point and comfort coefficient  for night and day zone.</p>
-<table class="docutils align-default">
+heat gains, temperature set point and comfort coefficient  for night and day zone.
+This block defines the inputs received from the occupants. For the time being, the solar inputs from
+the weather data are also included in this block. This will change in the future,
+with a separate ‘solar inputs’ block. see <a class="reference internal" href="lms2.environment.environment.solar_inputs.html#lms2.environment.environment.solar_inputs" title="lms2.environment.environment.solar_inputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">lms2.environment.environment.solar_inputs()</span></code></a>.</p>
+<table class="docutils align-default" style="width: 100%">
 <colgroup>
 <col style="width: 18%" />
 <col style="width: 82%" />
