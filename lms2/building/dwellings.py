@@ -51,7 +51,8 @@ def dwelling_v1(b, **kwargs):
     @b.Constraint(b.time, doc='HW power balance')
     def hw_balance(b, t):
         # TODO : the factor 900 comes from the hot water flow unit, which is liter per 15 min
-        return b.hwt.V * b.hwt.dT_HW[t], b.hp.Q_heat_HW[t] - (b.hwt.T_HW_d - b.hwt.T_CW) * b.occ.Flow_HW[t] / 900
+        return b.hwt.V * b.hwt.c_w* b.hwt.dT_HW[t], (b.sh.Q_heat_HW[t]) - (b.hwt.T_HW_d- b.hwt.T_CW) * \
+               b.occ.Flow_HW[t] * b.hwt.c_w/ 900
 
     @b.Constraint(b.time, b.struct.id_nodes, doc='thermal power balance')
     def thermal_balance(b, t, n):

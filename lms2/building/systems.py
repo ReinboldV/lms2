@@ -68,7 +68,7 @@ def hot_water_tank(hwt, **kwargs):
     hwt.T_CW    = Param(default=10, doc='Temperature of cold water', within=Reals, units=u.deg)
     hwt.T_HW_d  = Param(default=42, doc='Temperature of demanded hot water', within=Reals, units=u.deg)
     hwt.V       = Param(default=200, doc='HW storage tank Volume', within=Reals, units=u.kg)
-    hwt.c_w     = Param(default=4186, doc='Specific heat capacity of water', within=Reals)
+    hwt.c_w     = Param(default=4186*0.997, doc='Volumic specific heat capacity of water [J/(L.K)', within=Reals)
     hwt.T_HW_LB = Param(default=42, doc='HW storage temperature LB', within=Reals, units=u.deg)
     hwt.T_HW_UB = Param(default=56, doc='HW storage temperature UB', within=Reals, units=u.deg)
 
