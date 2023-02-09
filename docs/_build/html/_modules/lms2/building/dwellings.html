@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.building.dwellings &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
+  <title>lms2.building.dwellings &mdash; lms2 1.1+22.gbddc002 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -154,6 +154,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
@@ -176,6 +181,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
@@ -315,7 +321,8 @@
     <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;HW power balance&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">hw_balance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
         <span class="c1"># TODO : the factor 900 comes from the hot water flow unit, which is liter per 15 min</span>
-        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">V</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">dT_HW</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">b</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">Q_heat_HW</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_HW_d</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_CW</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">Flow_HW</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="mi">900</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">V</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">c_w</span><span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">dT_HW</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">sh</span><span class="o">.</span><span class="n">Q_heat_HW</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_HW_d</span><span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">T_CW</span><span class="p">)</span> <span class="o">*</span> \
+               <span class="n">b</span><span class="o">.</span><span class="n">occ</span><span class="o">.</span><span class="n">Flow_HW</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">hwt</span><span class="o">.</span><span class="n">c_w</span><span class="o">/</span> <span class="mi">900</span>
 
     <span class="nd">@b</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">struct</span><span class="o">.</span><span class="n">id_nodes</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;thermal power balance&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">thermal_balance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
@@ -522,7 +529,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
+    <p>&#169; Copyright 2015-2023, lms2 Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

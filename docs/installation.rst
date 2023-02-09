@@ -10,7 +10,7 @@ Anaconda is a famous python data science platform.
 It is distributed with scientific libraries such as pandas, scipy, numpy, matplotlib, etc. and
 IDE such as jupiter or spyder. One can find more information about anaconda distribution on : https://www.anaconda.com/distribution/
 
-lms2 is a library based on the pyomo package (https://github.com/Pyomo/pyomo). Pyomo is a Python-based open-source software package that supports a diverse set of optimization capabilities for formulating and analyzing optimization models. Pyomo can be used to define symbolic problems, create concrete problem instances, and solve these instances with standard solvers.
+Pyomo-lms is a library based on the pyomo package (https://github.com/Pyomo/pyomo). Pyomo is a Python-based open-source software package that supports a diverse set of optimization capabilities for formulating and analyzing optimization models. Pyomo can be used to define symbolic problems, create concrete problem instances, and solve these instances with standard solvers.
 
 
     1. Download and install Anaconda
@@ -34,8 +34,8 @@ lms2 is a library based on the pyomo package (https://github.com/Pyomo/pyomo). P
     Store this licence in ``C:/gurobiXXX/`` for instance and create an environment variable named ``GUROBI_LICENCE`` pointing to ``C:/gurobiXXX/gurobi.lic``.
 
 
-Install LMS2 from source
-========================
+Install pyomo-lmes from source
+===============================
 
 Clone the repository and install the package using the ``setup.py`` file.
 

@@ -60,7 +60,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'lms2'
+project = 'pyomo-lmes'
 copyright = '2015-{}, lms2 Developers'.format(date.today().year)
 author = 'Vincent Reinbold'
 
@@ -119,7 +119,7 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = []
 
-html_logo = '_figures/LogoUPS.jpg'
+html_logo = '_figures/logo-geeps.jpg'
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

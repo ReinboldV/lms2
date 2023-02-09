@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>fixed_power_source &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
+  <title>fixed_power_source &mdash; pyomo-lmes 1.1+22.gbddc002.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -28,8 +28,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> lms2
-            <img src="../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
+            <a href="../index.html" class="icon icon-home"> pyomo-lmes
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -43,7 +42,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-pyomo-lmes-from-source">Install pyomo-lmes from source</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Tutorial and Examples</a><ul>
@@ -52,7 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../examples_lms2.html">Working with lms2 library components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples_lms2.html">Working with pyomo-lmes library components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
@@ -157,6 +156,34 @@
 <li class="toctree-l4"><a class="reference internal" href="lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids</a><ul>
@@ -224,7 +251,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">lms2</a>
+          <a href="../index.html">pyomo-lmes</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -340,7 +367,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
+    <p>&#169; Copyright 2015-2023, lms2 Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

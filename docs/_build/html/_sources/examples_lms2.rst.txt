@@ -1,7 +1,7 @@
-Working with lms2 library components
-====================================
+Working with pyomo-lmes library components
+==========================================
 
-Lms2 library gather mathematical models described using the pyomo mathematical language. All components, e.g. batteries, distribution grid, sources and charges are based on blocks. Available models are classified based on their fields, such as electric, thermal, economic, environement, etc. Some tools are also proposed for data processing, model processing, post_processing and decomposition strategies for dynamic and energetic systems (Bender's decomposition).
+pyomo-lmes library gather mathematical models described using the pyomo mathematical language. All components, e.g. batteries, distribution grid, sources and charges are based on blocks. Available models are classified based on their fields, such as electric, thermal, economic, environement, etc. Some tools are also proposed for data processing, model processing, post_processing and decomposition strategies for dynamic and energetic systems (Bender's decomposition).
 
 Models are created by aggregating blocks and create connexion, either using pyomo.network.Port or building constraints between variable from different block, or gathering objectives of different blocks.
 

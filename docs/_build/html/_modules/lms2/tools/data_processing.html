@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.tools.data_processing &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
+  <title>lms2.tools.data_processing &mdash; lms2 1.1+22.gbddc002 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -154,6 +154,34 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
@@ -241,12 +269,12 @@
              
   <h1>Source code for lms2.tools.data_processing</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;interpolation, decomposition and processing of input data&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">turtledemo.forest</span> <span class="kn">import</span> <span class="n">start</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
-<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;lms2.tools.data_processing&#39;</span><span class="p">)</span>
 
@@ -268,7 +296,6 @@
 <span class="sd">    .. _example: ../examples/microgrid_1.html#Chargement-des-données</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">warnings</span>
 
     <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">parent_block</span><span class="p">()</span>
 
@@ -277,19 +304,19 @@
     <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">param</span><span class="o">.</span><span class="n">index_set</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;data index and variable index does not have the same name. This could be a source of error...&#39;</span><span class="p">)</span>
 
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span>  <span class="n">pyomo</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">IndexedParam</span><span class="p">),</span> <span class="sa">f</span><span class="s1">&#39;trying to load data on a non-Parameter object...&#39;</span> \
-                                                                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> is of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">Param</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">pyomo</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">IndexedParam</span><span class="p">),</span> <span class="sa">f</span><span class="s1">&#39;trying to load data on a non-Parameter object...&#39;</span> \
+                                                                  <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> is of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">Param</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">param</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># we set the value of the parameter v to the value of the dataframe at the index i</span>
             <span class="n">v</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-        <span class="k">except</span> <span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="read_data"><a class="viewcode-back" href="../../../generated/lms2.tools.data_processing.read_data.html#lms2.tools.data_processing.read_data">[docs]</a><span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tz_data</span><span class="o">=</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">,</span>
-              <span class="n">fillnan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filldict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">date_parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+              <span class="n">fillnan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filldict</span><span class="o">=</span><span class="p">{},</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">date_parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reading and interpolating data from csv source.</span>
 
@@ -324,7 +351,6 @@
     <span class="n">mydateparser</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">date_parser</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">mydateparser</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">date_parser</span><span class="p">)</span>  <span class="c1"># &quot;%Y %m %d %H:%M:%S&quot;</span>
-
 
     <span class="c1"># reading data file (all of it)</span>
     <span class="c1"># if usecols is not None:</span>
@@ -363,7 +389,8 @@
     <span class="c1"># convert date time index to the correct time zone</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">d1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">d1</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">tz_data</span><span class="p">)</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">horizon</span><span class="o">.</span><span class="n">tz_info</span><span class="p">)</span>
+            <span class="n">d1</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">tz_data</span><span class="p">,</span> <span class="n">ambiguous</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nonexistent</span><span class="o">=</span><span class="s1">&#39;shift_forward&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span>
+                <span class="n">horizon</span><span class="o">.</span><span class="n">tz_info</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">d1</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">horizon</span><span class="o">.</span><span class="n">tz_info</span><span class="p">)</span>
         <span class="c1"># be sure that the current horizon is in the data index set</span>
@@ -386,18 +413,17 @@
         <span class="n">dh1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">horizon</span><span class="o">.</span><span class="n">current</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tmp&#39;</span><span class="p">])</span>
 
     <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-    <span class="c1"># Pandas 0.24.1 emits useless warning when sorting tz-aware index</span>
+        <span class="c1"># Pandas 0.24.1 emits useless warning when sorting tz-aware index</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;time&#39;</span><span class="p">:</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dh1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;pad&#39;</span><span class="p">:</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dh1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;time&#39;</span> <span class="ow">and</span> <span class="n">index_type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;linear&#39;</span> <span class="ow">and</span> <span class="n">index_type</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dh1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
 
     <span class="k">del</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;tmp&#39;</span><span class="p">]</span>
-
     <span class="c1"># selecting only horizon period</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">:</span>
         <span class="n">data_horizon</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">current</span><span class="p">]</span>
@@ -444,7 +470,6 @@
     <span class="n">d</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-
 </pre></div>
 
            </div>
@@ -454,7 +479,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
+    <p>&#169; Copyright 2015-2023, lms2 Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

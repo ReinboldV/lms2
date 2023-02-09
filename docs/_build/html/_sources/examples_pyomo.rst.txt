@@ -1,7 +1,7 @@
 Working with Pyomo
 ==================
 
-The LMS2 library is based on the pyomo package. Some references for documentation, exercices and examples :
+The pyomo-lmes is a library based on the pyomo package. Some references for documentation, exercices and examples :
 
     - Documentation on the pyomo language is available at : http://www.pyomo.org/documentation/
     - Get started with Pyomo : https://github.com/Pyomo/PyomoGettingStarted

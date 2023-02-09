@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.building.systems &mdash; lms2 1.1+17.gb00f24f.dirty documentation</title>
+  <title>lms2.building.systems &mdash; lms2 1.1+22.gbddc002 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -154,6 +154,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
@@ -176,6 +181,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
@@ -332,7 +338,7 @@
     <span class="n">hwt</span><span class="o">.</span><span class="n">T_CW</span>    <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Temperature of cold water&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
     <span class="n">hwt</span><span class="o">.</span><span class="n">T_HW_d</span>  <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Temperature of demanded hot water&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
     <span class="n">hwt</span><span class="o">.</span><span class="n">V</span>       <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;HW storage tank Volume&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="p">)</span>
-    <span class="n">hwt</span><span class="o">.</span><span class="n">c_w</span>     <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">4186</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Specific heat capacity of water&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">)</span>
+    <span class="n">hwt</span><span class="o">.</span><span class="n">c_w</span>     <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">4186</span><span class="o">*</span><span class="mf">0.997</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Volumic specific heat capacity of water [J/(L.K)&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">)</span>
     <span class="n">hwt</span><span class="o">.</span><span class="n">T_HW_LB</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;HW storage temperature LB&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
     <span class="n">hwt</span><span class="o">.</span><span class="n">T_HW_UB</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;HW storage temperature UB&#39;</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
 
@@ -438,7 +444,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
+    <p>&#169; Copyright 2015-2023, lms2 Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
