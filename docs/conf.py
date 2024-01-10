@@ -119,7 +119,7 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = []
 
-html_logo = '_figures/logo-geeps.jpg'
+html_logo = '_figures/logo-geeps.png'
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
