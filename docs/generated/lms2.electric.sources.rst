@@ -15,6 +15,7 @@
         curtailable_load
         curtailable_load_2
         debug_source
+        def_pin_pout
         fixed_power_load
         fixed_power_source
         power_load

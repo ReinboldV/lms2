@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.tools.model_processing &mdash; lms2 1.1+12.gb02074c.dirty documentation</title>
+  <title>lms2.tools.model_processing &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -25,8 +25,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> lms2
-            <img src="../../../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
+            <a href="../../../index.html" class="icon icon-home"> pyomo-lmes
+            <img src="../../../_static/logo-geeps.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -40,7 +40,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-pyomo-lmes-from-source">Install pyomo-lmes from source</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial and Examples</a><ul>
@@ -49,7 +49,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples_lms2.html">Working with lms2 library components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_lms2.html">Working with pyomo-lmes library components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
@@ -69,6 +69,15 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
 </ul>
 </li>
 </ul>
@@ -117,6 +126,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.converters.html">converters</a><ul>
@@ -127,6 +137,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.def_pin_pout.html">def_pin_pout</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_load.html">power_load</a></li>
@@ -134,6 +145,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.square.html">square</a></li>
 </ul>
 </li>
 </ul>
@@ -143,6 +155,34 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lms2.building.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
@@ -210,7 +250,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">lms2</a>
+          <a href="../../../index.html">pyomo-lmes</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -276,6 +316,7 @@
 <span class="sd">    Return dual coefficient of LP abstract model.</span>
 
 <span class="sd">    :param str dual_name: name of the Suffix</span>
+
 <span class="sd">    :return : Dual coefficient (DataFrame)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">concat</span>
@@ -436,7 +477,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2015-2021, lms2 Developers.</p>
+    <p>&#169; Copyright 2015-2024, lms2 Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

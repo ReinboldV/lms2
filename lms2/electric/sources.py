@@ -19,7 +19,7 @@ __all__ = ['power_source', 'fixed_power_source', 'scalable_power_source',
 def power_source(b, **kwargs):
     """ Power Source block
 
-    Rule for defining a power source block. This rule add a variable and creates a output port.
+    Rule for defining a power source block. This rule add a variable and creates an output port.
     This block is using source convention, i.e. output power is counted positive.
 
 
@@ -208,7 +208,7 @@ def scalable_power_source(b, curtailable=False, **kwargs):
         - `unit` : unit of the variable (default : kW)
         - `within` : Pyomo Set for parameter definition (default : Reals)
         - `scale_fact` : Set the scaling factor name (default : scale_fact)
-        - `var_name` : Set the name of the power variable (default : p)
+        - `var_name` : Set the name of the power variable (default : p_pv)
         - `fact` : Set the scaling factor value (default : None)
         - `fact_max` : Set the upper bound of fact (only if fact=None)
         - `fact_min` : Set the lower bound of fact (only if fact=None)
@@ -255,7 +255,7 @@ def scalable_power_source(b, curtailable=False, **kwargs):
     doc = kwargs.get('doc', f'power source profile before scaling ({unit})')
 
     param_name = kwargs.pop('param_name', 'p0')
-    var_name = kwargs.pop('var_name', 'p_pv')
+    var_name = kwargs.pop('var_name', 'p')
 
     b = fixed_power_source(b, **dict(kwargs, param_name=param_name))
 
@@ -683,5 +683,43 @@ def square(b, **kwargs):
 
     b.p = Param(time, default=initial)
 
+
+def def_pin_pout(m):
+    # This could be better implemented.
+    # In particular, it should not use m.p directly but m.find_component(name_var)
+
+    """
+    Defines power flow variables 'in' and 'out'
+
+    :param m:
+    :return:
+    """
+
+    assert isinstance(m, Block), f"argument 'm', must be an instance of Block, but is actually {type(m)}."
+    assert hasattr(m, 'p'), f"model m does not have attribute named 'p'. This is needed. "
+
+    m.pmax = Param(initialize=1e3, mutable=True, doc='maximal power out (kW)', within=Reals)
+    m.pmin = Param(initialize=1e3, mutable=True, doc='maximal power in (kW)', within=Reals)
+
+    m.pout = Var(m.time, doc='power to the main grid', within=NonNegativeReals, initialize=0)
+    m.pin = Var(m.time, doc='power from the main grid', within=NonNegativeReals, initialize=0)
+    m.u = Var(m.time, doc='binary variable', within=Binary, initialize=0)
+
+    def _power_balance(b, t):
+        return b.p[t] - b.pout[t] + b.pin[t] == 0
+
+    def _pmax(b, t):
+        if b.pmax.value is None:
+            return Constraint.Skip
+        return b.pout[t] - b.u[t] * b.pmax <= 0
+
+    def _pmin(b, t):
+        if b.pmin.value is None:
+            return Constraint.Skip
+        return b.pin[t] + b.u[t] * b.pmin <= b.pmin
+
+    m._pmin = Constraint(m.time, rule=_pmin, doc='low bound')
+    m._pmax = Constraint(m.time, rule=_pmax, doc='up bound')
+    m._p_balance = Constraint(m.time, rule=_power_balance, doc='power balance')
 
 

@@ -45,6 +45,7 @@ def get_duals(model, dual_name='dual'):
     Return dual coefficient of LP abstract model.
 
     :param str dual_name: name of the Suffix
+
     :return : Dual coefficient (DataFrame)
     """
     from pandas import DataFrame, concat
