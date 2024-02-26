@@ -11,13 +11,13 @@ logger = logging.getLogger('lms2.tools.data_processing')
 from pyomo.environ import *
 
 
-def load_data(horizon, param, data):
+def load_data(horizon, component, data, time_index_position=None):
     """
     Loading of data into the problem.
 
     :param m: the model
     :param data: vector of data (usually indexed by time)
-    :param param: name of the parameter in the model
+    :param component: name of the parameter in the model
     :param index: name of the index in the model
     :return:
 
@@ -26,23 +26,34 @@ def load_data(horizon, param, data):
     .. _example: ../examples/microgrid_1.html#Chargement-des-données
 
     """
+    # Cannot actually test this, because components_slices does not have index_set method.
+    # if data.index.name != component.index_set().name:
+    #     logger.warning('data index and variable index does not have the same name. This could be a source of error...')
 
-    b = param.parent_block()
+    if isinstance(component, pyomo.core.base.param.IndexedParam):
+        for i, v in component.items():
+            try:
+                # we set the value of the parameter v to the value of the dataframe at the index i
+                v.set_value(data[horizon.map[i]])
+            except ValueError:
+                print(f'Cannot set value {data[horizon.map[i]]} for {component.name}')
 
-    # assert (horizon.current == data.index).all()
+    # if param is a component slice, we cannt iterate over with the iter fonction
+    elif isinstance(component, pyomo.core.base.indexed_component_slice.IndexedComponent_slice):
+        if time_index_position is None:
+            for v in component:
+                index = v.index()[-1]
+                v.set_value(data[horizon.map[index]])
 
-    if data.index.name != param.index_set().name:
-        logger.warning('data index and variable index does not have the same name. This could be a source of error...')
+        else:
+            for v in component:
+                index = v.index()[time_index_position]
+                v.set_value(data[horizon.map[index]])
 
-    assert isinstance(param, pyomo.core.base.param.IndexedParam), f'trying to load data on a non-Parameter object...' \
-                                                                  f'{param} is of type {type(Param)}.'
 
-    for i, v in param.items():
-        try:
-            # we set the value of the parameter v to the value of the dataframe at the index i
-            v.set_value(data[horizon.map[i]])
-        except:
-            print('error')
+
+    else:
+        raise NotImplementedError('Unsupported component type.')
 
 
 def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
@@ -53,9 +64,8 @@ def read_data(horizon, path, usecols=None, index_col=0, tz_data='Europe/Paris',
     This function accepts two types of indexed data :
 
         - data indexed by a date string ex: '2020/01/01 00:00:00'. In this case,
-          a date-parser might be compulsory for pandas to parse the date.
-        - data indexed by an integer. In this case, parsing is easier, but the user as no information about
-          the start timestamp, units and time-zone.
+          a date-parser might be needed for pandas to parse the date.
+        - data indexed by an integer. In this case, parsing is easier, and the user has to give a start date.
 
     :param method: interpolation method ('time' for date format index or 'linear' for integer index)
     :param str date_parser: date format parser, ex: "%Y-%m-%d %H:%M:%S"
@@ -168,17 +178,13 @@ def interpolation(input_data, param, time, dt):
     """
     depreciated, use read_data()
 
-    :param input_data:
-    :param param:
-    :param time:
+    :param input_data: input data
+    :param param: parameter to interpolate
+    :param time: time to interpolate
     :param dt:
     :return:
     """
-    # todo : lire la colonne temps dans le fichier directement
-    #  (si les données ne sont pas à pas de temps fixe, ça marche quand même)
 
-    # dt : pas de temps de l'input data
-    # time provient du modèle (m.time)
     columns_list = ['Time'] + param
     data = pd.DataFrame(columns=columns_list)
     time_temp = np.array(time)

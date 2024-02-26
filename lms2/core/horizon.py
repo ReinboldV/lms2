@@ -61,6 +61,10 @@ class SimpleHorizon(object):
         self.map = pd.Series(self._current, index=self.index)
         self.nfe = len(self.index) - 1  # number of finite element for discretisation
 
+    def __repr__(self):
+        return f'SimpleHorizon(tstart={self.TSTART}, tend={self.TEND}, time_step={self.time_step}, nfe={self.nfe})'
+
+
     @property
     def current(self):
         return self._current
