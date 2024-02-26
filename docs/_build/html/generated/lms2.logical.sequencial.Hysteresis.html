@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hysteresis &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>Hysteresis &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -81,6 +83,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -260,11 +275,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../lms2.html">Library</a> &raquo;</li>
-          <li><a href="../lms2.logical.html">Logical</a> &raquo;</li>
-          <li><a href="lms2.logical.sequencial.html">sequencial</a> &raquo;</li>
-      <li>Hysteresis</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../lms2.html">Library</a></li>
+          <li class="breadcrumb-item"><a href="../lms2.logical.html">Logical</a></li>
+          <li class="breadcrumb-item"><a href="lms2.logical.sequencial.html">sequencial</a></li>
+      <li class="breadcrumb-item active">Hysteresis</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/generated/lms2.logical.sequencial.Hysteresis.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -299,10 +314,10 @@
 }
 </style>
 <section id="hysteresis">
-<h1>Hysteresis<a class="headerlink" href="#hysteresis" title="Permalink to this headline"></a></h1>
+<h1>Hysteresis<a class="headerlink" href="#hysteresis" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="lms2.logical.sequencial.Hysteresis">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">lms2.logical.sequencial.</span></span><span class="sig-name descname"><span class="pre">Hysteresis</span></span><a class="reference internal" href="../_modules/lms2/logical/sequencial.html#Hysteresis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.logical.sequencial.Hysteresis" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lms2.logical.sequencial.</span></span><span class="sig-name descname"><span class="pre">Hysteresis</span></span><a class="reference internal" href="../_modules/lms2/logical/sequencial.html#Hysteresis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.logical.sequencial.Hysteresis" title="Permalink to this definition"></a></dt>
 <dd><p>Linear hysteresis model</p>
 <p>Attributes</p>
 <blockquote>

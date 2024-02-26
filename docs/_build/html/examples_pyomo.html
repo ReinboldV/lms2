@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Working with Pyomo &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>Working with Pyomo &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -81,6 +83,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -260,9 +275,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="examples.html">Tutorial and Examples</a> &raquo;</li>
-      <li>Working with Pyomo</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="examples.html">Tutorial and Examples</a></li>
+      <li class="breadcrumb-item active">Working with Pyomo</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/examples_pyomo.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -297,7 +312,7 @@
 }
 </style>
 <section id="working-with-pyomo">
-<h1>Working with Pyomo<a class="headerlink" href="#working-with-pyomo" title="Permalink to this headline"></a></h1>
+<h1>Working with Pyomo<a class="headerlink" href="#working-with-pyomo" title="Permalink to this heading"></a></h1>
 <p>The pyomo-lmes is a library based on the pyomo package. Some references for documentation, exercices and examples :</p>
 <blockquote>
 <div><ul class="simple">
@@ -308,7 +323,7 @@
 </ul>
 </div></blockquote>
 <section id="simple-example-using-pyomo-language">
-<h2>1) Simple example using pyomo language<a class="headerlink" href="#simple-example-using-pyomo-language" title="Permalink to this headline"></a></h2>
+<h2>1) Simple example using pyomo language<a class="headerlink" href="#simple-example-using-pyomo-language" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Creating an basic Model using pyomo package</p></li>
 </ul>
@@ -364,7 +379,7 @@
 </div>
 </section>
 <section id="working-with-pyomo-abstract-model">
-<h2>2) working with pyomo  abstract model<a class="headerlink" href="#working-with-pyomo-abstract-model" title="Permalink to this headline"></a></h2>
+<h2>2) working with pyomo  abstract model<a class="headerlink" href="#working-with-pyomo-abstract-model" title="Permalink to this heading"></a></h2>
 <p>Lms2 is based on abstract models that allows a clear separation between the mathematical model and data (i.e. values of parameters, set or initial values). See : <a class="reference external" href="https://pyomo.readthedocs.io/en/latest/working_abstractmodels/index.html">https://pyomo.readthedocs.io/en/latest/working_abstractmodels/index.html</a> for more details.</p>
 <p>The basic steps of a simple modeling process are:</p>
 <ul class="simple">

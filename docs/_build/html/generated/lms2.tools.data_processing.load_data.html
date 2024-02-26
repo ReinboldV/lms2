@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>load_data &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>load_data &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -81,6 +83,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -260,11 +275,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../lms2.html">Library</a> &raquo;</li>
-          <li><a href="../lms2.tools.html">Tools</a> &raquo;</li>
-          <li><a href="lms2.tools.data_processing.html">data_processing</a> &raquo;</li>
-      <li>load_data</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../lms2.html">Library</a></li>
+          <li class="breadcrumb-item"><a href="../lms2.tools.html">Tools</a></li>
+          <li class="breadcrumb-item"><a href="lms2.tools.data_processing.html">data_processing</a></li>
+      <li class="breadcrumb-item active">load_data</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/generated/lms2.tools.data_processing.load_data.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -299,17 +314,17 @@
 }
 </style>
 <section id="load-data">
-<h1>load_data<a class="headerlink" href="#load-data" title="Permalink to this headline"></a></h1>
+<h1>load_data<a class="headerlink" href="#load-data" title="Permalink to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="lms2.tools.data_processing.load_data">
-<span class="sig-prename descclassname"><span class="pre">lms2.tools.data_processing.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/tools/data_processing.html#load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.tools.data_processing.load_data" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">lms2.tools.data_processing.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_index_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lms2/tools/data_processing.html#load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lms2.tools.data_processing.load_data" title="Permalink to this definition"></a></dt>
 <dd><p>Loading of data into the problem.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> – the model</p></li>
 <li><p><strong>data</strong> – vector of data (usually indexed by time)</p></li>
-<li><p><strong>param</strong> – name of the parameter in the model</p></li>
+<li><p><strong>component</strong> – name of the parameter in the model</p></li>
 <li><p><strong>index</strong> – name of the index in the model</p></li>
 </ul>
 </dd>

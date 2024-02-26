@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,10 +14,12 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -83,6 +85,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -262,9 +277,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../examples.html">Tutorial and Examples</a> &raquo;</li>
-      <li>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Tutorial and Examples</a></li>
+      <li class="breadcrumb-item active">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/microgrid_1.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -545,14 +560,14 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <section id="Exemple-de-gestion-d’énergie-et-de-dimensionnement-d’un-micro-réseau">
-<h1>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau<a class="headerlink" href="#Exemple-de-gestion-d’énergie-et-de-dimensionnement-d’un-micro-réseau" title="Permalink to this headline"></a></h1>
+<h1>Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau<a class="headerlink" href="#Exemple-de-gestion-d’énergie-et-de-dimensionnement-d’un-micro-réseau" title="Permalink to this heading"></a></h1>
 <p>L’exemple est basé sur la gestion d’énergie et le dimensionneùent d’un micro-réseau contenant, des sources d’énergie renouvelables, des charges, et un système de stockage électrochimique. Le profile d’irradiation et la consomation de la charge sont supposées connues sur l’horizon considéré et les degrés de libertés sont :</p>
 <ul class="simple">
 <li><p>le dimensionnement du stockage (i.e. c_bat),</p></li>
 <li><p>le dimensionnement des panneaux photovoltaïques (i.e. la surface),</p></li>
 <li><p>les flux de puissances provenant du réseau et du stockage.</p></li>
 </ul>
-<p><img alt="baf95892c4b1488fa52e47817daa9b52" src="../_images/microgrids_bat.png" /></p>
+<p><img alt="baaf86fc741344208e36d071f9e3b487" src="../_images/microgrids_bat.png" /></p>
 <p>La première étape consiste à charger les bibliothèques utiles:</p>
 <ul class="simple">
 <li><p>Pyomo : le package de modélisation des problèmes d’optimisation (voir <a class="reference external" href="https://pyomo.readthedocs.io/en/latest/">https://pyomo.readthedocs.io/en/latest/</a>)</p></li>
@@ -579,7 +594,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Résolution</p></li>
 </ol>
 <section id="Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">
-<h2>Instanciation du problème d’optimisation et de l’horizon temporel<a class="headerlink" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel" title="Permalink to this headline"></a></h2>
+<h2>Instanciation du problème d’optimisation et de l’horizon temporel<a class="headerlink" href="#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel" title="Permalink to this heading"></a></h2>
 <p>L’instanciation du problème comporte plusieurs étapes :</p>
 <ol class="arabic simple">
 <li><p>Instanciation d’un problème nommé <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p></li>
@@ -936,7 +951,7 @@ bat : Size=1, Index=None, Active=True
 </pre></div></div>
 </div>
 <section id="Exemple-de-contrainte-sur-le-bilan-de-puissance">
-<h3>Exemple de contrainte sur le bilan de puissance<a class="headerlink" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance" title="Permalink to this headline"></a></h3>
+<h3>Exemple de contrainte sur le bilan de puissance<a class="headerlink" href="#Exemple-de-contrainte-sur-le-bilan-de-puissance" title="Permalink to this heading"></a></h3>
 <p>La connexion électrique des blocks entre eux peut être vue comme une contrainte d’égalité, appelée bilan de puissance. Elle doit être définie en dehors des blocks, (i.e. au niveau du model m). Pour se faire il y a deux possibilités : - définir une contrainte classique avec le langague de pyomo, - utiliser la notion de ports (extensifs ou intensifs) (usage un peu plus avancé).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -951,7 +966,7 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-d’une-expression">
-<h3>Exemple d’une expression<a class="headerlink" href="#Exemple-d’une-expression" title="Permalink to this headline"></a></h3>
+<h3>Exemple d’une expression<a class="headerlink" href="#Exemple-d’une-expression" title="Permalink to this heading"></a></h3>
 <p>Il est possible de définir des expressions, qui interviendront potentiellement dans les calculs des coûts, des contraintes ou pour le post-processing. Pour l’exemple, définissons les couts instantanés économiques <code class="docutils literal notranslate"><span class="pre">cout_inst_edf</span></code> et écologiques <code class="docutils literal notranslate"><span class="pre">cout_inst_env</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -971,7 +986,7 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-d’intégration-temporelle">
-<h3>Exemple d’intégration temporelle<a class="headerlink" href="#Exemple-d’intégration-temporelle" title="Permalink to this headline"></a></h3>
+<h3>Exemple d’intégration temporelle<a class="headerlink" href="#Exemple-d’intégration-temporelle" title="Permalink to this heading"></a></h3>
 <p>Lorsqu’une expression doit être intégrée sur le temps continu, on utilise l’objet <code class="docutils literal notranslate"><span class="pre">Integral</span></code>. L’intégration des couts sur le temps devient :</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -985,7 +1000,7 @@ bat : Size=1, Index=None, Active=True
 </div>
 </section>
 <section id="Exemple-de-définition-de-l’objectif">
-<h3>Exemple de définition de l’objectif<a class="headerlink" href="#Exemple-de-définition-de-l’objectif" title="Permalink to this headline"></a></h3>
+<h3>Exemple de définition de l’objectif<a class="headerlink" href="#Exemple-de-définition-de-l’objectif" title="Permalink to this heading"></a></h3>
 <p>L’objectif d’optimisation doit être défini au niveau du model <code class="docutils literal notranslate"><span class="pre">m</span></code> et peut faire intervenir les variables des sous-blocks. Dans le language Pyomo, on utilise l’objet <code class="docutils literal notranslate"><span class="pre">Objective</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -1001,7 +1016,7 @@ bat : Size=1, Index=None, Active=True
 </section>
 </section>
 <section id="Discrétisation-temporelle">
-<h2>Discrétisation temporelle<a class="headerlink" href="#Discrétisation-temporelle" title="Permalink to this headline"></a></h2>
+<h2>Discrétisation temporelle<a class="headerlink" href="#Discrétisation-temporelle" title="Permalink to this heading"></a></h2>
 <p>La discrétisation temporelle est souvent source d’erreur, suivant le schéma d’intégration et sur des modèles de grande taille, cette étape devient difficilement réalisable à la main. Pour cela, l’extention Pyomo.dae offre la possibilité de discrétiser automatiquement les modèles dans lesquels apparait un index continu (généralement le temps). Ce qui rend les choses plus simples. Dans cet exemple on choisira un schéma d’intégration de différence finie (i.e. celui d’Euler).</p>
 <p>Avant discrétisation, les grandeurs indexées par le temps ne font intervenir que le début et la fin de l’horizon.</p>
 <div class="nbinput docutils container">
@@ -1057,12 +1072,12 @@ int_edf : Size=1, Index=None
 </div>
 </section>
 <section id="Chargement-des-données">
-<h2>Chargement des données<a class="headerlink" href="#Chargement-des-données" title="Permalink to this headline"></a></h2>
+<h2>Chargement des données<a class="headerlink" href="#Chargement-des-données" title="Permalink to this heading"></a></h2>
 <p>En optimisation, il est d’usage de séparer la formulation des données, pour une meilleure lecture et pour réutiliser simplement les modèles.</p>
 <p>La lecture et le chargement des données peuvent-être réalisées par différentes méthodes selon les formats des données. Dans lms2, nous proposons une forme générique de lire, interpoler et charger les données en utilisant les fonctions <code class="docutils literal notranslate"><span class="pre">lms2.tools.read_data</span></code> et <code class="docutils literal notranslate"><span class="pre">lms2.load_data</span></code>. Se référer aux documentations pour plus d’information.</p>
 <p>La fonction <code class="docutils literal notranslate"><span class="pre">read_data</span></code> gère plusieurs formats de données, ou plutôt, pluseurs formats d’index.</p>
 <section id="Index-entier">
-<h3>Index entier<a class="headerlink" href="#Index-entier" title="Permalink to this headline"></a></h3>
+<h3>Index entier<a class="headerlink" href="#Index-entier" title="Permalink to this heading"></a></h3>
 <p>Si les données sont indexées par une colonne en seconde. L’unité utilisée peut-être renseignée (par défaut ‘s’), la zone peut-être renseignée (défaut : Europe/Paris), et la date de début des données doit être renseignée. Cet index est ensuite automatiquement transformé en date.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
@@ -1173,7 +1188,7 @@ int_edf : Size=1, Index=None
 </div>
 </section>
 <section id="Index-en-chaîne-de-caractères">
-<h3>Index en chaîne de caractères<a class="headerlink" href="#Index-en-chaîne-de-caractères" title="Permalink to this headline"></a></h3>
+<h3>Index en chaîne de caractères<a class="headerlink" href="#Index-en-chaîne-de-caractères" title="Permalink to this heading"></a></h3>
 <p>Si les données sont indexées par une chaine de caractère dont le format est celui d’une date. Dans ce cas, la date de début et l’unité ne sont pas utiles. La colonne d’index est parsée, utilisant le format définit dans date_parser.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:

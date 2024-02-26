@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>References &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>References &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -80,6 +82,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -259,8 +274,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>References</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">References</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/references.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -295,8 +310,9 @@
 }
 </style>
 <section id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h1>
-<p id="id1"><dl class="citation">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h1>
+<div class="docutils container" id="id1">
+<dl class="citation">
 <dt class="label" id="id2"><span class="brackets">FMA14</span></dt>
 <dd><p>P. Fortenbacher, J. L. Mathieu, and G. Andersson. Modeling, identification, and optimal control of batteries for power system applications. In <em>2014 Power Systems Computation Conference</em>, 1–7. August 2014. <a class="reference external" href="https://doi.org/10.1109/PSCC.2014.7038360">doi:10.1109/PSCC.2014.7038360</a>.</p>
 </dd>
@@ -327,6 +343,9 @@
 <dt class="label" id="id12"><span class="brackets">RDS17</span></dt>
 <dd><p>Glenn Reynders, Jan Diriken, and Dirk Saelens. Generic characterization method for energy flexibility: applied to structural thermal storage in residential buildings. <em>Applied Energy</em>, 198:192–202, July 2017. <a class="reference external" href="https://doi.org/10.1016/j.apenergy.2017.04.061">doi:10.1016/j.apenergy.2017.04.061</a>.</p>
 </dd>
+<dt class="label" id="id15"><span class="brackets">SDS+16</span></dt>
+<dd><p>Michael D Sankur, Roel Dobbe, Emma Stewart, Duncan S Callaway, and Daniel B Arnold. A linearized power flow model for optimization in unbalanced distribution systems. <em>arXiv preprint arXiv:1606.04492</em>, 2016.</p>
+</dd>
 <dt class="label" id="id14"><span class="brackets">TFDW16</span></dt>
 <dd><p>Daniel Tenfen, Erlon C Finardi, Benoit Delinchant, and Frédéric Wurtz. Lithium-ion battery modelling for the energy management problem of microgrids. <em>IET Generation, Transmission &amp; Distribution</em>, 10(3):576–584, 2016.</p>
 </dd>
@@ -337,7 +356,7 @@
 <dd><p>Mathias, Vanhee. Minimizing the grid impact of buildings through optimized heat pump control. Master's thesis, KULeuven, Leuven, 2020.</p>
 </dd>
 </dl>
-</p>
+</div>
 </section>
 
 

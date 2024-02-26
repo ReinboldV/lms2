@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lms2.electric.network &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="../../../index.html" class="icon icon-home"> pyomo-lmes
+            <img src="../../../_static/logo-geeps.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-pyomo-lmes-from-source">Install pyomo-lmes from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial and Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_pyomo.html">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_lms2.html">Working with pyomo-lmes library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Discrétisation-temporelle">Discrétisation temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/microgrid_1.html#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lms2.html">Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.base.block.html">block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.effort_source.html">effort_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.fix_profile.html">fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.flow_load.html">flow_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.base.block.flow_source.html">flow_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.economic.html">Economic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.maintenance_cost.html">maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.recycling_cost.html">recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.economic.cost.replacement_cost.html">replacement_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.electric.html">Electric</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.converters.html">converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.converters.converter_simple.html">converter_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.def_pin_pout.html">def_pin_pout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_load.html">power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_source.html">power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.square.html">square</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.network.html">network</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.network.network_3phases_lindistflow.html">network_3phases_lindistflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.network.Cable.html">Cable</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.html">lms2.electric.graph_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.calc_edge_pq_matrix.html">calc_edge_pq_matrix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.full_island.html">full_island</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.radial_graph.html">radial_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.radial_network.html">radial_network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.read_json_graph.html">read_json_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.save_json_graph.html">save_json_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.graph_utils.NumpyArrayEncoder.html">NumpyArrayEncoder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.environment.html">Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lms2.building.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.fluids.html">Fluids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.html">sequencial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.add_phase.html">add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.mechanic.html">Mechanic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.social.html">Social</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.social.occupancy.html">occupancy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.social.occupancy.occupancy.html">occupancy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.thermal.html">Thermal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.thermal.dipoles.html">dipoles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../lms2.tools.html">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.html">data_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.interpolation.html">interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.load_data.html">load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.data_processing.read_data.html">read_data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.html">model_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_doc.html">get_doc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/lms2.tools.post_processing.html">post_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.tools.post_processing.pplot.html">pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyomo-lmes</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lms2.electric.network</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lms2.electric.network</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyomo.core</span> <span class="kn">import</span> <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Reals</span>
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;lms2.network&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Cable"><a class="viewcode-back" href="../../../generated/lms2.electric.network.Cable.html#lms2.electric.network.Cable">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Cable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cable object description</span>
+
+<span class="sd">    A cable is a dataclass object described by a name, doc, type, linear resistance, reactance, nominal voltage</span>
+<span class="sd">    and nominal power. Using dataclass make it easier to switch from a cable to another.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">doc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">r</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>                   <span class="c1"># resistance array</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>                   <span class="c1"># reactance array</span>
+    <span class="n">s_nom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>                    <span class="c1"># nominal power in kW for one phase</span>
+    <span class="n">v_nom</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>                    <span class="c1"># nominal voltage</span>
+    <span class="n">unit_price</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>    <span class="c1"># unit price in Euro/kilometer</span></div>
+
+
+<span class="n">cable_3_150_95</span> <span class="o">=</span> <span class="n">Cable</span><span class="p">(</span><span class="n">name</span>  <span class="o">=</span> <span class="s1">&#39;cable_3_150_95&#39;</span><span class="p">,</span>
+                       <span class="n">doc</span>   <span class="o">=</span> <span class="s1">&#39;Cable triphasé de section 150 mm²&#39;</span><span class="p">,</span>
+                       <span class="nb">type</span>  <span class="o">=</span> <span class="s1">&#39;triphasé 3 fils&#39;</span><span class="p">,</span>
+                       <span class="n">r</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.3953</span><span class="p">,</span> <span class="mf">0.1834</span><span class="p">,</span> <span class="mf">0.1908</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1834</span><span class="p">,</span> <span class="mf">0.3809</span><span class="p">,</span> <span class="mf">0.1834</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1908</span><span class="p">,</span> <span class="mf">0.1834</span><span class="p">,</span> <span class="mf">0.3953</span><span class="p">]]),</span>
+                       <span class="n">x</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1602</span><span class="p">,</span> <span class="mf">0.1216</span><span class="p">,</span> <span class="mf">0.0844</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1216</span><span class="p">,</span> <span class="mf">0.2067</span><span class="p">,</span> <span class="mf">0.1216</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0844</span><span class="p">,</span> <span class="mf">0.1216</span><span class="p">,</span> <span class="mf">0.1602</span><span class="p">]]),</span>
+                       <span class="n">v_nom</span> <span class="o">=</span> <span class="mi">230</span><span class="p">,</span>
+                       <span class="n">s_nom</span> <span class="o">=</span> <span class="mi">250</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">cable_4_70</span> <span class="o">=</span> <span class="n">Cable</span><span class="p">(</span><span class="n">name</span>  <span class="o">=</span> <span class="s1">&#39;cable_4_70&#39;</span><span class="p">,</span>
+                   <span class="n">doc</span>   <span class="o">=</span> <span class="s1">&#39;Cable triphasé de section 70 mm²&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span>  <span class="o">=</span> <span class="s1">&#39;triphasé 4 fils&#39;</span><span class="p">,</span>
+                   <span class="n">r</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.679</span><span class="p">,</span> <span class="mf">0.2317</span><span class="p">,</span> <span class="mf">0.2409</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2317</span><span class="p">,</span> <span class="mf">0.6612</span><span class="p">,</span> <span class="mf">0.2317</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2409</span><span class="p">,</span> <span class="mf">0.2317</span><span class="p">,</span> <span class="mf">0.6791</span><span class="p">]]),</span>
+                   <span class="n">x</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.2151</span><span class="p">,</span> <span class="mf">0.1748</span><span class="p">,</span> <span class="mf">0.1394</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1748</span><span class="p">,</span> <span class="mf">0.2583</span><span class="p">,</span> <span class="mf">0.1748</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1394</span><span class="p">,</span> <span class="mf">0.1748</span><span class="p">,</span> <span class="mf">0.2151</span><span class="p">]]),</span>
+                   <span class="n">v_nom</span> <span class="o">=</span> <span class="mi">230</span><span class="p">,</span>
+                   <span class="n">s_nom</span> <span class="o">=</span> <span class="mi">90</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="network_3phases_lindistflow"><a class="viewcode-back" href="../../../generated/lms2.electric.network.network_3phases_lindistflow.html#lms2.electric.network.network_3phases_lindistflow">[docs]</a><span class="k">def</span> <span class="nf">network_3phases_lindistflow</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Linear load flow equation for tree phased unbalanced distribution network.</span>
+
+<span class="sd">    Takes as input a radial network (see :meth:`lms2.electric.network_graph`)</span>
+<span class="sd">    pmatrix and qmatrix are used to compute the square voltage magnitudes</span>
+
+<span class="sd">    The network has three phases :</span>
+<span class="sd">    - to each node of the input network is associated three square voltage magnitudes (one for each phase)</span>
+<span class="sd">    - to each edge of the input network is associated three reactive powers (q) and three active powers (p)</span>
+
+<span class="sd">    P, Q are indexed with: edges, phases and time</span>
+<span class="sd">    Y denotes the square voltage magnitudes (V²) and is indexed with nodes, phases and time</span>
+
+<span class="sd">    the power constraints are computed for each node with no dwelling of the network considering that the power entering</span>
+<span class="sd">    the node is equal to the power exiting the node; when there is a source/load on the considered node,</span>
+<span class="sd">    the power balance also needs to take into account this source/load --&gt; this constraint needs to be added outside this</span>
+<span class="sd">    function.</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Sets            Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        edges           lines of the electrical distribution network</span>
+<span class="sd">        nodes           buses of the electrical distribution network</span>
+<span class="sd">        phases          phase index (instead of &quot;a, b, c&quot;)</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Variables       Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        y               voltage square magnitudes in V²</span>
+<span class="sd">        p               active power between two nodes in kW</span>
+<span class="sd">        q               reactive power between two nodes in kW</span>
+<span class="sd">        q_out           reactive power injection, using source convention in kW</span>
+<span class="sd">        p_out           active power injection in kW</span>
+<span class="sd">        =============== ===================================================================</span>
+
+<span class="sd">    .. table::</span>
+<span class="sd">        :width: 100%</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        Constraints     Documentation</span>
+<span class="sd">        =============== ===================================================================</span>
+<span class="sd">        unbalance_1     Voltage unbalance 1</span>
+<span class="sd">        unbalance_2     Voltage unbalance 2</span>
+<span class="sd">        active_balance  Active power balance on each node and phase</span>
+<span class="sd">        reactive_balance Reactive power balance on each node and phase</span>
+<span class="sd">        y_constraint    Linear DistFlow constraint for each edges</span>
+<span class="sd">        active_transfo  Active Power Bounds of the transformer</span>
+<span class="sd">        reactive_transfo Reactive Power Bounds of the transformer</span>
+<span class="sd">        pq_transfo1     Linear approximation of the circular constraint on Snom</span>
+<span class="sd">        pq_transfo2     Linear approximation of the circular constraint on Snom</span>
+<span class="sd">        pq_line1        Linear approximation of the circular constraint on Snom</span>
+<span class="sd">        pq_line2        Linear approximation of the circular constraint on Snom</span>
+<span class="sd">        =============== ===================================================================</span>
+
+
+<span class="sd">    This function is based on the article :</span>
+<span class="sd">    E. Stewart, « A Linearized Power Flow Model for Optimization in Unbalanced Distribution Systems », 2016</span>
+<span class="sd">    :cite:t:`sankur2016linearized`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Need to specify an input radial network&#39;</span><span class="p">)</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">edges</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">()),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;lines of the electrical distribution network&#39;</span><span class="p">)</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;buses of the electrical distribution network&#39;</span><span class="p">)</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">phases</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;phase index (instead of &quot;a, b, c&quot;&#39;</span><span class="p">)</span>  <span class="c1"># phases indexes</span>
+
+    <span class="c1"># Here are some function to initialize variable and their bounds. We use data from the graph,</span>
+    <span class="c1"># nominal voltage or maximal power for instance.</span>
+    <span class="k">def</span> <span class="nf">initialize_pout</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">p_out_init</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;p_out&#39;</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">p_out_init</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p_out_init</span>
+
+    <span class="k">def</span> <span class="nf">initialize_y_bounds</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Here we search for all edges connected to that node, and we consider the smaller nominal voltage</span>
+<span class="sd">        to compute the bounds +/- 10 %. todo : add +/- 10% as a parameter somehow. &quot;&quot;&quot;</span>
+        <span class="n">common_edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_edges</span><span class="p">(</span><span class="n">node</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_edges</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+        <span class="n">v_nom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">v_nom</span> <span class="k">for</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="ow">in</span> <span class="n">common_edges</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">v_nom</span><span class="o">*</span><span class="mf">0.9</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">v_nom</span><span class="o">*</span><span class="mf">1.1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">initialize_qout</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">q_out_init</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;q_out&#39;</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">q_out_init</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q_out_init</span>
+
+    <span class="k">def</span> <span class="nf">intialize_pout_bounds</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ub</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;p_out_max&#39;</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">ub</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lb</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;p_out_min&#39;</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">lb</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span>
+
+    <span class="k">def</span> <span class="nf">intialize_qout_bounds</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ub</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;q_out_max&#39;</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">ub</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lb</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;q_out_min&#39;</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">lb</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span>
+
+    <span class="k">def</span> <span class="nf">initialize_q_bounds</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span>
+
+    <span class="k">def</span> <span class="nf">initialize_p_bounds</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span>
+
+    <span class="k">def</span> <span class="nf">initialize_y</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Here we search for all edges connected to that node, and we consider the smaller nominal voltage&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">common_edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_edges</span><span class="p">(</span><span class="n">node</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_edges</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">min</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">v_nom</span> <span class="k">for</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="ow">in</span> <span class="n">common_edges</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Problem with the node </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># We define variables</span>
+
+    <span class="n">dist</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">initialize_y_bounds</span><span class="p">,</span>
+                 <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;voltage square magnitudes in V²&#39;</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">initialize_y</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">V</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">V</span><span class="p">)</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">initialize_p_bounds</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;active power between two nodes in kW&#39;</span><span class="p">,</span>  <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">kW</span><span class="p">)</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">q</span>  <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">initialize_q_bounds</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;reactive power between two nodes in kW&#39;</span><span class="p">,</span>  <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">kW</span><span class="p">)</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">q_out</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">initialize_qout</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span>
+                     <span class="n">bounds</span><span class="o">=</span><span class="n">intialize_qout_bounds</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;reactive power injection, using source convention in kW&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">kW</span><span class="p">)</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">p_out</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">initialize_pout</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Reals</span><span class="p">,</span>
+                     <span class="n">bounds</span><span class="o">=</span><span class="n">intialize_pout_bounds</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;active power injection in kW&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">kW</span><span class="p">)</span>
+
+
+    <span class="c1"># variables p_in, p_out are initialized using rules initialize_pout and initialize_qout but can be fixed or unfixed</span>
+    <span class="c1"># using the key &#39;fixed&#39; in the edges&#39; data of the graph. First we fixe them all.</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="o">.</span><span class="n">fix</span><span class="p">()</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">q_out</span><span class="o">.</span><span class="n">fix</span><span class="p">()</span>
+
+    <span class="c1"># Then we unfix selected nodes and phase if fixed is False</span>
+    <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># if there is no data, node_data is None_type</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fix_boolean</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">node_data</span><span class="p">[</span><span class="s1">&#39;fix_p_out&#39;</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">fix_boolean</span><span class="p">:</span>
+                        <span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="p">[</span><span class="n">node</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unfix</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not initialize Variable </span><span class="si">{</span><span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="p">[</span><span class="n">node</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Same thing for q_out</span>
+    <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>  <span class="c1"># if there is no data, node_data is None_type</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fix_boolean</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">node_data</span><span class="p">[</span><span class="s1">&#39;fix_q_out&#39;</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">fix_boolean</span><span class="p">:</span>
+                        <span class="n">dist</span><span class="o">.</span><span class="n">q_out</span><span class="p">[</span><span class="n">node</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">unfix</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not initialize Variable </span><span class="si">{</span><span class="n">dist</span><span class="o">.</span><span class="n">q_out</span><span class="p">[</span><span class="n">node</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Here we define the constraints</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Voltage unbalance 1&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">unbalance_1</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">y_avg</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">ph</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">y_avg</span> <span class="o">&lt;=</span> <span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_avg</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Voltage unbalance 2&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">unbalance_2</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">y_avg</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">ph</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+        <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_avg</span> <span class="o">&lt;=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">y_avg</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Active power balance on each node and phase&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">active_balance</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Active power balance on each node.</span>
+
+<span class="sd">        The sum of the active power entering the node (predecessors) is equal to the sum of the active power</span>
+<span class="sd">        exiting the node (successors)</span>
+<span class="sd">        P_{ij} = P_j_out + \sum_{m:j-&gt;m} P_{jm}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Childs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>  <span class="c1"># children nodes of node j</span>
+        <span class="n">Parents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">first</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+            <span class="c1"># if the node is not the first, then parents are not empty of lenth 1 (radial)</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">Parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Childs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">p</span><span class="p">[(</span><span class="n">parent</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span>
+                        <span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">p</span><span class="p">[(</span><span class="n">j</span><span class="p">,</span> <span class="n">child</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">Childs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">p</span><span class="p">[(</span><span class="n">parent</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Reactive power balance on each node and phase&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">reactive_balance</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reactive power balance on each node and phase</span>
+
+<span class="sd">        The sum of the reactive power entering the node (predecessors) is equal to the sum of the reactive power</span>
+<span class="sd">        exiting the node (sucessors)</span>
+<span class="sd">        Q_{pj} = Q_j_out + \sum_{m:k-&gt;m} Q_{jm}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">Childs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>  <span class="c1"># children nodes of node j</span>
+        <span class="n">Parents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">first</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">:</span>
+            <span class="c1"># if the node is not the first, then parents are not empty of lenth 1 (radial)</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">Parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Childs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">q</span><span class="p">[(</span><span class="n">parent</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">dist</span><span class="o">.</span><span class="n">q_out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                        <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">q</span><span class="p">[(</span><span class="n">j</span><span class="p">,</span> <span class="n">child</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">Childs</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">q</span><span class="p">[(</span><span class="n">parent</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">dist</span><span class="o">.</span><span class="n">q_out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Linear DistFlow constraint for each edges&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">y_constraint</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        |Vk|^2 = |Vi|^2 - 2(R_{ik}P_{ik} + X_{ik}Q_{ik})</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span>
+                <span class="nb">sum</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;pmatrix&#39;</span><span class="p">][</span><span class="n">phi</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">p</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">)</span> <span class="o">+</span>
+                <span class="nb">sum</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;qmatrix&#39;</span><span class="p">][</span><span class="n">phi</span><span class="p">][</span><span class="n">phase</span><span class="p">]</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">q</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">))</span>
+
+
+    <span class="c1"># fixing voltage for the first node (supposed to be the primary of the transformer)</span>
+    <span class="n">first_node</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">first_node</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">fix</span><span class="p">()</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Active Power Bounds of the transformer&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">active_transfo</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">phases</span><span class="p">),</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;Reactive Power Bounds of the transformer&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">reactive_transfo</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">phases</span><span class="p">),</span> <span class="mi">3</span><span class="o">*</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;Linear approximation of the circular constraint on Snom&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">pq_transfo1</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">q</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">p</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">phases</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;Linear approximation of the circular constraint on Snom&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">pq_transfo2</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">phases</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;Linear approximation of the circular constraint on Snom&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">pq_line1</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span>
+
+    <span class="nd">@dist</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">edges</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">doc</span> <span class="o">=</span> <span class="s1">&#39;Linear approximation of the circular constraint on Snom&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">pq_line2</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">first</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">][</span><span class="s1">&#39;cable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">s_nom</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2015-2024, lms2 Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

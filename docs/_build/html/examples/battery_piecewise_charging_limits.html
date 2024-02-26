@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modeling battery with maximal charging power limit &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>Modeling battery with maximal charging power limit &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,14 +14,16 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How to build the documentation ?" href="../builddoc.html" />
+    <link rel="next" title="Exemple de Linearized LoadFlow avec pyomo" href="distribution_network.html" />
     <link rel="prev" title="Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau" href="microgrid_1.html" /> 
 </head>
 
@@ -83,6 +85,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -262,9 +277,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../examples.html">Tutorial and Examples</a> &raquo;</li>
-      <li>Modeling battery with maximal charging power limit</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Tutorial and Examples</a></li>
+      <li class="breadcrumb-item active">Modeling battery with maximal charging power limit</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/battery_piecewise_charging_limits.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -545,7 +560,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <section id="Modeling-battery-with-maximal-charging-power-limit">
-<h1>Modeling battery with maximal charging power limit<a class="headerlink" href="#Modeling-battery-with-maximal-charging-power-limit" title="Permalink to this headline"></a></h1>
+<h1>Modeling battery with maximal charging power limit<a class="headerlink" href="#Modeling-battery-with-maximal-charging-power-limit" title="Permalink to this heading"></a></h1>
 <p>In battery_v3 the power limitation is modelled with a piecewise linear function of the state of charge using 3 break points. One can change the break point using ‘pw_x’ and ‘pw_y’, respectively the soc and the relative charging limits. By default, ‘pw_x’= [0.0, 50, 100], ‘pw_y’= [1, 0.95, 0.1].</p>
 <p>In order to cycle the battery, in this example, we are adding a square source (periodically charging and discharging the battery) and a debug source to assure the power equilibrium.</p>
 <p>Results show the non linear limitation during charging phases.</p>
@@ -567,7 +582,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <section id="Optimization-problem">
-<h2>Optimization problem<a class="headerlink" href="#Optimization-problem" title="Permalink to this headline"></a></h2>
+<h2>Optimization problem<a class="headerlink" href="#Optimization-problem" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -600,7 +615,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Discretization-every-10min">
-<h2>Discretization every 10min<a class="headerlink" href="#Discretization-every-10min" title="Permalink to this headline"></a></h2>
+<h2>Discretization every 10min<a class="headerlink" href="#Discretization-every-10min" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -613,7 +628,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <section id="Definition-of-the-source.">
-<h3>Definition of the source.<a class="headerlink" href="#Definition-of-the-source." title="Permalink to this headline"></a></h3>
+<h3>Definition of the source.<a class="headerlink" href="#Definition-of-the-source." title="Permalink to this heading"></a></h3>
 <p>This is a square signal of amplitude pM and period is the number of time steps during the period. In this example, 60 time steps of 10 min each represent a period of 10 hours.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -670,7 +685,7 @@ div.rendered_html tbody tr:hover {
 </section>
 </section>
 <section id="Post-processing">
-<h2>Post-processing<a class="headerlink" href="#Post-processing" title="Permalink to this headline"></a></h2>
+<h2>Post-processing<a class="headerlink" href="#Post-processing" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -738,7 +753,7 @@ div.rendered_html tbody tr:hover {
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="microgrid_1.html" class="btn btn-neutral float-left" title="Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../builddoc.html" class="btn btn-neutral float-right" title="How to build the documentation ?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="distribution_network.html" class="btn btn-neutral float-right" title="Exemple de Linearized LoadFlow avec pyomo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lms2.tools.data_processing &mdash; lms2 1.1+22.gbddc002 documentation</title>
+  <title>lms2.tools.data_processing &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,7 +13,9 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -24,9 +26,9 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> lms2
-            <img src="../../../_static/LogoUPS.jpg" class="logo" alt="Logo"/>
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="../../../index.html" class="icon icon-home"> pyomo-lmes
+            <img src="../../../_static/logo-geeps.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -40,7 +42,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation steps</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-lms2-from-source">Install LMS2 from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#install-pyomo-lmes-from-source">Install pyomo-lmes from source</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Tutorial and Examples</a><ul>
@@ -49,7 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../examples_lms2.html">Working with lms2 library components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples_lms2.html">Working with pyomo-lmes library components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
@@ -78,6 +80,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -137,6 +152,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.def_pin_pout.html">def_pin_pout</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/lms2.electric.sources.power_load.html">power_load</a></li>
@@ -247,18 +263,18 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">lms2</a>
+          <a href="../../../index.html">pyomo-lmes</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>lms2.tools.data_processing</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lms2.tools.data_processing</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -281,13 +297,13 @@
 <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
 
 
-<div class="viewcode-block" id="load_data"><a class="viewcode-back" href="../../../generated/lms2.tools.data_processing.load_data.html#lms2.tools.data_processing.load_data">[docs]</a><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="load_data"><a class="viewcode-back" href="../../../generated/lms2.tools.data_processing.load_data.html#lms2.tools.data_processing.load_data">[docs]</a><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">component</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">time_index_position</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loading of data into the problem.</span>
 
 <span class="sd">    :param m: the model</span>
 <span class="sd">    :param data: vector of data (usually indexed by time)</span>
-<span class="sd">    :param param: name of the parameter in the model</span>
+<span class="sd">    :param component: name of the parameter in the model</span>
 <span class="sd">    :param index: name of the index in the model</span>
 <span class="sd">    :return:</span>
 
@@ -296,23 +312,34 @@
 <span class="sd">    .. _example: ../examples/microgrid_1.html#Chargement-des-données</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Cannot actually test this, because components_slices does not have index_set method.</span>
+    <span class="c1"># if data.index.name != component.index_set().name:</span>
+    <span class="c1">#     logger.warning(&#39;data index and variable index does not have the same name. This could be a source of error...&#39;)</span>
 
-    <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">parent_block</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">pyomo</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">IndexedParam</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">component</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># we set the value of the parameter v to the value of the dataframe at the index i</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cannot set value </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="si">}</span><span class="s1"> for </span><span class="si">{</span><span class="n">component</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    <span class="c1"># assert (horizon.current == data.index).all()</span>
+    <span class="c1"># if param is a component slice, we cannt iterate over with the iter fonction</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">pyomo</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">indexed_component_slice</span><span class="o">.</span><span class="n">IndexedComponent_slice</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">time_index_position</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">component</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">index</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">index</span><span class="p">]])</span>
 
-    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">param</span><span class="o">.</span><span class="n">index_set</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;data index and variable index does not have the same name. This could be a source of error...&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">component</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">index</span><span class="p">()[</span><span class="n">time_index_position</span><span class="p">]</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">index</span><span class="p">]])</span>
 
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">pyomo</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">IndexedParam</span><span class="p">),</span> <span class="sa">f</span><span class="s1">&#39;trying to load data on a non-Parameter object...&#39;</span> \
-                                                                  <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> is of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">Param</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
 
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">param</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># we set the value of the parameter v to the value of the dataframe at the index i</span>
-            <span class="n">v</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">horizon</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span></div>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Unsupported component type.&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="read_data"><a class="viewcode-back" href="../../../generated/lms2.tools.data_processing.read_data.html#lms2.tools.data_processing.read_data">[docs]</a><span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tz_data</span><span class="o">=</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">,</span>
@@ -323,9 +350,8 @@
 <span class="sd">    This function accepts two types of indexed data :</span>
 
 <span class="sd">        - data indexed by a date string ex: &#39;2020/01/01 00:00:00&#39;. In this case,</span>
-<span class="sd">          a date-parser might be compulsory for pandas to parse the date.</span>
-<span class="sd">        - data indexed by an integer. In this case, parsing is easier, but the user as no information about</span>
-<span class="sd">          the start timestamp, units and time-zone.</span>
+<span class="sd">          a date-parser might be needed for pandas to parse the date.</span>
+<span class="sd">        - data indexed by an integer. In this case, parsing is easier, and the user has to give a start date.</span>
 
 <span class="sd">    :param method: interpolation method (&#39;time&#39; for date format index or &#39;linear&#39; for integer index)</span>
 <span class="sd">    :param str date_parser: date format parser, ex: &quot;%Y-%m-%d %H:%M:%S&quot;</span>
@@ -438,17 +464,13 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    depreciated, use read_data()</span>
 
-<span class="sd">    :param input_data:</span>
-<span class="sd">    :param param:</span>
-<span class="sd">    :param time:</span>
+<span class="sd">    :param input_data: input data</span>
+<span class="sd">    :param param: parameter to interpolate</span>
+<span class="sd">    :param time: time to interpolate</span>
 <span class="sd">    :param dt:</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># todo : lire la colonne temps dans le fichier directement</span>
-    <span class="c1">#  (si les données ne sont pas à pas de temps fixe, ça marche quand même)</span>
 
-    <span class="c1"># dt : pas de temps de l&#39;input data</span>
-    <span class="c1"># time provient du modèle (m.time)</span>
     <span class="n">columns_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">param</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_list</span><span class="p">)</span>
     <span class="n">time_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
@@ -479,7 +501,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2015-2023, lms2 Developers.</p>
+    <p>&#169; Copyright 2015-2024, lms2 Developers.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

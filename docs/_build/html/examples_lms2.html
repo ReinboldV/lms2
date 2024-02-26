@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Working with pyomo-lmes library components &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>Working with pyomo-lmes library components &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -81,6 +83,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -260,9 +275,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="examples.html">Tutorial and Examples</a> &raquo;</li>
-      <li>Working with pyomo-lmes library components</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="examples.html">Tutorial and Examples</a></li>
+      <li class="breadcrumb-item active">Working with pyomo-lmes library components</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/examples_lms2.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -297,12 +312,12 @@
 }
 </style>
 <section id="working-with-pyomo-lmes-library-components">
-<h1>Working with pyomo-lmes library components<a class="headerlink" href="#working-with-pyomo-lmes-library-components" title="Permalink to this headline"></a></h1>
+<h1>Working with pyomo-lmes library components<a class="headerlink" href="#working-with-pyomo-lmes-library-components" title="Permalink to this heading"></a></h1>
 <p>pyomo-lmes library gather mathematical models described using the pyomo mathematical language. All components, e.g. batteries, distribution grid, sources and charges are based on blocks. Available models are classified based on their fields, such as electric, thermal, economic, environement, etc. Some tools are also proposed for data processing, model processing, post_processing and decomposition strategies for dynamic and energetic systems (Bender’s decomposition).</p>
 <p>Models are created by aggregating blocks and create connexion, either using pyomo.network.Port or building constraints between variable from different block, or gathering objectives of different blocks.</p>
 <p>The time is usually modeled as a continuous set by means of the modeling extension pyomo.dae (See : <a class="reference external" href="https://pyomo.readthedocs.io/en/latest/modeling_extensions/dae.html">https://pyomo.readthedocs.io/en/latest/modeling_extensions/dae.html</a>. All blocks of a model share the same time set.</p>
 <section id="example-of-a-block">
-<h2>1) Example of a block<a class="headerlink" href="#example-of-a-block" title="Permalink to this headline"></a></h2>
+<h2>1) Example of a block<a class="headerlink" href="#example-of-a-block" title="Permalink to this heading"></a></h2>
 <p>Example of a dummy block. It consists of two variables, one constraint and one expression that depends on external components : the set <cite>time</cite> and the block <cite>env</cite>. They are passed as key-word arguments.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
@@ -327,7 +342,7 @@
 </div>
 </section>
 <section id="example-of-model-by-aggregation-of-library-s-blocks">
-<h2>2) Example of model by aggregation of library’s blocks<a class="headerlink" href="#example-of-model-by-aggregation-of-library-s-blocks" title="Permalink to this headline"></a></h2>
+<h2>2) Example of model by aggregation of library’s blocks<a class="headerlink" href="#example-of-model-by-aggregation-of-library-s-blocks" title="Permalink to this heading"></a></h2>
 <p>Constructing a model based on this block is quite simple :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
 <span class="n">m</span><span class="o">.</span><span class="n">i</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -346,7 +361,7 @@
 </div>
 </section>
 <section id="example-of-creating-blocks-indexed-by-a-set">
-<h2>3) Example of creating blocks indexed by a set<a class="headerlink" href="#example-of-creating-blocks-indexed-by-a-set" title="Permalink to this headline"></a></h2>
+<h2>3) Example of creating blocks indexed by a set<a class="headerlink" href="#example-of-creating-blocks-indexed-by-a-set" title="Permalink to this heading"></a></h2>
 <p>One may instantiate a set of similar blocks. Following the pyomo language, this can be done by giving a set in the Block
 initialization method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>

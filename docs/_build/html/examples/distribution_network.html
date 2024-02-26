@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exemple de Linearized LoadFlow avec pyomo &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to build the documentation ?" href="../builddoc.html" />
+    <link rel="prev" title="Modeling battery with maximal charging power limit" href="battery_piecewise_charging_limits.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="../index.html" class="icon icon-home"> pyomo-lmes
+            <img src="../_static/logo-geeps.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-python-distribution-anaconda">Installing Python distribution (Anaconda)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-pyomo-lmes-from-source">Install pyomo-lmes from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Tutorial and Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../examples_pyomo.html">Working with Pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples_pyomo.html#simple-example-using-pyomo-language">1) Simple example using pyomo language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_pyomo.html#working-with-pyomo-abstract-model">2) working with pyomo  abstract model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples_lms2.html">Working with pyomo-lmes library components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-a-block">1) Example of a block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-model-by-aggregation-of-library-s-blocks">2) Example of model by aggregation of library’s blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples_lms2.html#example-of-creating-blocks-indexed-by-a-set">3) Example of creating blocks indexed by a set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="microgrid_1.html">Exemple de gestion d’énergie et de dimensionnement d’un micro-réseau</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microgrid_1.html#Instanciation-du-problème-d’optimisation-et-de-l’horizon-temporel">Instanciation du problème d’optimisation et de l’horizon temporel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="microgrid_1.html#Exemple-de-contrainte-sur-le-bilan-de-puissance">Exemple de contrainte sur le bilan de puissance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="microgrid_1.html#Exemple-d’une-expression">Exemple d’une expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="microgrid_1.html#Exemple-d’intégration-temporelle">Exemple d’intégration temporelle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="microgrid_1.html#Exemple-de-définition-de-l’objectif">Exemple de définition de l’objectif</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="microgrid_1.html#Discrétisation-temporelle">Discrétisation temporelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microgrid_1.html#Chargement-des-données">Chargement des données</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="microgrid_1.html#Index-entier">Index entier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="microgrid_1.html#Index-en-chaîne-de-caractères">Index en chaîne de caractères</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="battery_piecewise_charging_limits.html">Modeling battery with maximal charging power limit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="battery_piecewise_charging_limits.html#Optimization-problem">Optimization problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="battery_piecewise_charging_limits.html#Discretization-every-10min">Discretization every 10min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="battery_piecewise_charging_limits.html#Definition-of-the-source.">Definition of the source.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../builddoc.html">How to build the documentation ?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../lms2.html">Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.base.html">Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.base.block.html">block</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.base.block.effort_source.html">effort_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.base.block.fix_profile.html">fix_profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.base.block.flow_load.html">flow_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.base.block.flow_source.html">flow_source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.core.models.html">models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.core.models.AbsLModel.html">AbsLModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.core.models.LModel.html">LModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.economic.html">Economic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.economic.cost.html">cost</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.absolute_cost.html">absolute_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.bilinear_cost.html">bilinear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.bilinear_dynamic_cost.html">bilinear_dynamic_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.capital_recovery_factor.html">capital_recovery_factor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.lifecycle_cost.html">lifecycle_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.linear_cost.html">linear_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.linear_dyn_cost.html">linear_dyn_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.maintenance_cost.html">maintenance_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.recycling_cost.html">recycling_cost</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.economic.cost.replacement_cost.html">replacement_cost</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.electric.html">Electric</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.electric.batteries.html">batteries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.batteries.battery_V0.html">battery_V0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.batteries.battery_v1.html">battery_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.batteries.battery_v2.html">battery_v2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.batteries.battery_v3.html">battery_v3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.electric.converters.html">converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.converters.converter_simple.html">converter_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.electric.sources.html">sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.curtailable_load.html">curtailable_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.curtailable_load_2.html">curtailable_load_2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.debug_source.html">debug_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.def_pin_pout.html">def_pin_pout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.fixed_power_load.html">fixed_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.fixed_power_source.html">fixed_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.power_load.html">power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.power_source.html">power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.pv_panel.html">pv_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.scalable_power_load.html">scalable_power_load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.scalable_power_source.html">scalable_power_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.electric.sources.square.html">square</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.environment.html">Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.environment.ghg.html">ghg</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.environment.ghg.def_linear_ghg_cost.html">def_linear_ghg_cost</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.environment.environment.html">environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.environment.environment.environment.html">environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.environment.environment.solar_inputs.html">solar_inputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.building.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.building.dwellings.html">dwellings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.building.dwellings.dwelling_v1.html">dwelling_v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.building.dwellings.dwelling_v2.html">dwelling_v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.building.graph.html">graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.building.graph.build_2zone_graph.html">build_2zone_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.building.graph.build_dummy_1zone_graph.html">build_dummy_1zone_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.building.structure.html">structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.building.structure.thermal_structure_block.html">thermal_structure_block</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.building.systems.html">systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.building.systems.heat_pump.html">heat_pump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.building.systems.hot_water_tank.html">hot_water_tank</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lms2.building.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.fluids.html">Fluids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.fluids.modelCO2.html">modelCO2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.fluids.modelCO2.ModelCO2.html">ModelCO2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.fluids.modelCO2.ModelCO2_bis.html">ModelCO2_bis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.logical.html">Logical</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.logical.sequencial.html">sequencial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.logical.sequencial.add_phase.html">add_phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.logical.sequencial.Hysteresis.html">Hysteresis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.mechanic.html">Mechanic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.mechanic.gears.html">gears</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.social.html">Social</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.social.occupancy.html">occupancy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.social.occupancy.occupancy.html">occupancy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.thermal.html">Thermal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.thermal.dipoles.html">dipoles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lms2.tools.html">Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.tools.data_processing.html">data_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.data_processing.interpolation.html">interpolation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.data_processing.load_data.html">load_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.data_processing.read_data.html">read_data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.tools.model_processing.html">model_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.model_processing.construct_objective.html">construct_objective</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.model_processing.fix_binary.html">fix_binary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.model_processing.get_doc.html">get_doc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.model_processing.get_duals.html">get_duals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.model_processing.get_slack.html">get_slack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.model_processing.unfix_binary.html">unfix_binary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/lms2.tools.post_processing.html">post_processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../generated/lms2.tools.post_processing.pplot.html">pplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../moduleindex.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyomo-lmes</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Tutorial and Examples</a></li>
+      <li class="breadcrumb-item active">Exemple de Linearized LoadFlow avec pyomo</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/distribution_network.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Exemple-de-Linearized-LoadFlow-avec-pyomo">
+<h1>Exemple de Linearized LoadFlow avec pyomo<a class="headerlink" href="#Exemple-de-Linearized-LoadFlow-avec-pyomo" title="Permalink to this heading"></a></h1>
+<p>Dans cet exemple, on présente les étapes et les outils développés dans lms2 pour réaliser l’optimistion d’un LinDistFlow. Pour rappel, le LinDistFlow est une approximation linéaire pour les réseaux de distribution radiaux. C’ette implémentation modélise un réseau triphasé déséquilibré provenant de E. Stewart, « A Linearized Power Flow Model for Optimization in Unbalanced Distribution Systems », 2016</p>
+<p>Dans cet exemple,</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1. On crée un graphe fictif avec une structure de donnée particulière
+2.
+    - On instancie le problème d&#39;optimisation, en utilisant la fonction `network_3phases_lindistflow`, qui prend en entrée le graphe puis définit variablses et paraètres en conséquence.
+    - On initialise les conditions limites. Ici, il s&#39;agit principalement de charger les profils d&#39;injection de puissance active et réactive en chaque noeud du graphe.
+3. On résout le problème
+4. On récupère les valeurs de tensions à chaque noeud pour les afficher dans un graphe. Puis on enregistre le graphe au format json.
+</pre></div>
+</div>
+<section id="1.-Creating-network-and-data-structure">
+<h2>1. Creating network and data structure<a class="headerlink" href="#1.-Creating-network-and-data-structure" title="Permalink to this heading"></a></h2>
+<p>Dans cette partie, on crée un graphe de données en utilsant la bibliothèque networkx. Les noeuds du graphe sont des noeuds électriques triphasés. Les branches sont des connexions triphasées. Les données du graphe sont utilisées pour enregistrer des grandeurs du type longeur, résistance linéïque, etc.</p>
+<p>On commence par définir un type de câble. (ce serait bien d’avoir une base de donnée de câbles dans laquelle on puisse choisir…)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sphinx.ext.graphviz</span> <span class="kn">import</span> <span class="n">graphviz</span>
+
+<span class="kn">from</span> <span class="nn">lms2.electric.network</span> <span class="kn">import</span> <span class="n">Cable</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">cable_3_150_95</span> <span class="o">=</span> <span class="n">Cable</span><span class="p">(</span><span class="n">name</span>  <span class="o">=</span> <span class="s1">&#39;cable_3_150_95&#39;</span><span class="p">,</span>
+                       <span class="n">doc</span>   <span class="o">=</span> <span class="s1">&#39;Cable triphasé de section 150 mm²&#39;</span><span class="p">,</span>
+                       <span class="nb">type</span>  <span class="o">=</span> <span class="s1">&#39;triphasé 3 fils&#39;</span><span class="p">,</span>
+                       <span class="n">r</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.3953</span><span class="p">,</span> <span class="mf">0.1834</span><span class="p">,</span> <span class="mf">0.1908</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1834</span><span class="p">,</span> <span class="mf">0.3809</span><span class="p">,</span> <span class="mf">0.1834</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1908</span><span class="p">,</span> <span class="mf">0.1834</span><span class="p">,</span> <span class="mf">0.3953</span><span class="p">]]),</span>
+                       <span class="n">x</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1602</span><span class="p">,</span> <span class="mf">0.1216</span><span class="p">,</span> <span class="mf">0.0844</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1216</span><span class="p">,</span> <span class="mf">0.2067</span><span class="p">,</span> <span class="mf">0.1216</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0844</span><span class="p">,</span> <span class="mf">0.1216</span><span class="p">,</span> <span class="mf">0.1602</span><span class="p">]]),</span>
+                       <span class="n">v_nom</span> <span class="o">=</span> <span class="mi">230</span><span class="p">,</span>
+                       <span class="n">s_nom</span> <span class="o">=</span> <span class="mi">250</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>On peut maintenant créer un graphe qui contiendra les nœuds, les branches et des données du type : longueurs, et type de conducteurs. Ça peut paraître un peu lourd de définir un conducteur par branche, mais c’est ce qu’il y a de plus générique. Pour un réseau plus grand, c’est facilement réalisable avec une boucle sur les branches. On pourrait par la suite imaginer représenter le transfo par un type de branche différent.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;cable&#39;</span><span class="p">:</span> <span class="n">cable_3_150_95</span><span class="p">}),</span>
+         <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;cable&#39;</span><span class="p">:</span> <span class="n">cable_3_150_95</span><span class="p">}),</span>
+         <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;cable&#39;</span><span class="p">:</span> <span class="n">cable_3_150_95</span><span class="p">}),</span>
+         <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;cable&#39;</span><span class="p">:</span> <span class="n">cable_3_150_95</span><span class="p">})]</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_edgelist</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">())</span>
+
+</pre></div>
+</div>
+</div>
+<p>Pour simplifier l’écriture des équations du modèle DistFlow, on calcule les matrices notées R et X qui interviennent dans l’équation du modèle, telles que :</p>
+<p><span class="math notranslate nohighlight">\(V_j^2 = V_i^2 - 2(RP_{ij}+XQ_{ij})\)</span></p>
+<p>Pour chaque noeud du graphe, on ajoute une donnée <code class="docutils literal notranslate"><span class="pre">fix_p_out=True/False</span></code> et <code class="docutils literal notranslate"><span class="pre">fix_q_out=True/False</span></code>. À noter que ce sont des vecteurs de taille de la même taille que <code class="docutils literal notranslate"><span class="pre">phases</span></code>.</p>
+<p>Ce qui permet, à la création du modèle d’optimisation, d’instantier une variable et de fixer ou non ses valeurs. On ajoute des valeurs nominales de p_out et q_out pour l’initialisation (seulement effectif si le profil est fixé). Si fix_p_out d’une phase est False, on regarde s’il y a des bornes p_out_max, p_out_min, q_out_max, q_out_min.</p>
+<p>Pour l’exemple, on fixe les profils de tous les nœuds, sauf le 3eme, phase c.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;p_out_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1e3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e3</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;p_out_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;q_out_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1e3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e3</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;q_out_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;fix_p_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;fix_q_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">liste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">liste</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;p_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">liste</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;q_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># On libère l&#39;injection de puissance active sur la phase c du noeud 3 :</span>
+<span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s1">&#39;fix_p_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s1">&#39;fix_q_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Q_out is fixed ? : &#39;</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span> <span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;fix_q_out&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;P_out is fixed ? : &#39;</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span> <span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;fix_p_out&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Q_out is fixed ? :  {0: (True, True, True), 1: (True, True, True), 2: (True, True, True), 3: (True, True, False), 4: (True, True, True)}
+P_out is fixed ? :  {0: (True, True, True), 1: (True, True, True), 2: (True, True, True), 3: (True, True, False), 4: (True, True, True)}
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">lms2.electric.graph_utils</span> <span class="kn">import</span> <span class="n">calc_edge_pq_matrix</span>
+
+<span class="n">calc_edge_pq_matrix</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;networkx.classes.digraph.DiGraph at 0x7fa15f348c10&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="2.-Création-du-problème-d’optimisation-simple">
+<h2>2. Création du problème d’optimisation simple<a class="headerlink" href="#2.-Création-du-problème-d’optimisation-simple" title="Permalink to this heading"></a></h2>
+<section id="1.-Instantiation-du-problème">
+<h3>1. Instantiation du problème<a class="headerlink" href="#1.-Instantiation-du-problème" title="Permalink to this heading"></a></h3>
+<p>On instancie un modèle vide, on définit un horizon temporel d’un jour et on utilise le graphe précédemment généré pour instancié le problème de LoadFlow, sous forme d’un bloc Pyomo.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">lms2.core.horizon</span> <span class="kn">import</span> <span class="n">SimpleHorizon</span>
+<span class="kn">from</span> <span class="nn">lms2.electric.network</span> <span class="kn">import</span> <span class="n">network_3phases_lindistflow</span>
+
+<span class="n">horizon</span> <span class="o">=</span> <span class="n">SimpleHorizon</span><span class="p">(</span><span class="n">tstart</span><span class="o">=</span><span class="s1">&#39;2024-01-01 00:00:00&#39;</span><span class="p">,</span> <span class="n">tend</span><span class="o">=</span><span class="s1">&#39;2024-01-01 01:00:00&#39;</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="s1">&#39;15min&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">dist</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">network_3phases_lindistflow</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;graph&#39;</span><span class="p">:</span> <span class="n">g</span><span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="2.-Chargement-des-données">
+<h3>2. Chargement des données<a class="headerlink" href="#2.-Chargement-des-données" title="Permalink to this heading"></a></h3>
+<p>Si les données sont indexées par une colonne en seconde. L’unité utilisée peut-être renseignée (par défaut ‘s’), la zone peut être renseignée (défaut : Europe/Paris), et la date de début des données doit être renseignée. Cet index est ensuite automatiquement transformé en date.</p>
+<p>Pour l’exemple, on fixe le profile de puissance active au noeud 1, phase acomme étant le profile 2 du fichier csv <code class="docutils literal notranslate"><span class="pre">inputs_P_Q_HTA.csv</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">lms2.tools.data_processing</span> <span class="kn">import</span> <span class="n">read_data</span><span class="p">,</span> <span class="n">load_data</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">data_P</span> <span class="o">=</span> <span class="n">read_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;inputs_P_Q_HTA.csv&#39;</span><span class="p">),</span>
+                        <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                        <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span>
+                        <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2024-01-01 00:00:00&#39;</span><span class="p">)</span>
+
+<span class="n">data_P</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>profil_1</th>
+      <th>profil_2</th>
+      <th>profil_3</th>
+      <th>time (s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-01-01 00:00:00+01:00</th>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>-5.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2024-01-01 00:15:00+01:00</th>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>-5.0</td>
+      <td>900.0</td>
+    </tr>
+    <tr>
+      <th>2024-01-01 00:30:00+01:00</th>
+      <td>10.0</td>
+      <td>10.0</td>
+      <td>-5.0</td>
+      <td>1800.0</td>
+    </tr>
+    <tr>
+      <th>2024-01-01 00:45:00+01:00</th>
+      <td>10.0</td>
+      <td>10.0</td>
+      <td>-5.0</td>
+      <td>2700.0</td>
+    </tr>
+    <tr>
+      <th>2024-01-01 01:00:00+01:00</th>
+      <td>10.0</td>
+      <td>10.0</td>
+      <td>-5.0</td>
+      <td>3600.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">load_data</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">data_P</span><span class="p">[</span><span class="s1">&#39;profil_2&#39;</span><span class="p">],</span> <span class="n">time_index_position</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Vérifions que l’initialisation de p_out a bien fonctionné en affichant le résultat du prettyprint. On vérifie que les valeurs sont bien celles définies dans le fichier csv. À note que si les index de l’horizon temporel et du fichier csv ne sont pas identiques, la fonction <code class="docutils literal notranslate"><span class="pre">load_data</span></code> fait une interpolation lineaire. On vérifie aussi que seules les variables des index (3,2,:), soit le nœud 3, phase ‘c’, ne sont pas fixés.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+p_out : active power injection in kW
+    Size=75, Index=dist.p_out_index, Units=kW
+    Key            : Lower   : Value : Upper  : Fixed : Stale : Domain
+       (0, 0, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (0, 0, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (0, 0, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (0, 0, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (0, 0, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (0, 1, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (0, 1, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (0, 1, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (0, 1, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (0, 1, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (0, 2, 0.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+     (0, 2, 900.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (0, 2, 1800.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (0, 2, 2700.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (0, 2, 3600.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+       (1, 0, 0.0) : -1000.0 :   5.0 : 1000.0 :  True : False :  Reals
+     (1, 0, 900.0) : -1000.0 :   5.0 : 1000.0 :  True : False :  Reals
+    (1, 0, 1800.0) : -1000.0 :  10.0 : 1000.0 :  True : False :  Reals
+    (1, 0, 2700.0) : -1000.0 :  10.0 : 1000.0 :  True : False :  Reals
+    (1, 0, 3600.0) : -1000.0 :  10.0 : 1000.0 :  True : False :  Reals
+       (1, 1, 0.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+     (1, 1, 900.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (1, 1, 1800.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (1, 1, 2700.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (1, 1, 3600.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+       (1, 2, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (1, 2, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (1, 2, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (1, 2, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (1, 2, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (2, 0, 0.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+     (2, 0, 900.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (2, 0, 1800.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (2, 0, 2700.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (2, 0, 3600.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+       (2, 1, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (2, 1, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (2, 1, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (2, 1, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (2, 1, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (2, 2, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (2, 2, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (2, 2, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (2, 2, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (2, 2, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (3, 0, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (3, 0, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (3, 0, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (3, 0, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (3, 0, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (3, 1, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (3, 1, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (3, 1, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (3, 1, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (3, 1, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (3, 2, 0.0) : -1000.0 :     0 : 1000.0 : False : False :  Reals
+     (3, 2, 900.0) : -1000.0 :     0 : 1000.0 : False : False :  Reals
+    (3, 2, 1800.0) : -1000.0 :     0 : 1000.0 : False : False :  Reals
+    (3, 2, 2700.0) : -1000.0 :     0 : 1000.0 : False : False :  Reals
+    (3, 2, 3600.0) : -1000.0 :     0 : 1000.0 : False : False :  Reals
+       (4, 0, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (4, 0, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (4, 0, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (4, 0, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (4, 0, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+       (4, 1, 0.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+     (4, 1, 900.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (4, 1, 1800.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (4, 1, 2700.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+    (4, 1, 3600.0) : -1000.0 :    20 : 1000.0 :  True : False :  Reals
+       (4, 2, 0.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+     (4, 2, 900.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (4, 2, 1800.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (4, 2, 2700.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+    (4, 2, 3600.0) : -1000.0 :     0 : 1000.0 :  True : False :  Reals
+</pre></div></div>
+</div>
+</section>
+<section id="3.-Résolution-du-problème-d’optimisation">
+<h3>3. Résolution du problème d’optimisation<a class="headerlink" href="#3.-Résolution-du-problème-d’optimisation" title="Permalink to this heading"></a></h3>
+<p>Pour l’exemple, on fixe l’objectif à une constante et on résout le loadflow.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#sol = SolverFactory(&#39;gurobi&#39;, solver_io=&quot;direct&quot;)</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;glpk&#39;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+WARNING: Constant objective detected, replacing with a placeholder to prevent
+    solver failure.
+</pre></div></div>
+</div>
+</section>
+<section id="4.-Post-Processing">
+<h3>4. Post Processing<a class="headerlink" href="#4.-Post-Processing" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">get_values</span><span class="p">()</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;noeud_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">_phase_</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x7fa15f2fe6a0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_distribution_network_21_1.png" src="../_images/examples_distribution_network_21_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n1</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n1</span><span class="p">][</span><span class="s1">&#39;p_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">p_out</span><span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">]</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n1</span><span class="p">][</span><span class="s1">&#39;q_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">q_out</span><span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">]</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n1</span><span class="p">][</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]())</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">][</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">p</span><span class="p">[(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">]</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">][</span><span class="s1">&#39;q&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">q</span><span class="p">[(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">),</span> <span class="n">phase</span><span class="p">,</span> <span class="n">t</span><span class="p">]()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">horizon</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">phases</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">lms2.electric.graph_utils</span> <span class="kn">import</span> <span class="n">save_json_graph</span><span class="p">,</span> <span class="n">read_json_graph</span>
+<span class="n">save_json_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="s1">&#39;data/network_graph_results.json&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="3.-Example-of-saving/laoding-graph">
+<h3>3. Example of saving/laoding graph<a class="headerlink" href="#3.-Example-of-saving/laoding-graph" title="Permalink to this heading"></a></h3>
+<p>from lms2.electric.graph_utils import save_json_graph, read_json_graph import os</p>
+<p>save_json_graph(g, os.path.realpath(‘data/test.json’)) g2 = read_json_graph(os.path.realpath(‘data/test.json’))</p>
+</section>
+<section id="4.-Example-of-changing-edge-parameter">
+<h3>4. Example of changing edge parameter<a class="headerlink" href="#4.-Example-of-changing-edge-parameter" title="Permalink to this heading"></a></h3>
+<p>branche = (1, 2)</p>
+<p>new_cable = Cable(name = ‘new’, doc = ‘Cable triphasé de section 150 mm²’, type = ‘triphasé 3 fils’, r = np.array([[0.3, 0.2, 0.2], [0.2, 0.3, 0.2], [0.2, 0.2, 0.3]]), x = np.array([[0.15, 0.12, 0.08], [0.12, 0.20, 0.12], [0.08, 0.12, 0.15]]), v_nom = 230, s_nom = 200/3)</p>
+<p>g.edges[branche].update({‘cable’: new_cable})</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="battery_piecewise_charging_limits.html" class="btn btn-neutral float-left" title="Modeling battery with maximal charging power limit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../builddoc.html" class="btn btn-neutral float-right" title="How to build the documentation ?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2015-2024, lms2 Developers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

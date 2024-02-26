@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation steps &mdash; pyomo-lmes 1.1+24.gff4ea44.dirty documentation</title>
+  <title>Installation steps &mdash; pyomo-lmes 1.1+27.g41c7d0f.dirty documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -81,6 +83,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="examples/battery_piecewise_charging_limits.html#Post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distribution_network.html">Exemple de Linearized LoadFlow avec pyomo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#1.-Creating-network-and-data-structure">1. Creating network and data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples/distribution_network.html#2.-Création-du-problème-d’optimisation-simple">2. Création du problème d’optimisation simple</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#1.-Instantiation-du-problème">1. Instantiation du problème</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#2.-Chargement-des-données">2. Chargement des données</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Résolution-du-problème-d’optimisation">3. Résolution du problème d’optimisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Post-Processing">4. Post Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#3.-Example-of-saving/laoding-graph">3. Example of saving/laoding graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/distribution_network.html#4.-Example-of-changing-edge-parameter">4. Example of changing edge parameter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -260,8 +275,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Installation steps</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Installation steps</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -296,9 +311,9 @@
 }
 </style>
 <section id="installation-steps">
-<h1>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline"></a></h1>
+<h1>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this heading"></a></h1>
 <section id="installing-python-distribution-anaconda">
-<span id="installation-step"></span><h2>Installing Python distribution (Anaconda)<a class="headerlink" href="#installing-python-distribution-anaconda" title="Permalink to this headline"></a></h2>
+<span id="installation-step"></span><h2>Installing Python distribution (Anaconda)<a class="headerlink" href="#installing-python-distribution-anaconda" title="Permalink to this heading"></a></h2>
 <p>Anaconda is a famous python data science platform.
 It is distributed with scientific libraries such as pandas, scipy, numpy, matplotlib, etc. and
 IDE such as jupiter or spyder. One can find more information about anaconda distribution on : <a class="reference external" href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></p>
@@ -336,7 +351,7 @@ Store this licence in <code class="docutils literal notranslate"><span class="pr
 </div></blockquote>
 </section>
 <section id="install-pyomo-lmes-from-source">
-<h2>Install pyomo-lmes from source<a class="headerlink" href="#install-pyomo-lmes-from-source" title="Permalink to this headline"></a></h2>
+<h2>Install pyomo-lmes from source<a class="headerlink" href="#install-pyomo-lmes-from-source" title="Permalink to this heading"></a></h2>
 <p>Clone the repository and install the package using the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ReinboldV/lms2.git lms2
